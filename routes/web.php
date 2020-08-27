@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/logout', function () {
+    auth()->logout();
+    
+    return 'You are now logged out';
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

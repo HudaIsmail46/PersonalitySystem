@@ -88,10 +88,11 @@
                     L A R A V E L
                     @endauth
                     <br></br>
-                    @guest
-                        Please sign in
-                    @endguest
+                   
                 </div>
+                     @guest
+                        <h1>Please sign in</h1>
+                    @endguest
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
@@ -105,5 +106,10 @@
                 </div>
             </div>
         </div>
+        <form method="POST" action="http://target.test/logout">
+            <button>Continue</button>
+        </form>
+         
+    
     </body>
 </html>
