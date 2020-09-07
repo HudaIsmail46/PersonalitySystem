@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use DB;
 use App\Booking;
 
 
 class BookingController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $booking = Booking::find($id);
-        return view('booking.index', compact('booking'));
+        $bookings = Booking::orderBy('id', 'ASC')->paginate(50);
+        return view('booking.index', ['booking' => $bookings])
+            ->with('i', ($bookings->get('page', 1) - 1) * 50);
     }
 
     /**
@@ -28,12 +28,10 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $bookings = Booking::orderBy('id','ASC')->paginate(50);
-        return view('booking.show', ['booking' => $bookings])
-        ->with('i', ($bookings->get('page', 1) - 1) * 50);;
-          
+        $booking = Booking::find($id);
+        return view('booking.show', compact('booking'));
     }
 
     /**
@@ -43,7 +41,6 @@ class BookingController extends Controller
      */
     public function create()
     {
-        
         return view('booking.create');
     }
 
@@ -55,15 +52,10 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $booking = new Booking($this->validateBooking());
-      //  $article->user_id = 1;  //auth()->id()
-        
-        $booking->save();
-
-        return redirect(route('booking.show'));
+        $this->validateBooking();
+        Booking::create($request->all());
+        return back()->with('success', 'Bookings created successfully.');
     }
-
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -71,7 +63,7 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Booking $bookings)
     {
         return view('booking.edit', compact('bookings'));
     }
@@ -83,11 +75,10 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Booking $bookings)
     {
-        $booking->update($this->validateBooking());
-        
-        return redirect($booking->path());
+        $bookings->update($this->validateBooking());
+        return back()->with('success', 'Bookings updated successfully.');
     }
 
     /**
@@ -96,20 +87,22 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy($id)
     {
-        return view('booking.show', ['booking' => $bookings]);
+        Booking::destroy($id);
+        return back()
+            ->with('success', 'Booking deleted successfully');
     }
 
     protected function validateBooking()
     {
-         return request()->validate([
+        return request()->validate([
             'event_title' => 'required',
             'address' => 'required',
             'event_begins' => 'required',
             'event_ends' => 'required',
             'description' => 'required',
             'team' => 'required'
-         ]);
+        ]);
     }
 }

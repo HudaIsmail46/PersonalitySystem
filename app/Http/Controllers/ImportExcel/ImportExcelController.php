@@ -14,11 +14,12 @@ class ImportExcelController extends Controller
 
     public function index(Request $request)
     {
+
         $bookings = Booking::orderBy('id','ASC')->paginate(20);
         $value = ($request->input('page', 1) - 1) * 5; 
         return view('import-excel.index',compact('bookings'))
         ->with('i', $value);
-        
+
     }
 
     public function import(Request $request)

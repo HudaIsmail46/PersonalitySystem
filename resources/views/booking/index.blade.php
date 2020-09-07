@@ -1,110 +1,53 @@
 @extends ('layouts.app')
 
-@section('content')
+@section('title', 'Page Title')
 
-<!DOCTYPE html>
-<html>
-<!-- Styles -->
-<style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+<title>Booking Details</title>
 
-            .full-height {
-                height: 100vh;
-            }
+@section ('content')
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <div id="wrapper">
+        <div class="container">
+            <div class="card mt-4">
+                <div class="card-header">
+                    Booking Details 
+                </div>
+                    <div class="table-responsive"  style="height:800px;overflow-y:scroll">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>Id</th>
+                                <th>Event Title</th>
+                                <th>Address</th>
+                                <th>Event Begins</th>
+                                <th>Event Ends</th>
+                                <th>Description</th>
+                                <th>Team</th>
+                            </tr>
+                            <tr>
+                                @foreach($booking as $row)
+                                <td><a href="{{$row->path()}}">{{ $row ->id}}</td>
+                                <td>{{ $row->event_title}}</td>
+                                <td>{{ $row->address }}</td>
+                                <td>{{ $row->event_begins }}</td>
+                                <td>{{ $row->event_ends }}</td>
+                                <td>{{ $row->description }}</td>
+                                <td>{{ $row->team }}</td>
+                                <td>
+                                    <form action="{{ route('booking.destroy', $row->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
 
-            .position-ref {
-                position: relative;
-            }
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-                font-size: 10px;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-<head>
-   
-    <title>Booking Details by Id</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-</head>
-
-<body>
-    
-<div class="container">
-    <div class="panel panel-default">
-    <div class="panel-heading">
-     <h3 class="panel-title">Booking Data</h3>
+                        </table>
+                        {{ $booking ?? ''->links() }}
+                    </div>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-     <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-       <tr>
-        <th>Id</th>
-        <th>Event Title</th>
-        <th>Address</th>
-        <th>Event Begins</th>
-        <th>Event Ends</th>
-        <th>Description</th>
-        <th>Team</th>
-       </tr>
-      
-        <td>{{ $booking ->id}}</td>
-        <td>{{ $booking->event_title}}</td>
-        <td>{{ $booking->address }}</td>
-        <td>{{ $booking->event_begins }}</td>
-        <td>{{ $booking->event_ends }}</td>
-        <td>{{ $booking->description }}</td>
-        <td>{{ $booking->team }}</td>
-       
-      </table>
-     </div>
-    </div>
-</div>
-
-</div>
-    
-</body>
-</html>
 
 @endsection
