@@ -27,4 +27,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
+Route::get('import-excel', 'ImportExcel\ImportExcelController@index');
+Route::post('import-excel', 'ImportExcel\ImportExcelController@import');
