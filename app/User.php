@@ -38,8 +38,8 @@ class User extends Authenticatable
     ];
 
 
-    public function bookings() //user can have many bookings
-    {
-        return $this->hasMany(Booking::class); //select * from booking where user_id = 1 (eg)  ;; booking need to have user_id column
-    }
+    // public function bookings() //user can have many bookings
+    // {
+    //     return $this->hasMany(Booking::class); //select * from booking where user_id = 1 (eg)  ;; booking need to have user_id column
+    // }
 }
