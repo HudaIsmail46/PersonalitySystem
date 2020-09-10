@@ -52,3 +52,4 @@ Route::put('/booking/{bookings}', 'BookingController@update')->name('booking.upd
 Route::delete('booking/delete/{bookings}', 'BookingController@destroy')->name('booking.destroy');
 
 
+
