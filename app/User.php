@@ -36,10 +36,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
-    // public function bookings() //user can have many bookings
-    // {
-    //     return $this->hasMany(Booking::class); //select * from booking where user_id = 1 (eg)  ;; booking need to have user_id column
-    // }
 }
