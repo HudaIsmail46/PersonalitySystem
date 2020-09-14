@@ -72,6 +72,9 @@
                         <a href="{{ url('/home') }}">Home</a>
 
                         <a href="{{ url('/import-excel') }}">Import</a>
+
+                        <a href="{{ url('/booking') }}">Booking</a>
+
                     @else
                         <a href="{{ route('login') }}">Login</a>
 

@@ -14,6 +14,7 @@ class CreateBookingTable extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
+
             $table ->bigIncrements('id');
             $table ->text('event_title')->nullable();
             $table ->text('address')->nullable();
@@ -22,6 +23,7 @@ class CreateBookingTable extends Migration
             $table ->text('description')->nullable();
             $table ->text('team')->nullable();
             $table ->timestamps();
+
         });
     }
 
