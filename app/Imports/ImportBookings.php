@@ -31,7 +31,6 @@ class ImportBookings implements ToModel,WithStartRow
             'price' => (int)@$row[19],
             'service_type' => @$row[12],
             ]);
-
     }
 
     public function startRow() :int

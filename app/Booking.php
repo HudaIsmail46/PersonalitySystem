@@ -45,9 +45,4 @@ class Booking extends Model
         return $output[0];
         }
     }
-
-    public static function boot()
-    {
-        parent::boot();       
-    }
 }
