@@ -18,8 +18,8 @@ class CreateBookingTable extends Migration
             $table ->bigIncrements('id');
             $table ->text('event_title')->nullable();
             $table ->text('address')->nullable();
-            $table ->string('event_begins')->nullable();
-            $table ->string('event_ends')->nullable();
+            $table ->dateTime('event_begins')->nullable();
+            $table ->dateTime('event_ends')->nullable();
             $table ->text('description')->nullable();
             $table ->text('team')->nullable();
             $table ->timestamps();

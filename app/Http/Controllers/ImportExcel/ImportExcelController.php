@@ -25,7 +25,7 @@ class ImportExcelController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'import_file' => 'required'
+            'import_file' => 'required|mimes:csv,txt',
         ]);
 
         Excel::import(new ImportBookings, request()->file('import_file'));

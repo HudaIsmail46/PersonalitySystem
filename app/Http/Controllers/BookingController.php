@@ -100,7 +100,7 @@ class BookingController extends Controller
             'event_title' => 'required',
             'address' => 'required',
             'event_begins' => 'required',
-            'event_ends' => 'required',
+            'event_ends' => 'required|after_or_equal:event_begins',
             'description' => 'required',
             'team' => 'required'
         ]);
