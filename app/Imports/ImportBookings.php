@@ -23,7 +23,6 @@ class ImportBookings implements ToModel,WithStartRow
             'event_ends' => @$row[3],
             'description'   => @$row[4],
             'team'  => @$row[5] ,
-            'name'  => Booking::boot() 
             ]);
 
     }
@@ -35,15 +34,6 @@ class ImportBookings implements ToModel,WithStartRow
             '3' =>  Carbon::createFromFormat('Y-m-d H:i:s'),
         ];
     }
-
-    // public function new(Booking $booking)
-    // {
-    //     $booking = Booking:: firstOrCreate(
-    //         dd($booking->getCustomerName()),
-    //         ['name' => $booking->getCustomerName()],
-    //         ['phone_no' => $booking->getPhoneNumber()]
-    // );
-    // }
 
     public function startRow() :int
     {

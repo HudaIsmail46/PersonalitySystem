@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\Cast\Bool_;
 
 class Booking extends Model
 {
@@ -47,20 +46,6 @@ class Booking extends Model
         }
     }
 
-    public function getItems(){
-       
-        $name = Booking:: select('description')->where('id', $this->id)->get();
-        $pattern = "/(?:Items : )([\'|\-|\.+[A-Za-z ]+[.,]?[\'|\-|\.+[A-Za-z])?/";
-        $output = [];
-        $match = preg_match($pattern, $name, $output);
-        if($match == 0){
-            return null;
-        }
-        else{
-        return $output[1];
-        }
-    }
-
     public static function boot()
     {
         parent::boot();
@@ -69,7 +54,6 @@ class Booking extends Model
         {
             $model->name = $model->getCustomerName()->touch();
             dd($model->save()); 
-        });
-              
+        });       
     }
 }
