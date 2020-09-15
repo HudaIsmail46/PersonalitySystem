@@ -5,7 +5,7 @@
     <title>Edit Booking</title>
     
 @section ('content')
-
+    
     <div id="wrapper">
         <div id="page" class="container">
             <div class="card mt-4">
@@ -34,52 +34,7 @@
                         <form method="POST" action="{{ route('booking.update', $bookings->id)}}">
                             @csrf
                             @method('PUT')
-
-                            <div class="field">
-                                <label class="label" for="event_title">Event Title</label>
-
-                                <div class="control">
-                                    <input class="input" type="text" name="event_title" id="event_title" value="{{$bookings->event_title}}">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="address">Address</label>
-                                <div class="control">
-                                    <input class="input" name="address" id="address" value="{{$bookings->address}}">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="event_begins">Event Begins</label>
-                                <div class="control">
-                                    <input class="input" name="event_begins" id="event_begins" value="{{$bookings->event_begins}}">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="event_ends">Event Ends</label>
-                                <div class="control">
-                                    <input class="input" name="event_ends" id="event_ends" value="{{$bookings->event_ends}}">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="description">Description</label>
-                                <div class="control">
-                                    <input class="input" type="text-area" name="description" id="description" value="{{$bookings->description}}">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="team">Team</label>
-                                <div class="control">
-                                    <input class="input" name="team" id="team" value="{{$bookings->team}}">
-                                </div>
-                            </div>
-
-                            <button class="btn btn-primary" type="submit">Save Changes</button>
-
+                        @include ('booking.form')
                         </form>
                     </div>
                 </div>

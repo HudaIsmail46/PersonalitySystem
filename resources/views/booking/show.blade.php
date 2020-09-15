@@ -12,19 +12,25 @@
                 <div class="card-header">
                     Booking Data
                 </div>
+                    <br>Name      : {{ $booking->getCustomerName() }}
+                    <br>Phone No. : {{ $booking->getPhoneNumber() }}
+                    <!-- <br>Items     : {{ $booking->getItems() }} -->
+                    </br>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <th>Id</th>
+                                <th>Name</th>
                                 <th>Event Title</th>
                                 <th>Address</th>
                                 <th>Event Begins</th>
                                 <th>Event Ends</th>
                                 <th>Description</th>
-                                <th>Team</th>
+                                <th>Team</th>     
                                 </tr>
                             <tr>
                                 <td>{{ $booking->id}}</td>
+                                <td>{{ $booking->name}}</td>
                                 <td>{{ $booking->event_title}}</td>
                                 <td>{{ $booking->address }}</td>
                                 <td>{{ $booking->event_begins }}</td>
