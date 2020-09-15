@@ -29,7 +29,7 @@
             </div>
             @endif
             <div class="card-body">
-                <form action="{{ url('/import-excel') }}" method="POST" name="importform" enctype="multipart/form-data">
+                <form action="{{ route('booking.import') }}" method="POST" name="importform" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="import_file" class="form-control">
                     <br>

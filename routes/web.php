@@ -28,14 +28,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 ## Import
-Route::get('import-excel', 'ImportExcel\ImportExcelController@index');
-Route::post('import-excel', 'ImportExcel\ImportExcelController@import');
-
-//index - list of booking
+Route::get('/bookings/import-excel', 'ImportExcel\ImportExcelController@index')->name('booking.import.new');
+Route::post('/bookings/import-excel', 'ImportExcel\ImportExcelController@import')->name('booking.import');
 //show - get a booking
 
 ## View all
-Route::get('/booking', 'BookingController@index')->name('booking.index');
+Route::get('/bookings', 'BookingController@index')->name('booking.index');
 
 ## Create
 Route::get('/booking/create', 'BookingController@create')->name('booking.create');
