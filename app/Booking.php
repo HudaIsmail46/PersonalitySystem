@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $fillable = ['event_title', 'address', 'event_begins', 'event_ends', 'description', 'team', 'name' , 'phone_no'];
+    protected $fillable = [ 'ga_event_title', 'ga_address', 'ga_event_begins', 'ga_event_ends', 'ga_description', 'ga_team', 'name', 'phone_no', 'status', 'receipt_number', 'invoice_number', 'price', 'service_type',];
 
     public function path()
     {
@@ -48,12 +48,6 @@ class Booking extends Model
 
     public static function boot()
     {
-        parent::boot();
-
-        static::saving(function(Booking $model)
-        {
-            $model->name = $model->getCustomerName()->touch();
-            dd($model->save()); 
-        });       
+        parent::boot();       
     }
 }
