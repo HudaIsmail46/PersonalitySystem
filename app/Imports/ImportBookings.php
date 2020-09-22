@@ -17,28 +17,21 @@ class ImportBookings implements ToModel,WithStartRow
     public function model(array $row)
     {
         return new Booking([
-            'ga_event_title' => @$row[0],
-            'ga_address' => @$row[3], 
-            'ga_event_begins' => @$row[5],
-            'ga_event_ends' => @$row[5],
-            'ga_description' => @$row[6],
-            'ga_team' => @$row[7],
+            'gc_event_title' => @$row[0],
+            'gc_address' => @$row[3],
+            'gc_event_begins' => Carbon::createFromFormat("d/m/Y", $row[5])->toDateTimeString(),
+            'gc_event_ends' => Carbon::createFromFormat("d/m/Y", $row[5])->toDateTimeString(),
+            'gc_description' => @$row[6],
+            'gc_team' => @$row[7],
             'name' => @$row[0],
             'phone_no' => @$row[13],
-            'status' => @$row[8], 
+            'status' => @$row[8],
             'receipt_number' => @$row[9],
             'invoice_number' => @$row[10],
-            'price' => (int)@$row[11],
+            'price' => (int)@$row[19],
             'service_type' => @$row[12],
             ]);
 
-    }
-
-    public function rules(): array
-    {
-        return [
-            '5' =>  Carbon::createFromFormat('Y-m-d'),
-        ];
     }
 
     public function startRow() :int
