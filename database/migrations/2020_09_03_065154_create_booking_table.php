@@ -16,12 +16,12 @@ class CreateBookingTable extends Migration
         Schema::create('bookings', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->string('ga_event_title')->nullable();
-            $table->text('ga_address')->nullable();
-            $table->dateTime('ga_event_begins')->nullable();
-            $table->dateTime('ga_event_ends')->nullable();
-            $table->text('ga_description')->nullable();
-            $table->string('ga_team')->nullable();
+            $table->string('gc_event_title')->nullable();
+            $table->text('gc_address')->nullable();
+            $table->dateTime('gc_event_begins')->nullable();
+            $table->dateTime('gc_event_ends')->nullable();
+            $table->text('gc_description')->nullable();
+            $table->string('gc_team')->nullable();
             $table->string('name')->nullable();
             $table->string('phone_no')->nullable();
             $table->string('status')->nullable();

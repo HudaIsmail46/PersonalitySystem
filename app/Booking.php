@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    protected $fillable = [ 'ga_event_title', 'ga_address', 'ga_event_begins', 'ga_event_ends', 'ga_description', 'ga_team', 'name', 'phone_no', 'status', 'receipt_number', 'invoice_number', 'price', 'service_type',];
+    protected $fillable = [ 'gc_event_title', 'gc_address', 'gc_event_begins', 'gc_event_ends', 'gc_description', 'gc_team', 'name', 'phone_no', 'status', 'receipt_number', 'invoice_number', 'price', 'service_type',];
 
     public function path()
     {

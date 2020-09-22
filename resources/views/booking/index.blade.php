@@ -44,12 +44,12 @@
                                     <tr>
                                         @foreach($booking as $row)
                                         <td><a href="{{$row->path()}}">{{ $row ->id}}</td>
-                                        <td>{{ $row->event_title}}</td>
-                                        <td>{{ $row->address }}</td>
-                                        <td>{{ $row->event_begins }}</td>
-                                        <td>{{ $row->event_ends }}</td>
-                                        <td>{{ $row->description }}</td>
-                                        <td>{{ $row->team }}</td>
+                                        <td>{{ $row->gc_event_title}}</td>
+                                        <td>{{ $row->gc_address }}</td>
+                                        <td>{{ $row->gc_event_begins }}</td>
+                                        <td>{{ $row->gc_event_ends }}</td>
+                                        <td>{{ $row->gc_description }}</td>
+                                        <td>{{ $row->gc_team }}</td>
                                         <td>
                                             <form action="{{ route('booking.destroy', $row->id)}}" method="post">
                                                 @csrf

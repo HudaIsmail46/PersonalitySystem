@@ -58,12 +58,12 @@
                     @foreach($bookings as $row)
                     <tr>
                         <td>{{$row->id}}</td>
-                        <td>{{ $row->event_title}}</td>
-                        <td>{{ $row->address }}</td>
-                        <td>{{ $row->event_begins }}</td>
-                        <td>{{ $row->event_ends }}</td>
-                        <td>{{ $row->description }}</td>
-                        <td>{{ $row->team }}</td>
+                        <td>{{ $row->gc_event_title}}</td>
+                        <td>{{ $row->gc_address }}</td>
+                        <td>{{ $row->gc_event_begins }}</td>
+                        <td>{{ $row->gc_event_ends }}</td>
+                        <td>{{ $row->gc_description }}</td>
+                        <td>{{ $row->gc_team }}</td>
                     </tr>
                     @endforeach
                 </table>
