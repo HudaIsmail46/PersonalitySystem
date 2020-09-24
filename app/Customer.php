@@ -18,4 +18,3 @@ class Customer extends Model
         return $this->belongsTo(Company::class);
     }
 }
-
