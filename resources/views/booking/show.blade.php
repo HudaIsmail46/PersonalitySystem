@@ -14,8 +14,6 @@
                 </div>
                     <br>Name      : {{ $booking->getCustomerName() }}
                     <br>Phone No. : {{ $booking->getPhoneNumber() }}
-                    <!-- <br>Items     : {{ $booking->getItems() }} -->
-                    </br>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <tr>
