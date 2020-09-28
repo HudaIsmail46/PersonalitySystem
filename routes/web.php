@@ -35,19 +35,38 @@ Route::post('/bookings/import-excel', 'ImportExcel\ImportExcelController@import'
 ## View all
 Route::get('/bookings', 'BookingController@index')->name('booking.index');
 
+Route::get('/customers', 'CustomerController@index')->name('customer.index');
+
+
 ## Create
 Route::get('/booking/create', 'BookingController@create')->name('booking.create');
+
+Route::get('/customer/create', 'CustomerController@create')->name('customer.create');
+
 Route::post('/booking/store', 'BookingController@store')->name('booking.store');
+
+Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
 
 ## View one booking 
 Route::get('/booking/{bookings}', 'BookingController@show')->name('booking.show');
 
+Route::get('/customer/{customers}', 'CustomerController@show')->name('customer.show');
+
 ## Update
 Route::get('/booking/{bookings}/edit', 'BookingController@edit')->name('booking.edit');
+
+Route::get('/customer/{customers}/edit', 'CustomerController@edit')->name('customer.edit');
+
 Route::put('/booking/{bookings}', 'BookingController@update')->name('booking.update');
+
+Route::put('/customer/{customers}', 'CustomerController@update')->name('customer.update');
+
 
 ## Delete
 Route::delete('booking/delete/{bookings}', 'BookingController@destroy')->name('booking.destroy');
+
+Route::delete('customer/delete/{customers}', 'CustomerController@destroy')->name('customer.destroy');
+
 
 
 

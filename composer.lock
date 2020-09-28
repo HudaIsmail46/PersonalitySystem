@@ -3,8 +3,9 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
-    ],
-    "content-hash": "842c3f53bfdbfaf7b9419d0421f0ab57",
+    ]
+    "content-hash": "ec09cc99b8a0ab8823edd96bd3ee2339",
+
     "packages": [
         {
             "name": "asm89/stack-cors",
