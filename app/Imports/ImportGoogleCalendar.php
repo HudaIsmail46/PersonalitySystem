@@ -19,7 +19,16 @@ class ImportGoogleCalendar
         return true;
     }
 
-    public static function logSync($response, GoogleCalendar $calendar, string $syncToken)
+    public static function refreshSyncToken(GoogleCalendar $calendar, string $timeMin) : bool
+    {
+        $parameters = ['timeMin' => $timeMin];
+        $response = FetchEvents::getAll($parameters, $calendar->google_calendar_id);
+        // static::createOrUpdateBookings()
+        static::logSync($response, $calendar);
+        return true;
+    }
+
+    public static function logSync($response, GoogleCalendar $calendar, string $syncToken=null)
     {
         $calendarSync = new CalendarSync;
         $calendarSync->raw_response = json_encode($response);
