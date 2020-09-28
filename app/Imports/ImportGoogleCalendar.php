@@ -5,30 +5,30 @@ namespace App\Imports;
 use App\Google\FetchEvents;
 use DateTime;
 use App\CalendarSync;
+use App\GoogleCalendar;
 
 class ImportGoogleCalendar
 {
-    public static function syncEvents(string $calendarId, string $syncToken) : bool
+    public static function syncEvents(GoogleCalendar $calendar, string $syncToken) : bool
     {
         $parameters = ['syncToken' => $syncToken];
-        $response = FetchEvents::getAll($parameters, $calendarId);
+        $response = FetchEvents::getAll($parameters, $calendar->google_calendar_id);
 
-        static::logSync($response, $calendarId, $syncToken);
+        static::logSync($response, $calendar, $syncToken);
         // static::createOrUpdateBookings()
         return true;
     }
 
-    public static function logSync($response, string $calendarId, string $syncToken)
+    public static function logSync($response, GoogleCalendar $calendar, string $syncToken)
     {
         $calendarSync = new CalendarSync;
         $calendarSync->raw_response = json_encode($response);
         $calendarSync->sync_token = $syncToken;
         $calendarSync->sync_at = new DateTime;
         $calendarSync->next_sync_token = $response->getNextSyncToken();
-        $calendarSync->calendar_id = $calendarId;
+        $calendarSync->google_calendar_id = $calendar->id;
+        $calendarSync->calendar_id = $calendar->google_calendar_id;
 
         $calendarSync->save();
     }
 }
-
-// App\Imports\ImportGoogleCalendar::syncEvents('ohc81dj0j5igvqpch4j3b4768c@group.calendar.google.com', "CIj0_umVgewCEIj0_umVgewCGAE=")

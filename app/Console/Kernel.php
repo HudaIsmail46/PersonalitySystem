@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\ImportGoogleCalendars'
     ];
 
     /**
@@ -24,7 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('google_calendar:import')
+            ->everyFifteenMinutes()
+            ->timezone('Asia/Kuala_Lumpur')
+            ->between('8:00', '22:00');
     }
 
     /**
