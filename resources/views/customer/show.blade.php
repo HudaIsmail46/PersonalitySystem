@@ -21,17 +21,17 @@
                                 <th>Phone No</th>   
                                 </tr>
                             <tr>
-                                <td>{{ $customers->id}}</td>
-                                <td>{{ $customers->name}}</td>
-                                <td>{{ $customers->address }}</td>
-                                <td>{{ $customers->phone_no}}</td>
+                                <td>{{ $customer->id}}</td>
+                                <td>{{ $customer->name}}</td>
+                                <td>{{ $customer->address }}</td>
+                                <td>{{ $customer->phone_no}}</td>
 
                             </tr>
                             <tfoot>
                                     <td valign="bottom">
-                                    <a href="{{ route('customer.edit',$customers->id)}}" class="btn btn-primary">Edit</a></td>
+                                    <a href="{{ route('customer.edit',$customer->id)}}" class="btn btn-primary">Edit</a></td>
                                     <td>
-                                        <form action="{{ route('customer.destroy', $customers->id)}}" method="post">
+                                        <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>

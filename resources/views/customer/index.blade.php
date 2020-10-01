@@ -34,13 +34,14 @@
                                         <th>Phone No</th>
                                     </tr>
                                     <tr>
-                                        @foreach($customers as $row)
-                                        <td><a href="{{$row->path()}}">{{ $row ->id}}</td>
-                                        <td>{{ $row->name}}</td>
-                                        <td>{{ $row->address }}</td>
-                                        <td>{{ $row->phone_no }}</td>
+                                        @foreach($customers as $customer)
+
+                                        <td><a href="{{$customer->path()}}">{{ $customer ->id}}</td>
+                                        <td>{{ $customer->name}}</td>
+                                        <td>{{ $customer->address }}</td>
+                                        <td>{{ $customer->phone_no }}</td>
                                         <td>
-                                            <form action="{{ route('customer.destroy', $row->id)}}" method="post">
+                                            <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>

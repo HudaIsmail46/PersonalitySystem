@@ -17,9 +17,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $Customers = Customer::orderBy('id', 'ASC')->paginate(50);
-        return view('Customer.index', ['customers' => $Customers])
-            ->with('i', ($Customers->get('page', 1) - 1) * 50);
+        $customers = Customer::orderBy('id', 'ASC')->paginate(50);
+        return view('customer.index', ['customers' => $customers])
+            ->with('i', ($customers->get('page', 1) - 1) * 50);
     }
 
     /**
@@ -30,8 +30,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customers = Customer::find($id);
-        return view('Customer.show', compact('customers'));
+        $customer = Customer::find($id);
+        return view('customer.show', compact('customer'));
     }
 
     /**
@@ -41,7 +41,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('Customer.create');
+        return view('customer.create');
     }
 
     /**
@@ -63,9 +63,9 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customers)
+    public function edit(Customer $customer)
     {
-        return view('Customer.edit', compact('customers'));
+        return view('customer.edit', compact('customer'));
     }
 
     /**
@@ -75,9 +75,9 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customers)
+    public function update(Request $request, Customer $customer)
     {
-        $customers->update($this->validateCustomers());
+        $customer->update($this->validateCustomers());
         return back()->with('success', 'Customers updated successfully.');
     }
 

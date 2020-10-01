@@ -31,7 +31,7 @@
             
                 <div class="inner">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('customer.update', $customers->id)}}">
+                        <form method="POST" action="{{ route('customer.update', $customer->id)}}">
                             @csrf
                             @method('PUT')
                         @include ('customer.form')

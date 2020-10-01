@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerTable extends Migration
+class AddGcIdToBookingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateCustomerTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('phone_no');
-            $table->text('address')->nullable();
-            $table->timestamps();
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->string('gc_id')->index()->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateCustomerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->dropColumn('gc_id');
+        });
     }
 }
