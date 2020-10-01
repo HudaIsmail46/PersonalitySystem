@@ -17,7 +17,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="fas fa-briefcase"></i>
                         <p>
                             Bookings
                             <i class="right fas fa-angle-left"></i>
@@ -26,11 +26,11 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href={{route('booking.index')}} class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
+                               <i class="fas fa-briefcase"></i>
                                 <p>All Bookings</p>
                             </a>
                             <a href={{route('booking.create')}} class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
+                               <i class="fas fa-briefcase"></i>
                                 <p>Create Bookings</p>
                             </a>
                         </li>
@@ -55,6 +55,29 @@
                             <a href={{route('customer.create')}} class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create Customers</p>
+                            </a>
+                        </li>
+                    </ul>  
+                </li>
+            </ul>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-users"></i>
+                        <p>
+                            Users
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href={{route('user.index')}} class="nav-link active">
+                                <i class="fas fa-users"></i>
+                                <p>All Users</p>
+                            </a>
+                            <a href={{route('user.create')}} class="nav-link active">
+                            <i class="fas fa-user"></i>
+                                <p>Create User</p>
                             </a>
                         </li>
                     </ul>  

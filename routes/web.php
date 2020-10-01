@@ -63,10 +63,17 @@ Route::put('/customer/{customers}', 'CustomerController@update')->name('customer
 
 
 ## Delete
-Route::delete('booking/delete/{bookings}', 'BookingController@destroy')->name('booking.destroy');
+Route::delete('/booking/delete/{bookings}', 'BookingController@destroy')->name('booking.destroy');
 
-Route::delete('customer/delete/{customers}', 'CustomerController@destroy')->name('customer.destroy');
+Route::delete('/customer/delete/{customers}', 'CustomerController@destroy')->name('customer.destroy');
 
-
-
-
+## User CRUD
+Route::prefix('/user')->name('user.')->group(function () {
+    Route::get('/index', 'UserController@index')->name('index');
+    Route::get('/create', 'UserController@create')->name('create');
+    Route::post('/', 'UserController@store')->name('store');
+    Route::get('/{user}', 'UserController@show')->name('show');
+    Route::get('/{user}/edit', 'UserController@edit')->name('edit');
+    Route::delete('/{user}', 'UserController@destroy')->name('destroy');
+    Route::put('/{user}', 'UserController@update')->name('update');
+});
