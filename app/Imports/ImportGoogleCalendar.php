@@ -8,6 +8,7 @@ use App\Google\FetchEvents;
 use DateTime;
 use App\CalendarSync;
 use App\GoogleCalendar;
+use App\Events\ImportedEventUpdated;
 
 class ImportGoogleCalendar
 {
@@ -54,23 +55,34 @@ class ImportGoogleCalendar
                 $booking = new Booking;
                 $booking->gc_id = $event->id;
                 $booking->gc_event_title = $event->summary;
-                $booking->gc_event_begins = Carbon::createFromFormat(Carbon::ISO8601, $event->start->dateTime)->toDateTimeString();
-                $booking->gc_event_ends = Carbon::createFromFormat(Carbon::ISO8601, $event->end->dateTime)->toDateTimeString();
+                $booking->gc_event_begins = static::getDateTime($event->start ? $event->start->dateTime : null);
+                $booking->gc_event_ends = static::getDateTime(($event->end ? $event->end->dateTime : null));
                 $booking->gc_description = $event->description;
                 $booking->gc_team = $team;
                 $booking->gc_address = $event->location;
-                $booking->save();
-            }       
-            else {
-                  
-                $booking->gc_event_title = $event->summary;
-                $booking->gc_event_begins = Carbon::createFromFormat(Carbon::ISO8601, $event->start->dateTime)->toDateTimeString();
-                $booking->gc_event_ends = Carbon::createFromFormat(Carbon::ISO8601, $event->end->dateTime)->toDateTimeString();
-                $booking->gc_description = $event->description;
-                $booking->gc_team = $team;
-                $booking->gc_address = $event->location;
-                $booking->save();
             }
+            else {
+
+                $booking->gc_event_title = $event->summary;
+                $booking->gc_event_begins = static::getDateTime($event->start ? $event->start->dateTime : null);
+                $booking->gc_event_ends = static::getDateTime($event->end ? $event->end->dateTime : null);
+                $booking->gc_description = $event->description;
+                $booking->gc_team = $team;
+                $booking->gc_address = $event->location;
+            }
+
+            if ($booking->save()) {
+                event(new ImportedEventUpdated($booking));
+            }
+        }
+    }
+
+    private static function getDateTime($dateTime)
+    {
+        if (is_null($dateTime)) {
+            return null;
+        } else {
+            return Carbon::createFromFormat(Carbon::ISO8601, $dateTime)->toDateTimeString();
         }
     }
 }
