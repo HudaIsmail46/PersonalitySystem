@@ -4,22 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Booking;
 
 
 class BookingController extends Controller
-{ 
+{
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookings = Booking::orderBy('id', 'ASC')->paginate(50);
-        return view('booking.index', ['booking' => $bookings])
-            ->with('i', ($bookings->get('page', 1) - 1) * 50);
+        $name    = $request->name;
+        $phone   = $request->phone_no;
+        $start   = $request->from;
+        $end     = $request->to;
+        $team    = $request->team;
+        $address = $request->address;
+
+        $bookings = Booking::when($name, function ($q) use ($name) {
+            return $q->where('name', 'LIKE', '%' . $name . '%');
+        })
+            ->when($phone, function ($q) use ($phone) {
+                return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
+            })
+            ->when($start, function ($q) use ($start, $end) {
+                return $q->whereBetween('gc_event_begins', [$start, $end]);
+            })
+            ->when($team, function ($q) use ($team) {
+                return $q->where('gc_team', $team);
+            })
+            ->when($address, function ($q) use ($address) {
+                return $q->where('gc_address',  'LIKE', '%' . $address . '%');
+            })
+            ->orderBy('id', 'ASC')->paginate(10);
+
+        return view('booking.index', ['bookings' => $bookings])
+            ->with('i', ($bookings->get('page', 1) - 1) * 5);
     }
 
     /**
