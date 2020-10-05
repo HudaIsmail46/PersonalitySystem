@@ -17,53 +17,56 @@
             </div>
         </div>
     </div>
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <a href={{route('booking.import.new')}}>
-                    <button class="btn-primary btn btn-block col-1 ml-auto">Import</button>
-                </a>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card mt-4">
-                        <div class="card-header">
-                            Booking Details
-                        </div>
-                            <div class="table-responsive"  style="height:800px;overflow-y:scroll">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Event Title</th>
-                                        <th>Address</th>
-                                        <th>Event Begins</th>
-                                        <th>Event Ends</th>
-                                        <th>Description</th>
-                                        <th>Team</th>
-                                    </tr>
-                                    <tr>
-                                        @foreach($booking as $row)
-                                        <td><a href="{{$row->path()}}">{{ $row ->id}}</td>
-                                        <td>{{ $row->gc_event_title}}</td>
-                                        <td>{{ $row->gc_address }}</td>
-                                        <td>{{ $row->gc_event_begins }}</td>
-                                        <td>{{ $row->gc_event_ends }}</td>
-                                        <td>{{ $row->gc_description }}</td>
-                                        <td>{{ $row->gc_team }}</td>
-                                        <td>
-                                            <form action="{{ route('booking.destroy', $row->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <a href={{route('booking.import.new')}}>
+                <button class="btn-primary btn btn-block col-15 ml-auto">Import</button>
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Booking Details
+                        <form action="{{ route('booking.index')}}" method="get">
+                            @csrf
 
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-
-                                </table>
-                                {{ $booking ?? ''->links() }}
-                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                    <div class="col-md-2">
+                                        Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name">
+                                    </div>
+                                    <div class="col-md-2">
+                                        Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone no">
+                                    </div>
+                                    <div class="col-md-2">
+                                        From: <input class="form-control form-control-sm" type="date" name="from">
+                                    </div>
+                                    <div class="col-md-2">
+                                        To: <input class="form-control form-control-sm" type="date" name="to">
+                                    </div>
+                                    <div class="col-md-2">
+                                        Team:
+                                        <select id="team" class="form-control form-control-sm" name="team">
+                                            <option value="">--Select Team--</option>
+                                            <option value="CS1">CS1</option>
+                                            <option value="CS2">CS2</option>
+                                            <option value="CS3">CS3</option>
+                                            <option value="CS4">CS4</option>
+                                            <option value="CS5">CS5</option>
+                                            <option value="CS6">CS6</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address">
+                                    </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Search <i class="fa fa-search"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
