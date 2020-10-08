@@ -10,4 +10,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-storage/*
+storage/framework/*
+storage/logs/*
+storage/google_credential_service.json
+tinx.sh
