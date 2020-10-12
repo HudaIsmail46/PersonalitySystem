@@ -35,7 +35,6 @@ class AddBookingsColumn extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             $table->dropColumn('customer_id');
-            $table->dropColumn('customer_id');
             $table->dropColumn('event_begins');
             $table->dropColumn('event_ends');
             $table->dropColumn('discount');
