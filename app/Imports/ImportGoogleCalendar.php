@@ -14,7 +14,10 @@ class ImportGoogleCalendar
 {
     public static function syncEvents(GoogleCalendar $calendar, string $syncToken) : bool
     {
-        $parameters = ['syncToken' => $syncToken];
+        $parameters = [
+            'syncToken' => $syncToken,
+            'showDeleted' => true
+        ];
         $response = FetchEvents::getAll($parameters, $calendar->google_calendar_id);
 
         static::logSync($response, $calendar, $syncToken);
@@ -39,7 +42,6 @@ class ImportGoogleCalendar
         $calendarSync->sync_at = new DateTime;
         $calendarSync->next_sync_token = $response->getNextSyncToken();
         $calendarSync->google_calendar_id = $calendar->id;
-        $calendarSync->calendar_id = $calendar->google_calendar_id;
 
         $calendarSync->save();
     }
@@ -57,7 +59,7 @@ class ImportGoogleCalendar
                 $booking->gc_event_title = $event->summary;
                 $booking->gc_event_begins = static::getDateTime($event->start ? $event->start->dateTime : null);
                 $booking->gc_event_ends = static::getDateTime(($event->end ? $event->end->dateTime : null));
-                $booking->gc_description = $event->description;
+                $booking->gc_description = strip_tags($event->description);
                 $booking->gc_team = $team;
                 $booking->gc_address = $event->location;
             }
@@ -66,9 +68,10 @@ class ImportGoogleCalendar
                 $booking->gc_event_title = $event->summary;
                 $booking->gc_event_begins = static::getDateTime($event->start ? $event->start->dateTime : null);
                 $booking->gc_event_ends = static::getDateTime($event->end ? $event->end->dateTime : null);
-                $booking->gc_description = $event->description;
+                $booking->gc_description = strip_tags($event->description);
                 $booking->gc_team = $team;
                 $booking->gc_address = $event->location;
+                $booking->deleted_at = $event->status == 'cancelled' ? (new DateTime)->format('Y-m-d H:i:s'): null
             }
 
             if ($booking->save()) {

@@ -64,7 +64,7 @@
 
                                     <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
 
-                                    <div class="table-responsive"  style="height:800px;overflow-y:scroll">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered table-striped">
                                             <tr>
                                                 <th>Id</th>

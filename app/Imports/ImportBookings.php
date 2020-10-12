@@ -21,7 +21,7 @@ class ImportBookings implements ToModel,WithStartRow
             'gc_address' => @$row[3],
             'gc_event_begins' =>is_null($row[5]) ? null : Carbon::createFromFormat("yy-m-d", $row[5])->toDateTimeString(),
             'gc_event_ends' =>is_null($row[5]) ? null : Carbon::createFromFormat("yy-m-d", $row[5])->toDateTimeString(),
-            'gc_description' => @$row[6],
+            'gc_description' => strip_tags(@$row[6]),
             'gc_team' => @$row[7],
             'name' => @$row[0],
             'phone_no' => @$row[13],
