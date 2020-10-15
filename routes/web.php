@@ -33,10 +33,9 @@ Route::post('/bookings/import-excel', 'ImportExcel\ImportExcelController@import'
 //show - get a booking
 
 ## View all
-Route::get('/bookings', 'BookingController@index')->name('booking.index');
+Route::get('/booking', 'BookingController@index')->name('booking.index');
 
-Route::get('/customers', 'CustomerController@index')->name('customer.index');
-
+Route::get('/customer', 'CustomerController@index')->name('customer.index');
 
 ## Create
 Route::get('/booking/create', 'BookingController@create')->name('booking.create');
