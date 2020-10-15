@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Chart\IncompleteBooking;
+use App\Chart\WeeklyBooking;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $incompleteBookingChart = IncompleteBooking::config();
+        $weeklyBookingChart = WeeklyBooking::config();
+        // dd($incompleteBookingChart);
+        return view('home', compact('incompleteBookingChart', 'weeklyBookingChart'));
     }
 }
