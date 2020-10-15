@@ -71,7 +71,7 @@ class ImportGoogleCalendar
                 $booking->gc_description = strip_tags($event->description);
                 $booking->gc_team = $team;
                 $booking->gc_address = $event->location;
-                $booking->deleted_at = $event->status == 'cancelled' ? (new DateTime)->format('Y-m-d H:i:s'): null
+                $booking->deleted_at = $event->status == 'cancelled' ? (new DateTime)->format('Y-m-d H:i:s'): null;
             }
 
             if ($booking->save()) {

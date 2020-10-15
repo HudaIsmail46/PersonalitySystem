@@ -9,7 +9,7 @@ class Booking extends Model
 {
     protected $fillable = ['gc_id','gc_event_title', 'gc_address', 'gc_event_begins',
         'gc_event_ends', 'gc_description', 'gc_team', 'name', 'phone_no', 'status',
-        'receipt_number', 'invoice_number', 'price', 'service_type', 'deposit'];
+        'receipt_number', 'invoice_number', 'price', 'service_type', 'deposit', 'pic'];
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -22,5 +22,27 @@ class Booking extends Model
     public function user()
     {
         return $this->belongsTo(Booking::class);
+    }
+
+    public function isComplete()
+    {
+        return !is_null($this->gc_event_title)
+            && !is_null($this->gc_address)
+            && !is_null($this->gc_event_begins)
+            && !is_null($this->gc_event_ends)
+            && !is_null($this->gc_description)
+            && !is_null($this->name)
+            && !is_null($this->phone_no);
+    }
+
+    public function scopeComplete($query)
+    {
+        return $query->whereNotNull("gc_event_title")
+            ->whereNotNull("gc_address")
+            ->whereNotNull("gc_event_begins")
+            ->whereNotNull("gc_event_ends")
+            ->whereNotNull("gc_description")
+            ->whereNotNull("name")
+            ->whereNotNull("phone_no");
     }
 }
