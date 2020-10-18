@@ -9,7 +9,8 @@ class Booking extends Model
 {
     protected $fillable = ['gc_id','gc_event_title', 'gc_address', 'gc_event_begins',
         'gc_event_ends', 'gc_description', 'gc_team', 'name', 'phone_no', 'status',
-        'receipt_number', 'invoice_number', 'price', 'service_type', 'deposit', 'pic'];
+        'receipt_number', 'invoice_number', 'price', 'service_type', 'deposit', 'pic',
+        'customer_id'];
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -19,9 +20,9 @@ class Booking extends Model
         return route('booking.show', $this);
     }
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(Booking::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function isComplete()

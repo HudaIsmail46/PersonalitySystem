@@ -17,4 +17,25 @@ class Customer extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public static function firstOrCreate($name, $phone_no)
+    {
+        $customer = null;
+        if ($phone_no){
+            $customer = static::firstWhere('phone_no', '=', $phone_no);
+            if (is_null($customer)) {
+                $customer = new static;
+                $customer->name = $name ? $name : $phone_no;
+                $customer->phone_no = $phone_no;
+                $customer->save();
+            }
+        }
+
+        return $customer;
+    }
 }

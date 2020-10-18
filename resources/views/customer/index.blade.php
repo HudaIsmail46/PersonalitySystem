@@ -25,13 +25,16 @@
                         <div class="card-header">
                             Customers Details
                         </div>
-                            <div class="table-responsive"  style="height:800px;overflow-y:scroll">
+                        <div class='card-body'>
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <tr>
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>Phone No</th>
+                                        <th>Bookings</th>
+                                        <th></th>
                                     </tr>
                                     <tr>
                                         @foreach($customers as $customer)
@@ -41,10 +44,15 @@
                                         <td>{{ $customer->address }}</td>
                                         <td>{{ $customer->phone_no }}</td>
                                         <td>
+                                            Total Bookings = {{ $customer->bookings()->count()}}
+                                            <br>
+                                            Total Spend = {{money($customer->bookings()->sum('price'))}}
+                                        </td>
+                                        <td>
                                             <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-xs btn-danger d-flex"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="mt-1 ml-2 fa fa-trash"></i></button>
 
                                             </form>
                                         </td>
@@ -54,6 +62,7 @@
                                 </table>
                                 {{ $customers ?? ''->links() }}
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>

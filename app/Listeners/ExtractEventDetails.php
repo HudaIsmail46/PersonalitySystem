@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Customer;
 
 class ExtractEventDetails
 {
@@ -35,12 +36,16 @@ class ExtractEventDetails
     {
         $bookingDescription = $event->booking->gc_description;
         if (!is_null($bookingDescription)) {
+            $name = $this->getCustomerName($bookingDescription);
+            $phone_no = $this->getPhoneNumber($bookingDescription);
+            $customer = Customer::firstOrCreate($name, $phone_no);
             $event->booking->fill([
-                'name'=> $this->getCustomerName($bookingDescription),
-                'phone_no'=> $this->getPhoneNumber($bookingDescription),
+                'name'=> $name,
+                'phone_no'=> $phone_no,
                 'price'=> $this->getGrandTotal($bookingDescription),
                 'deposit'=> $this->getDeposit($bookingDescription),
-                'discount'=> $this->getDiscount($bookingDescription)
+                'discount'=> $this->getDiscount($bookingDescription),
+                'customer_id'=> $customer ? $customer->id : null
             ]);
             $event->booking->save();
         }
