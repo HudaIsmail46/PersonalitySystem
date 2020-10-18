@@ -27,7 +27,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy('id', 'ASC')->paginate(50);
+        $customers = Customer::orderBy('id', 'ASC')->with('bookings')->paginate(50);
         return view('customer.index', ['customers' => $customers])
             ->with('i', ($customers->get('page', 1) - 1) * 50);
     }
