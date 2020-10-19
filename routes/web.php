@@ -26,7 +26,9 @@ Route::get('/logout', function () {
     return 'You are now logged out';
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false
+]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

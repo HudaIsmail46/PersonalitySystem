@@ -38,13 +38,17 @@
                                         <td>
                                             <div class="row">
                                                 <a href={{route('user.show', $user->id)}}><button class='btn btn-primary mr-2'>View</button></a>
-                                                <a href={{route('user.edit', $user->id)}}><button class='btn btn-primary mr-2'>Edit</button></a>
-                                                <form action={{ route('user.destroy', $user->id)}} method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete</button>
+                                                @can('edit users')
+                                                    <a href={{route('user.edit', $user->id)}}><button class='btn btn-primary mr-2'>Edit</button></a>
+                                                @endcan
+                                                @can('delete users')
+                                                    <form action={{ route('user.destroy', $user->id)}} method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete</button>
 
-                                                </form>
+                                                    </form>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
