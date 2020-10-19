@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(auth()->check()){
-        return redirect()->route('home');    
+        return redirect()->route('home');
     }
     return view('welcome');
 });
 
 Route::get('/logout', function () {
     auth()->logout();
-    
+
     return 'You are now logged out';
 });
 
@@ -49,7 +49,7 @@ Route::post('/booking/store', 'BookingController@store')->name('booking.store');
 
 Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
 
-## View one booking 
+## View one booking
 Route::get('/booking/{bookings}', 'BookingController@show')->name('booking.show');
 
 Route::get('/customer/{customers}', 'CustomerController@show')->name('customer.show');
@@ -78,4 +78,8 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::get('/{user}/edit', 'UserController@edit')->name('edit');
     Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     Route::put('/{user}', 'UserController@update')->name('update');
+});
+
+Route::prefix('/user')->name('user.')->group(function(){
+    Route::get('/order','OderController@index');
 });
