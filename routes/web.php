@@ -80,6 +80,14 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::put('/{user}', 'UserController@update')->name('update');
 });
 
-Route::prefix('/user')->name('user.')->group(function(){
-    Route::get('/order','OderController@index');
-});
+##order CRUD
+
+Route::get('/order', 'OrderController@index')->name('order.index');
+Route::get('/order/create', 'OrderController@create')->name('order.create');
+Route::post('/order/store', 'OrderController@store')->name('order.store');
+Route::get('/order/{orders}', 'OrderController@show')->name('order.show');
+Route::get('/order/{order}/edit', 'OrderController@edit')->name('order.edit');
+Route::delete('/order/delete/{orders}', 'OrderController@destroy')->name('order.destroy');
+Route::put('/order/{order}', 'OrderController@update')->name('order.update');
+
+

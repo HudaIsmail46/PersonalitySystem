@@ -14,7 +14,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+
+        $orders = Order::orderBy('id', 'ASC')->paginate(50);
+        return view('order.index', ['orders' => $orders])
+            ->with('i', ($orders->get('page', 1) - 1) * 50);
+        // $orders = Order::userr()->get();
+        // // $orders = Order::with('addresses', 'location', 'role', 'phones')->get();
+        // // return $orders;
     }
 
     /**
@@ -24,7 +30,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('order.create');
     }
 
     /**
@@ -35,7 +41,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validateOrders();
+        Order::create($request->all());
+        // return back()->with('success', 'Orders created successfully.');
+        return redirect()->route('order.index')->with('Order is created.');
+
+
     }
 
     /**
@@ -44,9 +56,10 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        //
+        $order = Order::findOrfail($id);
+        return view('order.show',compact('order'));
     }
 
     /**
@@ -57,7 +70,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+
+        return view('order.edit',compact('order'));
     }
 
     /**
@@ -69,7 +83,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $order->update($this->validateOrders());
+        // return back()->with('success', 'Orders updated succesfully.');
+        return redirect()->route('order.index')->with('Order is Updated.');
     }
 
     /**
@@ -78,8 +94,26 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        Order::destroy($id);
+        // return back()
+        // ->with('success', 'Order deleted sucessfully');
+        return redirect()->route('order.index')->with('Order succesfully deleted.');
+    }
+
+    protected function validateOrders()
+    {
+        return request()->validate([
+            'size' => 'required',
+            'material' => 'required',
+            'price' => 'required',
+            'prefered_pickup_datetime' => 'required',
+            'actual_size' => 'required',
+            'actual_material' => 'required',
+            'actual_price' => 'required',
+            'images' => 'required',
+            'status' => 'required',
+        ]);
     }
 }

@@ -9,6 +9,7 @@ use DateTime;
 use App\CalendarSync;
 use App\GoogleCalendar;
 use App\Events\ImportedEventUpdated;
+use App\Customer;
 
 class ImportGoogleCalendar
 {
