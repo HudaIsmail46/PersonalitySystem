@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Booking;
-
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -34,8 +34,8 @@ class BookingController extends Controller
         $address = $request->address;
 
         $bookings = Booking::when($name, function ($q) use ($name) {
-            return $q->where('name', 'LIKE', '%' . $name . '%');
-        })
+                return $q->where('name', 'LIKE', '%' . $name . '%');
+            })
             ->when($phone, function ($q) use ($phone) {
                 return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
             })
@@ -48,9 +48,12 @@ class BookingController extends Controller
             ->when($address, function ($q) use ($address) {
                 return $q->where('gc_address',  'LIKE', '%' . $address . '%');
             })
-            ->orderBy('id', 'ASC')->paginate(10);
+            ->orderBy('gc_event_begins', 'DESC')->paginate(10);
 
-        return view('booking.index', ['bookings' => $bookings])
+        $booking_teams = DB::select('select distinct gc_team from bookings');
+        $teams = array_map(function($booking){return $booking->gc_team;}, $booking_teams);
+
+        return view('booking.index', compact('bookings', 'teams'))
             ->with('i', ($bookings->get('page', 1) - 1) * 5);
     }
 

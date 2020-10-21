@@ -51,12 +51,9 @@
                                             Team:
                                             <select id="team" class="form-control form-control-sm" name="team">
                                                 <option value="">--Select Team--</option>
-                                                <option value="CS1">CS1</option>
-                                                <option value="CS2">CS2</option>
-                                                <option value="CS3">CS3</option>
-                                                <option value="CS4">CS4</option>
-                                                <option value="CS5">CS5</option>
-                                                <option value="CS6">CS6</option>
+                                                @foreach($teams as $team)
+                                                    <option value="{{$team}}" class='text-capitalize'>{{$team}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-md-2">

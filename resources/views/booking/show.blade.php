@@ -15,9 +15,15 @@
             <div class="card-body">
             
                 <div class='ml-2'>
-                    Name : <a href="{{route('customer.show', $booking->customer_id)}}">{{ $booking->customer->name }}</a>
-                    <br>
-                    Phone No. : {{ $booking->customer->phone_no }}
+                    @if($booking->customer)
+                        Name : <a href="{{route('customer.show', $booking->customer)}}">{{ $booking->customer->name }}</a>
+                        <br>
+                        Phone No. : {{ $booking->customer->phone_no }}
+                    @else
+                        Name : -
+                        <br>
+                        Phone No. : -
+                    @endif
                 </div>
                 
                 <div class="table-responsive">
