@@ -16,7 +16,7 @@ class BookingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','can: list bookings | edit bookings | delete bookings']);
     }
 
     /**

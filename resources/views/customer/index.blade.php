@@ -49,12 +49,14 @@
                                             Total Spend = {{money($customer->bookings()->sum('price'))}}
                                         </td>
                                         <td>
-                                            <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-xs btn-danger d-flex"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="mt-1 ml-2 fa fa-trash"></i></button>
+                                            @can('delete customers')
+                                                <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-xs btn-danger d-flex"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="mt-1 ml-2 fa fa-trash"></i></button>
 
-                                            </form>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                     @endforeach

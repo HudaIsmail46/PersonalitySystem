@@ -25,6 +25,16 @@
                     <div class="table-responsive">
                         @include('booking.table', ['bookings'=>$customer->bookings()->get()])
                     </div>
+                    @can('edit customers')
+                        <a href="{{ route('customer.edit',$customer->id)}}" class="btn btn-primary">Edit</a>
+                    @endcan
+                    @can('delete customers')
+                        <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
+                        </form>
+                    @endcan
                 </div>
             </div>
         </div>

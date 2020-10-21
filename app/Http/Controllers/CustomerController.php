@@ -17,7 +17,7 @@ class CustomerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','can: list customers | edit customers | delete customers']);
     }
 
     /**
