@@ -40,7 +40,7 @@
                                     </a>
                                 @endcan
                             </li>
-                        </ul>  
+                        </ul>
                     </li>
                 </ul>
             @endcan
@@ -67,7 +67,7 @@
                                     </a>
                                 @endcan
                             </li>
-                        </ul>  
+                        </ul>
                     </li>
                 </ul>
             @endcan
@@ -94,7 +94,7 @@
                                     </a>
                                 @endcan
                             </li>
-                        </ul>  
+                        </ul>
                     </li>
                 </ul>
             @endcan

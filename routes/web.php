@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(auth()->check()){
-        return redirect()->route('home');    
+        return redirect()->route('home');
     }
     return view('welcome');
 });
 
 Route::get('/logout', function () {
     auth()->logout();
-    
+
     return 'You are now logged out';
 });
 
@@ -51,7 +51,7 @@ Route::post('/booking/store', 'BookingController@store')->name('booking.store');
 
 Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
 
-## View one booking 
+## View one booking
 Route::get('/booking/{booking}', 'BookingController@show')->name('booking.show');
 
 Route::get('/customer/{customers}', 'CustomerController@show')->name('customer.show');
@@ -81,3 +81,15 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     Route::put('/{user}', 'UserController@update')->name('update');
 });
+
+##order CRUD
+
+Route::get('/order', 'OrderController@index')->name('order.index');
+Route::get('/order/create', 'OrderController@create')->name('order.create');
+Route::post('/order/store', 'OrderController@store')->name('order.store');
+Route::get('/order/{orders}', 'OrderController@show')->name('order.show');
+Route::get('/order/{order}/edit', 'OrderController@edit')->name('order.edit');
+Route::delete('/order/delete/{orders}', 'OrderController@destroy')->name('order.destroy');
+Route::put('/order/{order}', 'OrderController@update')->name('order.update');
+
+
