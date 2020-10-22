@@ -13,64 +13,70 @@
                     <!-- {{$order->id}} -->
                     <p>Order Detail</p>
                 </div>
-                <table >
-                <tr >
-                    <th> id: {{$order->id}}</th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>Size</td>
-                    <td>{{$order->size}}</td>
-                </tr>
-                <tr>
-                    <td>Material</td>
-                    <td>{{$order->material}}</td>
-                </tr>
-                <tr>
-                    <td>Price</td>
-                    <td>{{$order->price}}</td>
-                </tr>
-                <tr>
-                    <td>Prefered Pickup Date Time</td>
-                    <td>{{$order->prefered_pickup_datetime}}</td>
-                </tr>
-                <tr>
-                    <td>Actual Size</td>
-                    <td>{{$order->actual_size}}</td>
-                </tr>
-                <tr>
-                    <td>Actual Material</td>
-                    <td>{{$order->actual_material}}</td>
-                </tr>
-                <tr>
-                    <td>Actual Price</td>
-                    <td>{{$order->actual_price}}</td>
-                </tr>
-                <tr>
-                    <td>Images</td>
-                    <td>{{$order->images}}</td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td>{{$order->status}}</td>
-                </tr>
+                <div class="card-body">
 
-         </table>
-         <table>
-         <tfoot>
-                <td valign="bottom">
-                    <a href="{{ route('order.edit',$order->id)}}" class="btn btn-primary">Edit</a></td>
-                <td valign="bottom">
-                    <form action="{{ route('order.destroy', $order->id)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
-                    </form>
-                </td>
-            </tfoot>
-            </table>
+                    <table style="width:100%" >
+                        <tr >
+                            <th> id: {{$order->id}}</th>
+                            <th align="left"></th>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td align="left">{{$order->size}}</td>
+                        </tr>
+                        <tr>
+                            <td>Material</td>
+                            <td align="left">{{$order->material}}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td align="left">{{$order->price}}</td>
+                        </tr>
+                        <tr>
+                            <td>Prefered Pickup Date Time</td>
+                            <td align="left">{{$order->prefered_pickup_datetime}}</td>
+                        </tr>
+                        <tr>
+                            <td>Actual Size</td>
+                            <td align="left">{{$order->actual_size}}</td>
+                        </tr>
+                        <tr>
+                            <td>Actual Material</td>
+                            <td align="left">{{$order->actual_material}}</td>
+                        </tr>
+                        <tr>
+                            <td>Actual Price</td>
+                            <td align="left">{{$order->actual_price}}</td>
+                        </tr>
+                        <tr>
+                            <td>Images</td>
+                            <td align="left">{{$order->images}}</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td align="left">{{$order->status}}</td>
+                        </tr>
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
+
+        <div class="container">
+            <table align="center">
+                <a href="{{ route('order.edit',$order->id)}}" class="btn btn-primary mr-2">Edit</a>
+
+
+
+                <form action="{{ route('order.destroy', $order->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
+                </form>
+            </table>
+        </div>
+
+
 @endsection
 
