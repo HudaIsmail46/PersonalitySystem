@@ -62,13 +62,12 @@
                                     </div>
 
                                     <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
-
-                                    <div class="table-responsive">
-                                        @include('booking.table')
-                                        {{ $bookings ?? ''->links() }}
-                                    </div>
+                                </form>
+                                <div class="table-responsive">
+                                    @include('booking.table')
+                                    {{ $bookings ?? ''->links() }}
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -63,9 +63,8 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Booking $booking)
     {
-        $booking = Booking::find($id);
         return view('booking.show', compact('booking'));
     }
 
@@ -122,11 +121,10 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Booking $booking)
     {
-        Booking::destroy($id);
-        return back()
-            ->with('success', 'Booking deleted successfully');
+        $booking->delete();
+        return redirect()->route('booking.index')->with('Booking is deleted.');
     }
 
     protected function validateBooking()
