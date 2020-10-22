@@ -10,6 +10,7 @@
         <div class="container">
             <div class="card mt-4">
                 <div class="card-header">
+                    <!-- {{$order->id}} -->
                     <p>Order Detail</p>
                 </div>
                 <div class="card-body">
