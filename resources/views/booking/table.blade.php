@@ -26,11 +26,10 @@
         <td>{{ $booking->gc_team }}</td>
         <td>
             @can('delete bookings')
-                <form action="{{ route('booking.destroy', $booking->id)}}" method="post">
+                <form action="{{ route('booking.destroy', $booking)}}" method="post">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-xs btn-danger d-flex"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="mt-1 ml-2 fa fa-trash"></i></button>
-
                 </form>
             @endcan
         </td>

@@ -52,7 +52,7 @@ Route::post('/booking/store', 'BookingController@store')->name('booking.store');
 Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
 
 ## View one booking 
-Route::get('/booking/{bookings}', 'BookingController@show')->name('booking.show');
+Route::get('/booking/{booking}', 'BookingController@show')->name('booking.show');
 
 Route::get('/customer/{customers}', 'CustomerController@show')->name('customer.show');
 
@@ -67,7 +67,7 @@ Route::put('/customer/{customers}', 'CustomerController@update')->name('customer
 
 
 ## Delete
-Route::delete('/booking/delete/{bookings}', 'BookingController@destroy')->name('booking.destroy');
+Route::delete('/booking/delete/{booking}', 'BookingController@destroy')->name('booking.destroy');
 
 Route::delete('/customer/delete/{customers}', 'CustomerController@destroy')->name('customer.destroy');
 
