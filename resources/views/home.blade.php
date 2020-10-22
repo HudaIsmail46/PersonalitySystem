@@ -38,7 +38,7 @@
                 <div class='col-lg-8'>
                     <div class="card ">
                         <div class="card-body">
-                            <h5 class="card-title">Weekly Bookings</h5>
+                            <h5 class="card-title">Monthly Bookings</h5>
 
                             <canvas id="weeklyBooking" config="{{$weeklyBookingChart}}"></canvas>
                         </div>
