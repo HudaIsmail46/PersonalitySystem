@@ -12,8 +12,8 @@ return [
         'iso' => 'all',
         'bitcoin' => 'all',
         'custom' => [
-            // 'MY1' => 2,
-            // 'MY2' => 3
+            'MY1' => 2,
+            'MY2' => 3
         // ]
     ]
 ];
