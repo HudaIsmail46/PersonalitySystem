@@ -47,17 +47,15 @@
                                         <td><a href="{{$order->path()}}">{{ $order ->id}}</td>
                                         <td>{{ $order->size}}</td>
                                         <td>{{ $order->material }}</td>
-                                        <td>{{ $order->price}}</td>
+                                        <td>{{ money($order->price)}}</td>
                                         <td>{{ $order->prefered_pickup_datetime}}</td>
                                         <td>{{ $order->actual_length}}</td>
                                         <td>{{ $order->actual_width}}</td>
                                         <td>{{ $order->actual_material}}</td>
-                                        <td>{{ $order->actual_price}}</td>
+                                        <td>{{ money($order->actual_price)}}</td>
                                         <td>{{ $order->status}}</td>
-
                                     </tr>
                                     @endforeach
-
                                 </table>
                                 {{ $orders ?? ''->links() }}
                             </div>

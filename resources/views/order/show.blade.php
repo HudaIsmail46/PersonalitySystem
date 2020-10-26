@@ -34,7 +34,6 @@
                         <tr>
                             <td>Prefered Pickup Date Time</td>
                             <td align="left">{{$order->prefered_pickup_datetime}}</td>
-
                         </tr>
                         <tr>
                             <td>Actual Length</td>

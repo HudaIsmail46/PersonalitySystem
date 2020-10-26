@@ -64,7 +64,7 @@
                                                 value="{{old('price')}}"
                                                 placeholder="price">
 
-                                                    @error('number')
+                                                    @error('price')
                                                         <p class="help is-danger">{{$errors->first('number')}}</p>
                                                     @enderror
                                         </div>

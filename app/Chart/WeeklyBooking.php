@@ -15,21 +15,21 @@ class WeeklyBooking
         group by date_part('month',gc_event_begins)
         order by event_by_month");
 
-        // $result[] = $bookings;
-        // foreach ($result as $month) {
-        //     $January = $month[0]->count;
-        //     $February = $month[1]->count;
-        //     $March = $month[2]->count;
-        //     $April = $month[3]->count;
-        //     $May = $month[4]->count;
-        //     $June = $month[5]->count;
-        //     $July = $month[6]->count;
-        //     $August = $month[7]->count;
-        //     $September = $month[8]->count;
-        //     $October = $month[9]->count;
-        //     $November = $month[10]->count;
-        //     $December = $month[11]->count;
-        // }
+        $result[] = $bookings;
+        foreach ($result as $month) {
+            $January = $month[0]->count;
+            $February = $month[1]->count;
+            $March = $month[2]->count;
+            $April = $month[3]->count;
+            $May = $month[4]->count;
+            $June = $month[5]->count;
+            $July = $month[6]->count;
+            $August = $month[7]->count;
+            $September = $month[8]->count;
+            $October = $month[9]->count;
+            $November = $month[10]->count;
+            $December = $month[11]->count;
+        }
 
 
         $data = [
@@ -42,18 +42,18 @@ class WeeklyBooking
                         'backgroundColor' => 'rgb(75, 192, 192)',
                         'borderColor' => 'rgb(75, 192, 192)',
                         'data' => [
-                            // $January,
-                            // $February,
-                            // $March,
-                            // $April,
-                            // $May,
-                            // $June,
-                            // $July,
-                            // $August,
-                            // $September,
-                            // $October,
-                            // $November,
-                            // $December
+                            $January,
+                            $February,
+                            $March,
+                            $April,
+                            $May,
+                            $June,
+                            $July,
+                            $August,
+                            $September,
+                            $October,
+                            $November,
+                            $December
                         ],
                         'fill' => false,
                     ]

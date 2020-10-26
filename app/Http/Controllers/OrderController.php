@@ -37,9 +37,9 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-            $this->storeOrders();
-            Order::create($request->all());
-            return redirect()->route('order.index')->with('Order is created.');
+        $this->validateOrders();
+        Order::create($request->all());
+        return redirect()->route('order.index')->with('Order is created.');
     }
 
     /**
@@ -73,8 +73,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $order->update($this->validateOrders());
-
+        $order->update($request->all());
         return redirect()->route('order.index')->with('Order is Updated.');
     }
 
@@ -91,16 +90,6 @@ class OrderController extends Controller
         return redirect()->route('order.index')->with('Order succesfully deleted.');
     }
 
-    protected function storeOrders()
-    {
-        return request()->validate([
-            'size' => 'required',
-            'material' => 'required',
-            'price' => 'required',
-            'prefered_pickup_datetime' => 'required',
-        ]);
-    }
-
     protected function validateOrders()
     {
         return request()->validate([
@@ -108,13 +97,6 @@ class OrderController extends Controller
             'material' => 'required',
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
-            'actual_length' => 'required',
-            'actual_width' => 'required',
-            'actual_material' => 'required',
-            'actual_price' => 'required',
-            'status' => 'required',
         ]);
     }
-
-
 }
