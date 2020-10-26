@@ -6,12 +6,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Starter Page</h1>
+                    <h1 class="m-0 text-dark">Home</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
                     </ol>
                 </div>
             </div>
@@ -27,11 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Incomplete Bookings</h5>
-
                             <canvas id="incompleteBooking" config="{{$incompleteBookingChart}}"></canvas>
-
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
                         </div>
                     </div>
                 </div>
@@ -40,7 +35,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Monthly Bookings</h5>
 
-                            <canvas id="weeklyBooking" config="{{$weeklyBookingChart}}"></canvas>
+                            <canvas id="monthlyBooking" config="{{$monthlyBookingChart}}"></canvas>
                         </div>
                     </div>
                 </div>

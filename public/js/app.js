@@ -76988,11 +76988,11 @@ if (incompleteBooking) {
   new Chart(incompleteBooking, JSON.parse(config));
 }
 
-var weeklyBooking = document.getElementById('weeklyBooking');
+var monthlyBooking = document.getElementById('monthlyBooking');
 
-if (weeklyBooking) {
-  var config = weeklyBooking.getAttribute('config');
-  new Chart(weeklyBooking, JSON.parse(config));
+if (monthlyBooking) {
+  var config = monthlyBooking.getAttribute('config');
+  new Chart(monthlyBooking, JSON.parse(config));
 }
 
 /***/ }),

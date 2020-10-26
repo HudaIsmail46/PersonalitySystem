@@ -2477,6 +2477,7 @@
         },
         {
             "name": "nesbot/carbon",
+
             "version": "2.41.5",
             "source": {
                 "type": "git",
@@ -2487,6 +2488,8 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c4a9caf97cfc53adfc219043bcecf42bc663acee",
                 "reference": "c4a9caf97cfc53adfc219043bcecf42bc663acee",
+            
+
                 "shasum": ""
             },
             "require": {
@@ -2566,7 +2569,9 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2020-10-23T06:02:30+00:00"
+
         },
         {
             "name": "nikic/php-parser",
@@ -4970,7 +4975,9 @@
                 "portable"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-ctype/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5050,7 +5057,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-iconv/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5131,7 +5140,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5219,7 +5230,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5303,7 +5316,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5383,7 +5398,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5463,7 +5480,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-php70/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5539,7 +5558,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-php72/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5618,7 +5639,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-php73/tree/v1.19.0"
+
             },
             "funding": [
                 {
@@ -5701,7 +5724,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-php80/tree/v1.19.0"
+
             },
             "funding": [
                 {
