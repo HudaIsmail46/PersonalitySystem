@@ -42,6 +42,7 @@
                             @can('create bookings')
                             <a href={{route('booking.create')}} class="nav-link {{ (request()->is('booking/create')) ? 'active' : '' }}">
                                 <i class="fas fa-briefcase"></i>
+
                                 <p>Create Bookings</p>
                             </a>
                             @endcan
@@ -49,11 +50,13 @@
                     </ul>
                 </li>
             </ul>
+
             @endcan
             @can('list customers')
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview menu-{{ (request()->is('customer*')) ? 'open' : '' }}">
                     <a href="#" class="nav-link active">
+
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Customers
@@ -76,11 +79,13 @@
                     </ul>
                 </li>
             </ul>
+
             @endcan
             @can('list users')
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview menu-{{ (request()->is('user*')) ? 'open' : '' }}">
                     <a href="#" class="nav-link active">
+
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             Users
@@ -103,6 +108,7 @@
                     </ul>
                 </li>
             </ul>
+
             @endcan
         </nav>
     </div>

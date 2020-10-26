@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(auth()->check()){
-        return redirect()->route('home');    
+        return redirect()->route('home');
     }
     return view('welcome');
 });
 
 Route::get('/logout', function () {
     auth()->logout();
-    
+
     return 'You are now logged out';
 });
 
@@ -68,3 +68,18 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     Route::put('/{user}', 'UserController@update')->name('update');
 });
+
+##order CRUD
+Route::prefix('/order')->name('order.')->group(function(){
+    Route::get('/', 'OrderController@index')->name('index');
+    Route::get('/create', 'OrderController@create')->name('create');
+    Route::post('/', 'OrderController@store')->name('store');
+    Route::get('/{order}', 'OrderController@show')->name('show'); //okey
+    Route::get('/{order}/edit', 'OrderController@edit')->name('edit'); //okey
+    Route::delete('/{order}', 'OrderController@destroy')->name('destroy'); //okeyy
+    Route::put('/{order}', 'OrderController@update')->name('update'); //okey
+});
+
+
+
+
