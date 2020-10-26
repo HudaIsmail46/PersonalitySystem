@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use \Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -79,7 +80,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        $all_roles = Role::all()->pluck('name');
+        return view('user.edit', compact('user', 'all_roles'));
     }
 
     /**
@@ -91,9 +93,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $roles = $request->roles;
+        $user->syncRoles($roles);
         $user->update($this->validateUpdateUser());
-
-        return redirect()->route('user.show',$user->id)->with('User is created.');
+        return redirect()->route('user.show',$user->id)->with('User details updated.');
     }
 
     /**
