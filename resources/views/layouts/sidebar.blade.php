@@ -110,6 +110,36 @@
             </ul>
 
             @endcan
+
+            @can('list Orders')
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-{{ (request()->is('order*')) ? 'open' : '' }}">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>
+                            Orders
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href={{route('order.index')}} class="nav-link {{ (request()->is('order/index')) ? 'active' : '' }}">
+                                <i class=" fa fa-shopping-cart nav-icon"></i>
+                                <p>All Orders</p>
+                            </a>
+                            @can('create Orders')
+                            <a href={{route('order.create')}} class="nav-link {{ (request()->is('order/create')) ? 'active' : '' }}">
+                                <i class="fas fa-cart-plus"></i>
+
+                                <p>Create Orders</p>
+                            </a>
+                            @endcan
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            @endcan
         </nav>
     </div>
 </aside>
