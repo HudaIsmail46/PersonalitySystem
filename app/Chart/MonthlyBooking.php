@@ -25,6 +25,7 @@ class MonthlyBooking
             date_part('year',gc_event_begins) as year, 
             count(id) as count
             from bookings
+            where deleted_at is null
             group by month, year
             order by year, month");
 
