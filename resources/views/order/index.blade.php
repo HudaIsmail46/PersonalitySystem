@@ -34,10 +34,10 @@
                                         <th>Material</th>
                                         <th>Price</th>
                                         <th>Prefered Date Time</th>
-                                        <th>Actual Size</th>
+                                        <th>Actual Length</th>
+                                        <th>Actual Width</th>
                                         <th>Actual Material</th>
                                         <th>Actual Price</th>
-                                        <th>Images</th>
                                         <th>Status</th>
                                         <th></th>
                                     </tr>
@@ -48,18 +48,18 @@
                                         <td>{{ $order->size}}</td>
                                         <td>{{ $order->material }}</td>
                                         <td>{{ $order->price}}</td>
-                                        <td>{{ $order->prefered_datetime}}</td>
-                                        <td>{{ $order->actual_size}}</td>
+                                        <td>{{ $order->prefered_pickup_datetime}}</td>
+                                        <td>{{ $order->actual_length}}</td>
+                                        <td>{{ $order->actual_width}}</td>
                                         <td>{{ $order->actual_material}}</td>
                                         <td>{{ $order->actual_price}}</td>
-                                        <td>{{ $order->images}}</td>
                                         <td>{{ $order->status}}</td>
 
                                     </tr>
                                     @endforeach
 
                                 </table>
-                                <!-- {{ $orders ?? ''->links() }} -->
+                                {{ $orders ?? ''->links() }}
                             </div>
                         </div>
                     </div>

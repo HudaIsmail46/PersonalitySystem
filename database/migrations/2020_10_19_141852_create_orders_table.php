@@ -19,10 +19,10 @@ class CreateOrdersTable extends Migration
             $table->string('material');
             $table->integer('price');
             $table->dateTime('prefered_pickup_datetime');
-            $table->enum('actual_size', ['xs','s','m','l','xl'])->nullable();
+            $table->integer('actual_length')->nullable();
+            $table->integer('actual_width')->nullable();
             $table->string('actual_material')->nullable();
-            $table->integer('actual_price');
-            $table->string('images')->nullable();
+            $table->integer('actual_price')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

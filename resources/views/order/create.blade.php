@@ -13,10 +13,9 @@
                     Create Order
                 </div>
 
-
                 <div class ="inner">
                     <div class="card-body>">
-                        <form method="POST" action="{{route('order.store')}}">
+                        <form method="post" action="{{route('order.store')}}">
                         @csrf
 
                             <div class="container">
@@ -89,95 +88,12 @@
                                         </div>
                                 </div>
 
-                                <div class="field">
-                                    <label class="label" for ="actual_size">Actual Size</label>
-
-                                        <div class="form-group">
-                                            <select id="actual_size" name="actual_size">
-                                                <option value="xs">xs</option>
-                                                <option value="s">s</option>
-                                                <option value="m">m</option>
-                                                <option value="l">l</option>
-                                                <option value="xl">xl</option>
-                                            </select>
-                                        </div>
-                                </div>
-
-                                <div class="field">
-                                    <label class="label" for ="actual_material">actual_material</label>
-
-                                        <div class="form-group">
-                                            <input
-                                                class="input @error('actual_material') is-danger @enderror"
-                                                type="input"
-                                                name="actual_material"
-                                                id="actual_material"
-                                                value="{{old('actual_material')}}"
-                                                placeholder="actual_material">
-
-                                                @error('actual_material')
-                                                    <p class="help is-danger">{{$errors->first('actual_material')}}</p>
-                                                @enderror
-                                        </div>
-                                </div>
-
-                                <div class="field">
-                                    <label class="label" for ="actual_price">actual_price</label>
-
-                                        <div class="form-group">
-                                            <input
-                                                class="input @error('actual_price') is-danger @enderror"
-                                                type="number"
-                                                name="actual_price"
-                                                id="actual_price"
-                                                value="{{old('actual_price')}}"
-                                                placeholder="actual_price">
-
-                                                @error('actual_price')
-                                                    <p class="help is-danger">{{$errors->first('actual_price')}}</p>
-                                                @enderror
-                                        </div>
-                                </div>
-
-                                <div class="field">
-                                    <label class="label" for ="images">Images</label>
-
-                                        <div class="form-group">
-                                            <input
-                                                class="input @error('images') is-danger @enderror"
-                                                type="input"
-                                                name="images"
-                                                id="images"
-                                                value="{{old('images')}}"
-                                                placeholder="images">
-
-                                                @error('images')
-                                                    <p class="help is-danger">{{$errors->first('images')}}</p>
-                                                @enderror
-                                        </div>
-                                </div>
-
-                                <div class="field">
-                                    <label class="label" for ="status">Status</label>
-
-                                        <div class="form-group">
-                                            <select id="status" name="status">
-                                                <option value="pending">pending</option>
-                                                <option value="delivered">delivered</option>
-                                                <option value="in_warehouse">In Warehouse</option>
-                                                <option value="process">process</option>
-                                            </select>
-                                        </div>
-                                </div>
-
                                 <div class="field is grouped">
                                     <div class="form-group">
                                         <button class="btn btn-primary" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>

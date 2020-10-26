@@ -97,9 +97,9 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Booking $bookings)
+    public function edit(Booking $booking)
     {
-        return view('booking.edit', compact('bookings'));
+        return view('booking.edit', compact('booking'));
     }
 
     /**
@@ -109,9 +109,9 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $bookings)
+    public function update(Booking $booking)
     {
-        $bookings->update($this->validateBooking());
+        $booking->update($this->validateBooking());
         return back()->with('success', 'Bookings updated successfully.');
     }
 

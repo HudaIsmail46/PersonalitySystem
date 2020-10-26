@@ -35,41 +35,28 @@ Route::get('/home', 'HomeController@index')->name('home');
 ## Import
 Route::get('/bookings/import-excel', 'ImportExcel\ImportExcelController@index')->name('booking.import.new');
 Route::post('/bookings/import-excel', 'ImportExcel\ImportExcelController@import')->name('booking.import');
-//show - get a booking
 
-## View all
-Route::get('/booking', 'BookingController@index')->name('booking.index');
+## Booking CRUD
+Route::prefix('/booking')->name('booking.')->group(function () {
+    Route::get('/index', 'BookingController@index')->name('index');
+    Route::get('/create', 'BookingController@create')->name('create');
+    Route::post('/', 'BookingController@store')->name('store');
+    Route::get('/{booking}', 'BookingController@show')->name('show');
+    Route::get('/{booking}/edit', 'BookingController@edit')->name('edit');
+    Route::delete('/{booking}', 'BookingController@destroy')->name('destroy');
+    Route::put('/{booking}', 'BookingController@update')->name('update');
+});
 
-Route::get('/customer', 'CustomerController@index')->name('customer.index');
-
-## Create
-Route::get('/booking/create', 'BookingController@create')->name('booking.create');
-
-Route::get('/customer/create', 'CustomerController@create')->name('customer.create');
-
-Route::post('/booking/store', 'BookingController@store')->name('booking.store');
-
-Route::post('/customer/store', 'CustomerController@store')->name('customer.store');
-
-## View one booking
-Route::get('/booking/{booking}', 'BookingController@show')->name('booking.show');
-
-Route::get('/customer/{customers}', 'CustomerController@show')->name('customer.show');
-
-## Update
-Route::get('/booking/{bookings}/edit', 'BookingController@edit')->name('booking.edit');
-
-Route::get('/customer/{customers}/edit', 'CustomerController@edit')->name('customer.edit');
-
-Route::put('/booking/{bookings}', 'BookingController@update')->name('booking.update');
-
-Route::put('/customer/{customers}', 'CustomerController@update')->name('customer.update');
-
-
-## Delete
-Route::delete('/booking/delete/{booking}', 'BookingController@destroy')->name('booking.destroy');
-
-Route::delete('/customer/delete/{customers}', 'CustomerController@destroy')->name('customer.destroy');
+## Customer CRUD
+Route::prefix('/customer')->name('customer.')->group(function () {
+    Route::get('/index', 'CustomerController@index')->name('index');
+    Route::get('/create', 'CustomerController@create')->name('create');
+    Route::post('/', 'CustomerController@store')->name('store');
+    Route::get('/{customer}', 'CustomerController@show')->name('show');
+    Route::get('/{customer}/edit', 'CustomerController@edit')->name('edit');
+    Route::delete('/{customer}', 'CustomerController@destroy')->name('destroy');
+    Route::put('/{customer}', 'CustomerController@update')->name('update');
+});
 
 ## User CRUD
 Route::prefix('/user')->name('user.')->group(function () {
@@ -83,13 +70,16 @@ Route::prefix('/user')->name('user.')->group(function () {
 });
 
 ##order CRUD
+Route::prefix('/order')->name('order.')->group(function(){
+    Route::get('/', 'OrderController@index')->name('index');
+    Route::get('/create', 'OrderController@create')->name('create');
+    Route::post('/', 'OrderController@store')->name('store');
+    Route::get('/{order}', 'OrderController@show')->name('show'); //okey
+    Route::get('/{order}/edit', 'OrderController@edit')->name('edit'); //okey
+    Route::delete('/{order}', 'OrderController@destroy')->name('destroy'); //okeyy
+    Route::put('/{order}', 'OrderController@update')->name('update'); //okey
+});
 
-Route::get('/order', 'OrderController@index')->name('order.index');
-Route::get('/order/create', 'OrderController@create')->name('order.create');
-Route::post('/order/store', 'OrderController@store')->name('order.store');
-Route::get('/order/{orders}', 'OrderController@show')->name('order.show');
-Route::get('/order/{order}/edit', 'OrderController@edit')->name('order.edit');
-Route::delete('/order/delete/{orders}', 'OrderController@destroy')->name('order.destroy');
-Route::put('/order/{order}', 'OrderController@update')->name('order.update');
+
 
 
