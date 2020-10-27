@@ -42,7 +42,7 @@ class ExtractEventDetails
             $event->booking->fill([
                 'name'=> $name,
                 'phone_no'=> $phone_no,
-                'price'=> $this->getGrandTotal($bookingDescription),
+                'gc_price'=> $this->getGrandTotal($bookingDescription),
                 'deposit'=> $this->getDeposit($bookingDescription),
                 'discount'=> $this->getDiscount($bookingDescription),
                 'customer_id'=> $customer ? $customer->id : null

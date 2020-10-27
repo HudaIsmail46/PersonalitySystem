@@ -86,7 +86,7 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateBooking();
+        $this->validateCreateBooking();
         Booking::create($request->all());
         return back()->with('success', 'Bookings created successfully.');
     }
@@ -111,8 +111,8 @@ class BookingController extends Controller
      */
     public function update(Booking $booking)
     {
-        $booking->update($this->validateBooking());
-        return back()->with('success', 'Bookings updated successfully.');
+        $booking->update($this->validateUpdateBooking());
+        return redirect()->route('booking.show',$booking->id)->with('Booking updated successfully.');
     }
 
     /**
@@ -127,7 +127,7 @@ class BookingController extends Controller
         return redirect()->route('booking.index')->with('Booking is deleted.');
     }
 
-    protected function validateBooking()
+    protected function validateCreateBooking()
     {
         return request()->validate([
             'event_title' => 'required',
@@ -136,6 +136,15 @@ class BookingController extends Controller
             'event_ends' => 'required|after_or_equal:event_begins',
             'description' => 'required',
             'team' => 'required'
+        ]);
+    }
+
+    protected function validateUpdateBooking()
+    {
+        return request()->validate([
+            'invoice_number' => 'max:10',
+            'receipt_number' => 'max:6',
+            'status' => 'required'
         ]);
     }
 }
