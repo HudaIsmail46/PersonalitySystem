@@ -35,6 +35,7 @@
                             <th>Event Ends</th>
                             <th>Description</th>
                             <th>Team</th>
+                            <th>Status</th>
                         </tr>
                         <tr>
                             <td>{{ $booking->id}}</td>
@@ -43,6 +44,7 @@
                             <td>{{ $booking->gc_event_ends }}</td>
                             <td>{{ $booking->gc_description }}</td>
                             <td>{{ $booking->gc_team }}</td>
+                            <td>{{ $booking->status }}</td>
                         </tr>
                         <tfoot>
                             @can('edit bookings')
