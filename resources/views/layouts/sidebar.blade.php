@@ -41,7 +41,7 @@
                             </a>
                             @can('create bookings')
                             <a href={{route('booking.create')}} class="nav-link {{ (request()->is('booking/create')) ? 'active' : '' }}">
-                                <i class="fas fa-briefcase"></i>
+                                <i class="fas fa-calendar-plus nav-icon"></i>
 
                                 <p>Create Bookings</p>
                             </a>
@@ -129,7 +129,7 @@
                             </a>
                             @can('create Orders')
                             <a href={{route('order.create')}} class="nav-link {{ (request()->is('order/create')) ? 'active' : '' }}">
-                                <i class="fas fa-cart-plus"></i>
+                                <i class="fas fa-cart-plus nav-icon"></i>
 
                                 <p>Create Orders</p>
                             </a>
