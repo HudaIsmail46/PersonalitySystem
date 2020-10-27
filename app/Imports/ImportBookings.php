@@ -19,7 +19,7 @@ class ImportBookings implements ToModel,WithStartRow
     {
         $name = @$row[0];
         $phone_no = @$row[13];
-        $customer = Customer::firstOrCreate($name, $phone_no);
+        $customer = Customer::findOrCreate($name, $phone_no);
         return new Booking([
             'gc_event_title' => @$row[0],
             'gc_address' => @$row[3],

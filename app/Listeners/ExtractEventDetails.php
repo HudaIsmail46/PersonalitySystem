@@ -38,7 +38,7 @@ class ExtractEventDetails
         if (!is_null($bookingDescription)) {
             $name = $this->getCustomerName($bookingDescription);
             $phone_no = $this->getPhoneNumber($bookingDescription);
-            $customer = Customer::firstOrCreate($name, $phone_no);
+            $customer = Customer::findOrCreate($name, $phone_no);
             $event->booking->fill([
                 'name'=> $name,
                 'phone_no'=> $phone_no,

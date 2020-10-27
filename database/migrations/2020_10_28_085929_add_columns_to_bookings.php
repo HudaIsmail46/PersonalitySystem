@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeletesToOrdersTable extends Migration
+class AddColumnsToBookings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddSoftDeletesToOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->string('af_reference')->nullable();
+            $table->text('remarks')->nullable();
         });
     }
 
@@ -25,8 +26,9 @@ class AddSoftDeletesToOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->dropColumn('af_reference');
+            $table->dropColumn('remarks');
         });
     }
 }
