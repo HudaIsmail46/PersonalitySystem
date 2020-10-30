@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RunnerSchedule extends Model
 {
-    protected $fillable =['runner_id','scheduled_at','started_at','expected_complete','complete_at','status'];
+    protected $fillable =['runner_id','scheduled_at','started_at','expected_at','completed_at','status'];
     use SoftDeletes;
 
     public function path()
@@ -15,11 +15,11 @@ class RunnerSchedule extends Model
         return route('runner_schedule.show', $this);
     }
 
-    protected $dates =['started_at','expected_complete'];
+    protected $dates =['started_at','expected_at','completed_at'];
 
 
-    public function User()
+    public function runner()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class,'runner_id');
     }
 }

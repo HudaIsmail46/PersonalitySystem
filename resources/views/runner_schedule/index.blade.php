@@ -33,19 +33,19 @@
                                         <th>Runner Id</th>
                                         <th>Schedule at</th>
                                         <th>Started at</th>
-                                        <th>Expected complete</th>
-                                        <th>Complete at</th>
+                                        <th>Expected at</th>
+                                        <th>Completed at</th>
                                         <th>Status</th>
                                     </tr>
                                     <tr>
                                         @foreach($runner_schedules as $runner_schedule)
 
                                         <td><a href="{{$runner_schedule->path()}}">{{ $runner_schedule ->id}}</td>
-                                        <td>{{ $runner_schedule->runner_id}}</td>
-                                        <td>{{ $runner_schedule->scheduled_at }}</td>
-                                        <td>{{ $runner_schedule->started_at}}</td>
-                                        <td>{{ $runner_schedule->expected_complete}}</td>
-                                        <td>{{ $runner_schedule->complete_at}}</td>
+                                        <td>{{ $runner_schedule->runner->name}}</td>
+                                        <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at))}}</td>
+                                        <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->started_at))}}</td>
+                                        <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->at))}}</td>
+                                        <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at))}}</td>
                                         <td>{{ $runner_schedule->status}}</td>
                                     </tr>
                                     @endforeach

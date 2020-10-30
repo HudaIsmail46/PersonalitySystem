@@ -15,12 +15,18 @@ class CreateRunnerSchedulesTable extends Migration
     {
         Schema::create('runner_schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('runner_id',['1','2','3']);
+            $table->integer('runner_id')->unsigned();
+
+            $table->foreign('runner_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->datetime('scheduled_at')->nullable();
             $table->datetime('started_at')->nullable();
-            $table->datetime('expected_complete')->nullable();
-            $table->datetime('complete_at')->nullable();
-            $table->enum('status', ['draft','scheduled','compete'])->nullable();
+            $table->datetime('expected_at')->nullable();
+            $table->datetime('completed_at')->nullable();
+            $table->enum('status', ['draft','scheduled','on_route','completed'])->nullable();
             $table->timestamps();
         });
     }

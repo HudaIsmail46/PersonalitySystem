@@ -13,8 +13,9 @@ class AddSoftDeletesToRunnerSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::table('runner_schedules', function (Blueprint $table) {
-        $table->softDeletes();
+        Schema::table('runner_schedules', function (Blueprint $table)
+        {
+            $table->softDeletes();
         });
     }
 
@@ -25,8 +26,9 @@ class AddSoftDeletesToRunnerSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::table('runner_schedules', function (Blueprint $table) {
-        $table->dropSoftDeletes();
+        Schema::table('runner_schedules', function (Blueprint $table)
+        {
+            $table->dropSoftDeletes();
         });
     }
 }

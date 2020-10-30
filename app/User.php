@@ -43,8 +43,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function RunnerSchedule()
+    public function runnerSchedule()
     {
-        return $this->hasMany('App\RunnerSchedule','foreign_key');
+        return $this->hasMany('App\RunnerSchedule','runner_id');
     }
 }

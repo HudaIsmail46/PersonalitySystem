@@ -21,17 +21,17 @@
                             <th>Runner id</th>
                             <th>Scheduled at</th>
                             <th>Started at</th>
-                            <th>Expected Completed</th>
-                            <th>Complete at</th>
+                            <th>Expected at</th>
+                            <th>Completed at</th>
                             <th>Status</th>
                         </tr>
                         <tr>
                             <td>{{ $runner_schedule->id}}</td>
-                            <td>{{ $runner_schedule->runner_id }}</td>
-                            <td>{{ $runner_schedule->scheduled_at }}</td>
-                            <td>{{ $runner_schedule->started_at }}</td>
-                            <td>{{ $runner_schedule->expected_complete }}</td>
-                            <td>{{ $runner_schedule->complete_at }}</td>
+                            <td>{{ $runner_schedule->runner->name }}</td>
+                            <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
+                            <td>{{ $runner_schedule->started_at ? $runner_schedule->started_at->format('D, dS M Y, H:i:s') : null}}</td>
+                            <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->expected_at))}}</td>
+                            <td>{{ $runner_schedule->completed_at ? $runner_schedule->completed_at->format('D, dS M Y, H:i:s') : null}}</td>
                             <td>{{ $runner_schedule->status }}</td>
                         </tr>
                         <tfoot>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\RunnerSchedule;
 use Illuminate\Http\Request;
-use \Spatie\Permission\Models\Role;
 
 class RunnerScheduleController extends Controller
 {
@@ -15,16 +14,11 @@ class RunnerScheduleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //  public function __contruct()
-    //  {
-    //      $this->middleware(['auth','can: list runner_schedules | edit runner_schedules | delete runner_schedules']);
-    //  }
     public function index()
     {
         $runner_schedules =RunnerSchedule::orderBy('id','ASC')->paginate(50);
-        return view('runner_schedule.index', ['runner_schedules' => $runner_schedules])
-        ->with('i',($runner_schedules->get('page',1)-1)*50);
-        // $users = User::roles('Runner')->get();
+
+        return view('runner_schedule.index',compact('runner_schedules'));
     }
 
     /**
@@ -32,11 +26,11 @@ class RunnerScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(RunnerSchedule $runner_schedule)
     {
         $runners  = User::role('Runner')->get();
-        return view('runner_schedule.create');
 
+        return view('runner_schedule.create',compact('runner_schedule', 'runners'));
     }
 
     /**
@@ -48,12 +42,16 @@ class RunnerScheduleController extends Controller
     public function store(Request $request)
     {
         $this->validateDates();
-        RunnerSchedule::create($runners->all());
-        return redirect()->route('runner_schedule.index')->with('success');
+        $runner_schedule = new RunnerSchedule;
+        $runner_schedule->fill([
+            'runner_id' =>$request->runner_id,
+            'scheduled_at'=>$request->scheduled_at,
+            'expected_at' =>$request->expected_at,
+            'status'=>$request->status
+        ]);
+        $runner_schedule->save();
 
-        // $runner_schedule = new RunnerSchedule();
-        // $runner_schedule = runner_id
-
+        return redirect()->route('runner_schedule.show', compact('runner_schedule'));
     }
 
     /**
@@ -75,10 +73,8 @@ class RunnerScheduleController extends Controller
      */
     public function edit(RunnerSchedule $runner_schedule)
     {
-
         $runners  = User::role('Runner')->get();
         return view('runner_schedule.edit', compact('runner_schedule','runners'));
-
     }
 
     /**
@@ -91,7 +87,7 @@ class RunnerScheduleController extends Controller
     public function update(Request $request, RunnerSchedule $runner_schedule)
     {
         $runner_schedule->update($request->all());
-        return redirect()->route('runner_schedule.index')->with('Runner Schedule is Updated');
+        return redirect()->route('runner_schedule.index', compact('runner_schedule'));
     }
 
     /**
@@ -104,14 +100,14 @@ class RunnerScheduleController extends Controller
     {
         $runner_schedule->delete();
 
-         return redirect()->route('runner_schedule.index')->with('Runner Schedule sucessfully deleted');
+         return redirect()->route('runner_schedule.index',compact('runner_schedule'));
     }
 
     protected function validateDates()
     {
         return request()->validate([
             'scheduled_at'=>'required',
-            'expected_complete'=>'required|after:scheduled_at',
+            'expected_at'=>'required|after:scheduled_at',
             'status' => 'required',
         ]);
     }

@@ -14,7 +14,7 @@
     </div>
 
     <div class="field" >
-        <label class="label" for="scheduled_at">Schedule at</label>
+        <label class="label" for="scheduled_at">scheduled at</label>
         <div class="form-group">
             <input class="input @error('scheduled_at') is-danger @enderror"
             type="datetime-local"
@@ -32,34 +32,35 @@
             type="datetime-local"
             name="started_at"
             id="started_at"
-            value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->scheduled_at))}}"
+            value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->started_at))}}"
             placeholder=" started_at">
             <p class="help is-danger">{{ $errors->first('started_at')}}</p>
         </div>
     </div>
 
     <div class="field" >
-        <label class="label" for="expected_complete">Expected Complete </label>
+        <label class="label" for="expected_at">Expected at </label>
         <div class="form-group">
-            <input class="input @error('expected_complete') is-danger @enderror"
+            <input class="input @error('expected_at') is-danger @enderror"
             type="datetime-local"
-            name="expected_complete"
-            id="expected_complete"
-            value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->scheduled_at))}}"
-            placeholder=" expected_complete">
-            <p class="help is-danger">{{ $errors->first('expected_complete')}}</p>
+            name="expected_at"
+            id="expected_at"
+            value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->expected_at))}}"
+            placeholder=" expected_at">
+            <p class="help is-danger">{{ $errors->first('expected_at')}}</p>
         </div>
+    </div>
 
     <div class="field" >
-        <label class="label" for="complete_at">Complete at </label>
+        <label class="label" for="completed_at">completed at </label>
         <div class="form-group">
-            <input class="input @error('complete_at') is-danger @enderror"
+            <input class="input @error('completed_at') is-danger @enderror"
             type="datetime-local"
-            name="complete_at"
-            id="complete_at"
-            value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->scheduled_at))}}"
-            placeholder=" complete_at">
-            <p class="help is-danger">{{ $errors->first('complete_at')}}</p>
+            name="completed_at"
+            id="completed_at"
+            value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->completed_at))}}"
+            placeholder=" completed_at">
+            <p class="help is-danger">{{ $errors->first('completed_at')}}</p>
         </div>
     </div>
 

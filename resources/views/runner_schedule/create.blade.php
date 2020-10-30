@@ -2,7 +2,7 @@
 
 @section('title', 'Page Title')
 
-    <title>Create Runner Schedule</title>
+    <title>Create Order</title>
 
 @section('content')
 
@@ -12,26 +12,70 @@
                 <div class="card-header">
                     Create Runner Schedule
                 </div>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-                @if($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
-                <div class="inner">
-                    <div class="card-body">
+
+                <div class ="inner">
+                    <div class="card-body>">
                         <form method="post" action="{{route('runner_schedule.store')}}">
-                           @include ('runner_schedule.form')
+                        @csrf
+
+                            <div class="container">
+
+                                <div class="field">
+                                    <label class="label" for="runner_id"> Runner </label>
+                                        <div class="form-group">
+                                        @csrf
+                                            <select id="runner_id" name="runner_id">
+                                                @foreach($runners as $runner)
+                                                    <option value="{{$runner->id}}">{{$runner->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                </div>
+
+                                <div class="field" >
+                                    <label class="label" for="scheduled_at">Schedule at</label>
+                                    <div class="form-group">
+                                        <input class="input @error('scheduled_at') is-danger @enderror"
+                                        type="datetime-local"
+                                        name="scheduled_at"
+                                        id="scheduled_at"
+                                        value="{{ old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->scheduled_at)) }}"
+                                        placeholder=" scheduled_at">
+                                        <p class="help is-danger">{{ $errors->first('scheduled_at')}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="field" >
+                                    <label class="label" for="expected_at">Expected at </label>
+                                    <div class="form-group">
+                                        <input class="input @error('expected_at') is-danger @enderror"
+                                        type="datetime-local"
+                                        name="expected_at"
+                                        id="expected_at"
+                                        value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->expected_at))}}"
+                                        placeholder=" expected_at">
+                                        <p class="help is-danger">{{ $errors->first('expected_at')}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="field" >
+                                    <label class="label" for="status">Status </label>
+                                    <div class="form-group">
+                                    <select id="status" name="status">
+                                        <option value="draft" {{($runner_schedule->status === 'draft') ? 'Selected' : ''}}>draft</option>
+                                        <option value="scheduled" {{($runner_schedule->status === 'schedule') ? 'Selected' : ''}}>scheduled</option>
+                                        <option value="on_route"{{($runner_schedule->status === 'on_route') ? 'Selected' : ''}}>on route</option>
+                                        <option value="completed" {{($runner_schedule->status === 'completed') ? 'Selected' : ''}}>completed</option>
+                                    </select>
+                                    </div>
+                                </div>
+
+                                <div class="field is grouped">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -39,4 +83,5 @@
         </div>
     </div>
 
-@endsection
+    @endsection
+

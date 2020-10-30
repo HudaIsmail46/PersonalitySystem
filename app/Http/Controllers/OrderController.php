@@ -43,7 +43,7 @@ class OrderController extends Controller
         $order = new Order;
         $order->fill([
             'customer_id' => $customer->id,
-            'size' => $request->size, 
+            'size' => $request->size,
             'material' => $request->material,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
@@ -89,7 +89,7 @@ class OrderController extends Controller
             'actual_size' => $request->actual_size,
             'actual_material' => $request->actual_material,
             'actual_price' => $this->priceCents($request->actual_price),
-            'size' => $request->size, 
+            'size' => $request->size,
             'material' => $request->material,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
