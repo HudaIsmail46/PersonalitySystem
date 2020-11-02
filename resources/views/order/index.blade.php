@@ -44,11 +44,11 @@
                                     <tr>
                                         @foreach($orders as $order)
 
-                                        <td><a href="{{$order->path()}}">{{ $order ->id}}</td>
+                                        <td><a href="{{route('order.show', $order)}}">{{ $order ->id}}</td>
                                         <td>{{ $order->size}}</td>
                                         <td>{{ $order->material }}</td>
                                         <td>{{ money($order->price)}}</td>
-                                        <td>{{ $order->prefered_pickup_datetime}}</td>
+                                        <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
                                         <td>{{ $order->actual_length}}</td>
                                         <td>{{ $order->actual_width}}</td>
                                         <td>{{ $order->actual_material}}</td>
