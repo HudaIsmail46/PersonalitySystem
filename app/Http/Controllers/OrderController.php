@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Customer;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -37,9 +38,19 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateOrders();
-        Order::create($request->all());
-        return redirect()->route('order.index')->with('Order is created.');
+        $this->validateCreateOrders();
+        $customer = Customer::firstOrCreate($request->customer_name, $request->customer_phone_no);
+        $order = new Order;
+        $order->fill([
+            'customer_id' => $customer->id,
+            'size' => $request->size, 
+            'material' => $request->material,
+            'price' => $this->priceCents($request->price),
+            'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
+        ]);
+        $order->save();
+
+        return redirect()->route('order.show',$order->id)->with('Order is created.');
     }
 
     /**
@@ -73,8 +84,20 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $order->update($request->all());
-        return redirect()->route('order.index')->with('Order is Updated.');
+        $this->validateUpdateOrders();
+        $order->fill([
+            'actual_size' => $request->actual_size,
+            'actual_material' => $request->actual_material,
+            'actual_price' => $this->priceCents($request->actual_price),
+            'size' => $request->size, 
+            'material' => $request->material,
+            'price' => $this->priceCents($request->price),
+            'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
+            'status' => $request->status
+        ]);
+        $order->save();
+
+        return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
 
     /**
@@ -90,13 +113,32 @@ class OrderController extends Controller
         return redirect()->route('order.index')->with('Order succesfully deleted.');
     }
 
-    protected function validateOrders()
+    protected function priceCents($price)
+    {
+        return $price ? $price * 100 : 0;
+    }
+
+    protected function validateUpdateOrders()
     {
         return request()->validate([
             'size' => 'required',
             'material' => 'required',
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
+            'status' => 'required',
+        ]);
+    }
+
+    protected function validateCreateOrders()
+    {
+        return request()->validate([
+            'customer_name' => 'required',
+            'customer_phone_no' => 'required',
+            'size' => 'required',
+            'material' => 'required',
+            'price' => 'required',
+            'prefered_pickup_datetime' => 'required',
+            'status' => 'required',
         ]);
     }
 }
