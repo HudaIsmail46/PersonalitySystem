@@ -115,6 +115,18 @@
                                     </div>
                                 </div>
 
+                                <div class="field">
+                                    <label class="label" for ="status">Status</label>
+
+                                    <div class="form-group">
+                                        <select id="status" name="status">
+                                            @foreach(App\Order::STATUSES as $status)
+                                                <option value="{{$status}}">{{$status}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="field is grouped">
                                     <div class="form-group">
                                         <button class="btn btn-primary" type="submit">Submit</button>
