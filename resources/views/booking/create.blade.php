@@ -3,12 +3,12 @@
 @section('title', 'Page Title')
 
     <title>Create Booking</title>
-    
-@section('content')
 
-    <div id="wrapper">
-        <div id="page" class="container">
-            <div class="card mt-4">
+@section('content')
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 mx-auto card mt-4">
                 <div class="card-header">
                     Create Bookings
                 </div>
@@ -30,7 +30,7 @@
                 @endif
                 <div class="inner">
                     <div class="card-body">
-                        <form method="post" action="{{route('booking.store')}}">
+                        <form method="post" action="{{route('booking.store')}}" enctype="multipart/form-data">
                            @include ('booking.form')
                         </form>
                     </div>
@@ -38,5 +38,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection

@@ -145,7 +145,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview menu-{{ (request()->is('order*')) ? 'open' : '' }}">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-running"></i>
+                        <i class="nav-icon fas fa-running "></i>
                         <p>
                             Runner Schedule
                             <i class="right fas fa-angle-left"></i>

@@ -71,7 +71,7 @@ Route::prefix('/user')->name('user.')->group(function () {
 
 ##order CRUD
 Route::prefix('/order')->name('order.')->group(function(){
-    Route::get('/', 'OrderController@index')->name('index');
+    Route::get('/index', 'OrderController@index')->name('index');
     Route::get('/create', 'OrderController@create')->name('create');
     Route::post('/', 'OrderController@store')->name('store');
     Route::get('/{order}', 'OrderController@show')->name('show');

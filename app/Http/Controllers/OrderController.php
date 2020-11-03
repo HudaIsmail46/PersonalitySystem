@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Customer;
+use App\Images;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -39,6 +40,10 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $this->validateCreateOrders();
+
+        // $this->storeImage($order);
+        // $image=Images::find($id);
+
         $customer = Customer::firstOrCreate($request->customer_name, $request->customer_phone_no);
         $order = new Order;
         $order->fill([
@@ -49,6 +54,16 @@ class OrderController extends Controller
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);
         $order->save();
+
+        $image = new Images;
+        $image->fill([
+            'image' => $request->image,
+            'file' => $request->image,
+            'imageable_id' =>$request ->imageable_id,
+            'imageable_type' =>$request ->imageable_type,
+
+        ]);
+        $image->save();
 
         return redirect()->route('order.show',$order->id)->with('Order is created.');
     }
@@ -85,6 +100,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $this->validateUpdateOrders();
+
         $order->fill([
             'actual_size' => $request->actual_size,
             'actual_material' => $request->actual_material,
@@ -140,5 +156,23 @@ class OrderController extends Controller
             'prefered_pickup_datetime' => 'required',
             'status' => 'required',
         ]);
+
+        if(request()->hasFile('image'))
+        {
+            request()->validate([
+                'image' => 'file|image',
+            ]);
+        }
     }
+
+    // public function storeImage($order)
+    // {
+    //     if(request()->has('image'))
+    //     {
+    //         dd(request()->image);
+    //         $image->update([
+    //             'image'=>request()->image->store('uploads','public'),
+    //         ]);
+    //     }
+    // }
 }
