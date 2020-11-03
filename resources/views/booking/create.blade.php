@@ -5,10 +5,10 @@
     <title>Create Booking</title>
     
 @section('content')
-
-    <div id="wrapper">
-        <div id="page" class="container">
-            <div class="card mt-4">
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 mx-auto card mt-4">
                 <div class="card-header">
                     Create Bookings
                 </div>
@@ -38,5 +38,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection
