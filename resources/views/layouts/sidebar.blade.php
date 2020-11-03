@@ -140,6 +140,36 @@
             </ul>
 
             @endcan
+
+            @can('list Runner Schedule')
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-{{ (request()->is('order*')) ? 'open' : '' }}">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-running"></i>
+                        <p>
+                            Runner Schedule
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href={{route('runner_schedule.index')}} class="nav-link {{ (request()->is('runner_schedule/index')) ? 'active' : '' }}">
+                                <i class=" fa fa-user"></i>
+                                <p>All Runner Schedule</p>
+                            </a>
+                            @can('create Orders')
+                            <a href={{route('runner_schedule.create')}} class="nav-link {{ (request()->is('runner_schedule/create')) ? 'active' : '' }}">
+                                <i class="fas fa-user-plus"></i>
+
+                                <p>Create Runner Schedule</p>
+                            </a>
+                            @endcan
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            @endcan
         </nav>
     </div>
 </aside>

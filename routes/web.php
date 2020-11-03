@@ -74,10 +74,21 @@ Route::prefix('/order')->name('order.')->group(function(){
     Route::get('/', 'OrderController@index')->name('index');
     Route::get('/create', 'OrderController@create')->name('create');
     Route::post('/', 'OrderController@store')->name('store');
-    Route::get('/{order}', 'OrderController@show')->name('show'); //okey
-    Route::get('/{order}/edit', 'OrderController@edit')->name('edit'); //okey
-    Route::delete('/{order}', 'OrderController@destroy')->name('destroy'); //okeyy
-    Route::put('/{order}', 'OrderController@update')->name('update'); //okey
+    Route::get('/{order}', 'OrderController@show')->name('show');
+    Route::get('/{order}/edit', 'OrderController@edit')->name('edit');
+    Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
+    Route::put('/{order}', 'OrderController@update')->name('update');
+});
+
+##Runner CRUD
+Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
+    Route::get('/', 'RunnerScheduleController@index')->name('index');
+    Route::get('/create', 'RunnerScheduleController@create')->name('create');
+    Route::post('/', 'RunnerScheduleController@store')->name('store');
+    Route::get('/{runner_schedule}', 'RunnerScheduleController@show')->name('show');
+    Route::get('/{runner_schedule}/edit', 'RunnerScheduleController@edit')->name('edit');
+    Route::delete('/{runner_schedule}', 'RunnerScheduleController@destroy')->name('destroy');
+    Route::put('/{runner_schedule}', 'RunnerScheduleController@update')->name('update');
 });
 
 

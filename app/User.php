@@ -42,4 +42,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function runnerSchedule()
+    {
+        return $this->hasMany('App\RunnerSchedule','runner_id');
+    }
 }
