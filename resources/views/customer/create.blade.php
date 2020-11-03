@@ -2,13 +2,14 @@
 
 @section('title', 'Page Title')
 
-    <title>Create customer</title>
-    
+    <title>Create Customer</title>
+
 @section('content')
 
-    <div id="wrapper">
-        <div id="page" class="container">
-            <div class="card mt-4">
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 mx-auto card mt-4">
                 <div class="card-header">
                     Create Customer
                 </div>
@@ -30,13 +31,14 @@
                 @endif
                 <div class="inner">
                     <div class="card-body">
-                        <form method="post" action="{{route('customer.store')}}">
-                           @include ('customer.form')
-                        </form>
+                    <form method="post" action="{{route('customer.store')}}">
+                        @include ('customer.form')
+                    </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @endsection
+@endsection

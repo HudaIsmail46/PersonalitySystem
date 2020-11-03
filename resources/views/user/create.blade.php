@@ -1,12 +1,16 @@
 @extends ('layouts.app')
 
-@section ('content')
+@section('title', 'Page Title')
 
-    <div id="wrapper">
-        <div id="page" class="container">
-            <div class="card mt-4">
+    <title>Create User</title>
+
+@section ('content')
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 mx-auto card mt-4">
                 <div class="card-header">
-                    Edit User
+                    Create User
                 </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -65,5 +69,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection
