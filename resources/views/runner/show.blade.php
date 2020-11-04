@@ -52,6 +52,11 @@
                         </tfoot>
                     </table>
                 </div>
+                <form action="{{ route('runner.start',$runner_schedule->id)}}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <button class="btn btn-success mr-2" type="submit">Start</button>
+                </form>
             </div>
         </div>
     </div>

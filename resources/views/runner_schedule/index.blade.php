@@ -43,9 +43,9 @@
                                         <td><a href="{{$runner_schedule->path()}}">{{ $runner_schedule ->id}}</td>
                                         <td>{{ $runner_schedule->runner->name}}</td>
                                         <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at))}}</td>
-                                        <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->started_at))}}</td>
+                                        <td>{{ $runner_schedule->started_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->started_at)) : null}}</td>
                                         <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->at))}}</td>
-                                        <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at))}}</td>
+                                        <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null}}</td>
                                         <td>{{ $runner_schedule->status}}</td>
                                     </tr>
                                     @endforeach
