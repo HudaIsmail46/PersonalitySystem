@@ -34,7 +34,7 @@
                         <form method="POST" action="{{ route('runner_schedule.update', $runner_schedule->id)}}">
                             @csrf
                             @method('PUT')
-                        @include ('runner_schedule.form')
+                            @include ('runner_schedule.form')
                         </form>
                     </div>
                 </div>

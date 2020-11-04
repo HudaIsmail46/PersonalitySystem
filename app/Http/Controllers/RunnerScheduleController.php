@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\RunnerSchedule;
 use Illuminate\Http\Request;
+use App\Order;
+use App\State\Order\PendingPickupSchedule;
+use App\State\Order\PendingReturnSchedule;
 
 class RunnerScheduleController extends Controller
 {
@@ -74,7 +77,10 @@ class RunnerScheduleController extends Controller
     public function edit(RunnerSchedule $runner_schedule)
     {
         $runners  = User::role('Runner')->get();
-        return view('runner_schedule.edit', compact('runner_schedule','runners'));
+        $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
+        $runnerJobs = $runner_schedule->runnerJobs()->with('order.customer')->get();
+
+        return view('runner_schedule.edit', compact('runner_schedule','runners', 'orders', 'runnerJobs'));
     }
 
     /**

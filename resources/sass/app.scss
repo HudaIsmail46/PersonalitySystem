@@ -18,3 +18,15 @@
 @import 'parts/pages';
 @import 'parts/plugins';
 @import 'parts/miscellaneous';
+
+.box {
+    background:rgba(192,192,192, 0.7);
+    width: 100vw;
+    height: 100vh;
+    position:fixed;
+    z-index: 2000;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+}

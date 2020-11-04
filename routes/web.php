@@ -80,7 +80,7 @@ Route::prefix('/order')->name('order.')->group(function(){
     Route::put('/{order}', 'OrderController@update')->name('update');
 });
 
-##Runner_Schedule CRUD
+##RunnerSchedule CRUD
 Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::get('/', 'RunnerScheduleController@index')->name('index');
     Route::get('/create', 'RunnerScheduleController@create')->name('create');
@@ -91,7 +91,6 @@ Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::put('/{runner_schedule}', 'RunnerScheduleController@update')->name('update');
 });
 
-
 ##Runner CRUD
 Route::prefix('/runner')->name('runner.')->group(function () {
     Route::get('/index', 'RunnerController@index')->name('index');
@@ -99,6 +98,13 @@ Route::prefix('/runner')->name('runner.')->group(function () {
     Route::put('/{runner_schedule}', 'RunnerController@start')->name('start');
 });
 
-
-
-
+##RunnerJob CRUD
+Route::prefix('/runner_job')->name('runner_job.')->group(function () {
+    Route::get('/', 'RunnerJobController@index')->name('index');
+    Route::get('/create', 'RunnerJobController@create')->name('create');
+    Route::post('/', 'RunnerJobController@store')->name('store');
+    Route::get('/{runner_job}', 'RunnerJobController@show')->name('show');
+    Route::get('/{runner_job}/edit', 'RunnerJobController@edit')->name('edit');
+    Route::delete('/{runner_job}', 'RunnerJobController@destroy')->name('destroy');
+    Route::put('/{runner_job}', 'RunnerJobController@update')->name('update');
+});
