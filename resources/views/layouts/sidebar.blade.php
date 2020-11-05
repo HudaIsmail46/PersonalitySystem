@@ -154,12 +154,12 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href={{route('runner_schedule.index')}} class="nav-link {{ (request()->is('runner_schedule/index')) ? 'active' : '' }}">
-                                <i class=" fa fa-user"></i>
+                                <i class=" fa fa-user nav-icon"></i>
                                 <p>All Runner Schedule</p>
                             </a>
                             @can('create Orders')
                             <a href={{route('runner_schedule.create')}} class="nav-link {{ (request()->is('runner_schedule/create')) ? 'active' : '' }}">
-                                <i class="fas fa-user-plus"></i>
+                                <i class="fas fa-user-plus nav-icon"></i>
 
                                 <p>Create Runner Schedule</p>
                             </a>
