@@ -80,7 +80,7 @@ Route::prefix('/order')->name('order.')->group(function(){
     Route::put('/{order}', 'OrderController@update')->name('update');
 });
 
-##Runner CRUD
+##Runner_Schedule CRUD
 Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::get('/', 'RunnerScheduleController@index')->name('index');
     Route::get('/create', 'RunnerScheduleController@create')->name('create');
@@ -89,6 +89,14 @@ Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::get('/{runner_schedule}/edit', 'RunnerScheduleController@edit')->name('edit');
     Route::delete('/{runner_schedule}', 'RunnerScheduleController@destroy')->name('destroy');
     Route::put('/{runner_schedule}', 'RunnerScheduleController@update')->name('update');
+});
+
+
+##Runner CRUD
+Route::prefix('/runner')->name('runner.')->group(function () {
+    Route::get('/index', 'RunnerController@index')->name('index');
+    Route::get('/{runner_schedule}', 'RunnerController@show')->name('show');
+    Route::put('/{runner_schedule}', 'RunnerController@start')->name('start');
 });
 
 
