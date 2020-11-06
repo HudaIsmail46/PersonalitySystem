@@ -14,6 +14,9 @@ class ChangeStatusTypeToString extends Migration
     public function up()
     {
         Schema::table('runner_schedules', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
+        Schema::table('runner_schedules', function (Blueprint $table) {
             $table->string('status')->nullable();
         });
     }
