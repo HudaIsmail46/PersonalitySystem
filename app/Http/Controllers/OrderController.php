@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Customer;
+use App\State\Order\Draft;
+use App\State\Order\PendingPickupSchedule;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -27,7 +29,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('order.create');
+        $availableStates = [Draft::class, PendingPickupSchedule::class];
+        return view('order.create', compact('availableStates'));
     }
 
     /**
@@ -49,6 +52,7 @@ class OrderController extends Controller
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);
         $order->save();
+        $this->setState($order, $request->status);
 
         return redirect()->route('order.show',$order->id)->with('Order is created.');
     }
@@ -72,7 +76,8 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        return view('order.edit',compact('order'));
+        $availableStates = [Draft::class, PendingPickupSchedule::class];
+        return view('order.edit',compact('order', 'availableStates'));
     }
 
     /**
@@ -93,9 +98,9 @@ class OrderController extends Controller
             'material' => $request->material,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
-            'status' => $request->status
         ]);
         $order->save();
+        $this->setState($order, $request->status);
 
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
@@ -111,6 +116,13 @@ class OrderController extends Controller
         $order->delete();
 
         return redirect()->route('order.index')->with('Order succesfully deleted.');
+    }
+
+    protected function setState(Order $order, String $state)
+    {
+        if($state == PendingPickupSchedule::class && $order->state == Draft::class){
+            $order->transitionTo(PendingPickupSchedule::class);
+        }
     }
 
     protected function priceCents($price)

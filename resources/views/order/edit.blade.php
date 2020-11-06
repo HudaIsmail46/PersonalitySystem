@@ -137,8 +137,8 @@
 
                                 <div class="form-group">
                                     <select id="status" name="status">
-                                        @foreach(App\Order::STATUSES as $status)
-                                            <option value="{{$status}}" {{$order->status == $status ? 'selected': ''}}>{{$status}}</option>
+                                        @foreach($availableStates as $status)
+                                            <option value="{{$status}}" {{$order->state == $status ? 'selected': ''}}>{{$status}}</option>
                                         @endforeach
                                     </select>
                                 </div>

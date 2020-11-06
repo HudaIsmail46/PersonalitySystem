@@ -53,7 +53,7 @@
                                         <td>{{ $order->actual_width}}</td>
                                         <td>{{ $order->actual_material}}</td>
                                         <td>{{ money($order->actual_price)}}</td>
-                                        <td>{{ $order->status}}</td>
+                                        <td>{{ $order->state}}</td>
                                     </tr>
                                     @endforeach
                                 </table>
