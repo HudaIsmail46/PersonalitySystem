@@ -14,7 +14,7 @@
     </div>
 
     <div class="field" >
-        <label class="label" for="scheduled_at">Scheduled fo</label>
+        <label class="label" for="scheduled_at">Scheduled for</label>
         <div class="form-group">
             <input class="input @error('scheduled_at') is-danger @enderror"
                 type="datetime-local"
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div id="RunnerJobEdit" data-orders="{{$orders}}" data-runnerschedule="{{$runner_schedule}}" data-runnerjobs="{{$runnerJobs}}"></div>
+    <div id="RunnerJobEdit" data-proporders="{{$orders}}" data-runnerschedule="{{$runner_schedule}}" data-runnerjobs="{{$runnerJobs}}"></div>
 
     <div class="field" >
         <label class="label" for="status">Status </label>

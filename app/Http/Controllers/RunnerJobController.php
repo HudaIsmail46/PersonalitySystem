@@ -44,7 +44,7 @@ class RunnerJobController extends Controller
         $order = Order::find($request->order_id);
         $runnerJob = new RunnerJob;
 
-        if ( $order->state == PendingPickupSchedule::class){
+        if ($order->state == PendingPickupSchedule::class) {
             $jobType = 'pickup';
             $transitionTo = PickupScheduled::class;
         } else {
@@ -58,12 +58,13 @@ class RunnerJobController extends Controller
             'scheduled_at' => $request->scheduled_at,
             'job_type' => $jobType
         ]);
-       
+
         $runnerJob->save();
         $order->transitionTo($transitionTo);
-        $runnerJob->load('order.customer');
+        $runnerJobs = $runnerJob->runnerSchedule->runnerJobs->load('order.customer');
+        $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
 
-        return $runnerJob;
+        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
     }
 
     /**
@@ -97,7 +98,13 @@ class RunnerJobController extends Controller
      */
     public function update(Request $request, RunnerJob $runnerJob)
     {
-        //
+        $runnerJob->fill([
+            'scheduled_at' => $request->scheduled_at
+        ]);
+        $runnerJob->save();
+        $runnerJobs = $runnerJob->runnerSchedule->runnerJobs->load('order.customer');
+        $runnerJobs;
+
     }
 
     /**
@@ -108,7 +115,23 @@ class RunnerJobController extends Controller
      */
     public function destroy(RunnerJob $runnerJob)
     {
-        //
+        $runnerSchedule = $runnerJob->runnerSchedule;
+        $order = $runnerJob->order;
+
+        if ($order->state == PickupScheduled::class) {
+            $transitionTo = PendingPickupSchedule::class;
+        } else {
+            $transitionTo = PendingReturnSchedule::class;
+        }
+
+        $order->update([
+            'state' => $transitionTo
+        ]);
+
+        $runnerJob->delete();
+        $runnerJobs = $runnerSchedule->runnerJobs->load('order.customer');
+        $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
+        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
     }
 
     protected function validates()
