@@ -75,6 +75,7 @@
                         </form>
                     </div>
                     @endcan
+
                     @can('edit bookings')
                         <td valign="bottom">
                             <a href="{{ route('booking.edit',$booking->id)}}" class="btn btn-primary">Edit</a>

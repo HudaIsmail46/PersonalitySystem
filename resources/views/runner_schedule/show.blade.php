@@ -10,7 +10,7 @@
     <div class="container">
         <div class="card mt-4">
             <div class="card-header">
-                Runner Schedule  Data
+                Runner Schedule Data
             </div>
             <div class="card-body">
 
@@ -29,9 +29,9 @@
                             <td>{{ $runner_schedule->id}}</td>
                             <td>{{ $runner_schedule->runner->name }}</td>
                             <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
-                            <td>{{ $runner_schedule->started_at ? $runner_schedule->started_at->format('D, dS M Y, H:i:s') : null}}</td>
+                            <td>{{ $runner_schedule->started_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->started_at)) : null}}</td>
                             <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->expected_at))}}</td>
-                            <td>{{ $runner_schedule->completed_at ? $runner_schedule->completed_at->format('D, dS M Y, H:i:s') : null}}</td>
+                            <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null}}</td>
                             <td>{{ $runner_schedule->status }}</td>
                         </tr>
                         <tfoot>

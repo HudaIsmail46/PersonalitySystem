@@ -17,9 +17,13 @@ class RunnerSchedule extends Model
 
     protected $dates =['started_at','expected_at','completed_at'];
 
-
     public function runner()
     {
         return $this->belongsTo(User::class,'runner_id');
+    }
+
+    public function runnerJobs()
+    {
+        return $this->hasMany('App\RunnerJob');
     }
 }

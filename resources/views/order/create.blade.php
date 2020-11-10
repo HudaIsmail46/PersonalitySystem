@@ -95,8 +95,8 @@
 
                                     <div class="form-group">
                                         <select id="status" name="status">
-                                            @foreach(App\Order::STATUSES as $status)
-                                                <option value="{{$status}}">{{$status}}</option>
+                                        @foreach($availableStates as $value=>$status)
+                                                <option value="{{$value}}">{{$status}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -115,7 +115,6 @@
                                         @enderror
                                     </div>
                                 </div>
-
 
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>

@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td>{{$order->status}}</td>
+                                <td>{{$order->state}}</td>
                             </tr>
                             <tr>
                                 <td>Image</td>

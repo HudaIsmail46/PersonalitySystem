@@ -19,6 +19,10 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+
+    @if(Auth::user()->hasRole('Runner'))
+    
+    @else
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -44,4 +48,5 @@
 
         </div><!-- /.container-fluid -->
     </div>
+    @endif
 @endsection
