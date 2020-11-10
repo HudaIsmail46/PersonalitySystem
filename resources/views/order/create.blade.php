@@ -14,7 +14,7 @@
                 </div>
                 <div class="inner">
                     <div class="card-body">
-                        <form method="post" action="{{route('order.store')}}">
+                        <form method="post" action="{{route('order.store')}}" enctype="multipart/form-data">
                         @csrf
                             <div class="field" id="form">
                                 <div class="field">
@@ -101,6 +101,21 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="field">
+                                    <label class="label" for ="image">Image</label>
+
+                                    <div class="form-group">
+                                        <input class="input @error('image') is-danger @enderror" type="file"
+                                         name="image"
+                                         id="image">
+
+                                        @error('image')
+                                            <p class="help is-danger">{{$errors->first('image')}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>

@@ -75,7 +75,8 @@
                         </form>
                     </div>
                     @endcan
-                    <!-- @can('edit bookings')
+
+                    @can('edit bookings')
                         <td valign="bottom">
                             <a href="{{ route('booking.edit',$booking->id)}}" class="btn btn-primary">Edit</a>
                         </td>
@@ -88,7 +89,7 @@
                                 <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
                             </form>
                         </td>
-                        @endcan -->
+                        @endcan
                 </div>
             </div>
         </div>

@@ -36,6 +36,10 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function images()
+    {
+        return $this->morphMany('App\Image','imageable');
+    }
     public function runnerJobs()
     {
         return $this->hasMany(RunnerJob::class);

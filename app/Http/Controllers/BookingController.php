@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Booking;
 use Illuminate\Support\Facades\DB;
+use App\Image;
 
 class BookingController extends Controller
 {
@@ -87,8 +88,13 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $this->validateCreateBooking();
-        Booking::create($request->all());
-        return back()->with('success', 'Bookings created successfully.');
+        $booking = Booking::create($request->all());
+
+        $image = new Image;
+        $this->storeImage($image, $booking);
+        $image->save();
+
+        return redirect()->route('booking.show',$booking->id)->with('Order is created.');
     }
 
     /**
@@ -129,7 +135,7 @@ class BookingController extends Controller
 
     protected function validateCreateBooking()
     {
-        return request()->validate([
+        $validateData= request()->validate([
             'event_title' => 'required',
             'address' => 'required',
             'event_begins' => 'required',
@@ -137,6 +143,14 @@ class BookingController extends Controller
             'description' => 'required',
             'team' => 'required'
         ]);
+
+        if(request()->hasFile('image'))
+        {
+            request()->validate([
+                'image' => 'file|image',
+            ]);
+        }
+        return $validateData;
     }
 
     protected function validateUpdateBooking()
@@ -147,4 +161,17 @@ class BookingController extends Controller
             'status' => 'required'
         ]);
     }
+
+    public function storeImage( $image, $booking)
+    {
+        if(request()->has('image'))
+        {
+            $image->fill([
+                'imageable_id'=>$booking->id,
+                'imageable_type' =>Booking::class,
+                'file'=>request()->image->store('uploads','public'),
+            ]);
+        }
+    }
+
 }

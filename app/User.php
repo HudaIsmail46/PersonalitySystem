@@ -47,4 +47,5 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\RunnerSchedule','runner_id');
     }
+
 }

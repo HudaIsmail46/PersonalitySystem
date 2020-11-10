@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Customer;
+use App\Image;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -42,6 +44,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $this->validateCreateOrders();
+
         $customer = Customer::firstOrCreate($request->customer_name, $request->customer_phone_no);
         $order = new Order;
         $order->fill([
@@ -53,6 +56,10 @@ class OrderController extends Controller
         ]);
         $order->save();
         $this->setState($order, $request->status);
+
+        $image = new Image;
+        $this->storeImage($image, $order);
+        $image->save();
 
         return redirect()->route('order.show',$order->id)->with('Order is created.');
     }
@@ -90,6 +97,7 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $this->validateUpdateOrders();
+
         $order->fill([
             'actual_size' => $request->actual_size,
             'actual_material' => $request->actual_material,
@@ -143,7 +151,7 @@ class OrderController extends Controller
 
     protected function validateCreateOrders()
     {
-        return request()->validate([
+        $validateData =request()->validate([
             'customer_name' => 'required',
             'customer_phone_no' => 'required',
             'size' => 'required',
@@ -152,5 +160,27 @@ class OrderController extends Controller
             'prefered_pickup_datetime' => 'required',
             'status' => 'required',
         ]);
+
+        if(request()->hasFile('image'))
+        {
+            request()->validate([
+                'image' => 'file|image',
+            ]);
+        }
+        return $validateData;
+    }
+
+    public function storeImage( $image, $order)
+    {
+        if(request()->has('image'))
+        {
+            $image->fill([
+                'imageable_id'=>$order->id,
+                'imageable_type' =>Order::class,
+                'file'=>request()->image->store('uploads','public'),
+            ]);
+        }
     }
 }
+
+

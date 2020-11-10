@@ -30,7 +30,7 @@
                 @endif
                 <div class="inner">
                     <div class="card-body">
-                        <form method="post" action="{{route('booking.store')}}">
+                        <form method="post" action="{{route('booking.store')}}" enctype="multipart/form-data">
                            @include ('booking.form')
                         </form>
                     </div>

@@ -46,4 +46,9 @@ class Booking extends Model
             ->whereNotNull("name")
             ->whereNotNull("phone_no");
     }
+
+    public function images()
+    {
+        return $this->morphMany('App\Image','imageable');
+    }
 }

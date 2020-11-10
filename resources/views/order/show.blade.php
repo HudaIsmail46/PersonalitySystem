@@ -77,6 +77,14 @@
                                 <td>Status</td>
                                 <td>{{$order->state}}</td>
                             </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td>
+                                    @foreach ($order->images as $image)
+                                        <img src="{{ asset('/storage/' .$image->file)}}" alt="" >
+                                    @endforeach
+                                </td>
+                            </tr>
                         </table>
 
                         <div class="row mt-5">
