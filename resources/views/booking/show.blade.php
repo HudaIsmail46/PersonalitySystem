@@ -51,6 +51,7 @@
                                 <th>Description</th>
                                 <th>Team</th>
                                 <th>Status</th>
+                                <th>Image</th>
                             </tr>
                             <tr>
                                 <td>{{ $booking->id}}</td>
@@ -60,6 +61,20 @@
                                 <td>{{ $booking->gc_description }}</td>
                                 <td>{{ $booking->gc_team }}</td>
                                 <td>{{ $booking->status }}</td>
+                                <td>
+                                    @foreach ($booking->images as $image)
+                                        <img src="{{ asset('/storage/' .$image->file ?? '')}}" alt="" class="img-thumbnail" >
+
+                                        @if ($image != null)
+                                            <form class='mb-0' action="{{ route('booking.destroyImage', $image->id)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete Image <i class="fa fa-trash"></i></button>
+                                            </form>
+                                        @else
+                                        @endif
+                                    @endforeach
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -75,21 +90,6 @@
                         </form>
                     </div>
                     @endcan
-
-                    @can('edit bookings')
-                        <td valign="bottom">
-                            <a href="{{ route('booking.edit',$booking->id)}}" class="btn btn-primary">Edit</a>
-                        </td>
-                        @endcan
-                        @can('delete bookings')
-                        <td>
-                            <form action="{{ route('booking.destroy', $booking->id)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
-                            </form>
-                        </td>
-                        @endcan
                 </div>
             </div>
         </div>

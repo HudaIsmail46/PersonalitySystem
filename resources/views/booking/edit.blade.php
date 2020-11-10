@@ -57,7 +57,7 @@
                         <br>
                         Phone No. : -
                         @endif
-                        <form method="POST" action="{{ route('booking.update', $booking->id)}}">
+                        <form method="POST" action="{{ route('booking.update', $booking->id)}}" enctype="multipart/form-data" >
                             @csrf
                             @method('PUT')
                             <table class="table table-bordered table-striped" style="width:100%">
@@ -127,6 +127,21 @@
                                 </select>
                                 <p class="help is-danger">{{ $errors->first('status')}}</p>
                             </div>
+
+                            <div class="col-md-6">
+                                <label class="label" for ="image">Image</label>
+
+                                <div class="form-group">
+                                    <input class="input @error('image') is-danger @enderror" type="file"
+                                     name="image"
+                                     id="image"
+                                     value="{{old('image')?? $booking->image->file ?? ''}}">
+                                    @error('image')
+                                        <p class="help is-danger">{{$errors->first('image')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>

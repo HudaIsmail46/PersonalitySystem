@@ -90,9 +90,12 @@ class BookingController extends Controller
         $this->validateCreateBooking();
         $booking = Booking::create($request->all());
 
-        $image = new Image;
-        $this->storeImage($image, $booking);
-        $image->save();
+        if(request()->hasFile('image'))
+        {
+            $image = new Image;
+            $this->storeImage($image, $booking);
+            $image->save();
+        }
 
         return redirect()->route('booking.show',$booking->id)->with('Order is created.');
     }
@@ -118,7 +121,17 @@ class BookingController extends Controller
     public function update(Booking $booking)
     {
         $booking->update($this->validateUpdateBooking());
+
+        if(request()->has('image'))
+        {
+            $image = new Image;
+            $this->storeImage($image, $booking);
+            $image->save();
+        }
+
         return redirect()->route('booking.show',$booking->id)->with('Booking updated successfully.');
+
+
     }
 
     /**
@@ -172,6 +185,14 @@ class BookingController extends Controller
                 'file'=>request()->image->store('uploads','public'),
             ]);
         }
+    }
+
+    public function destroyImage(Image $image)
+    {
+        $booking=$image->imageable;
+        $image->delete();
+
+        return redirect()->route('booking.show', $booking->id)->with('Booking is Updated.');
     }
 
 }

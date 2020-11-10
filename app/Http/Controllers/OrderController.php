@@ -44,7 +44,6 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $this->validateCreateOrders();
-
         $customer = Customer::firstOrCreate($request->customer_name, $request->customer_phone_no);
         $order = new Order;
         $order->fill([
@@ -57,9 +56,11 @@ class OrderController extends Controller
         $order->save();
         $this->setState($order, $request->status);
 
-        $image = new Image;
-        $this->storeImage($image, $order);
-        $image->save();
+        if(request()->hasFile('image')){
+            $image = new Image;
+            $this->storeImage($image, $order);
+            $image->save();
+        }
 
         return redirect()->route('order.show',$order->id)->with('Order is created.');
     }
@@ -110,6 +111,12 @@ class OrderController extends Controller
         $order->save();
         $this->setState($order, $request->status);
 
+        if(request()->hasFile('image')){
+            $image = new Image;
+            $this->storeImage($image, $order);
+            $image->save();
+        }
+
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
 
@@ -122,7 +129,6 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
-
         return redirect()->route('order.index')->with('Order succesfully deleted.');
     }
 
@@ -181,6 +187,15 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function destroyImage(Image $image)
+    {
+        $order=$image->imageable;
+        $image->delete();
+
+        return redirect()->route('order.show', $order->id)->with('Order is Updated.');
+    }
+
 }
 
 
