@@ -22,6 +22,6 @@ class Order extends Model
 
     public function images()
     {
-        return $this->morphMany('App\Images','imageable');
+        return $this->morphMany('App\Image','imageable');
     }
 }
