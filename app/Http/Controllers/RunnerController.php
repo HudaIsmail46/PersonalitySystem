@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\RunnerSchedule;
+use App\RunnerJob;
+
 use Carbon\Carbon;
 
 class RunnerController extends Controller
@@ -28,9 +30,9 @@ class RunnerController extends Controller
     public function show(RunnerSchedule $runner_schedule)
     {
         $this->authorizeUser($runner_schedule);
-        return view('runner.show', compact('runner_schedule'));
+        $runnerJobs = $runner_schedule->runnerJobs()->with('order.customer')->get();
+        return view('runner.show', compact('runner_schedule','runnerJobs'));    
     }
-
     /**
      * Start a runner schedule
      *
