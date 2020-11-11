@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import dateFormat from 'dateformat';
+
 
 function RunnerJobEdit(props) {
-    const { orders, runnerschedule, runnerjobs } = props;
+    const { proporders, runnerschedule, runnerjobs } = props;
     const [modalShow, setModalShow] = useState(false);
     const [order, setOrder] = useState({});
+    const [orders, setOrders] = useState(proporders);
     const [runnerJobs, setRunnerJobs] = useState(runnerjobs);
     const [runnerJob, setRunnerJob] = useState({});
 
     const scheduleOrder = (order) => {
         setOrder(order);
+        setModalShow(true);
+    }
+
+    const editRunnerJob = (runnerJob) => {
+        setRunnerJob(runnerJob);
         setModalShow(true);
     }
 
@@ -20,23 +28,55 @@ function RunnerJobEdit(props) {
     }
 
     const handleChange = (input) => {
-        setRunnerJob({
+        setRunnerJob({ 
+            ...runnerJob,
             runner_schedule_id: runnerschedule.id,
             order_id: order.id,
             scheduled_at: input.target.value
+           
         })
     }
 
     const submit = () => {
-        axios.post('/runner_job', runnerJob)
-          .then(function (response) {
-            setRunnerJobs([response.data, ...runnerJobs]);
-            closeModal();
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        if(runnerJob.id){
+            axios.put(`/runner_job/${runnerJob.id}`,{
+                scheduled_at: runnerJob.scheduled_at
+            })
+              .then(function (response) {
+                setRunnerJobs(response.data.runnerJobs);
+                setOrders(response.data.orders);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }else{
+            axios.post(`/runner_job/`,runnerJob)
+              .then(function (response) {
+                setRunnerJobs(response.data.runnerJobs);
+                setOrders(response.data.orders);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
+        setRunnerJob({});
+        closeModal();
     }
+
+    const onDelete = () => {
+        axios.delete(`/runner_job/${runnerJob.id}`)
+            .then(function(response){
+                setRunnerJobs(response.data.runnerJobs);
+                setOrders(response.data.orders);
+            })
+            .catch(function (error) {
+                console.log(error);
+              });
+            setRunnerJob({});
+            closeModal();
+    }
+
+    var datetime = dateFormat(runnerJob.scheduled_at, "yyyy-mm-dd HH:MM TT");
 
     const runnerJobForm = () => {
         return (
@@ -58,12 +98,14 @@ function RunnerJobEdit(props) {
                                             type="datetime-local"
                                             name="scheduled_at"
                                             id="scheduled_at"
+                                            value = {dateFormat(runnerJob.scheduled_at, "isoDateTime").substring(0,19)}
                                             onChange={handleChange}
                                             />
                                     </div>
                                 </div>
                             </div>
                             <div className="modal-footer">
+                                <button type='button' className='btn btn-danger' onClick={onDelete}>Delete </button>
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Close</button>
                                 <button type="button" className="btn btn-primary" onClick={submit}>Save changes</button>
                             </div>
@@ -97,7 +139,7 @@ function RunnerJobEdit(props) {
                                 <br/>
                                 Phone No : {scheduledOrder.order.customer.phone_no}
                             </td>
-                            <td><div className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Edit Schedule</div></td>
+                            <td><div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div></td>
                         </tr>    
                     )})}
                 </tbody>
@@ -106,10 +148,6 @@ function RunnerJobEdit(props) {
     }
 
     const ordersTable = () => {
-        let orderList = orders;
-        orderList = orderList.filter((order) => {
-            return !runnerJobs.map(job=>job.order.id).includes(order.id);
-        })
         return (
             <table className="table table-bordered">
                 <tbody>
@@ -121,7 +159,7 @@ function RunnerJobEdit(props) {
                         <th>Customer</th>
                         <th></th>
                     </tr>
-                    {orderList.map(order => {return (
+                    {orders.map(order => {return (
                         <tr key={order.id} >
                             <td>{order.id}</td>
                             <td>{order.state}</td>
