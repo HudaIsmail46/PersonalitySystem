@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $fillable = [ 'name', 'phone_no','address',];
+    protected $fillable = [ 'name', 'phone_no','address', 'gender', 'nric', 'email'];
 
     public function path()
     {
@@ -23,7 +23,7 @@ class Customer extends Model
         return $this->hasMany(Booking::class);
     }
 
-    public static function firstOrCreate($name, $phone_no)
+    public static function findOrCreate($name, $phone_no)
     {
         $customer = null;
         if ($phone_no){
