@@ -16,6 +16,11 @@ class RunnerJob extends Model
         return $this->belongsTo(RunnerSchedule::class);
     }
 
+    public function images()
+    {
+        return $this->morphMany('App\Image','imageable');
+    }
+    
     public function order()
     {
         return $this->belongsTo(Order::class);

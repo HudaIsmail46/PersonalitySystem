@@ -95,7 +95,7 @@
                         </tr>
                         @foreach ($runnerJobs as $runnerJob)
                             <tr>
-                                <td>{{ $runnerJob->id }}</td>
+                                <td><a href={{route('runner_job.show', $runnerJob->id)}}>{{ $runnerJob->id }}</td>
                                 <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
                                 <td>{{ $runnerJob->job_type }}</td>
                                 <td>{{ $runnerJob->location ?? '' }}</td>
