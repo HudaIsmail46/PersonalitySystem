@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Webhooks;
+namespace App\Webhooks\Aafinance;
 use \Spatie\WebhookClient\ProcessWebhookJob;
 use App\Webhooks\Aafinance\WebhookHandler;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Webhooks;
+namespace App\Webhooks\Aafinance;
 use Illuminate\Http\Request;
 use Spatie\WebhookClient\Exceptions\WebhookFailed;
 use Spatie\WebhookClient\WebhookConfig;
