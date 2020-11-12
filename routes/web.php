@@ -44,6 +44,7 @@ Route::prefix('/booking')->name('booking.')->group(function () {
     Route::get('/{booking}', 'BookingController@show')->name('show');
     Route::get('/{booking}/edit', 'BookingController@edit')->name('edit');
     Route::delete('/{booking}', 'BookingController@destroy')->name('destroy');
+    Route::delete('/booking/{image}', 'BookingController@destroyImage')->name('destroyImage');
     Route::put('/{booking}', 'BookingController@update')->name('update');
 });
 
@@ -77,6 +78,7 @@ Route::prefix('/order')->name('order.')->group(function(){
     Route::get('/{order}', 'OrderController@show')->name('show');
     Route::get('/{order}/edit', 'OrderController@edit')->name('edit');
     Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
+    Route::delete('/order/{image}', 'OrderController@destroyImage')->name('destroyImage');
     Route::put('/{order}', 'OrderController@update')->name('update');
 });
 

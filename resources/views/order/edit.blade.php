@@ -29,7 +29,7 @@
                     Update Order
                 </div>
 
-                <form method="POST" action="{{ route('order.update', $order->id)}}">
+                <form method="POST" action="{{ route('order.update', $order->id)}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -141,6 +141,20 @@
                                             <option value="{{$status}}" {{$order->state == $status ? 'selected': ''}}>{{$status}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for ="image">Image</label>
+
+                                <div class="form-group">
+                                    <input class="input @error('image') is-danger @enderror" type="file"
+                                     name="image"
+                                     id="image"
+                                     value="{{old('image')?? $order->image->file ?? ''}}"
+                                    @error('image')
+                                        <p class="help is-danger">{{$errors->first('image')}}</p>
+                                    @enderror
                                 </div>
                             </div>
 
