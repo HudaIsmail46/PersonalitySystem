@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\RunnerJob;
 use App\Order;
+use App\Image;
 use App\State\Order\PendingPickupSchedule;
 use App\State\Order\PendingReturnSchedule;
 use App\State\Order\PickupScheduled;
 use App\State\Order\ReturnScheduled;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class RunnerJobController extends Controller
 {
@@ -73,9 +75,9 @@ class RunnerJobController extends Controller
      * @param  \App\RunnerJob  $runnerJob
      * @return \Illuminate\Http\Response
      */
-    public function show(RunnerJob $runnerJob)
+    public function show(RunnerJob $runnerJob )
     {
-        //
+        return view('runner_job.show', compact('runnerJob'));
     }
 
     /**
@@ -134,6 +136,24 @@ class RunnerJobController extends Controller
         return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
     }
 
+    public function complete(RunnerJob $runnerJob)
+    {
+        $runnerJob = $runnerJob->find($runnerJob->id);
+        $runnerJob->fill([
+            'completed_at' => Carbon::now(),
+        ]);
+        $runnerJob->save();
+
+        if(request()->hasFile('image')){
+            $this->validateImage();
+            $image = new Image;
+            $this->storeImage($image, $runnerJob->id);
+            $image->save();
+        }
+        
+        return redirect()->route('runner_job.show',$runnerJob);
+    }
+
     protected function validates()
     {
         return request()->validate([
@@ -142,4 +162,29 @@ class RunnerJobController extends Controller
             'scheduled_at' => 'required'
         ]);
     }
+
+    public function validateImage()
+    {
+        return request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+    }
+
+    public function storeImage($image, $id)
+    { 
+        $image->fill([
+            'imageable_id'=>$id,
+            'imageable_type' =>RunnerJob::class,
+            'file'=>request()->image->store('uploads','public'),
+        ]);
+    }
+
+    public function destroyImage(Image $image)
+    {
+        $runnerJob = $image->imageable->id;
+        $image->delete();
+
+        return redirect()->route('runner_job.show', $runnerJob)->with('Image has been Updated.');
+    }
+
 }
