@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\RunnerJob;
 use App\Order;
 use App\Image;
+use App\State\Order\Returned;
 use App\State\Order\PendingPickupSchedule;
 use App\State\Order\PendingReturnSchedule;
 use App\State\Order\PickupScheduled;
 use App\State\Order\ReturnScheduled;
+use App\State\Order\Collected;
+use App\State\Order\ReceivedWarehouse;
+use App\State\Order\VendorCollected;
+use App\State\Order\InHouseCleaning;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -136,6 +141,41 @@ class RunnerJobController extends Controller
         return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
     }
 
+    public function status(RunnerJob $runnerJob)
+    {
+        $order = $runnerJob->order;
+        $runnerSchedule = $runnerJob->runnerSchedule;
+
+        switch($order->state){
+        case PickupScheduled::class:
+            $transitionTo = Collected::class;
+            break;
+        case ReturnScheduled::class:
+            $transitionTo = Returned::class;
+            break;
+        case Collected::class:
+            $transitionTo = ReceivedWarehouse::class;
+            break;
+        case ReceivedWarehouse::class:
+            $transitionTo = VendorCollected::class;
+            break;
+        case ReceivedWarehouse::class:
+            $transitionTo = InHouseCleaning::class;
+            break;
+        default:
+            break;
+        }
+        
+        $order->update([
+            'state' => $transitionTo
+        ]);
+        
+        $runnerJobs = $runnerSchedule->runnerJobs->load('order.customer');
+        $orders = Order::whereState('state',[PendingPickupSchedule::class, PendingReturnSchedule::class,Collected::class,ReceivedWarehouse::class,VendorCollected::class,InHouseCleaning::class])->with('customer')->get();
+        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
+    }
+
+
     public function complete(RunnerJob $runnerJob)
     {
         $runnerJob = $runnerJob->find($runnerJob->id);
@@ -150,7 +190,6 @@ class RunnerJobController extends Controller
             $this->storeImage($image, $runnerJob->id);
             $image->save();
         }
-        
         return redirect()->route('runner_job.show',$runnerJob);
     }
 
