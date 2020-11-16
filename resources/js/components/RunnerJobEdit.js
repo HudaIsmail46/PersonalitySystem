@@ -22,6 +22,17 @@ function RunnerJobEdit(props) {
         setModalShow(true);
     }
 
+    const changeRunnerJobstate = (scheduledOrder) => { 
+        axios.post(`/runner_job/status/${scheduledOrder.id}`,{})
+              .then(function (response) {
+                setRunnerJobs(response.data.runnerJobs);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        setRunnerJob({});
+    }
+
     const closeModal = () =>{
         setOrder({});
         setModalShow(false);
@@ -75,9 +86,7 @@ function RunnerJobEdit(props) {
             setRunnerJob({});
             closeModal();
     }
-
-    var datetime = dateFormat(runnerJob.scheduled_at, "yyyy-mm-dd HH:MM TT");
-
+    
     const runnerJobForm = () => {
         return (
             <div className="box">
@@ -146,7 +155,34 @@ function RunnerJobEdit(props) {
                                 Phone No : {scheduledOrder.order.customer.phone_no}
                             </td>
                             <td><div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div></td>
-                        </tr>
+                            <td>
+                                {(() => {
+                                if (scheduledOrder.order.state == "App\\State\\Order\\PickupScheduled" || scheduledOrder.order.state == "App\\State\\Order\\ReturnScheduled") {
+                                return (
+                                    <div className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Collected</div>
+                                )
+                                } else if( scheduledOrder.order.state == "App\\State\\Order\\Collected") {
+                                return (
+                                    <div className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Received Warehouse</div> 
+                                )
+                                }else if( scheduledOrder.order.state == "App\\State\\Order\\ReceivedWarehouse"){
+                                return (
+                                <div>
+                                    <p>
+                                        <button className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Vendor Collected</button>
+                                        <button className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>InHouse Cleaning</button>
+                                    </p> 
+                                </div>
+                                )
+                                }else{
+                                    return(
+                                        null
+                                    )
+                                }
+                                })()
+                                }
+                            </td>
+                        </tr>    
                     )})}
                 </tbody>
             </table>

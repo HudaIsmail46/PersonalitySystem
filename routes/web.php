@@ -105,6 +105,7 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::get('/', 'RunnerJobController@index')->name('index');
     Route::get('/create', 'RunnerJobController@create')->name('create');
     Route::post('/', 'RunnerJobController@store')->name('store');
+    Route::post('/status/{runner_job}', 'RunnerJobController@status')->name('status');
     Route::get('/{runner_job}', 'RunnerJobController@show')->name('show');
     Route::get('/{runner_job}/edit', 'RunnerJobController@edit')->name('edit'); 
     Route::delete('/delete/image/{image}', 'RunnerJobController@destroyImage')->name('destroyImage');
