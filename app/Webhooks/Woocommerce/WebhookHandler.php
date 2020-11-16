@@ -4,6 +4,7 @@ namespace App\Webhooks\Woocommerce;
 use App\Order;
 use App\Customer;
 use Carbon\Carbon;
+use App\State\Order\PendingPickupSchedule;
 
 class WebhookHandler
 {
@@ -30,7 +31,8 @@ class WebhookHandler
                 'city' => $billing["city"] ,
                 'location_state' => $billing["state"],
                 'customer_id' => $customer->id,
-                'raw_payload' => json_encode($payload)
+                'raw_payload' => json_encode($payload),
+                'state' => PendingPickupSchedule::class
             ]);
             $order->save();
             logger($order);
