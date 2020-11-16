@@ -38,6 +38,62 @@
                             Name : {{$order->customer->name}}
                             <br>
                             Phone No : {{$order->customer->phone_no}}
+
+                            <div class="field">
+                                <label class="label" for ="address_1">Address 1</label>
+                                <div class="form-group">
+                                    <input class="input @error('address_1') is-danger @enderror" type="text" name="address_1" id="address_1" value="{{old('address_1')?? $order->address_1 ?? ""}}" placeholder="Address 1">
+
+                                    @error('address_1')
+                                        <p class="help is-danger">{{$errors->first('address_1')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for ="address_2">Address 2</label>
+                                <div class="form-group">
+                                    <input class="input @error('address_2') is-danger @enderror" type="text" name="address_2" id="address_2" value="{{old('address_2')?? $order->address_2 ?? ""}}" placeholder="Address 2">
+
+                                    @error('address_2')
+                                        <p class="help is-danger">{{$errors->first('address_2')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for ="postcode">Postcode</label>
+                                <div class="form-group">
+                                    <input class="input @error('postcode') is-danger @enderror" type="text" name="postcode" id="postcode" value="{{old('postcode')?? $order->postcode ?? ""}}" placeholder="Postcode">
+
+                                    @error('postcode')
+                                        <p class="help is-danger">{{$errors->first('postcode')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for ="city">City</label>
+                                <div class="form-group">
+                                    <input class="input @error('city') is-danger @enderror" type="text" name="city" id="city" value="{{old('city')?? $order->city ?? ""}}" placeholder="City">
+
+                                    @error('city')
+                                        <p class="help is-danger">{{$errors->first('city')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for ="location_state">Location State</label>
+                                <div class="form-group">
+                                    <input class="input @error('location_state') is-danger @enderror" type="text" name="location_state" id="location_state" value="{{old('location_state')?? $order->location_state ?? ""}}" placeholder="Location State">
+
+                                    @error('location_state')
+                                        <p class="help is-danger">{{$errors->first('location_state')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="field">
                                 <label class="label" for ="size">Size</label>
 

@@ -28,12 +28,12 @@ function RunnerJobEdit(props) {
     }
 
     const handleChange = (input) => {
-        setRunnerJob({ 
+        setRunnerJob({
             ...runnerJob,
             runner_schedule_id: runnerschedule.id,
             order_id: order.id,
             scheduled_at: input.target.value
-           
+
         })
     }
 
@@ -133,14 +133,20 @@ function RunnerJobEdit(props) {
                             <td>{scheduledOrder.id}</td>
                             <td>{scheduledOrder.scheduled_at}</td>
                             <td>{scheduledOrder.job_type}</td>
-                            <td>Location tak ada lagi</td>
+                            <td>
+                                {scheduledOrder.order.address_1},<br></br>
+                                {scheduledOrder.order.address_2},<br></br>
+                                {scheduledOrder.order.postcode},<br></br>
+                                {scheduledOrder.order.city},<br></br>
+                                {scheduledOrder.order.location_state}
+                            </td>
                             <td>
                                 Name : {scheduledOrder.order.customer.name}
                                 <br/>
                                 Phone No : {scheduledOrder.order.customer.phone_no}
                             </td>
                             <td><div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div></td>
-                        </tr>    
+                        </tr>
                     )})}
                 </tbody>
             </table>
@@ -164,14 +170,19 @@ function RunnerJobEdit(props) {
                             <td>{order.id}</td>
                             <td>{order.state}</td>
                             <td>{order.prefered_pickup_datetime}</td>
-                            <td>Location tak ada lagi</td>
+                            <td>{order.address_1},<br></br>
+                                {order.address_2},<br></br>
+                                {order.postcode},<br></br>
+                                {order.city},<br></br>
+                                {order.location_state}
+                            </td>
                             <td>
                                 Name : {order.customer.name}
                                 <br/>
                                 Phone No : {order.customer.phone_no}
                             </td>
                             <td><div className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</div></td>
-                        </tr>    
+                        </tr>
                     )})}
                 </tbody>
             </table>
@@ -183,7 +194,7 @@ function RunnerJobEdit(props) {
             {modalShow && runnerJobForm()}
             Runner Jobs
            {runnerJobsTable()}
-            
+
             Orders to be scheduled
             {ordersTable()}
         </div>

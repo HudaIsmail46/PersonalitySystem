@@ -44,10 +44,15 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $this->validateCreateOrders();
-        $customer = Customer::firstOrCreate($request->customer_name, $request->customer_phone_no);
+        $customer = Customer::findOrCreate($request->customer_name, $request->customer_phone_no);
         $order = new Order;
         $order->fill([
             'customer_id' => $customer->id,
+            'address_1' => $request->address_1,
+            'address_2' => $request->address_2,
+            'postcode' => $request->postcode,
+            'city' => $request->city,
+            'location_state' => $request->location_state,
             'size' => $request->size,
             'material' => $request->material,
             'price' => $this->priceCents($request->price),
@@ -56,13 +61,13 @@ class OrderController extends Controller
         $order->save();
         $this->setState($order, $request->status);
 
-        if(request()->hasFile('image')){
+        if (request()->hasFile('image')) {
             $image = new Image;
             $this->storeImage($image, $order);
             $image->save();
         }
 
-        return redirect()->route('order.show',$order->id)->with('Order is created.');
+        return redirect()->route('order.show', $order->id)->with('Order is created.');
     }
 
     /**
@@ -73,7 +78,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('order.show',compact('order'));
+        return view('order.show', compact('order'));
     }
 
     /**
@@ -85,7 +90,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         $availableStates = [Draft::class, PendingPickupSchedule::class];
-        return view('order.edit',compact('order', 'availableStates'));
+        return view('order.edit', compact('order', 'availableStates'));
     }
 
     /**
@@ -100,6 +105,11 @@ class OrderController extends Controller
         $this->validateUpdateOrders();
 
         $order->fill([
+            'address_1' => $request->address_1,
+            'address_2' => $request->address_2,
+            'postcode' => $request->postcode,
+            'city' => $request->city,
+            'location_state' => $request->location_state,
             'actual_size' => $request->actual_size,
             'actual_material' => $request->actual_material,
             'actual_price' => $this->priceCents($request->actual_price),
@@ -111,7 +121,7 @@ class OrderController extends Controller
         $order->save();
         $this->setState($order, $request->status);
 
-        if(request()->hasFile('image')){
+        if (request()->hasFile('image')) {
             $image = new Image;
             $this->storeImage($image, $order);
             $image->save();
@@ -134,7 +144,7 @@ class OrderController extends Controller
 
     protected function setState(Order $order, String $state)
     {
-        if($state == PendingPickupSchedule::class && $order->state == Draft::class){
+        if ($state == PendingPickupSchedule::class && $order->state == Draft::class) {
             $order->transitionTo(PendingPickupSchedule::class);
         }
     }
@@ -152,12 +162,16 @@ class OrderController extends Controller
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
             'status' => 'required',
+            'address_1' => 'required',
+            'postcode' => 'required',
+            'city' => 'required',
+            'location_state' => 'required',
         ]);
     }
 
     protected function validateCreateOrders()
     {
-        $validateData =request()->validate([
+        $validateData = request()->validate([
             'customer_name' => 'required',
             'customer_phone_no' => 'required',
             'size' => 'required',
@@ -165,10 +179,13 @@ class OrderController extends Controller
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
             'status' => 'required',
+            'address_1' => 'required',
+            'postcode' => 'required',
+            'city' => 'required',
+            'location_state' => 'required',
         ]);
 
-        if(request()->hasFile('image'))
-        {
+        if (request()->hasFile('image')) {
             request()->validate([
                 'image' => 'file|image',
             ]);
@@ -176,26 +193,22 @@ class OrderController extends Controller
         return $validateData;
     }
 
-    public function storeImage( $image, $order)
+    public function storeImage($image, $order)
     {
-        if(request()->has('image'))
-        {
+        if (request()->has('image')) {
             $image->fill([
-                'imageable_id'=>$order->id,
-                'imageable_type' =>Order::class,
-                'file'=>request()->image->store('uploads','public'),
+                'imageable_id' => $order->id,
+                'imageable_type' => Order::class,
+                'file' => request()->image->store('uploads', 'public'),
             ]);
         }
     }
 
     public function destroyImage(Image $image)
     {
-        $order=$image->imageable;
+        $order = $image->imageable;
         $image->delete();
 
         return redirect()->route('order.show', $order->id)->with('Order is Updated.');
     }
-
 }
-
-

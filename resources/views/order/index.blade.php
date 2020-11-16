@@ -34,6 +34,7 @@
                                         <th>Material</th>
                                         <th>Price</th>
                                         <th>Prefered Date Time</th>
+                                        <th>Address</th>
                                         <th>Actual Length</th>
                                         <th>Actual Width</th>
                                         <th>Actual Material</th>
@@ -49,6 +50,13 @@
                                         <td>{{ $order->material }}</td>
                                         <td>{{ money($order->price)}}</td>
                                         <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
+                                        <td>
+                                            {{$order->address_1}},<br>
+                                            {{$order->address_2}},<br>
+                                            {{$order->postcode}},<br>
+                                            {{$order->city}},<br>
+                                            {{$order->location_state}}
+                                        </td>
                                         <td>{{ $order->actual_length}}</td>
                                         <td>{{ $order->actual_width}}</td>
                                         <td>{{ $order->actual_material}}</td>
