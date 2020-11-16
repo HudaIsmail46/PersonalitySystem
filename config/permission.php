@@ -157,6 +157,8 @@ return [
                 'list users',
                 'edit users',
                 'delete users',
+                'create orders',
+                'list orders'
             ],
             'Account' => [
                 'list bookings',
@@ -164,6 +166,7 @@ return [
                 'list customers',
                 'list users',
                 'edit users',
+                'list orders'
             ],
             'Marketing' => [
                 'list bookings',
@@ -180,13 +183,19 @@ return [
                 'edit customers',
                 'delete customers',
                 'list users',
+                'create orders',
+                'list orders'
             ],
             'Operation' => [
                 'list bookings',
                 'list customers',
+                'list orders',
+                'list assignedRunnerSchedule'
             ],
             'Licensee'=>[],
-            'Runner'=>[],
+            'Runner'=>[
+                'list assignedRunnerSchedule'
+            ],
         ],
         'permissions' => [
             'create bookings',
@@ -201,6 +210,10 @@ return [
             'list users',
             'edit users',
             'delete users',
+            'list orders',
+            'create orders',
+            'list runnerSchedules',
+            'list assignedRunnerSchedule'
         ]
     ],
 ];
