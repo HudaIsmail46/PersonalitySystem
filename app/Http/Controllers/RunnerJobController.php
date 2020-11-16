@@ -110,7 +110,8 @@ class RunnerJobController extends Controller
         ]);
         $runnerJob->save();
         $runnerJobs = $runnerJob->runnerSchedule->runnerJobs->load('order.customer');
-        $runnerJobs;
+        $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
+        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
 
     }
 
