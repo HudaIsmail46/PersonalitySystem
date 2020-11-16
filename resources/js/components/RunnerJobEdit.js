@@ -22,7 +22,7 @@ function RunnerJobEdit(props) {
         setModalShow(true);
     }
 
-    const changeRunnerJobstate = (scheduledOrder) => { 
+    const changeRunnerJobstate = (scheduledOrder) => {
         axios.post(`/runner_job/status/${scheduledOrder.id}`,{})
               .then(function (response) {
                 setRunnerJobs(response.data.runnerJobs);
@@ -44,7 +44,6 @@ function RunnerJobEdit(props) {
             runner_schedule_id: runnerschedule.id,
             order_id: order.id,
             scheduled_at: input.target.value
-
         })
     }
 
@@ -86,7 +85,7 @@ function RunnerJobEdit(props) {
             setRunnerJob({});
             closeModal();
     }
-    
+
     const runnerJobForm = () => {
         return (
             <div className="box">
@@ -129,6 +128,7 @@ function RunnerJobEdit(props) {
 
     const runnerJobsTable = () => {
         return (
+            <div className="table-responsive">
             <table className="table table-bordered">
                 <tbody>
                     <tr>
@@ -165,7 +165,7 @@ function RunnerJobEdit(props) {
                                 )
                                 } else if( scheduledOrder.order.state == "App\\State\\Order\\Collected") {
                                 return (
-                                    <div className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Received Warehouse</div> 
+                                    <div className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Received Warehouse</div>
                                 )
                                 }else if( scheduledOrder.order.state == "App\\State\\Order\\ReceivedWarehouse"){
                                 return (
@@ -173,7 +173,7 @@ function RunnerJobEdit(props) {
                                     <p>
                                         <button className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Vendor Collected</button>
                                         <button className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>InHouse Cleaning</button>
-                                    </p> 
+                                    </p>
                                 </div>
                                 )
                                 }else{
@@ -184,15 +184,17 @@ function RunnerJobEdit(props) {
                                 })()
                                 }
                             </td>
-                        </tr>    
+                        </tr>
                     )})}
                 </tbody>
             </table>
+            </div>
         )
     }
 
     const ordersTable = () => {
         return (
+            <div className="table-responsive">
             <table className="table table-bordered">
                 <tbody>
                     <tr>
@@ -224,6 +226,7 @@ function RunnerJobEdit(props) {
                     )})}
                 </tbody>
             </table>
+            </div>
         )
     }
 
