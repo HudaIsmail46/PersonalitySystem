@@ -42,6 +42,16 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Address</td>
+                                <td>
+                                    {{$order->address_1}},<br>
+                                    {{$order->address_2}},<br>
+                                    {{$order->postcode}},<br>
+                                    {{$order->city}},<br>
+                                    {{$order->location_state}}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Size</td>
                                 <td>{{$order->size}}</td>
                             </tr>
@@ -77,26 +87,26 @@
                                 <td>Status</td>
                                 <td>{{$order->state}}</td>
                             </tr>
-                            <tr>	
-                                <td>Image</td>	
-                                <td>	
-                                    @foreach ($order->images as $image)	
-                                        <img src="{{ asset('/storage/' .$image->file ?? '')}}" alt="" class="img-thumbnail" >	
-                                </td>	
-                            </tr>	
-                            <tr>	
-                                <td></td>	
-                                <td>	
-                                    @if ($image != null)	
-                                        <form class='mb-0' action="{{ route('order.destroyImage', $image->id)}}" method="post">	
-                                            @csrf	
-                                            @method('DELETE')	
-                                            <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete Image <i class="fa fa-trash"></i></button>	
-                                        </form>	
-                                    @else	
-                                    @endif	
-                                    @endforeach	
-                                </td>	
+                            <tr>
+                                <td>Image</td>
+                                <td>
+                                    @foreach ($order->images as $image)
+                                        <img src="{{ asset('/storage/' .$image->file ?? '')}}" alt="" class="img-thumbnail" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @if ($image != null)
+                                        <form class='mb-0' action="{{ route('order.destroyImage', $image->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete Image <i class="fa fa-trash"></i></button>
+                                        </form>
+                                    @else
+                                    @endif
+                                    @endforeach
+                                </td>
                             </tr>
                         </table>
 
