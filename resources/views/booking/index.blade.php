@@ -19,13 +19,6 @@
 
     <div class="content">
         <div class="container-fluid">
-            @can('import bookings')
-                <div class="row">
-                    <a href={{route('booking.import.new')}}>
-                        <button class="btn-primary btn btn-block col-15 ml-auto">Import</button>
-                    </a>
-                </div>
-            @endcan
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card mt-4">
