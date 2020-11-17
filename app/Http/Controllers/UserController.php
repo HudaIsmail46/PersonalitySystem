@@ -10,16 +10,6 @@ use \Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','can: list users | edit users | delete users']);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
