@@ -47,36 +47,17 @@
                             <td>Status</td>
                             <td>{{ $runner_schedule->status }}</td>
                         </tr>
-                        <tfoot>
-                            @can('edit Runner Schedule')
-                                <td valign="bottom">
-                                    <a href="{{ route('runner_schedule.edit',$runner_schedule->id)}}"
-                                        class="btn btn-primary">Edit</a>
-                                </td>
-                            @endcan
-                            @can('delete Runner Schedule')
-                                <td>
-                                    <form action="{{ route('runner_schedule.destroy', $runner_schedule->id) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"
-                                            type="submit">Delete <i class="fa fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            @endcan
-                        </tfoot>
                     </table>
                 </div>
-            </div>
-            @if ($runner_schedule->status == 'on route')
-            @else
+            @if ($runner_schedule->status == 'draft')
                 <form action="{{ route('runner.start',$runner_schedule->id)}}" method="post">
                     @csrf
                     @method('PUT')
                     <button class="btn btn-success mr-2" type="submit">Start</button>
                 </form>
+            @else
             @endif
+        </div>
         </div>
         <div class="card mt-4">
             <div class="card-header">
