@@ -114,7 +114,9 @@ function RunnerJobEdit(props) {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button type='button' className='btn btn-danger' onClick={onDelete}>Delete </button>
+                                {runnerJob.id && (
+                                    <button type='button' className='btn btn-danger' onClick={onDelete}>Delete</button>
+                                )}
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={closeModal}>Close</button>
                                 <button type="button" className="btn btn-primary" onClick={submit}>Save changes</button>
                             </div>

@@ -62,26 +62,6 @@
                                     </td>
                                 </tr>
                                 @include('runner_job.form')
-                                <tr>
-                                    <tfoot>
-                                        @can('edit Runner Schedule')
-                                            <td valign="bottom">
-                                                <a href="{{ route('runnerJob.edit', $runnerJob->id) }}"
-                                                    class="btn btn-primary">Edit</a>
-                                            </td>
-                                        @endcan
-                                        @can('delete Runner Schedule')
-                                            <td>
-                                                <form action="{{ route('runnerJob.destroy', $image->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')"
-                                                        type="submit">Delete <i class="fa fa-trash"></i></button>
-                                                </form>
-                                             </td>
-                                        @endcan
-                                    </tfoot>
-                                </tr>
                             </table>
                         </div>
                     </div>

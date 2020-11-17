@@ -44,11 +44,7 @@
                             <tr>
                                 <td>Address</td>
                                 <td>
-                                    {{$order->address_1}},<br>
-                                    {{$order->address_2}},<br>
-                                    {{$order->postcode}},<br>
-                                    {{$order->city}},<br>
-                                    {{$order->location_state}}
+                                    {!!orderAddress($order)!!}
                                 </td>
                             </tr>
                             <tr>
@@ -85,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td>{{$order->state}}</td>
+                                <td>{{humaniseOrderState($order->state)}}</td>
                             </tr>
                             <tr>
                                 <td>Image</td>

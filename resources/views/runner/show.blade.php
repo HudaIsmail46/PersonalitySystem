@@ -98,7 +98,7 @@
                                 <td><a href={{route('runner_job.show', $runnerJob->id)}}>{{ $runnerJob->id }}</td>
                                 <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
                                 <td>{{ $runnerJob->job_type }}</td>
-                                <td>{{ $runnerJob->location ?? '' }}</td>
+                                <td>{!! orderAddress($runnerJob->order) !!}</td>
                                 <td> Name : {{ $runnerJob->order->customer->name }}
                                     <br />
                                     Phone No : {{ $runnerJob->order->customer->phone_no }}
