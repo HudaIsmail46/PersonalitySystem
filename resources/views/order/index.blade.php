@@ -51,17 +51,13 @@
                                         <td>{{ money($order->price)}}</td>
                                         <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
                                         <td>
-                                            {{$order->address_1}},<br>
-                                            {{$order->address_2}},<br>
-                                            {{$order->postcode}},<br>
-                                            {{$order->city}},<br>
-                                            {{$order->location_state}}
+                                            {!!orderAddress($order)!!}
                                         </td>
                                         <td>{{ $order->actual_length}}</td>
                                         <td>{{ $order->actual_width}}</td>
                                         <td>{{ $order->actual_material}}</td>
                                         <td>{{ money($order->actual_price)}}</td>
-                                        <td>{{ $order->state}}</td>
+                                        <td>{{ humaniseOrderState($order->state)}}</td>
                                     </tr>
                                     @endforeach
                                 </table>

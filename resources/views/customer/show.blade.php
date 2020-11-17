@@ -28,7 +28,7 @@
                     <p> Customer Detail </p>
                 </div>
                 <div class="card-body">
-                    <div class='ml-2'>
+                    <div class='mt-3 mb-5'>
                         Name: {{$customer->name}}
                         <br>
                         Phone: {{$customer->phone_no}}
@@ -37,8 +37,9 @@
                         <br>
                         Life Time Value: {{money($customer->bookings()->sum('price'))}}
                         <br>
-                        Bookings:-
                     </div>
+
+                    <h2>Bookings:-</h2>
                     <div class="table-responsive">
                         @include('booking.table', ['bookings'=>$customer->bookings()->get()])
                     </div>
