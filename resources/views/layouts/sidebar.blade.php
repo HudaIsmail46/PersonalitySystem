@@ -26,7 +26,7 @@
             @can('list bookings')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ (request()->is('booking*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link {{ (request()->is('booking*')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-briefcase"></i>
                             <p>
                                 Bookings
@@ -54,7 +54,7 @@
             @can('list customers')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ (request()->is('customer*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link {{ (request()->is('customer*')) ? 'active' : '' }}">
 
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -82,7 +82,7 @@
             @can('list users')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ (request()->is('user*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link {{ (request()->is('user*')) ? 'active' : '' }}">
 
                             <i class="nav-icon fas fa-user"></i>
                             <p>
@@ -110,7 +110,7 @@
             @can('list orders')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ (request()->is('order*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link {{ (request()->is('order*')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>
                                 Orders
@@ -136,8 +136,8 @@
             @endcan
             @can('list runnerSchedules')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('runner*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link active">
+                    <li class="nav-item has-treeview menu-{{ (request()->is('runner_schedule*')) ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ (request()->is('runner_schedule*')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-running "></i>
                             <p>
                                 Runner Schedule
@@ -164,7 +164,7 @@
             @can('list assignedRunnerSchedule')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ (request()->is('runner*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link {{ (request()->is('runner*')) ? 'active' : '' }}">
                             <i class="nav-icon fas fa-running "></i>
                             <p>
                                 Runner Schedule
