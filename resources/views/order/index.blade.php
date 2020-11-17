@@ -26,37 +26,55 @@
                            Order Details
                         </div>
                         <div class='card-body'>
+                            <form action="{{ route('order.index')}}" method="get">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
+                                        </div>
+                                        <div class="col-md-2">
+                                            Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone no" value="{{request()->phone_no}}">
+                                        </div>
+                                        <div class="col-md-2">
+                                            Prefered Date Time: <input class="form-control form-control-sm" type="date" name="date" value="{{request()->date}}">
+                                        </div>
+                                        <div class="col-md-2">
+                                            Status:
+                                            <select id="state" class="form-control form-control-sm" name="state">
+                                                <option></option>
+                                                @foreach(App\Order::getStatesFor('state') as $state)
+                                                    <option value="{{$state}}" {{(request()->state == $state) ? 'selected' : '' }} class='text-capitalize'>{{humaniseOrderState($state)}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
+                            </form>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <tr>
                                         <th>Id</th>
-                                        <th>size</th>
-                                        <th>Material</th>
-                                        <th>Price</th>
-                                        <th>Prefered Date Time</th>
+                                        <th>Customer</th>
                                         <th>Address</th>
-                                        <th>Actual Length</th>
-                                        <th>Actual Width</th>
-                                        <th>Actual Material</th>
-                                        <th>Actual Price</th>
+                                        <th>Prefered Date Time</th>
                                         <th>Status</th>
-                                        <th></th>
                                     </tr>
                                     <tr>
                                         @foreach($orders as $order)
 
-                                        <td><a href="{{route('order.show', $order)}}">{{ $order ->id}}</td>
-                                        <td>{{ $order->size}}</td>
-                                        <td>{{ $order->material }}</td>
-                                        <td>{{ money($order->price)}}</td>
-                                        <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
+                                        <td><a href="{{route('order.show', $order)}}">{{ $order->id}}</td>
+                                        <td>
+                                            {{ $order->customer->name}}
+                                            <br>
+                                            {{ $order->customer->phone_no}}
+                                        </td>
                                         <td>
                                             {!!orderAddress($order)!!}
                                         </td>
-                                        <td>{{ $order->actual_length}}</td>
-                                        <td>{{ $order->actual_width}}</td>
-                                        <td>{{ $order->actual_material}}</td>
-                                        <td>{{ money($order->actual_price)}}</td>
+                                        <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
                                         <td>{{ humaniseOrderState($order->state)}}</td>
                                     </tr>
                                     @endforeach
