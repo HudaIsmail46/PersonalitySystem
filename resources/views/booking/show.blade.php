@@ -29,8 +29,9 @@
                 </div>
                 <div class="card-body">
 
-                    <div class='ml-2'>
+                    <div class='mt-3 mb-5'>
                         @if($booking->customer)
+                        <h2>Customer</h2>
                         Name : <a href="{{route('customer.show', $booking->customer)}}">{{ $booking->customer->name }}</a>
                         <br>
                         Phone No. : {{ $booking->customer->phone_no }}
@@ -40,43 +41,50 @@
                         Phone No. : -
                         @endif
                     </div>
-
+                    <h2>Booking</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <tr>
-                                <th>Id</th>
-                                <th>Address</th>
-                                <th>Event Begins</th>
-                                <th>Event Ends</th>
-                                <th>Description</th>
-                                <th>Team</th>
-                                <th>Status</th>
-                                <th>Image</th>
+                                <td>Id</td>
+                                <td>{{ $booking->id}}</td>
                             </tr>
                             <tr>
-                                <td>{{ $booking->id}}</td>
+                                <td>Address</td>
                                 <td>{{ $booking->gc_address }}</td>
+                            </tr>
+                            <tr>
+                                <td>Event Begins</td>
                                 <td>{{ $booking->gc_event_begins }}</td>
+                            </tr>
+                            <tr>
+                                <td>Event Ends</td>
                                 <td>{{ $booking->gc_event_ends }}</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
                                 <td>{{ $booking->gc_description }}</td>
+                            </tr>
+                            <tr>
+                                <td>Team</td>
                                 <td>{{ $booking->gc_team }}</td>
+                            </tr>
+                            <tr>
+                                <td>Status</td>
                                 <td>{{ $booking->status }}</td>
-                                <td>
-                                    @foreach ($booking->images as $image)
-                                        <img src="{{ asset('/storage/' .$image->file ?? '')}}" alt="" class="img-thumbnail" >
-
-                                        @if ($image != null)
-                                            <form class='mb-0' action="{{ route('booking.destroyImage', $image->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete Image <i class="fa fa-trash"></i></button>
-                                            </form>
-                                        @else
-                                        @endif
-                                    @endforeach
-                                </td>
                             </tr>
                         </table>
+                        @foreach ($booking->images as $image)
+                            <img src="{{ asset('/storage/' .$image->file ?? '')}}" alt="" class="img-thumbnail" >
+
+                            @if ($image != null)
+                                <form class='mb-0' action="{{ route('booking.destroyImage', $image->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete Image <i class="fa fa-trash"></i></button>
+                                </form>
+                            @else
+                            @endif
+                        @endforeach
                     </div>
                     @can('edit bookings')
                     <div class="row mt-5">
