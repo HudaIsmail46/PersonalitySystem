@@ -106044,8 +106044,8 @@ if (element) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/faiz/Desktop/cleanhero/crm/ch-crm/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/faiz/Desktop/cleanhero/crm/ch-crm/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /mnt/c/Users/hudai/Documents/laravel/CH_CRM/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /mnt/c/Users/hudai/Documents/laravel/CH_CRM/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

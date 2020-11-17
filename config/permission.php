@@ -184,7 +184,9 @@ return [
                 'delete customers',
                 'list users',
                 'create orders',
-                'list orders'
+                'list orders',
+                'list runnerSchedules',
+                'create runnerSchedules'
             ],
             'Operation' => [
                 'list bookings',
@@ -213,6 +215,7 @@ return [
             'list orders',
             'create orders',
             'list runnerSchedules',
+            'create runnerSchedules',
             'list assignedRunnerSchedule'
         ]
     ],

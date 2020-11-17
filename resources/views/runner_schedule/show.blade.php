@@ -51,12 +51,10 @@
                             <td>{{ $runner_schedule->status }}</td>
                         </tr>
                         <tfoot>
-                            @can('edit Runner Schedule')
+                            @can('create runnerSchedules')
                                 <td valign="bottom">
                                     <a href="{{ route('runner_schedule.edit',$runner_schedule->id)}}" class="btn btn-primary">Edit</a>
                                 </td>
-                            @endcan
-                            @can('delete Runner Schedule')
                                 <td>
                                     <form action="{{ route('runner_schedule.destroy', $runner_schedule->id)}}" method="post">
                                         @csrf

@@ -10,6 +10,8 @@ class RunnerSchedule extends Model
     protected $fillable =['runner_id','scheduled_at','started_at','expected_at','completed_at','status'];
     use SoftDeletes;
 
+    const STATUS = ['draft', 'scheduled', 'on route', 'completed'];
+
     public function path()
     {
         return route('runner_schedule.show', $this);

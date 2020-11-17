@@ -6,7 +6,7 @@
 
             <select id="runner_id" name="runner_id">
                 @foreach($runners as $runner)
-                    <option value="{{$runner->id}}">{{$runner->name}}</option>
+                    <option value="{{$runner->id}}" {{$runner_schedule->runner->name == $runner->name ? 'selected': ''}}>{{$runner->name}}</option>
                 @endforeach
             </select>
 
@@ -45,10 +45,9 @@
         <label class="label" for="status">Status </label>
         <div class="form-group">
         <select id="status" name="status">
-            <option value="draft" {{($runner_schedule->status === 'draft') ? 'Selected' : ''}}>draft</option>
-            <option value="scheduled" {{($runner_schedule->status === 'schedule') ? 'Selected' : ''}}>scheduled</option>
-            <option value="on_route"{{($runner_schedule->status === 'on_route') ? 'Selected' : ''}}>on route</option>
-            <option value="completed" {{($runner_schedule->status === 'completed') ? 'Selected' : ''}}>completed</option>
+            @foreach(App\RunnerSchedule::STATUS as $status)
+                <option value="{{$status}}" {{$runner_schedule->status == $status ? 'selected': ''}}>{{$status}}</option>
+            @endforeach
         </select>
         </div>
     </div>
