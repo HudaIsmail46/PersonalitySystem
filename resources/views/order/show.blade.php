@@ -4,7 +4,7 @@
 
     <title>Order Data</title>
 
-@section ('content')
+@section('content')
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -28,93 +28,99 @@
                         <p>Order Detail</p>
                     </div>
                     <div class="card-body">
-                        <table class='w-100' >
+                        <table class='w-100'>
                             <tr>
-                                <th> Id: {{$order->id}}</th>
+                                <th> Id: {{ $order->id }}</th>
                                 <th></th>
                             </tr>
                             <tr>
                                 <td>Customer</td>
                                 <td>
-                                    Name : {{$order->customer->name}}
+                                    Name : {{ $order->customer->name }}
                                     <br>
-                                    Phone No : {{$order->customer->phone_no}}
+                                    Phone No : {{ $order->customer->phone_no }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>Address</td>
                                 <td>
-                                    {!!orderAddress($order)!!}
+                                    {!! orderAddress($order) !!}
                                 </td>
                             </tr>
                             <tr>
                                 <td>Size</td>
-                                <td>{{$order->size}}</td>
+                                <td>{{ $order->size }}</td>
                             </tr>
                             <tr>
                                 <td>Material</td>
-                                <td>{{$order->material}}</td>
+                                <td>{{ $order->material }}</td>
                             </tr>
                             <tr>
                                 <td>Price</td>
-                                <td>{{money($order->price)}}</td>
+                                <td>{{ money($order->price) }}</td>
                             </tr>
                             <tr>
                                 <td>Prefered Pickup Date Time</td>
-                                <td>{{myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
+                                <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime)) }}</td>
                             </tr>
                             <tr>
                                 <td>Actual Length</td>
-                                <td>{{$order->actual_length}}</td>
+                                <td>{{ $order->actual_length }}</td>
                             </tr>
                             <tr>
                                 <td>Actual width</td>
-                                <td>{{$order->actual_width}}</td>
+                                <td>{{ $order->actual_width }}</td>
                             </tr>
                             <tr>
                                 <td>Actual Material</td>
-                                <td>{{$order->actual_material}}</td>
+                                <td>{{ $order->actual_material }}</td>
                             </tr>
                             <tr>
                                 <td>Actual Price</td>
-                                <td>{{money($order->actual_price)}}</td>
+                                <td>{{ money($order->actual_price) }}</td>
                             </tr>
                             <tr>
                                 <td>Status</td>
-                                <td>{{humaniseOrderState($order->state)}}</td>
+                                <td>{{ humaniseOrderState($order->state) }}</td>
                             </tr>
                             <tr>
                                 <td>Image</td>
                                 <td>
                                     @foreach ($order->images as $image)
-                                        <img src="{{ asset('/storage/' .$image->file ?? '')}}" alt="" class="img-thumbnail" >
+                                        <img src="{{ asset('/storage/' . $image->file ?? '') }}" alt=""
+                                            class="img-thumbnail">
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                    @if ($image != null)
-                                        <form class='mb-0' action="{{ route('order.destroyImage', $image->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete Image <i class="fa fa-trash"></i></button>
-                                        </form>
-                                    @else
-                                    @endif
+                                    @can('create orders')
+                                        @if ($image != null)
+                                            <form class='mb-0' action="{{ route('order.destroyImage', $image->id) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
+                                                    type="submit">Delete Image <i class="fa fa-trash"></i></button>
+                                            </form>
+                                        @endif
+                                    @endcan
                                     @endforeach
                                 </td>
                             </tr>
                         </table>
+                        @can('create orders')
+                            <div class="row mt-5">
+                                <a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary mr-2">Edit</a>
 
-                        <div class="row mt-5">
-                            <a href="{{ route('order.edit',$order->id)}}" class="btn btn-primary mr-2">Edit</a>
-
-                            <form class='mb-0' action="{{ route('order.destroy', $order->id)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
-                            </form>
-                        </div>
+                                <form class='mb-0' action="{{ route('order.destroy', $order->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
+                                        type="submit">Delete <i class="fa fa-trash"></i></button>
+                                </form>
+                            </div>
+                        @endcan
                     </div>
                 </div>
             </div>
