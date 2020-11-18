@@ -47,7 +47,7 @@
                                 </tr>
                                 <tr>
                                     <td>Location</td>
-                                    <td>{{ $runnerJob->location ?? '' }}</td>
+                                    <td>{!! orderAddress($runnerJob->order)!!}</td>
                                 </tr>
                                 <tr>
                                     <td>Customer</td>
