@@ -61,7 +61,7 @@
                             @csrf
                             @method('PUT')
                             <table class="table table-bordered table-striped" style="width:100%">
-
+                                
                                 <tr>
                                     <td>Event Title</td>
                                     <td align="left">{{$booking->gc_event_title}}</td>
@@ -114,17 +114,14 @@
 
                             <div class="col-md-5">
                                 <label class="label" for="status">Status</label>
-                                <select id="status" class="form-control form-control-sm" name="status">
-                                    <option value="" {{ old('status', $booking->status) == '' ? 'selected' : '' }}>--Select Status--</option>
-                                    <option value="APPROVED" {{ old('status', $booking->status) == 'APPROVED' ? 'selected' : '' }}>APPROVED</option>
-                                    <option value="NOT APPROVED" {{ old('status', $booking->status) == 'NOT APPROVED' ? 'selected' : '' }}>NOT APPROVED</option>
-                                    <option value="IN PROGRESS" {{ old('status', $booking->status) == 'IN PROGRESS' ? 'selected' : '' }}>IN PROGRESS</option>
-                                    <option value="POSTPONED" {{ old('status', $booking->status) == 'POSTPONED' ? 'selected' : '' }}>POSTPONED</option>
-                                    <option value="HUTANG" {{ old('status', $booking->status) == 'HUTANG' ? 'selected' : '' }}>HUTANG</option>
-                                    <option value="RECUCI" {{ old('status', $booking->status) == 'RECUCI' ? 'selected' : '' }}>RECUCI</option>
-                                    <option value="PENDING" {{ old('status', $booking->status) == 'PENDING' ? 'selected' : '' }}>PENDING</option>
-                                    <option value="NOT VALID" {{ old('status', $booking->status) == 'NOT VALID' ? 'selected' : '' }}>NOT VALID</option>
-                                </select>
+                                <div class="form-group">
+                                    <select id="status"  class="form-control form-control-sm" name="status">
+                                        <option value="">--SELECT STATUS--</option>
+                                        @foreach(App\Booking::STATUS as $status)
+                                            <option value="{{$status}}"{{$booking->status == $status ? 'selected': ''}}>{{$status}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <p class="help is-danger">{{ $errors->first('status')}}</p>
                             </div>
 

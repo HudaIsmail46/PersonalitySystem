@@ -25,3 +25,15 @@ if(!function_exists('orderAddress')){
         return $address;
     }
 }
+
+if(!function_exists('bookingAddress')){
+    function bookingAddress(App\Booking $booking){
+        if(!is_null($booking->address_1) || !is_null($booking->address_2) || !is_null($booking->postcode) || !is_null($booking->city) || !is_null($booking->location_state)){
+            $address = $booking->address_1 . ", <br/>" . $booking->address_2 . ", <br/>" . $booking->postcode . ", <br/>" . $booking->city . ", <br/>" . $booking->location_state;
+        } else {
+            $address = '-';
+        }
+
+        return $address;
+    }
+}

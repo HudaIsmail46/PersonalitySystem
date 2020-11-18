@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Booking;
+use App\Customer;
 use Illuminate\Support\Facades\DB;
 use App\Image;
 
@@ -42,7 +43,9 @@ class BookingController extends Controller
             ->orderBy('gc_event_begins', 'DESC')->paginate(10);
 
         $booking_teams = DB::select('select distinct gc_team from bookings');
-        $teams = array_map(function($booking){return $booking->gc_team;}, $booking_teams);
+        $teams = array_map(function ($booking) {
+            return $booking->gc_team;
+        }, $booking_teams);
 
         return view('booking.index', compact('bookings', 'teams'))
             ->with('i', ($bookings->get('page', 1) - 1) * 5);
@@ -78,16 +81,34 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $this->validateCreateBooking();
-        $booking = Booking::create($request->all());
+        $customer = Customer::findOrCreate($request->customer_name, $this->formatPhoneNo($request->customer_phone_no));
+        $booking = new Booking;
+        $booking->fill([
+            'customer_id' => $customer->id,
+            'event_begins' => $request->event_begins,
+            'event_ends' => $request->event_ends,
+            'address_1' => $request->address_1,
+            'address_2' => $request->address_2,
+            'postcode' => $request->postcode,
+            'city' => $request->city,
+            'location_state' => $request->location_state,
+            'booking_type' => $request->booking_type,
+            'discount' => $this->priceCents($request->discount),
+            'deposit' => $this->priceCents($request->deposit),
+            'pic' => $request->pic,
+            'remarks' => $request->remarks,
+            'estimated_price' => $this->priceCents($request->estimated_price),
+            'team' => $request->team,
+        ]);
+        $booking->save();
 
-        if(request()->hasFile('image'))
-        {
+        if (request()->hasFile('image')) {
             $image = new Image;
             $this->storeImage($image, $booking);
             $image->save();
         }
 
-        return redirect()->route('booking.show',$booking->id)->with('Order is created.');
+        return redirect()->route('booking.show', $booking->id)->with('Order is created.');
     }
 
     /**
@@ -112,16 +133,13 @@ class BookingController extends Controller
     {
         $booking->update($this->validateUpdateBooking());
 
-        if(request()->has('image'))
-        {
+        if (request()->has('image')) {
             $image = new Image;
             $this->storeImage($image, $booking);
             $image->save();
         }
 
-        return redirect()->route('booking.show',$booking->id)->with('Booking updated successfully.');
-
-
+        return redirect()->route('booking.show', $booking->id)->with('Booking updated successfully.');
     }
 
     /**
@@ -136,19 +154,39 @@ class BookingController extends Controller
         return redirect()->route('booking.index')->with('Booking is deleted.');
     }
 
+    protected function priceCents($price)
+    {
+        return $price ? $price * 100 : 0;
+    }
+
+    protected function formatPhoneNo($phone_no)
+    {
+        if (preg_match('/^6/', $phone_no) || preg_match('/[\[^\+\]]/', $phone_no)) {
+            $phone_number = preg_replace('/\D+/', '', $phone_no);
+        } else {
+            $phone = preg_replace('/\D+/', '', $phone_no);
+            $phone_number =  "6" . $phone;
+        }
+        return $phone_number;
+    }
+
     protected function validateCreateBooking()
     {
-        $validateData= request()->validate([
-            'event_title' => 'required',
-            'address' => 'required',
+        $validateData = request()->validate([
+            'customer_name' => 'required',
+            'customer_phone_no' => 'required',
             'event_begins' => 'required',
             'event_ends' => 'required|after_or_equal:event_begins',
-            'description' => 'required',
+            'address_1' => 'required',
+            'postcode' => 'required',
+            'city' => 'required',
+            'location_state' => 'required',
+            'booking_type' => 'required',
+            'pic' => 'required',
             'team' => 'required'
         ]);
 
-        if(request()->hasFile('image'))
-        {
+        if (request()->hasFile('image')) {
             request()->validate([
                 'image' => 'file|image',
             ]);
@@ -159,30 +197,29 @@ class BookingController extends Controller
     protected function validateUpdateBooking()
     {
         return request()->validate([
+            'price' => 'required',
             'invoice_number' => 'max:10',
             'receipt_number' => 'max:6',
             'status' => 'required'
         ]);
     }
 
-    public function storeImage( $image, $booking)
+    public function storeImage($image, $booking)
     {
-        if(request()->has('image'))
-        {
+        if (request()->has('image')) {
             $image->fill([
-                'imageable_id'=>$booking->id,
-                'imageable_type' =>Booking::class,
-                'file'=>request()->image->store('uploads','public'),
+                'imageable_id' => $booking->id,
+                'imageable_type' => Booking::class,
+                'file' => request()->image->store('uploads', 'public'),
             ]);
         }
     }
 
     public function destroyImage(Image $image)
     {
-        $booking=$image->imageable;
+        $booking = $image->imageable;
         $image->delete();
 
         return redirect()->route('booking.show', $booking->id)->with('Booking is Updated.');
     }
-
 }
