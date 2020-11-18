@@ -62,21 +62,20 @@
                                         <th>Prefered Date Time</th>
                                         <th>Status</th>
                                     </tr>
-                                    <tr>
-                                        @foreach($orders as $order)
-
-                                        <td><a href="{{route('order.show', $order)}}">{{ $order->id}}</td>
-                                        <td>
-                                            {{ $order->customer->name}}
-                                            <br>
-                                            {{ $order->customer->phone_no}}
-                                        </td>
-                                        <td>
-                                            {!!orderAddress($order)!!}
-                                        </td>
-                                        <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
-                                        <td>{{ humaniseOrderState($order->state)}}</td>
-                                    </tr>
+                                    @foreach($orders as $order)
+                                        <tr>
+                                            <td><a href="{{route('order.show', $order)}}">{{ $order->id}}</td>
+                                            <td>
+                                                {{ $order->customer->name}}
+                                                <br>
+                                                {{ $order->customer->phone_no}}
+                                            </td>
+                                            <td>
+                                                {!!orderAddress($order)!!}
+                                            </td>
+                                            <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
+                                            <td>{{ humaniseOrderState($order->state)}}</td>
+                                        </tr>
                                     @endforeach
                                 </table>
                                 {{ $orders ?? ''->links() }}
