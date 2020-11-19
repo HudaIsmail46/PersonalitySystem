@@ -93,8 +93,8 @@
                                     <br />
                                     Phone No : {{ $runnerJob->order->customer->phone_no }}
                                 </td>
+                            </tr>
                         @endforeach
-                        </tr>
                     </table>
                 </div>
             </div>
