@@ -156,7 +156,7 @@
                                 </div>
                             </div>
 
-                            <div class="field">
+                            {{-- <div class="field">
                                 <label class="label" for ="image">Image</label>
                                 <div class="form-group">
                                     <input class="input @error('image') is-danger @enderror" type="file"
@@ -166,7 +166,9 @@
                                         <p class="help is-danger">{{$errors->first('image')}}</p>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
+
+
 
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </form>

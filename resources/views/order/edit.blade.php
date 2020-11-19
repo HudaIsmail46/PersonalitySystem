@@ -201,7 +201,7 @@
                             </div>
                         </div>
 
-                        <div class="field">
+                        {{-- <div class="field">
                             <label class="label" for ="image">Image</label>
 
                             <div class="form-group">
@@ -213,7 +213,70 @@
                                     <p class="help is-danger">{{$errors->first('image')}}</p>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
+
+                        {{-- <form method="post" action="{{url('image/upload/store')}}" enctype="multipart/form-data"
+                                class="dropzone border border-info rounded" id="dropzone">
+                                @csrf
+                        </form> --}}
+
+                        <div class="dropzone border border-info rounded" id="dropzone"></div><br>
+
+                        {{-- <form action="{{route('users.fileupload')}}" class='dropzone' >
+                        </form>  --}}
+
+                        <script type="text/javascript">
+                        Dropzone.autoDiscover = false;
+                                    Dropzone.options.dropzone =
+                                     {
+                                        maxFilesize: 12,
+                                        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+                                        addRemoveLinks: true,
+                                        timeout: 5000,
+                                        removedfile: function(file)
+                                        {
+                                            var name = file.upload.file;
+                                            $.ajax({
+                                                headers: {
+                                                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                                                        },
+                                                type: 'POST',
+                                                url: '{{ url("image/delete") }}',
+                                                data: {filename: name},
+                                                success: function (data){
+                                                    console.log("File has been successfully removed!!");
+                                                },
+                                                error: function(e) {
+                                                    console.log(e);
+                                                }});
+                                                var fileRef;
+                                                return (fileRef = file.previewElement) != null ?
+                                                fileRef.parentNode.removeChild(file.previewElement) : void 0;
+                                        },
+
+                                        success: function(file, response)
+                                        {
+                                            console.log(response);
+                                        },
+                                        error: function(file, response)
+                                        {
+                                           return false;
+                                        }
+                            };
+                                // var csrf_token =document.getElementById("_token");
+                                var CSRF_TOKEN = document.querySelector('meta[name="_token"]').getAttribute("content");
+                                var order = document.getElementById("order.id");
+                                var myDropzone = new window.Dropzone("div#dropzone", { url: "/api/image"});
+                                myDropzone.on("sending", function(file, xhr, formData) {
+                                // Will send the filesize along with the file as POST data.
+                                formData.append("imageable_id",order);
+                                formData.append("imageable_type", "App\\Order");
+                                formData.append("_token", CSRF_TOKEN);
+                                });
+
+                            </script>
+
+
 
                         <div class="field is grouped">
                             <div class="form-group">

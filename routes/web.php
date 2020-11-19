@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if(auth()->check()){
+    if (auth()->check()) {
         return redirect()->route('home');
     }
     return view('welcome');
@@ -71,7 +71,7 @@ Route::prefix('/user')->name('user.')->group(function () {
 });
 
 ##order CRUD
-Route::prefix('/order')->name('order.')->group(function(){
+Route::prefix('/order')->name('order.')->group(function () {
     Route::get('/index', 'OrderController@index')->name('index');
     Route::get('/create', 'OrderController@create')->name('create');
     Route::post('/', 'OrderController@store')->name('store');
@@ -107,9 +107,14 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::get('/create', 'RunnerJobController@create')->name('create');
     Route::post('/', 'RunnerJobController@store')->name('store');
     Route::get('/{runner_job}', 'RunnerJobController@show')->name('show');
-    Route::get('/{runner_job}/edit', 'RunnerJobController@edit')->name('edit'); 
+    Route::get('/{runner_job}/edit', 'RunnerJobController@edit')->name('edit');
     Route::delete('/delete/image/{image}', 'RunnerJobController@destroyImage')->name('destroyImage');
     Route::delete('/{runner_job}', 'RunnerJobController@destroy')->name('destroy');
     Route::put('/{runner_job}', 'RunnerJobController@update')->name('update');
     Route::put('/complete/{runner_job}', 'RunnerJobController@complete')->name('complete');
 });
+
+#image
+Route::post('/api/image', 'ImageController@store')->name('image.store');
+Route::post('/image', 'ImageController@update')->name('image.update');
+Route::post('/image/delete', 'ImageController@destroy')->name('image.destroy');
