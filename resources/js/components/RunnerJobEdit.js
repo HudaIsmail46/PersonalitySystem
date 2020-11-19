@@ -128,6 +128,8 @@ function RunnerJobEdit(props) {
                         <th>Type</th>
                         <th>Location</th>
                         <th>Customer</th>
+                        <th>Order State</th>
+                        <th></th>
                     </tr>
                     {runnerJobs.map(scheduledOrder => {return (
                         <tr key={scheduledOrder.id} >
@@ -146,6 +148,7 @@ function RunnerJobEdit(props) {
                                 <br/>
                                 Phone No : {scheduledOrder.order.customer.phone_no}
                             </td>
+                            <td>{humaniseOrderState(scheduledOrder.order.state)}</td>
                             <td><div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div></td>
                         </tr>
                     )})}
@@ -197,10 +200,10 @@ function RunnerJobEdit(props) {
     return (
         <div className="field">
             {modalShow && runnerJobForm()}
-            Runner Jobs
-           {runnerJobsTable()}
+            <h2>Runner Jobs</h2>
+            {runnerJobsTable()}
 
-            Orders to be scheduled
+            <h2>Orders to be scheduled</h2>
             {ordersTable()}
         </div>
     );
