@@ -48,36 +48,12 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <button class="btn btn-primary mt-auto" type="submit">Search <i class="fa fa-search"></i></button>
                                     </div>
                                 </div>
-
-                                <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
                             </form>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Customer</th>
-                                        <th>Address</th>
-                                        <th>Prefered Date Time</th>
-                                        <th>Status</th>
-                                    </tr>
-                                    @foreach($orders as $order)
-                                        <tr>
-                                            <td><a href="{{route('order.show', $order)}}">{{ $order->id}}</td>
-                                            <td>
-                                                {{ $order->customer->name}}
-                                                <br>
-                                                {{ $order->customer->phone_no}}
-                                            </td>
-                                            <td>
-                                                {!!orderAddress($order)!!}
-                                            </td>
-                                            <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime))}}</td>
-                                            <td>{{ humaniseOrderState($order->state)}}</td>
-                                        </tr>
-                                    @endforeach
-                                </table>
+                                <div id="OrderTable" data-proporders="{{ json_encode($orders) }}"></div>
                                 {{ $orders ?? ''->links() }}
                             </div>
                         </div>

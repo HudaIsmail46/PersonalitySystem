@@ -142,41 +142,6 @@ class RunnerJobController extends Controller
         return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
     }
 
-    public function status(RunnerJob $runnerJob)
-    {
-        $order = $runnerJob->order;
-        $runnerSchedule = $runnerJob->runnerSchedule;
-
-        switch($order->state){
-        case PickupScheduled::class:
-            $transitionTo = Collected::class;
-            break;
-        case ReturnScheduled::class:
-            $transitionTo = Returned::class;
-            break;
-        case Collected::class:
-            $transitionTo = ReceivedWarehouse::class;
-            break;
-        case ReceivedWarehouse::class:
-            $transitionTo = VendorCollected::class;
-            break;
-        case ReceivedWarehouse::class:
-            $transitionTo = InHouseCleaning::class;
-            break;
-        default:
-            break;
-        }
-        
-        $order->update([
-            'state' => $transitionTo
-        ]);
-        
-        $runnerJobs = $runnerSchedule->runnerJobs->load('order.customer');
-        $orders = Order::whereState('state',[PendingPickupSchedule::class, PendingReturnSchedule::class,Collected::class,ReceivedWarehouse::class,VendorCollected::class,InHouseCleaning::class])->with('customer')->get();
-        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
-    }
-
-
     public function complete(RunnerJob $runnerJob)
     {
         $runnerJob = $runnerJob->find($runnerJob->id);

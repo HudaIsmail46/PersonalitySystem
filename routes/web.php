@@ -80,6 +80,7 @@ Route::prefix('/order')->name('order.')->group(function(){
     Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
     Route::delete('/order/{image}', 'OrderController@destroyImage')->name('destroyImage');
     Route::put('/{order}', 'OrderController@update')->name('update');
+    Route::post('/status/{order}', 'OrderController@status')->name('status');
 });
 
 ##RunnerSchedule CRUD
@@ -105,7 +106,6 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::get('/', 'RunnerJobController@index')->name('index');
     Route::get('/create', 'RunnerJobController@create')->name('create');
     Route::post('/', 'RunnerJobController@store')->name('store');
-    Route::post('/status/{runner_job}', 'RunnerJobController@status')->name('status');
     Route::get('/{runner_job}', 'RunnerJobController@show')->name('show');
     Route::get('/{runner_job}/edit', 'RunnerJobController@edit')->name('edit'); 
     Route::delete('/delete/image/{image}', 'RunnerJobController@destroyImage')->name('destroyImage');
