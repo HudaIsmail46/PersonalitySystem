@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NextOrderStates from './NextOrderStates';
+import {humaniseOrderState} from '../helpers.js';
+window.humaniseOrderState = humaniseOrderState;
+
 
 function OrderTable(props) {
     const { proporders } = props;
     const [orders, setOrders] = useState(proporders.data);
 
-    const humaniseOrderState = (state) => {
-        return state.replace("App\\State\\Order\\", "");
-    }
 
     const changeRunnerJobstate = (orderId, state) => {
         axios.post(`/order/status/${orderId}`,{state})
