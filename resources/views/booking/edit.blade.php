@@ -61,7 +61,7 @@
                             @csrf
                             @method('PUT')
                             <table class="table table-bordered table-striped" style="width:100%">
-                                
+
                                 <tr>
                                     <td>Event Title</td>
                                     <td align="left">{{$booking->gc_event_title}}</td>
@@ -124,21 +124,14 @@
                                 </div>
                                 <p class="help is-danger">{{ $errors->first('status')}}</p>
                             </div>
-
-                            <div class="col-md-6">
-                                <label class="label" for ="image">Image</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('image') is-danger @enderror" type="file"
-                                     name="image"
-                                     id="image"
-                                     value="{{old('image')?? $booking->image->file ?? ''}}">
-                                    @error('image')
-                                        <p class="help is-danger">{{$errors->first('image')}}</p>
-                                    @enderror
-                                </div>
-                            </div>
-
+                            <div
+                                class="dropzone border border-info rounded"
+                                id="dropzone"
+                                data-token="{{csrf_token()}}"
+                                data-imageableid="{{$booking->id}}"
+                                data-imageabletype="{{App\Booking::class}}">
+                            </div><br>
+                            
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>

@@ -7,8 +7,10 @@ use App\Customer;
 use App\Image;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
+use App\Http\Controllers\ImageController;
 
 use Illuminate\Http\Request;
+
 
 class OrderController extends Controller
 {
@@ -82,12 +84,6 @@ class OrderController extends Controller
         $order->save();
         $this->setState($order, $request->status);
 
-        if (request()->hasFile('image')) {
-            $image = new Image;
-            $this->storeImage($image, $order);
-            $image->save();
-        }
-
         return redirect()->route('order.show', $order->id)->with('Order is created.');
     }
 
@@ -141,12 +137,6 @@ class OrderController extends Controller
         ]);
         $order->save();
         $this->setState($order, $request->status);
-
-        if (request()->hasFile('image')) {
-            $image = new Image;
-            $this->storeImage($image, $order);
-            $image->save();
-        }
 
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
@@ -215,31 +205,6 @@ class OrderController extends Controller
             'city' => 'required',
             'location_state' => 'required',
         ]);
-
-        if (request()->hasFile('image')) {
-            request()->validate([
-                'image' => 'file|image',
-            ]);
-        }
         return $validateData;
-    }
-
-    public function storeImage($image, $order)
-    {
-        if (request()->has('image')) {
-            $image->fill([
-                'imageable_id' => $order->id,
-                'imageable_type' => Order::class,
-                'file' => request()->image->store('uploads', 'public'),
-            ]);
-        }
-    }
-
-    public function destroyImage(Image $image)
-    {
-        $order = $image->imageable;
-        $image->delete();
-
-        return redirect()->route('order.show', $order->id)->with('Order is Updated.');
     }
 }

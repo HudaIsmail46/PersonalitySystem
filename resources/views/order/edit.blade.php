@@ -201,19 +201,13 @@
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label class="label" for ="image">Image</label>
-
-                            <div class="form-group">
-                                <input class="input @error('image') is-danger @enderror" type="file"
-                                name="image"
-                                id="image"
-                                value="{{old('image')?? $order->image->file ?? ''}}">
-                                @error('image')
-                                    <p class="help is-danger">{{$errors->first('image')}}</p>
-                                @enderror
-                            </div>
-                        </div>
+                        <div
+                            class="dropzone border border-info rounded"
+                            id="dropzone"
+                            data-token="{{csrf_token()}}"
+                            data-imageableid="{{$order->id}}"
+                            data-imageabletype="{{App\Order::class}}">
+                        </div><br>
 
                         <div class="field is grouped">
                             <div class="form-group">

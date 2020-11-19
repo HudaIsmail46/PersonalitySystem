@@ -22,9 +22,11 @@ use App\State\Order\Reprocessing;
 class Order extends Model
 {
 
-    protected $fillable =['size','material','price','prefered_pickup_datetime','actual_length',
-        'actual_width','actual_material','actual_price', 'customer_id','state', 'quantity',
-        'address_1','address_2','postcode','city','location_state', 'raw_payload'];
+    protected $fillable = [
+        'size', 'material', 'price', 'prefered_pickup_datetime', 'actual_length',
+        'actual_width', 'actual_material', 'actual_price', 'customer_id', 'state', 'quantity',
+        'address_1', 'address_2', 'postcode', 'city', 'location_state', 'raw_payload'
+    ];
 
     use SoftDeletes;
     use HasStates;

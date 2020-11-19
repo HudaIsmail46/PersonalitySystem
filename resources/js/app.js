@@ -7,6 +7,7 @@
 require('./bootstrap');
 require('./adminlte');
 require('./chart');
+require('./dropzoneForm');
 
 /**
  * Next, we will create a fresh React component instance and attach it to

@@ -42,12 +42,14 @@
                 method="post">
                 @csrf
                 @method('PUT')
-                <input class="input @error('image') is-danger @enderror" type="file" name="image" id="image">
-                @error('image')
-                    <p class="help is-danger">{{ $errors->first('image') }}</p>
-                @enderror
-                <button class="btn btn-success btn-sm " type="submit">Upload</button>
-            </form>
+                <div
+                    class="dropzone border border-info rounded"
+                    id="dropzone"
+                    data-token="{{csrf_token()}}"
+                    data-imageableid="{{$runnerJob->id}}"
+                    data-imageabletype="{{App\RunnerJob::class}}">
+                            </div><br>
+                <button class="btn btn-success btn-sm " type="submit">Submit</button>
         </td>
     </tr>
 @else
