@@ -52,7 +52,13 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $this->validateCustomers();
-        Customer::create($request->all());
+        $customer = new Customer;
+        $customer->fill([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phone_no' => $this->formatPhoneNo($request->phone_no)
+        ]);
+        $customer->save();
         return back()->with('success', 'Customers created successfully.');
     }
 
@@ -100,5 +106,16 @@ class CustomerController extends Controller
             'phone_no' => 'required',
             'address' => 'required',
         ]);
+    }
+
+    protected function formatPhoneNo($phone_no)
+    {
+        if (preg_match('/^6/', $phone_no) || preg_match('/[\[^\+\]]/', $phone_no)) {
+            $phone_number = preg_replace('/\D+/', '', $phone_no);
+        } else {
+            $phone = preg_replace('/\D+/', '', $phone_no);
+            $phone_number =  "6" . $phone;
+        }
+        return $phone_number;
     }
 }
