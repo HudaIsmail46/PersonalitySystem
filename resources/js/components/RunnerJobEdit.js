@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import dateFormat from 'dateformat';
 
-
 function RunnerJobEdit(props) {
     const { proporders, runnerschedule, runnerjobs } = props;
     const [modalShow, setModalShow] = useState(false);
@@ -22,17 +21,6 @@ function RunnerJobEdit(props) {
         setModalShow(true);
     }
 
-    const changeRunnerJobstate = (scheduledOrder) => {
-        axios.post(`/runner_job/status/${scheduledOrder.id}`,{})
-              .then(function (response) {
-                setRunnerJobs(response.data.runnerJobs);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-        setRunnerJob({});
-    }
-
     const closeModal = () =>{
         setOrder({});
         setModalShow(false);
@@ -45,6 +33,10 @@ function RunnerJobEdit(props) {
             order_id: order.id,
             scheduled_at: input.target.value
         })
+    }
+
+    const humaniseOrderState = (state) => {
+        return state.replace("App\State\Order", "");
     }
 
     const submit = () => {
@@ -137,7 +129,6 @@ function RunnerJobEdit(props) {
                         <th>Type</th>
                         <th>Location</th>
                         <th>Customer</th>
-                        <th></th>
                     </tr>
                     {runnerJobs.map(scheduledOrder => {return (
                         <tr key={scheduledOrder.id} >
@@ -157,33 +148,6 @@ function RunnerJobEdit(props) {
                                 Phone No : {scheduledOrder.order.customer.phone_no}
                             </td>
                             <td><div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div></td>
-                            <td>
-                                {(() => {
-                                if (scheduledOrder.order.state == "App\\State\\Order\\PickupScheduled" || scheduledOrder.order.state == "App\\State\\Order\\ReturnScheduled") {
-                                return (
-                                    <div className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Collected</div>
-                                )
-                                } else if( scheduledOrder.order.state == "App\\State\\Order\\Collected") {
-                                return (
-                                    <div className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Received Warehouse</div>
-                                )
-                                }else if( scheduledOrder.order.state == "App\\State\\Order\\ReceivedWarehouse"){
-                                return (
-                                <div>
-                                    <p>
-                                        <button className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>Vendor Collected</button>
-                                        <button className="btn btn-success btn-block" onClick={()=> changeRunnerJobstate(scheduledOrder)}>InHouse Cleaning</button>
-                                    </p>
-                                </div>
-                                )
-                                }else{
-                                    return(
-                                        null
-                                    )
-                                }
-                                })()
-                                }
-                            </td>
                         </tr>
                     )})}
                 </tbody>
@@ -208,9 +172,10 @@ function RunnerJobEdit(props) {
                     {orders.map(order => {return (
                         <tr key={order.id} >
                             <td>{order.id}</td>
-                            <td>{order.state}</td>
+                            <td>{humaniseOrderState(order.state)}</td>
                             <td>{order.prefered_pickup_datetime}</td>
-                            <td>{order.address_1},<br></br>
+                            <td>
+                                {order.address_1},<br></br>
                                 {order.address_2},<br></br>
                                 {order.postcode},<br></br>
                                 {order.city},<br></br>

@@ -25,20 +25,21 @@ class OrderController extends Controller
         $phone_no = $request->phone_no;
 
         $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
-        ->select('orders.*', 'customers.name', 'customers.phone_no')
-        ->when($state, function ($q) use ($state) {
-            return $q->where('state', $state);
-        })
-        ->when($date, function ($q) use ($date) {
-            return $q->whereDate('prefered_pickup_datetime', $date);
-        })
-        ->when($name, function ($q) use ($name) {
-            return $q->where('customers.name', 'LIKE', '%' . $name . '%');
-        })
-        ->when($phone_no, function ($q) use ($phone_no) {
-            return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
-        })
-        ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
+            ->with('customer')
+            ->select('orders.*', 'customers.name', 'customers.phone_no')
+            ->when($state, function ($q) use ($state) {
+                return $q->where('state', $state);
+            })
+            ->when($date, function ($q) use ($date) {
+                return $q->whereDate('prefered_pickup_datetime', $date);
+            })
+            ->when($name, function ($q) use ($name) {
+                return $q->where('customers.name', 'LIKE', '%' . $name . '%');
+            })
+            ->when($phone_no, function ($q) use ($phone_no) {
+                return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
+            })
+            ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
 
         return view('order.index', compact('orders'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
@@ -160,6 +161,16 @@ class OrderController extends Controller
     {
         $order->delete();
         return redirect()->route('order.index')->with('Order succesfully deleted.');
+    }
+
+
+    public function status(Order $order, Request $request)
+    {
+        $order->update([
+            'state' => $request->state
+        ]);
+        $order->load('customer');
+        return $order;
     }
 
     protected function setState(Order $order, String $state)

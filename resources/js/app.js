@@ -15,3 +15,4 @@ require('./chart');
  */
 
 require('./components/RunnerJobEdit');
+require('./components/OrderTable');

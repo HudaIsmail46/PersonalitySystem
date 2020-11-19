@@ -64,8 +64,7 @@ class Order extends Model
                 [PendingReturnSchedule::class, ReturnScheduled::class],
                 [ReturnScheduled::class, Returned::class],
                 [ReturnScheduled::class, PendingReturnSchedule::class],
-                [Returned::class, Reprocessing::class],
-                [Reprocessing::class, PendingPickupSchedule::class],
+                [Returned::class, PendingPickupSchedule::class],
                 [Returned::class, Completed::class]
             ]);
     }
