@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import dateFormat from 'dateformat';
+import {dateFormatter, humaniseOrderState} from '../helpers.js';
+window.humaniseOrderState = humaniseOrderState;
 
 function RunnerJobEdit(props) {
     const { proporders, runnerschedule, runnerjobs } = props;
@@ -33,10 +34,6 @@ function RunnerJobEdit(props) {
             order_id: order.id,
             scheduled_at: input.target.value
         })
-    }
-
-    const humaniseOrderState = (state) => {
-        return state.replace("App\State\Order", "");
     }
 
     const submit = () => {
@@ -78,6 +75,8 @@ function RunnerJobEdit(props) {
             closeModal();
     }
 
+    let dateTimeValue = dateFormatter(runnerJob.scheduled_at);
+
     const runnerJobForm = () => {
         return (
             <div className="box">
@@ -98,7 +97,7 @@ function RunnerJobEdit(props) {
                                             type="datetime-local"
                                             name="scheduled_at"
                                             id="scheduled_at"
-                                            value = {dateFormat(runnerJob.scheduled_at, "isoDateTime").substring(0,19)}
+                                            value = {dateTimeValue}
                                             onChange={handleChange}
                                             />
                                     </div>
