@@ -28,10 +28,10 @@
                         <p>Order Detail</p>
                     </div>
                     <div class="card-body">
-                        <table class='w-100'>
+                        <table class='table table-bordered table-striped w-100'>
                             <tr>
-                                <th> Id: {{ $order->id }}</th>
-                                <th></th>
+                                <td> Id</td>
+                                <td> {{ $order->id }}</td>
                             </tr>
                             <tr>
                                 <td>Customer</td>
@@ -89,24 +89,31 @@
                                     @foreach ($order->images as $image)
                                         <img src="{{ asset('/storage/' . $image->file ?? '') }}" alt=""
                                             class="img-thumbnail">
+                                        @can('create orders')
+                                            @if ($image != null)
+                                                <form class='mb-0' action="{{ route('order.destroyImage', $image->id) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
+                                                        type="submit">Delete Image <i class="fa fa-trash"></i></button>
+                                                </form>
+                                            @endif
+                                        @endcan
+                                    @endforeach
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <td>Runner Job Schedule</td>
                                 <td>
-                                    @can('create orders')
-                                        @if ($image != null)
-                                            <form class='mb-0' action="{{ route('order.destroyImage', $image->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
-                                                    type="submit">Delete Image <i class="fa fa-trash"></i></button>
-                                            </form>
-                                        @endif
-                                    @endcan
-                                    @endforeach
+                                    <a href="{{route('runner_schedule.show', $order->runnerJobs()->latest()->first()->runner_schedule_id)}}">
+                                        {{$order->runnerJobs()->latest()->first()->scheduled_at}}
+                                    </a>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>Action</td>
+                                <td><div id='OrderStateQuickChange' data-order="{{json_encode($order)}}"></div></td>
                             </tr>
                         </table>
                         @can('create orders')

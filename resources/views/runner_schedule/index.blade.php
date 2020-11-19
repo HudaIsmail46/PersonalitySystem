@@ -37,7 +37,7 @@
                                     </tr>
                                     @foreach($runner_schedules as $runner_schedule)
                                         <tr>
-                                            <td><a href="{{$runner_schedule->path()}}">{{ $runner_schedule ->id}}</td>
+                                            <td><a href="{{$runner_schedule->path()}}">{{ $runner_schedule->id}}</td>
                                             <td>{{ $runner_schedule->runner->name}}</td>
                                             <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at))}}</td>
                                             <td>

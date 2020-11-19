@@ -19,7 +19,7 @@ class RunnerScheduleController extends Controller
 
     public function index()
     {
-        $runner_schedules =RunnerSchedule::orderBy('id','ASC')->paginate(50);
+        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->orderBy('id','ASC')->paginate(50);
 
         return view('runner_schedule.index',compact('runner_schedules'));
     }

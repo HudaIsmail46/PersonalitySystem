@@ -100,9 +100,9 @@ function NextOrderStates(props) {
     }
 
     return (
-    <div>
-        {nextStates(order)}
-    </div>
+        <div>
+            {nextStates(order)}
+        </div>
     );
 }
 
