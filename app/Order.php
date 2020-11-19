@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Dropzone;
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;

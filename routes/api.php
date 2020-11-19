@@ -20,6 +20,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::webhooks('webhook/aafinance', 'aafinance');
 Route::webhooks('webhook/booking', 'booking');
-
-// Route::post('/image', 'ImageController@store')->name('image.store');
-// Route::post('/image', 'ImageController@update')->name('image.update');

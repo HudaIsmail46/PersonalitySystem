@@ -116,5 +116,4 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
 
 #image
 Route::post('/api/image', 'ImageController@store')->name('image.store');
-Route::post('/image', 'ImageController@update')->name('image.update');
 Route::post('/image/delete', 'ImageController@destroy')->name('image.destroy');

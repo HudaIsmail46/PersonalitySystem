@@ -64,7 +64,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Image $image)
+    public function store(Request $request)
     {
         $this->validateCreateOrders();
         $customer = Customer::findOrCreate($request->customer_name, $request->customer_phone_no);
@@ -83,20 +83,6 @@ class OrderController extends Controller
         ]);
         $order->save();
         $this->setState($order, $request->status);
-
-
-        // $storeImage = new ImageController;
-        // $storeImage->store($image, $order);
-
-
-
-
-
-        // if (request()->hasFile('image')) {
-        //     $image = new Image;
-        //     $this->store($image, $order);
-        //     $image->save();
-        // }
 
         return redirect()->route('order.show', $order->id)->with('Order is created.');
     }
@@ -131,7 +117,7 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order, Image $image)
+    public function update(Request $request, Order $order)
     {
         $this->validateUpdateOrders();
 
@@ -152,17 +138,6 @@ class OrderController extends Controller
         $order->save();
         $this->setState($order, $request->status);
 
-        if (request()->hasFile('image')) {
-            $updateImage = new ImageController;
-            $updateImage->update($request, $image);
-        }
-
-        // if (request()->hasFile('image')) {
-        //     $image = new Image;
-        //     $this->storeImage($image, $order);
-        //     $image->save();
-        // }
-
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
 
@@ -172,10 +147,8 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order, Image $image)
+    public function destroy(Order $order)
     {
-        $image_controller = new ImageController;
-        $image_controller->destroy($image);
         $order->delete();
         return redirect()->route('order.index')->with('Order succesfully deleted.');
     }
@@ -232,31 +205,6 @@ class OrderController extends Controller
             'city' => 'required',
             'location_state' => 'required',
         ]);
-
-        // if (request()->hasFile('image')) {
-        //     request()->validate([
-        //         'image' => 'file|image',
-        //     ]);
-        // }
         return $validateData;
     }
-
-    // public function storeImage($image, $order)
-    // {
-    //     if (request()->has('image')) {
-    //         $image->fill([
-    //             'imageable_id' => $order->id,
-    //             'imageable_type' => Order::class,
-    //             'file' => request()->image->store('uploads', 'public'),
-    //         ]);
-    //     }
-    // }
-
-    // public function destroyImage(Image $image)
-    // {
-    //     $order = $image->imageable;
-    //     $image->delete();
-
-    //     return redirect()->route('order.show', $order->id)->with('Order is Updated.');
-    // }
 }
