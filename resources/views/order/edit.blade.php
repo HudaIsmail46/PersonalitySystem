@@ -109,13 +109,8 @@
 
                         <div class="field">
                             <label class="label" for ="material">Material</label>
-
                             <div class="form-group">
-                                <select id="material" name="material">
-                                    @foreach(App\Order::MATERIALS as $material)
-                                        <option value="{{$material}}" {{$order->material == $material ? 'selected' : ''}}>{{$material}}</option>
-                                    @endforeach
-                                </select>
+                                <p>{{$order->material}}</p>
                             </div>
                         </div>
 
@@ -166,14 +161,14 @@
                         </div>
 
                         <div class="field">
-                            <label class="label" for ="actual_material">actual_material</label>
+                            <label class="label" for ="actual_material">Actual material</label>
 
                             <div class="form-group">
-                                <input class="input @error('actual_material') is-danger @enderror" type="input" name="actual_material" id="actual_material" value="{{old('actual_material')?? $order->actual_material ?? ''}}" placeholder="actual_material">
-
-                                @error('actual_material')
-                                    <p class="help is-danger">{{$errors->first('actual_material')}}</p>
-                                @enderror
+                                <select id="actual_material" name="actual_material">
+                                    @foreach(App\Order::MATERIALS as $actual_material)
+                                        <option value="{{$actual_material}}" {{$order->actual_material == $actual_material ? 'selected' : ''}}>{{$actual_material}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 

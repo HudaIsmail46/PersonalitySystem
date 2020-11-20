@@ -119,7 +119,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+
         $this->validateUpdateOrders();
+
 
         $order->fill([
             'address_1' => $request->address_1,
@@ -131,12 +133,13 @@ class OrderController extends Controller
             'actual_material' => $request->actual_material,
             'actual_price' => $this->priceCents($request->actual_price),
             'size' => $request->size,
-            'material' => $request->material,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);
+
         $order->save();
         $this->setState($order, $request->status);
+
 
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
@@ -179,7 +182,6 @@ class OrderController extends Controller
     {
         return request()->validate([
             'size' => 'required',
-            'material' => 'required',
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
             'status' => 'required',
