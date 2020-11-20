@@ -45,7 +45,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Customer Id</th>
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>Phone No</th>
@@ -65,14 +65,9 @@
                                             Total Spend = {{money($customer->bookings()->sum('price'))}}
                                         </td>
                                         <td>
-                                            @can('delete customers')
-                                                <form action="{{ route('customer.destroy', $customer->id)}}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-xs btn-danger d-flex"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="mt-1 ml-2 fa fa-trash"></i></button>
-
-                                                </form>
-                                            @endcan
+                                            <div class="d-flex">
+                                                <a href={{route('customer.show', $customer->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

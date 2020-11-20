@@ -29,12 +29,13 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Runner Id</th>
                                     <th>Schedule at</th>
                                     <th>Started at</th>
                                     <th>Expected at</th>
                                     <th>Completed at</th>
                                     <th>Status</th>
+                                    <th></th>
                                 </tr>
                                 <tr>
                                     @foreach($runner_schedules as $runner_schedule)
@@ -45,6 +46,11 @@
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->at))}}</td>
                                     <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null}}</td>
                                     <td>{{ $runner_schedule->status}}</td>
+                                    <td>
+                                    <div class="d-flex">
+                                        <a href={{route('runner.show', $runner_schedule->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
+                                    </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </table>

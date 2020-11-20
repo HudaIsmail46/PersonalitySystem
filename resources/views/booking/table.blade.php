@@ -1,6 +1,6 @@
 <table class="table table-bordered table-striped">
     <tr>
-        <th>Id</th>
+        <th>Booking Id</th>
         <th>Event Title</th>
         <th>Address</th>
         <th width='30%'>Event DateTime</th>
@@ -25,15 +25,16 @@
         </td>
         <td>{{ $booking->gc_team }}</td>
         <td>
-            @can('delete bookings')
-                <form action="{{ route('booking.destroy', $booking)}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-xs btn-danger d-flex"  onclick="return confirm('Are you sure?')" type="submit">Delete <i class="mt-1 ml-2 fa fa-trash"></i></button>
-                </form>
-            @endcan
+
+            <div class="d-flex">
+                <div>
+                <a href="{{$booking->path()}}"class='btn btn-primary mr-2'>View</a>
+                </div>
+            </div>
         </td>
     </tr>
     @endforeach
 
 </table>
+
+

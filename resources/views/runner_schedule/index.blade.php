@@ -29,11 +29,12 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <th>Id</th>
+                                        <th>Runner Id</th>
                                         <th>Runner</th>
                                         <th>Scheduled at</th>
                                         <th>Runner Jobs</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                     @foreach($runner_schedules as $runner_schedule)
                                         <tr>
@@ -46,7 +47,12 @@
                                                 @endforeach
                                             </td>
                                             <td>{{ $runner_schedule->status}}</td>
-                                        </tr>   
+                                            <td>
+                                                <div class="d-flex">
+                                                    <a href={{route('runner_schedule.show', $runner_schedule->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </table>
                                 {{ $runner_schedules ?? ''->links() }}

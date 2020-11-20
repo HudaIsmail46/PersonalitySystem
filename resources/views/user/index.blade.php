@@ -27,7 +27,7 @@
                         <div class="table-responsive"  style="height:800px;overflow-y:scroll">
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th>Id</th>
+                                    <th>User Id</th>
                                     <th>Name</th>
                                     <th></th>
                                 </tr>

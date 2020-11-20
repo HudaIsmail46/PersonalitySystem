@@ -22,11 +22,11 @@ function OrderTable(props) {
 
                     return orderObj;
                 })
-                
+
                 setOrders(orderList);
             })
             .catch(function (error) {
-                
+
             });
     }
 
@@ -34,7 +34,7 @@ function OrderTable(props) {
         <table className="table table-bordered table-striped">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>Order Id</th>
                     <th>Customer</th>
                     <th>Address</th>
                     <th>Prefered Date Time</th>
@@ -58,7 +58,10 @@ function OrderTable(props) {
                         </td>
                         <td>{order.prefered_pickup_datetime}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
-                        <td><NextOrderStates order={order} onClick={changeRunnerJobstate}/></td>
+                        <td>
+                            <NextOrderStates order={order} onClick={changeRunnerJobstate}/>
+                            <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>
+                        </td>
                     </tr>
                 )})}
             </tbody>
