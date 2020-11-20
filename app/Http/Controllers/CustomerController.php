@@ -14,9 +14,25 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::orderBy('id', 'ASC')->with('bookings')->paginate(50);
+
+
+        $name = $request->name;
+        $address = $request->address;
+        $phone_no = $request->phone_no;
+
+        $customers = Customer::when($name, function ($q) use ($name) {
+            return $q->where('name', 'ILIKE', '%' . $name . '%');
+        })
+            ->when($address, function ($q) use ($address) {
+                return $q->where('address', 'ILIKE', '%' . $address . '%');
+            })
+            ->when($phone_no, function ($q) use ($phone_no) {
+                return $q->where('phone_no', 'ILIKE', '%' . $phone_no . '%');
+            })
+            ->orderBy('id', 'ASC')->paginate(20);
+
         return view('customer.index', ['customers' => $customers])
             ->with('i', ($customers->get('page', 1) - 1) * 50);
     }
