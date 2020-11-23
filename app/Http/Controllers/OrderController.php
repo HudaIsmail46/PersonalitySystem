@@ -133,6 +133,7 @@ class OrderController extends Controller
             'actual_material' => $request->actual_material,
             'actual_price' => $this->priceCents($request->actual_price),
             'size' => $request->size,
+            'quantity' => $request->quantity,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);

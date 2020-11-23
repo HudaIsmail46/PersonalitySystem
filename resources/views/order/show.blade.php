@@ -80,6 +80,10 @@
                                 <td>{{ money($order->actual_price) }}</td>
                             </tr>
                             <tr>
+                                <td>Quantity</td>
+                                <td>{{ $order->quantity }}</td>
+                            </tr>
+                            <tr>
                                 <td>Status</td>
                                 <td>{{ humaniseOrderState($order->state) }}</td>
                             </tr>
