@@ -44,7 +44,6 @@ Route::prefix('/booking')->name('booking.')->group(function () {
     Route::get('/{booking}', 'BookingController@show')->name('show');
     Route::get('/{booking}/edit', 'BookingController@edit')->name('edit');
     Route::delete('/{booking}', 'BookingController@destroy')->name('destroy');
-    Route::delete('/booking/{image}', 'BookingController@destroyImage')->name('destroyImage');
     Route::put('/{booking}', 'BookingController@update')->name('update');
 });
 
@@ -78,7 +77,6 @@ Route::prefix('/order')->name('order.')->group(function () {
     Route::get('/{order}', 'OrderController@show')->name('show');
     Route::get('/{order}/edit', 'OrderController@edit')->name('edit');
     Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
-    Route::delete('/order/{image}', 'OrderController@destroyImage')->name('destroyImage');
     Route::put('/{order}', 'OrderController@update')->name('update');
     Route::post('/status/{order}', 'OrderController@status')->name('status');
 });
@@ -108,15 +106,14 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::post('/', 'RunnerJobController@store')->name('store');
     Route::get('/{runner_job}', 'RunnerJobController@show')->name('show');
     Route::get('/{runner_job}/edit', 'RunnerJobController@edit')->name('edit');
-    Route::delete('/delete/image/{image}', 'RunnerJobController@destroyImage')->name('destroyImage');
     Route::delete('/{runner_job}', 'RunnerJobController@destroy')->name('destroy');
     Route::put('/{runner_job}', 'RunnerJobController@update')->name('update');
     Route::put('/complete/{runner_job}', 'RunnerJobController@complete')->name('complete');
 });
 
 #image
-Route::post('/api/image', 'ImageController@store')->name('image.store');
-Route::post('/image/delete', 'ImageController@destroy')->name('image.destroy');
+Route::post('/image', 'ImageController@store')->name('image.store');
+Route::delete('/image/delete', 'ImageController@destroy')->name('image.destroy');
 
 #comment
 Route::post('/comment', 'CommentController@store')->name('comment.store');

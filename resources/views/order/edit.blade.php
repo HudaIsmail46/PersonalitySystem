@@ -207,13 +207,8 @@
                             </div>
                         </div>
 
-                        <div
-                            class="dropzone border border-info rounded"
-                            id="dropzone"
-                            data-token="{{csrf_token()}}"
-                            data-imageableid="{{$order->id}}"
-                            data-imageabletype="{{App\Order::class}}">
-                        </div><br>
+                        @include('images.create', ['imageableId' => $order->id, 'imageableType' => App\Order::class ])
+                        <br>
 
                         <div class="field is grouped">
                             <div class="form-group">

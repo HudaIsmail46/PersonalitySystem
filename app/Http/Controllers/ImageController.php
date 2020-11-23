@@ -24,6 +24,7 @@ class ImageController extends Controller
                 'imageable_id' => $request->imageable_id,
                 'imageable_type' => $request->imageable_type,
                 'file' => request()->file->store('uploads', 'public'),
+                'caption' => $request->caption
             ]);
         }
 
@@ -36,9 +37,12 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
+    public function destroy(Request $request)
     {
+        $image = Image::find($request->image_id);
         $image->delete();
+
+        return back();
     }
 
     public function validateImage()
@@ -48,6 +52,8 @@ class ImageController extends Controller
         if (request()->has('image')) {
             request()->validate([
                 'image' => 'file | image',
+                'imageable_id' => 'required',
+                'imageable_type' => 'required'
             ]);
         }
         return $validateData;

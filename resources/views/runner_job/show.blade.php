@@ -61,6 +61,13 @@
                                     <td>{{ $runnerJob->completed_at ? myLongDateTime(new Carbon\Carbon($runnerJob->completed_at)) : null }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Images</td>
+                                    <td>
+                                        @include('images.table', ['images' => $runnerJob->images])
+                                        @include('images.create', ['imageableId' => $runnerJob->id, 'imageableType' => App\RunnerJob::class ])
+                                    </td>
+                                </tr>
                                 @include('runner_job.form')
                             </table>
                         </div>
