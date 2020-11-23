@@ -134,6 +134,8 @@ class OrderController extends Controller
             'actual_price' => $this->priceCents($request->actual_price),
             'size' => $request->size,
             'quantity' => $request->quantity,
+            'paid_at' => $request->paid_at,
+            'payment_method' => $request->payment_method,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);

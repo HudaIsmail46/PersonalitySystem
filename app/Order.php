@@ -25,7 +25,8 @@ class Order extends Model
     protected $fillable = [
         'size', 'material', 'price', 'prefered_pickup_datetime', 'actual_length',
         'actual_width', 'actual_material', 'actual_price', 'customer_id', 'state', 'quantity',
-        'address_1', 'address_2', 'postcode', 'city', 'location_state', 'raw_payload'
+        'address_1', 'address_2', 'postcode', 'city', 'location_state', 'raw_payload',
+        'payment_method','paid_at'
     ];
 
     use SoftDeletes;
@@ -33,7 +34,8 @@ class Order extends Model
 
     const SIZES = ['s', 'm', 'l'];
     const MATERIALS = ['wool', 'cotton', 'silk', 'synthetic'];
-    protected $dates = ['prefered_pickup_datetime'];
+    const PAYMENTS = ['cash', 'bank transfer', 'fpx'];
+    protected $dates = ['prefered_pickup_datetime','paid_at'];
 
     public function customer()
     {

@@ -79,6 +79,15 @@
                                 <td>Actual Price</td>
                                 <td>{{ money($order->actual_price) }}</td>
                             </tr>
+                            @if($order->paid_at != null)
+                            <tr>
+                                <td>Payment Detail</td>
+                                <td>Paid at  {{ $order->paid_at ? myLongDateTime(new Carbon\Carbon($order->paid_at)) : null}}
+                                    via {{ $order->payment_method}}
+                                    
+                                </td>
+                            </tr>
+                            @endif
                             <tr>
                                 <td>Quantity</td>
                                 <td>{{ $order->quantity }}</td>

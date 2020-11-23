@@ -185,6 +185,29 @@
                         </div>
 
                         <div class="field">
+                            <label class="label" for ="paid_at">Paid At</label>
+
+                            <div class="form-group">
+                                <input class="input @error('paid_at') is-danger @enderror" type="datetime-local" name="paid_at" id="paid_at" value="{{old('paid_at')?? Carbon\Carbon::parse($order->paid_at)->toDateTimeLocalString() ?? ''}}" placeholder="paid_at">
+
+                                @error('paid_at')
+                                    <p class="help is-danger">{{$errors->first('paid_at')}}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for ="payment_method">Payment Method</label>
+                            <div class="form-group">
+                                <select id="payment_method" name="payment_method">
+                                    @foreach(App\Order::PAYMENTS as $payment)
+                                        <option value="{{$payment}}" {{$order->payment_method == $payment ? 'selected' : ''}}>{{$payment}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
                             <label class="label" for ="quantity">Quantity</label>
                             <div class="form-group">
                                 <input class="input @error('quantity') is-danger @enderror" type="number" name="quantity" id="quantity" value="{{old('quantity')?? $order->quantity ?? ''}}" placeholder="quantity">
