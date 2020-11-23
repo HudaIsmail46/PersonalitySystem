@@ -173,13 +173,24 @@
                         </div>
 
                         <div class="field">
-                            <label class="label" for ="actual_price">actual_price</label>
+                            <label class="label" for ="actual_price">Actual price</label>
 
                             <div class="form-group">
                                 <input class="input @error('actual_price') is-danger @enderror" type="number" name="actual_price" id="actual_price" step='0.01' value="{{(float)(old('actual_price')?? $order->actual_price/100 ?? 0)}}" placeholder="actual_price">
 
                                 @error('actual_price')
                                     <p class="help is-danger">{{$errors->first('actual_price')}}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for ="quantity">Quantity</label>
+                            <div class="form-group">
+                                <input class="input @error('quantity') is-danger @enderror" type="number" name="quantity" id="quantity" value="{{old('quantity')?? $order->quantity ?? ''}}" placeholder="quantity">
+
+                                @error('quantity')
+                                    <p class="help is-danger">{{$errors->first('quantity')}}</p>
                                 @enderror
                             </div>
                         </div>
