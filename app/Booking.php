@@ -63,4 +63,9 @@ class Booking extends Model
     {
         return $this->morphMany('App\Image','imageable');
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
 }

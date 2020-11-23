@@ -28,4 +28,9 @@ class RunnerSchedule extends Model
     {
         return $this->hasMany('App\RunnerJob');
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
 }

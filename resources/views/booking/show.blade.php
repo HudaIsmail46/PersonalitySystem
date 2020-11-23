@@ -23,7 +23,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10 mx-auto card mt-4">
+                <div class="col-md-6 mx-auto card mt-4">
                     <div class="card-header">
                         <p> Booking Detail </p>
                     </div>
@@ -148,6 +148,7 @@
                         @endcan
                     </div>
                 </div>
+                @include('comment.index', ['model' => $booking, 'appName' => App\Booking::class])
             </div>
         </div>
     </div>
