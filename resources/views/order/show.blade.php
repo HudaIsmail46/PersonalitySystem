@@ -130,6 +130,7 @@
                         @endcan
                     </div>
                 </div>
+                @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
             </div>
         </div>
     </div>
