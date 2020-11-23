@@ -6,86 +6,65 @@
 
 @section ('content')
 
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Runner Schedule</h1>
+<div id="wrapper">
+    <div class="container">
+        <div class="card mt-4">
+            <div class="card-header">
+                Runner Schedule Data
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Runner Schedule</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 mx-auto card mt-4">
-                <div class="card-header">
-                    <p>Runner Schedule Data</p>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <tr>
-                                <td>Id</td>
-                                <td>{{ $runner_schedule->id }}</td>
-                            </tr>
-                            <tr>
-                                <td>Runner</td>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>Id</td>
+                            <td>{{ $runner_schedule->id }}</td>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Runner</td>
+                            <td>
+                                {{ $runner_schedule->runner->name }}
+                                <br>
+                                {{ $runner_schedule->runner->phone_no }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Scheduled At</td>
+                            <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Started At</td>
+                            <td>{{ $runner_schedule->started_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->started_at)) : null }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Completed At</td>
+                            <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>{{ $runner_schedule->status }}</td>
+                        </tr>
+                        <tfoot>
+                            @can('create runnerSchedules')
+                                <td valign="bottom">
+                                    <a href="{{ route('runner_schedule.edit',$runner_schedule->id)}}" class="btn btn-primary">Edit</a>
+                                </td>
                                 <td>
-                                    {{ $runner_schedule->runner->name }}
-                                    <br>
-                                    {{ $runner_schedule->runner->phone_no }}
+                                    <form action="{{ route('runner_schedule.destroy', $runner_schedule->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
+                                    </form>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Scheduled At</td>
-                                <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Started At</td>
-                                <td>{{ $runner_schedule->started_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->started_at)) : null }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Expected At</td>
-                                <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->expected_at)) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Completed At</td>
-                                <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{{ $runner_schedule->status }}</td>
-                            </tr>
-                            <tfoot>
-                                @can('create runnerSchedules')
-                                    <td valign="bottom">
-                                        <a href="{{ route('runner_schedule.edit',$runner_schedule->id)}}" class="btn btn-primary">Edit</a>
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('runner_schedule.destroy', $runner_schedule->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete <i class="fa fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                @endcan
-                            </tfoot>
-                        </table>
-                    </div>
+                            @endcan
+                        </tfoot>
+                    </table>
                 </div>
-            </div>            
-            @include('comment.index', ['model' => $runner_schedule, 'appName' => App\RunnerSchedule::class])
+            </div>
         </div>
-        <div class="col-md-12 mx-auto card mt-4">
+        <div class="card mt-4">
             <div class="card-header">
                 Runner Job
             </div>
@@ -102,7 +81,7 @@
                         </tr>
                         @foreach ($runner_schedule->runnerJobs as $runnerJob)
                             <tr>
-                                <td><a href={{ route('runner_job.show', $runnerJob->id) }}>{{ $runnerJob->id }}</td>
+                                <td><a href={{route('runner_job.show', $runnerJob->id)}}>{{ $runnerJob->id }}</td>
                                 <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
                                 <td>{{ $runnerJob->job_type }}</td>
                                 <td>{!! orderAddress($runnerJob->order) !!}</td>

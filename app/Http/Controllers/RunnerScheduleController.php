@@ -19,9 +19,9 @@ class RunnerScheduleController extends Controller
 
     public function index()
     {
-        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->orderBy('id','ASC')->paginate(50);
+        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->orderBy('id', 'ASC')->paginate(50);
 
-        return view('runner_schedule.index',compact('runner_schedules'));
+        return view('runner_schedule.index', compact('runner_schedules'));
     }
 
     /**
@@ -33,7 +33,7 @@ class RunnerScheduleController extends Controller
     {
         $runners  = User::role('Runner')->get();
 
-        return view('runner_schedule.create',compact('runner_schedule', 'runners'));
+        return view('runner_schedule.create', compact('runner_schedule', 'runners'));
     }
 
     /**
@@ -47,10 +47,9 @@ class RunnerScheduleController extends Controller
         $this->validateDates();
         $runner_schedule = new RunnerSchedule;
         $runner_schedule->fill([
-            'runner_id' =>$request->runner_id,
-            'scheduled_at'=>$request->scheduled_at,
-            'expected_at' =>$request->expected_at,
-            'status'=>$request->status
+            'runner_id' => $request->runner_id,
+            'scheduled_at' => $request->scheduled_at,
+            'status' => $request->status
         ]);
         $runner_schedule->save();
 
@@ -65,7 +64,7 @@ class RunnerScheduleController extends Controller
      */
     public function show(RunnerSchedule $runner_schedule)
     {
-        return view('runner_schedule.show',compact('runner_schedule'));
+        return view('runner_schedule.show', compact('runner_schedule'));
     }
 
     /**
@@ -80,7 +79,7 @@ class RunnerScheduleController extends Controller
         $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
         $runnerJobs = $runner_schedule->runnerJobs()->with('order.customer')->get();
 
-        return view('runner_schedule.edit', compact('runner_schedule','runners', 'orders', 'runnerJobs'));
+        return view('runner_schedule.edit', compact('runner_schedule', 'runners', 'orders', 'runnerJobs'));
     }
 
     /**
@@ -106,17 +105,14 @@ class RunnerScheduleController extends Controller
     {
         $runner_schedule->delete();
 
-         return redirect()->route('runner_schedule.index',compact('runner_schedule'));
+        return redirect()->route('runner_schedule.index', compact('runner_schedule'));
     }
 
     protected function validateDates()
     {
         return request()->validate([
-            'scheduled_at'=>'required',
-            'expected_at'=>'required|after:scheduled_at',
+            'scheduled_at' => 'required',
             'status' => 'required',
         ]);
     }
 }
-
-

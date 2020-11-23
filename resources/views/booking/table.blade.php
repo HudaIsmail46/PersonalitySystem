@@ -25,10 +25,9 @@
         </td>
         <td>{{ $booking->gc_team }}</td>
         <td>
-
             <div class="d-flex">
                 <div>
-                <a href="{{$booking->path()}}"class='btn btn-primary mr-2'>View</a>
+                    <a href="{{$booking->path()}}"class='btn btn-primary mr-2'>View</a>
                 </div>
             </div>
         </td>

@@ -23,10 +23,10 @@ class CreateRunnerSchedulesTable extends Migration
                 ->onDelete('cascade');
 
             $table->datetime('scheduled_at')->nullable();
-            $table->datetime('started_at')->nullable();
             $table->datetime('expected_at')->nullable();
+            $table->datetime('started_at')->nullable();
             $table->datetime('completed_at')->nullable();
-            $table->enum('status', ['draft','scheduled','on_route','completed'])->nullable();
+            $table->enum('status', ['draft', 'scheduled', 'on_route', 'completed'])->nullable();
             $table->timestamps();
         });
     }
