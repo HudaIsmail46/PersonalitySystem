@@ -23,6 +23,11 @@ class Customer extends Model
         return $this->hasMany(Booking::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
     public static function findOrCreate($name, $phone_no)
     {
         $customer = null;

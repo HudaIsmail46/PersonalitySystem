@@ -23,7 +23,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10 mx-auto card mt-4">
+            <div class="col-md-6 mx-auto card mt-4">
                 <div class="card-header">
                     <p> Customer Detail </p>
                 </div>
@@ -57,6 +57,7 @@
                     @endcan
                 </div>
             </div>
+            @include('comment.index', ['model' => $customer, 'appName' => App\Customer::class])
         </div>
     </div>
 </div>
