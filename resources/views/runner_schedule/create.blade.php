@@ -47,20 +47,6 @@
                                 </div>
 
                                 <div class="field" >
-                                    <label class="label" for="expected_at">Estimated To Be Completed at </label>
-                                    <div class="form-group">
-                                        <input
-                                            class="input @error('expected_at') is-danger @enderror"
-                                            type="datetime-local"
-                                            name="expected_at"
-                                            id="expected_at"
-                                            value="{{old('runner_schedule') ? date('Y-m-d\TH:i',strtotime($runner_schedule->expected_at)) : Carbon\Carbon::now()->toDateTimeLocalString()}}"
-                                            placeholder=" expected_at">
-                                        <p class="help is-danger">{{ $errors->first('expected_at')}}</p>
-                                    </div>
-                                </div>
-
-                                <div class="field" >
                                     <label class="label" for="status">Status </label>
                                     <div class="form-group">
                                     <select id="status" name="status">

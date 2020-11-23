@@ -32,7 +32,6 @@
                                     <th>Runner Id</th>
                                     <th>Schedule at</th>
                                     <th>Started at</th>
-                                    <th>Expected at</th>
                                     <th>Completed at</th>
                                     <th>Status</th>
                                     <th></th>
@@ -43,7 +42,6 @@
                                     <td><a href="{{route('runner.show', $runner_schedule->id)}}">{{ $runner_schedule->id}}</td>
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at))}}</td>
                                     <td>{{ $runner_schedule->started_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->started_at)) : null}}</td>
-                                    <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->at))}}</td>
                                     <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null}}</td>
                                     <td>{{ $runner_schedule->status}}</td>
                                     <td>

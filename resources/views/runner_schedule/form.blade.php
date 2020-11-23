@@ -26,19 +26,6 @@
         </div>
     </div>
 
-    <div class="field" >
-        <label class="label" for="expected_at">Estimated to be completed at </label>
-        <div class="form-group">
-            <input class="input @error('expected_at') is-danger @enderror"
-                type="datetime-local"
-                name="expected_at"
-                id="expected_at"
-                value="{{old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->expected_at))}}"
-                placeholder=" expected_at">
-            <p class="help is-danger">{{ $errors->first('expected_at')}}</p>
-        </div>
-    </div>
-
     <div id="RunnerJobEdit" data-proporders="{{$orders}}" data-runnerschedule="{{$runner_schedule}}" data-runnerjobs="{{$runnerJobs}}"></div>
 
     <div class="field" >

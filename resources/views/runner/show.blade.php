@@ -35,10 +35,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Expected At</td>
-                            <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->expected_at)) }}</td>
-                        </tr>
-                        <tr>
                             <td>Completed At</td>
                             <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null }}
                             </td>
