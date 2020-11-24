@@ -192,11 +192,15 @@ return [
                 'list bookings',
                 'list customers',
                 'list orders',
-                'list assignedRunnerSchedule'
+                'list assignedRunnerSchedule',
+                'list inhouseCleaning orders'
             ],
             'Licensee'=>[],
             'Runner'=>[
-                'list assignedRunnerSchedule'
+                'list assignedRunnerSchedule' 
+            ],
+            'Vendor'=>[
+                'list vendorCollected orders'
             ],
         ],
         'permissions' => [
@@ -216,7 +220,9 @@ return [
             'create orders',
             'list runnerSchedules',
             'create runnerSchedules',
-            'list assignedRunnerSchedule'
+            'list assignedRunnerSchedule',
+            'list vendorCollected orders',
+            'list inhouseCleaning orders'
         ]
     ],
 ];

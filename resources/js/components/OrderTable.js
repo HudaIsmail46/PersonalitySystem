@@ -7,7 +7,7 @@ window.humaniseOrderState = humaniseOrderState;
 
 
 function OrderTable(props) {
-    const { proporders } = props;
+    const { proporders, permissions } = props;
     const [orders, setOrders] = useState(proporders.data);
 
 
@@ -58,8 +58,7 @@ function OrderTable(props) {
                         </td>
                         <td>{order.prefered_pickup_datetime}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
-                        <td>
-                            <NextOrderStates order={order} onClick={changeRunnerJobstate}/>
+                        <td>{ permissions ? null : <NextOrderStates order={order} onClick={changeRunnerJobstate}/>}                        
                             <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>
                         </td>
                     </tr>

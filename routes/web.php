@@ -118,3 +118,9 @@ Route::delete('/image/delete', 'ImageController@destroy')->name('image.destroy')
 #comment
 Route::post('/comment', 'CommentController@store')->name('comment.store');
 Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
+
+#vendor
+Route::get('/vendor_collected/index', 'VendorController@index')->name('vendor_collected.index');
+
+#inHouseCleaning
+Route::get('/inhouse_cleaning/index', 'InHouseCleaningController@index')->name('inhouse_cleaning.index');
