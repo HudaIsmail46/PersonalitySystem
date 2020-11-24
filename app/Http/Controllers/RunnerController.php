@@ -16,7 +16,7 @@ class RunnerController extends Controller
     public function index()
     {
         $id = Auth()->user()->id;
-        $runner_schedules = RunnerSchedule::orderBy('id', 'ASC')->where('runner_id',$id)->get();
+        $runner_schedules = RunnerSchedule::orderBy('id', 'ASC')->where('runner_id',$id)->where('status', '!=' ,'draft')->get();
         return view('runner.index',compact('runner_schedules'));
     }
 
