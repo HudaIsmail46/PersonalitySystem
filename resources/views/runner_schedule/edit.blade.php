@@ -10,7 +10,7 @@
         <div id="page" class="container">
             <div class="card mt-4">
                 <div class="card-header">
-                    Edit Runner Schedule
+                    <h3 class="mb-0">Edit Runner Schedule</h3>
                 </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">

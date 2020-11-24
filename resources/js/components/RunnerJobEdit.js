@@ -123,7 +123,7 @@ function RunnerJobEdit(props) {
             <table className="table table-bordered">
                 <tbody>
                     <tr>
-                        <th>Id</th>
+                        <th>Runner Job Id</th>
                         <th>Scheduled At</th>
                         <th>Type</th>
                         <th>Location</th>
@@ -164,7 +164,7 @@ function RunnerJobEdit(props) {
             <table className="table table-bordered">
                 <tbody>
                     <tr>
-                        <th>Id</th>
+                        <th>Order Id</th>
                         <th>Status</th>
                         <th>Prefered Pickup</th>
                         <th>Location</th>
@@ -200,10 +200,10 @@ function RunnerJobEdit(props) {
     return (
         <div className="field">
             {modalShow && runnerJobForm()}
-            <h2>Runner Jobs</h2>
+            <h3>Runner Jobs</h3>
             {runnerJobsTable()}
 
-            <h2>Orders to be scheduled</h2>
+            <h3>Orders to be scheduled</h3>
             {ordersTable()}
         </div>
     );

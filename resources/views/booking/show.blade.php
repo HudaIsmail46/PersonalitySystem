@@ -23,9 +23,9 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6 mx-auto card mt-4">
+                <div class="col-md-6  card">
                     <div class="card-header">
-                        <p> Booking Detail </p>
+                        <h3 class="mb-0">Booking Detail</h3>
                     </div>
                     <div class="card-body">
 
@@ -119,7 +119,7 @@
                             </table>
                         </div>
                         @can('edit bookings')
-                            <div class="row mt-5">
+                            <div class="row mt-5 ml-0">
                                 <a href="{{ route('booking.edit', $booking->id) }}" class="btn btn-primary mr-2">Edit</a>
                             @endcan
                             @can('delete bookings')
@@ -133,7 +133,9 @@
                         @endcan
                     </div>
                 </div>
-                @include('comment.index', ['model' => $booking, 'appName' => App\Booking::class])
+                <div class="col-md-5 mx-1 ">
+                    @include('comment.index', ['model' => $booking, 'appName' => App\Booking::class])
+                </div>
             </div>
         </div>
     </div>

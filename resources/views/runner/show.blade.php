@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="card mt-4">
             <div class="card-header">
-                Runner Schedule
+                <h3 class="mb-0">Runner Schedule</h3>
             </div>
             <div class="card-body">
 
@@ -57,7 +57,7 @@
         </div>
         <div class="card mt-4">
             <div class="card-header">
-                Runner Job
+                <h3 class="mb-0"> Runner Job</h3>
             </div>
             <div class="card-body">
 

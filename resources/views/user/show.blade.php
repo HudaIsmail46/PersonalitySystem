@@ -23,9 +23,9 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 mx-auto card mt-4 ">
+            <div class="col-md-6 card ">
                 <div class="card-header">
-                    <p>{{$user->name}}</p>
+                    <h3 class="mb-0">{{$user->name}}</h3>
                 </div>
                 <div class="card-body">
                     <h4>Roles</h4>

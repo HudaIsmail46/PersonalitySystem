@@ -21,27 +21,27 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card mt-4">
+                    <div class="card">
                         <div class="card-header">
-                            Customers Details
-                        <form action="{{route('customer.index')}}" method="get">
-                            @csrf
+                            <h3 class="mb-0">Customers Details</h3>
                         </div>
                         <div class='card-body'>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name">
+                            <form action="{{route('customer.index')}}" method="get">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name">
+                                    </div>
+                                    <div class="col-md-2">
+                                        Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address">
+                                    </div>
+                                    <div class="col-md-2">
+                                        Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone no">
+                                    </div>
                                 </div>
-                                <div class="col-md-2">
-                                    Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address">
-                                </div>
-                                <div class="col-md-2">
-                                    Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone no">
-                                </div>
-                            </div>
 
-                            <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
-                        </form>
+                                <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
+                            </form>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <tr>

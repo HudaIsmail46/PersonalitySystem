@@ -25,9 +25,9 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 mx-auto card mt-4">
+            <div class="col-md-6 card">
                 <div class="card-header">
-                    Update Booking
+                    <h3 class="mb-0">Update Booking</h3>
                 </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">

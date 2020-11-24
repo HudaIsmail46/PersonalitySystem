@@ -1,6 +1,6 @@
 <div class="field" id="form">
     <div class="mb-5 mt-2">
-        <h3>Customer</h3>
+        <h4>Customer</h4>
         <div class="field">
             <label class="label" for ="customer_name">Customer Name <span class="text-danger">*</span> </label>
             <div class="form-group">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <h3>Booking</h3>
+    <h4>Booking</h4>
     <div class="field">
         <label class="label" for ="event_begins">Event Begins <span class="text-danger">*</span></label>
         <div class="form-group">

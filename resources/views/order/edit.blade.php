@@ -24,9 +24,9 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 mx-auto card mt-4">
+            <div class="col-md-6 card">
                 <div class="card-header">
-                    Update Order
+                    <h3 class="mb-0">Update Order</h3>
                 </div>
                 <div class="card-body">
                     <div class="mt-3 mb-5">
