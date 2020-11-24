@@ -99,21 +99,7 @@
                             <tr>
                                 <td>Image</td>
                                 <td>
-                                    @foreach ($order->images as $image)
-                                        <img src="{{ asset('/storage/' . $image->file ?? '') }}" alt=""
-                                            class="img-thumbnail">
-                                        @can('create orders')
-                                            @if ($image != null)
-                                                <form class='mb-0' action="{{ route('order.destroyImage', $image->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
-                                                        type="submit">Delete Image <i class="fa fa-trash"></i></button>
-                                                </form>
-                                            @endif
-                                        @endcan
-                                    @endforeach
+                                    @include('images.table', ['images' => $order->images])
                                 </td>
                             </tr>
                             <tr>

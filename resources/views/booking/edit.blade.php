@@ -124,13 +124,7 @@
                                 </div>
                                 <p class="help is-danger">{{ $errors->first('status')}}</p>
                             </div>
-                            <div
-                                class="dropzone border border-info rounded"
-                                id="dropzone"
-                                data-token="{{csrf_token()}}"
-                                data-imageableid="{{$booking->id}}"
-                                data-imageabletype="{{App\Booking::class}}">
-                            </div><br>
+                            @include('images.create', ['imageableId' => $booking->id, 'imageableType' => App\Booking::class ])
                             
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

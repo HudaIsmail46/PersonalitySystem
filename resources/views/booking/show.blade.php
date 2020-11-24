@@ -113,22 +113,7 @@
                                 <tr>
                                     <td>Image</td>
                                     <td>
-                                        @foreach ($booking->images as $image)
-                                            <img src="{{ asset('/storage/' . $image->file ?? '') }}" alt=""
-                                                class="img-thumbnail">
-
-                                            @if ($image != null)
-                                                <form class='mb-0' action="{{ route('booking.destroyImage', $image->id) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger mr-2"
-                                                        onclick="return confirm('Are you sure?')" type="submit">Delete Image
-                                                        <i class="fa fa-trash"></i></button>
-                                                </form>
-                                            @else
-                                            @endif
-                                        @endforeach
+                                        @include('images.table', ['images' => $booking->images])
                                     </td>
                                 </tr>
                             </table>
