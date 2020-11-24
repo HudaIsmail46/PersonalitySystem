@@ -12,6 +12,7 @@
                 <div class="d-flex flex-column my-auto">
                     <p>{{$image->caption}}</p>
                     <br>
+                    @if($delete_image)
                     <form class='mb-0' action="{{ route('image.destroy') }}"
                         method="post">
                         @csrf
@@ -21,6 +22,7 @@
                             type="submit">Delete <i class="fa fa-trash"></i>
                         </button>
                     </form>
+                    @endif
                 </div>
             </div>
         </div>

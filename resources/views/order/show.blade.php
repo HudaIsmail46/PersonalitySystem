@@ -99,13 +99,15 @@
                             <tr>
                                 <td>Image</td>
                                 <td>
-                                    @include('images.table', ['images' => $order->images])
+                                    @include('images.table', ['images' => $order->images, 'delete_image' => ( @if(auth()->user()->can('create orders') true @else false @endif ) ])
                                 </td>
                             </tr>
+                            @can('create orders')
                             <tr>
                                 <td>Action</td>
                                 <td><div id='OrderStateQuickChange' data-order="{{json_encode($order)}}"></div></td>
                             </tr>
+                            @endcan
                         </table>
                         @can('create orders')
                             <div class="row mt-5 ml-0">
