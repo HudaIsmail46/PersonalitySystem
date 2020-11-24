@@ -9,6 +9,8 @@ export const dateFormatter = (dateTime) => {
 
 export const humaniseOrderState = (state) => {
     return (
-        state.replace("App\\State\\Order\\", "")
+            state.replace( "App\\State\\Order\\", "")
+                .replace(/([a-z])([A-Z])/g, '$1 $2')
     );
 }
+
