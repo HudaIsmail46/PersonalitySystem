@@ -22,15 +22,15 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 mx-auto card mt-4">
+            <div class="row d-flex">
+                <div class="col-md-6 card">
                     <div class="card-header">
-                        <p>Order Detail</p>
+                        <h3 class="mb-0">Order Detail</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-1 text-capitalize">
                         <table class='table table-bordered table-striped w-100'>
                             <tr>
-                                <td> Id</td>
+                                <td> Order Id</td>
                                 <td> {{ $order->id }}</td>
                             </tr>
                             <tr>
@@ -103,20 +103,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Runner Job Schedule</td>
-                                <td>
-                                    <a href="{{route('runner_schedule.show', $order->runnerJobs()->latest()->first()->runner_schedule_id)}}">
-                                        {{$order->runnerJobs()->latest()->first()->scheduled_at}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td>Action</td>
                                 <td><div id='OrderStateQuickChange' data-order="{{json_encode($order)}}"></div></td>
                             </tr>
                         </table>
                         @can('create orders')
-                            <div class="row mt-5">
+                            <div class="row mt-5 ml-0">
                                 <a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary mr-2">Edit</a>
 
                                 <form class='mb-0' action="{{ route('order.destroy', $order->id) }}" method="post">
@@ -129,7 +121,10 @@
                         @endcan
                     </div>
                 </div>
-                @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
+                <div class="col-md-5 mx-1 ">
+                    @include('order.runner_job')
+                    @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
+                </div>
             </div>
         </div>
     </div>
