@@ -21,9 +21,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card mt-4">
+                    <div class="card">
                         <div class="card-header">
-                           Order Details
+                           <h3 class="mb-0">Order Details</h3>
                         </div>
                         <div class='card-body'>
                             <form action="{{ route('order.index')}}" method="get">

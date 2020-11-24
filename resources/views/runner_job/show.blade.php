@@ -25,9 +25,9 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 mx-auto card mt-4">
+                <div class="col-md-8 card">
                     <div class="card-header">
-                        Runner Job
+                        <h3 class="mb-0"> Runner Job</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

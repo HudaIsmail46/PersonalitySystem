@@ -8,9 +8,9 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 mx-auto card mt-4">
+            <div class="col-md-6 card mt-4">
                 <div class="card-header">
-                    Create User
+                    <h3 class="mb-0">Create User</h3>
                 </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">

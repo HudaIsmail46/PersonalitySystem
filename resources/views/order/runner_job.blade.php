@@ -21,7 +21,7 @@
                         <br>
                         {{$runnerJob->runnerSchedule->runner->phone_no}}
                     </td>
-                    <td><a href="{{route('runner.show', $runnerJob->runner_schedule_id)}}">View</a></td>
+                    <td><a href="{{route('runner_job.show', $runnerJob->id)}}">View</a></td>
                 </tr>
             @endforeach
         </table>

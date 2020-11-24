@@ -20,42 +20,44 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card mt-4">
+                    <div class="card">
                         <div class="card-header">
-                            All Users
+                            <h3 class="mb-0">All Users</h3>
                         </div>
-                        <div class="table-responsive"  style="height:800px;overflow-y:scroll">
-                            <table class="table table-bordered table-striped">
-                                <tr>
-                                    <th>User Id</th>
-                                    <th>Name</th>
-                                    <th></th>
-                                </tr>
-                                @foreach($users as $user)
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
                                     <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>
-                                            <div class="row">
-                                                <a href={{route('user.show', $user->id)}}><button class='btn btn-primary mr-2'>View</button></a>
-                                                @can('edit users')
-                                                    <a href={{route('user.edit', $user->id)}}><button class='btn btn-primary mr-2'>Edit</button></a>
-                                                @endcan
-                                                @can('delete users')
-                                                    <form action={{ route('user.destroy', $user->id)}} method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete</button>
-
-                                                    </form>
-                                                @endcan
-                                            </div>
-                                        </td>
+                                        <th>User Id</th>
+                                        <th>Name</th>
+                                        <th></th>
                                     </tr>
-                                @endforeach
-
-                            </table>
-                            {{ $users ?? ''->links() }}
+                                    @foreach($users as $user)
+                                        <tr>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>
+                                                <div class="row">
+                                                    <a href={{route('user.show', $user->id)}}><button class='btn btn-primary mr-2'>View</button></a>
+                                                    @can('edit users')
+                                                        <a href={{route('user.edit', $user->id)}}><button class='btn btn-primary mr-2'>Edit</button></a>
+                                                    @endcan
+                                                    @can('delete users')
+                                                        <form action={{ route('user.destroy', $user->id)}} method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete</button>
+    
+                                                        </form>
+                                                    @endcan
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+    
+                                </table>
+                                {{ $users ?? ''->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>

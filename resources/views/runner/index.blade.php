@@ -21,15 +21,15 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card mt-4">
+                <div class="card">
                     <div class="card-header">
-                        Runner Schedule Details
+                        <h3 class="mb-0">Runner Schedule</h3>
                     </div>
                     <div class='card-body'>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <tr>
-                                    <th>Runner Id</th>
+                                    <th>Runner Schedule Id</th>
                                     <th>Schedule at</th>
                                     <th>Started at</th>
                                     <th>Completed at</th>
