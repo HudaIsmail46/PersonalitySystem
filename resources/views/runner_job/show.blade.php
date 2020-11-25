@@ -64,7 +64,7 @@
                                 <tr>
                                     <td>Images</td>
                                     <td>
-                                        @include('images.table', ['images' => $runnerJob->images])
+                                        @include('images.table', ['images' =>  $runnerJob->images, 'can_delete_image' => auth()->user()->can('create runnerSchedules')])
                                         @include('images.create', ['imageableId' => $runnerJob->id, 'imageableType' => App\RunnerJob::class ])
                                     </td>
                                 </tr>

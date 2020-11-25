@@ -113,7 +113,7 @@
                                 <tr>
                                     <td>Image</td>
                                     <td>
-                                        @include('images.table', ['images' => $booking->images])
+                                        @include('images.table', ['images' => $booking->images, 'can_delete_image' => auth()->user()->can('edit bookings')])
                                     </td>
                                 </tr>
                             </table>
