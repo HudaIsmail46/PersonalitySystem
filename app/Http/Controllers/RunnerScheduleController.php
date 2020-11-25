@@ -44,7 +44,7 @@ class RunnerScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateDates();
+        $this->validateData();
         $runner_schedule = new RunnerSchedule;
         $runner_schedule->fill([
             'runner_id' => $request->runner_id,
@@ -108,9 +108,10 @@ class RunnerScheduleController extends Controller
         return redirect()->route('runner_schedule.index', compact('runner_schedule'));
     }
 
-    protected function validateDates()
+    protected function validateData()
     {
         return request()->validate([
+            'runner_id' => 'required',
             'scheduled_at' => 'required',
             'status' => 'required',
         ]);
