@@ -46,6 +46,14 @@
                                     </div>
                                 </div>
                                 <div class="field">
+                                    <label class="label" for="phone_no">Phone No </label>
+                                    <div class="form-group">
+                                        <input class="input @error('phone_no') is-danger @enderror" type="text" name="phone_no" id="phone_no" value="{{old('phone_no')??''}}"
+                                        placeholder=" User Phone No">
+                                        <p class="help is-danger">{{ $errors->first('phone_no')}}</p>
+                                    </div>
+                                </div>
+                                <div class="field">
                                     <label class="label" for="event_title">Password </label>
                                     <div class="form-group">
                                         <input class="input @error('password') is-danger @enderror" type="password" name="password" id="password"

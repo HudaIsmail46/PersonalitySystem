@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone_no',
     ];
 
     /**
@@ -45,7 +45,6 @@ class User extends Authenticatable
 
     public function runnerSchedules()
     {
-        return $this->hasMany('App\RunnerSchedule','runner_id');
+        return $this->hasMany('App\RunnerSchedule', 'runner_id');
     }
-
 }
