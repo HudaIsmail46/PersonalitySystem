@@ -5,7 +5,22 @@
 <title>Runner Schedule Data</title>
 
 @section ('content')
-
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Runner Schedule</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/runner/index">All Runner Schedule</a></li>
+                    <li class="breadcrumb-item active">Runner Schedule</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="content">
     <div class="container-fluid">
         <div class="card mt-4">
@@ -13,17 +28,19 @@
                 <h3 class="mb-0">Runner Schedule</h3>
             </div>
             <div class="card-body">
-
                 <div class="table-responsive">
-                    <table class='w-100'>
+                    <table class="table table-bordered table-striped">
                         <tr>
-                            <td>Id</td>
+                            <td>Runner Schedule Id</td>
                             <td>{{ $runner_schedule->id }}</td>
-                            <th></th>
                         </tr>
                         <tr>
-                            <td>Runner Id</td>
-                            <td>{{ $runner_schedule->runner->name }}</td>
+                            <td>Runner</td>
+                            <td>
+                                {{ $runner_schedule->runner->name }}
+                                <br>
+                                {{ $runner_schedule->runner->phone_no }}
+                            </td>
                         </tr>
                         <tr>
                             <td>Scheduled At</td>
