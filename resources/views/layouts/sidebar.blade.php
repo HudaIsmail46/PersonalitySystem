@@ -162,58 +162,40 @@
                 </ul>
             @endcan
             @can('list assignedRunnerSchedule')
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('runner*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ (request()->is('runner*')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-running "></i>
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href={{route('runner.index')}} class="nav-link {{ (request()->is('runner/index')) ? 'active' : '' }}">
+                            <i class=" fas fa-running nav-icon"></i>
                             <p>
                                 Runner Schedule
-                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href={{route('runner.index')}} class="nav-link {{ (request()->is('runner/index')) ? 'active' : '' }}">
-                                    <i class=" fa fa-user nav-icon"></i>
-                                    <p>All Runner Schedule</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                </ul>
+                </ul>    
             @endcan
             @can('list vendorCollected orders')
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('vendor_collected*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ (request()->is('vendor_collected*')) ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user"></i>
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href={{route('vendor_collected.index')}} class="nav-link {{ (request()->is('vendor_collected/index')) ? 'active' : '' }}">
+                            <i class=" fas fa-inbox nav-icon"></i>
                             <p>
-                                Vendor
-                                <i class="right fas fa-angle-left"></i>
+                                Vendor Collected
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href={{route('vendor_collected.index')}} class="nav-link {{ (request()->is('vendor_collected/index')) ? 'active' : '' }}">
-                                    <i class=" fas fa-inbox nav-icon"></i>
-                                    <p>Vendor Collected</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-                </ul>
+                </ul>    
             @endcan
             @can('list inhouseCleaning orders')
-            <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href={{route('inhouse_cleaning.index')}} class="nav-link {{ (request()->is('inhouse_cleaning/index')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-warehouse"></i>
-                        <p>
-                            In House Cleaning
-                        </p>
-                    </a>
-                </li>
-            </ul>    
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href={{route('inhouse_cleaning.index')}} class="nav-link {{ (request()->is('inhouse_cleaning/index')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-warehouse"></i>
+                            <p>
+                                In House Cleaning
+                            </p>
+                        </a>
+                    </li>
+                </ul>    
             @endcan
         </nav>
     </div>
