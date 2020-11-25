@@ -9,6 +9,13 @@ if (!function_exists('myLongDateTime')) {
     }
 }
 
+if (!function_exists('myShortDateTime')) {
+    function myShortDateTime(Carbon $dateTime)
+    {
+        return $dateTime->format('d/m/Y, H:i');
+    }
+}
+
 if (!function_exists('humaniseOrderState')) {
     function humaniseOrderState(String $state)
     {

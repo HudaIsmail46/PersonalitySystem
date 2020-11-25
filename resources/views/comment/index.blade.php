@@ -4,14 +4,18 @@
     </div>
     <div class="card-body p-1 text-capitalize">
         <div class="item">
-            @foreach ($model->comments as $comment)
+            @foreach ($model->comments->sortBy('created_at') as $comment)
                 <img class="direct-chat-img" src={{ asset('img/cleanherologo100.png') }}
                     alt="User Image">
                 <p class="message">
                     <a href="#" class="name">
                         <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>
-                            {{ myLongDateTime(new Carbon\Carbon($comment->created_at)) }}</small>
-                        {{ $comment->user->name }}
+                            {{ myShortDateTime(new Carbon\Carbon($comment->created_at)) }}  
+                        </small>
+                        {{ $comment->user->name }} 
+                            @foreach($comment->user->roles()->get() as $role)
+                                <small class="text-muted">( {{ $role->name }} )</small>
+                            @endforeach
                     </a>
                     @if ($comment->user_id == Auth()->user()->id)
                         <form action="{{ route('comment.destroy', $comment->id) }}" method="post">
