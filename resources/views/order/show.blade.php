@@ -99,7 +99,7 @@
                             <tr>
                                 <td>Image</td>
                                 <td>
-                                    @include('images.table', ['images' => $order->images, 'delete_image' => ( @if(auth()->user()->can('create orders') true @else false @endif ) ])
+                                    @include('images.table', ['images' => $order->images, 'delete_image' => auth()->user()->can('create orders')])
                                 </td>
                             </tr>
                             @can('create orders')
