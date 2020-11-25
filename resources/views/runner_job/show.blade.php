@@ -25,7 +25,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 card">
+                <div class="col-md-6 card">
                     <div class="card-header">
                         <h3 class="mb-0"> Runner Job</h3>
                     </div>
@@ -72,6 +72,9 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-5 ml-2 ">
+                @include('comment.index', ['model' => $runnerJob, 'appName' => App\RunnerJob::class])
                 </div>
             </div>
         </div>
