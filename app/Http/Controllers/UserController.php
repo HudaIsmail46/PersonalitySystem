@@ -44,11 +44,12 @@ class UserController extends Controller
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
+            'phone_no' => $this->formatPhoneNo($request->phone_no),
             'password' => Hash::make($request->password)
         ]);
         $user->save();
 
-        return redirect()->route('user.show',$user->id)->with('User is created.');
+        return redirect()->route('user.show', $user->id)->with('User is created.');
     }
 
     /**
@@ -86,7 +87,7 @@ class UserController extends Controller
         $roles = $request->roles;
         $user->syncRoles($roles);
         $user->update($this->validateUpdateUser());
-        return redirect()->route('user.show',$user->id)->with('User details updated.');
+        return redirect()->route('user.show', $user->id)->with('User details updated.');
     }
 
     /**
@@ -107,6 +108,7 @@ class UserController extends Controller
         return request()->validate([
             'name' => 'required',
             'email' => 'email|required|unique:users',
+            'phone_no' => 'required',
             'password' => 'required|string|min:8|confirmed'
         ]);
     }
@@ -116,5 +118,16 @@ class UserController extends Controller
         return request()->validate([
             'name' => 'required'
         ]);
+    }
+
+    protected function formatPhoneNo($phone_no)
+    {
+        if (preg_match('/^6/', $phone_no) || preg_match('/[\[^\+\]]/', $phone_no)) {
+            $phone_number = preg_replace('/\D+/', '', $phone_no);
+        } else {
+            $phone = preg_replace('/\D+/', '', $phone_no);
+            $phone_number =  "6" . $phone;
+        }
+        return $phone_number;
     }
 }

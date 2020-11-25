@@ -26,6 +26,7 @@
             <div class="col-md-6 card ">
                 <div class="card-header">
                     <h3 class="mb-0">{{$user->name}}</h3>
+                    <p class="mb-1">{{$user->phone_no}}</p>
                 </div>
                 <div class="card-body">
                     <h4>Roles</h4>
