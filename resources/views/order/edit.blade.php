@@ -165,6 +165,7 @@
 
                             <div class="form-group">
                                 <select id="actual_material" name="actual_material">
+                                    <option value="">--SELECT ACTUAL MATERIAL--</option>
                                     @foreach(App\Order::MATERIALS as $actual_material)
                                         <option value="{{$actual_material}}" {{$order->actual_material == $actual_material ? 'selected' : ''}}>{{$actual_material}}</option>
                                     @endforeach
@@ -188,7 +189,8 @@
                             <label class="label" for ="paid_at">Paid At</label>
 
                             <div class="form-group">
-                                <input class="input @error('paid_at') is-danger @enderror" type="datetime-local" name="paid_at" id="paid_at" value="{{old('paid_at')?? Carbon\Carbon::parse($order->paid_at)->toDateTimeLocalString() ?? ''}}" placeholder="paid_at">
+                                <input class="input @error('paid_at') is-danger @enderror" type="datetime-local" name="paid_at" id="paid_at" 
+                                value="{{Carbon\Carbon::parse($order->paid_at)-> toDateTimeString() ? Carbon\Carbon::parse($order->paid_at)-> format('Y-m-d\TH:i'):null}}">
 
                                 @error('paid_at')
                                     <p class="help is-danger">{{$errors->first('paid_at')}}</p>
@@ -200,6 +202,7 @@
                             <label class="label" for ="payment_method">Payment Method</label>
                             <div class="form-group">
                                 <select id="payment_method" name="payment_method">
+                                    <option value="">--SELECT PAYMENT METHOD--</option>
                                     @foreach(App\Order::PAYMENTS as $payment)
                                         <option value="{{$payment}}" {{$order->payment_method == $payment ? 'selected' : ''}}>{{$payment}}</option>
                                     @endforeach
