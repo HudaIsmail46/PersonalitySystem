@@ -86,6 +86,7 @@
                             <th>Type</th>
                             <th>Location</th>
                             <th>Customer</th>
+                            <th>Status</th>
                         </tr>
                         @foreach ($runnerJobs as $runnerJob)
                             <tr>
@@ -97,6 +98,7 @@
                                     <br />
                                     Phone No : {{ $runnerJob->order->customer->phone_no }}
                                 </td>
+                                <td>{{ $runnerJob->state }}</td>
                         @endforeach
                         </tr>
                     </table>
