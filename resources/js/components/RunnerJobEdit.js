@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {dateFormatter, humaniseOrderState} from '../helpers.js';
+import dateFormat from 'dateformat';
 window.humaniseOrderState = humaniseOrderState;
 
 function RunnerJobEdit(props) {
@@ -28,11 +29,13 @@ function RunnerJobEdit(props) {
     }
 
     const handleChange = (input) => {
+        let scheduled_at = dateFormat(runnerschedule.scheduled_at, 'yyyy-mm-dd')
+        scheduled_at = scheduled_at + ' ' + input.target.value + ':00'
         setRunnerJob({
             ...runnerJob,
             runner_schedule_id: runnerschedule.id,
             order_id: order.id,
-            scheduled_at: input.target.value
+            scheduled_at: scheduled_at
         })
     }
 
@@ -75,9 +78,8 @@ function RunnerJobEdit(props) {
             closeModal();
     }
 
-    let dateTimeValue = dateFormatter(runnerJob.scheduled_at);
-
     const runnerJobForm = () => {
+        let timeValue = dateFormat(runnerJob.scheduled_at, "HH:MM");
         return (
             <div className="box">
                 <div className="modal fade show d-block" tabIndex="-1">
@@ -94,10 +96,10 @@ function RunnerJobEdit(props) {
                                     <label className="label" >Schedule for </label>
                                     <div className="form-group">
                                         <input className="input"
-                                            type="datetime-local"
+                                            type="time"
                                             name="scheduled_at"
                                             id="scheduled_at"
-                                            value = {dateTimeValue}
+                                            value = {timeValue}
                                             onChange={handleChange}
                                             />
                                     </div>
