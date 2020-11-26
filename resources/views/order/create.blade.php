@@ -102,8 +102,9 @@
 
                                     <div class="form-group">
                                         <select id="size" name="size">
+                                                <option value="">--SELECT SIZE--</option>
                                             @foreach(App\Order::SIZES as $size)
-                                                <option value="{{$size}}">{{$size}}</option>
+                                                <option value="{{$size}}" {{old('size') == $size ? 'selected' : ''}}>{{$size}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -115,8 +116,9 @@
 
                                 <div class="form-group">
                                     <select id="material" name="material">
+                                            <option value="">--SELECT MATERIAL--</option>
                                         @foreach(App\Order::MATERIALS as $material)
-                                            <option value="{{$material}}">{{$material}}</option>
+                                            <option value="{{$material}}" {{old('material') == $material ? 'selected' : ''}}>{{$material}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -149,8 +151,9 @@
 
                                 <div class="form-group">
                                     <select id="status" name="status">
+                                            <option value="">--SELECT STATUS--</option>
                                     @foreach($availableStates as $value=>$status)
-                                            <option value="{{$value}}">{{humaniseOrderState($status)}}</option>
+                                            <option value="{{$value}}" {{old('status') == $status ? 'selected' : ''}}>{{humaniseOrderState($status)}}</option>
                                         @endforeach
                                     </select>
                                 </div>
