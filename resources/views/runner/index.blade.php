@@ -34,16 +34,21 @@
                                     <th>Started at</th>
                                     <th>Completed at</th>
                                     <th>Status</th>
+                                    <th>Runner Jobs</th>
                                     <th></th>
                                 </tr>
                                 <tr>
                                     @foreach($runner_schedules as $runner_schedule)
-
                                     <td><a href="{{route('runner.show', $runner_schedule->id)}}">{{ $runner_schedule->id}}</td>
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at))}}</td>
                                     <td>{{ $runner_schedule->started_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->started_at)) : null}}</td>
                                     <td>{{ $runner_schedule->completed_at ? myLongDateTime(new Carbon\Carbon($runner_schedule->completed_at)) : null}}</td>
                                     <td>{{ $runner_schedule->status}}</td>
+                                    <td>
+                                        @foreach($runner_schedule->runnerJobs as $runner_job)
+                                            <li>{{ $runner_job->scheduled_at ? myLongDateTime(new Carbon\Carbon($runner_job->scheduled_at)) : null}} at {{$runner_job->order->city . ', ' . $runner_job->order->location_state }}</li>
+                                        @endforeach
+                                    </td>
                                     <td>
                                     <div class="d-flex">
                                         <a href={{route('runner.show', $runner_schedule->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
