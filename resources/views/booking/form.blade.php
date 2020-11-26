@@ -130,7 +130,7 @@
             <select id="team" name="team">
                 <option value="">--SELECT TEAM--</option>
                 @foreach (App\Booking::TEAM as $team)
-                    <option value="{{ $team }}">{{ $team }}</option>
+                    <option value="{{ $team }}" {{old('team') == $team ? 'selected' : ''}}>{{ $team }}</option>
                 @endforeach
             </select>
         </div>
@@ -142,7 +142,7 @@
             <select id="booking_type" name="booking_type">
                 <option value="">--SELECT TYPE--</option>
                 @foreach (App\Booking::TYPE as $booking_type)
-                    <option value="{{ $booking_type }}">{{ $booking_type }}</option>
+                    <option value="{{ $booking_type }}" {{old('booking_type') == $booking_type ? 'selected' : ''}}>{{ $booking_type }}</option>
                 @endforeach
             </select>
         </div>
@@ -165,7 +165,7 @@
             <select id="pic" name="pic">
                 <option value="">--SELECT PIC--</option>
                 @foreach (App\Booking::PIC as $pic)
-                    <option value="{{ $pic }}">{{ $pic }}</option>
+                    <option value="{{ $pic }}" {{old('pic') == $pic ? 'selected' : ''}}>{{ $pic }}</option>
                 @endforeach
             </select>
         </div>
