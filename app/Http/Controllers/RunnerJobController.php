@@ -13,6 +13,7 @@ use App\State\Order\Collected;
 use App\State\Order\ReceivedWarehouse;
 use App\State\Order\VendorCollected;
 use App\State\Order\InHouseCleaning;
+use App\State\Order\Scheduled;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -62,7 +63,9 @@ class RunnerJobController extends Controller
             'runner_schedule_id' => $request->runner_schedule_id,
             'order_id' => $request->order_id,
             'scheduled_at' => $request->scheduled_at,
-            'job_type' => $jobType
+            'job_type' => $jobType,
+            'state' => "scheduled"
+
         ]);
 
         $runnerJob->save();
@@ -70,7 +73,7 @@ class RunnerJobController extends Controller
         $runnerJobs = $runnerJob->runnerSchedule->runnerJobs->load('order.customer');
         $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
 
-        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
+        return json_encode(['runnerJobs' => $runnerJobs, 'orders' => $orders]);
     }
 
     /**
@@ -79,7 +82,7 @@ class RunnerJobController extends Controller
      * @param  \App\RunnerJob  $runnerJob
      * @return \Illuminate\Http\Response
      */
-    public function show(RunnerJob $runnerJob )
+    public function show(RunnerJob $runnerJob)
     {
         return view('runner_job.show', compact('runnerJob'));
     }
@@ -110,8 +113,7 @@ class RunnerJobController extends Controller
         $runnerJob->save();
         $runnerJobs = $runnerJob->runnerSchedule->runnerJobs->load('order.customer');
         $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
-        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
-
+        return json_encode(['runnerJobs' => $runnerJobs, 'orders' => $orders]);
     }
 
     /**
@@ -138,7 +140,7 @@ class RunnerJobController extends Controller
         $runnerJob->delete();
         $runnerJobs = $runnerSchedule->runnerJobs->load('order.customer');
         $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
-        return json_encode(['runnerJobs'=>$runnerJobs, 'orders'=>$orders]);
+        return json_encode(['runnerJobs' => $runnerJobs, 'orders' => $orders]);
     }
 
     public function complete(RunnerJob $runnerJob)
@@ -149,7 +151,21 @@ class RunnerJobController extends Controller
         ]);
         $runnerJob->save();
 
-        return redirect()->route('runner_job.show',$runnerJob);
+        $order = $runnerJob->order;
+        if ($order->state == PickupScheduled::class) {
+            $transitionTo = Collected::class;
+        } else if ($order->state == ReturnScheduled::class) {
+            $transitionTo = Returned::class;
+        }
+        $order->update([
+            'state' => $transitionTo
+        ]);
+
+        $runnerJob->update([
+            'state' => $transitionTo
+        ]);
+
+        return redirect()->route('runner_job.show', $runnerJob);
     }
 
     public function abort(RunnerJob $runnerJob)
