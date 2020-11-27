@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Booking;
 use App\Customer;
 use Illuminate\Support\Facades\DB;
-use App\Image;
 
 class BookingController extends Controller
 {
@@ -102,12 +101,6 @@ class BookingController extends Controller
         ]);
         $booking->save();
 
-        if (request()->hasFile('image')) {
-            $image = new Image;
-            $this->storeImage($image, $booking);
-            $image->save();
-        }
-
         return redirect()->route('booking.show', $booking->id)->with('Order is created.');
     }
 
@@ -132,12 +125,6 @@ class BookingController extends Controller
     public function update(Booking $booking)
     {
         $booking->update($this->validateUpdateBooking());
-
-        if (request()->has('image')) {
-            $image = new Image;
-            $this->storeImage($image, $booking);
-            $image->save();
-        }
 
         return redirect()->route('booking.show', $booking->id)->with('Booking updated successfully.');
     }
@@ -186,11 +173,6 @@ class BookingController extends Controller
             'team' => 'required'
         ]);
 
-        if (request()->hasFile('image')) {
-            request()->validate([
-                'image' => 'file|image',
-            ]);
-        }
         return $validateData;
     }
 
@@ -202,24 +184,5 @@ class BookingController extends Controller
             'receipt_number' => 'max:6',
             'status' => 'required'
         ]);
-    }
-
-    public function storeImage($image, $booking)
-    {
-        if (request()->has('image')) {
-            $image->fill([
-                'imageable_id' => $booking->id,
-                'imageable_type' => Booking::class,
-                'file' => request()->image->store('uploads', 'public'),
-            ]);
-        }
-    }
-
-    public function destroyImage(Image $image)
-    {
-        $booking = $image->imageable;
-        $image->delete();
-
-        return redirect()->route('booking.show', $booking->id)->with('Booking is Updated.');
     }
 }
