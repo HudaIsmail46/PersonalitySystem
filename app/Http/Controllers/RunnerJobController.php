@@ -152,6 +152,27 @@ class RunnerJobController extends Controller
         return redirect()->route('runner_job.show',$runnerJob);
     }
 
+    public function abort(RunnerJob $runnerJob)
+    {
+        $runnerJob->update([
+            'state' =>'canceled',
+        ]);
+
+        $order = $runnerJob->order;
+
+        if ($order->state == PickupScheduled::class) {
+            $transitionTo = PendingPickupSchedule::class;
+        } else {
+            $transitionTo = PendingReturnSchedule::class;
+        }
+
+        $order->update([
+            'state' => $transitionTo
+        ]);
+
+        return redirect()->route('runner_job.show',$runnerJob);
+    }
+
     protected function validates()
     {
         return request()->validate([

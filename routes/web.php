@@ -109,6 +109,7 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::delete('/{runner_job}', 'RunnerJobController@destroy')->name('destroy');
     Route::put('/{runner_job}', 'RunnerJobController@update')->name('update');
     Route::put('/complete/{runner_job}', 'RunnerJobController@complete')->name('complete');
+    Route::put('/abort/{runner_job}', 'RunnerJobController@abort')->name('abort');
 });
 
 #image

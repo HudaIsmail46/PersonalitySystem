@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/runner/{{ $runnerJob->runnerSchedule->id }}">Runner
+                        <li class="breadcrumb-item"><a href="/runner_schedule/{{ $runnerJob->runnerSchedule->id }}">Runner
                                 Schedule</a></li>
                         <li class="breadcrumb-item active">Runner Job</li>
                     </ol>
@@ -67,10 +67,10 @@
                                         @include('images.table', ['images' =>  $runnerJob->images, 'can_delete_image' => auth()->user()->can('create runnerSchedules')])
                                         @include('images.create', ['imageableId' => $runnerJob->id, 'imageableType' => App\RunnerJob::class ])
                                     </td>
-                                </tr>
-                                @include('runner_job.form')
+                                </tr>        
                             </table>
                         </div>
+                        @include('runner_job.form')
                     </div>
                 </div>
                 <div class="col-md-5 ml-2 ">
