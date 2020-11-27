@@ -83,7 +83,7 @@ Route::prefix('/order')->name('order.')->group(function () {
 
 ##RunnerSchedule CRUD
 Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
-    Route::get('/', 'RunnerScheduleController@index')->name('index');
+    Route::get('/index', 'RunnerScheduleController@index')->name('index');
     Route::get('/create', 'RunnerScheduleController@create')->name('create');
     Route::post('/', 'RunnerScheduleController@store')->name('store');
     Route::get('/{runner_schedule}', 'RunnerScheduleController@show')->name('show');
