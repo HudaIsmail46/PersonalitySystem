@@ -33,7 +33,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
                                 <a href={{route('booking.index')}} class="nav-link {{ (request()->is('booking/index')) ? 'active' : '' }}">
                                     <i class=" fa fa-calendar-o nav-icon"></i>
@@ -62,7 +62,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
                                 <a href={{route('customer.index')}} class="nav-link {{ (request()->is('customer/index')) ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
@@ -90,7 +90,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
                                 <a href={{route('user.index')}} class="nav-link {{ (request()->is('user/index')) ? 'active' : '' }}">
                                     <i class="fas fa-users nav-icon"></i>
@@ -117,7 +117,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
                                 <a href={{route('order.index')}} class="nav-link {{ (request()->is('order/index')) ? 'active' : '' }}">
                                     <i class=" fa fa-shopping-cart nav-icon"></i>
@@ -144,7 +144,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
                                 @can('create runnerSchedules')
                                     <a href={{route('runner_schedule.index')}} class="nav-link {{ (request()->is('runner_schedule/index')) ? 'active' : '' }}">
