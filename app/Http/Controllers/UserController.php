@@ -116,7 +116,8 @@ class UserController extends Controller
     protected function validateUpdateUser()
     {
         return request()->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'phone_no' => 'required'
         ]);
     }
 

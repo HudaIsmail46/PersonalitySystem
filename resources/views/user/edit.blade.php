@@ -56,6 +56,15 @@
                                     </div>
                                     <div class="field">
                                         <div class="col-md-4">
+                                            <label class="label" for="event_title">Phone No </label>
+                                            <div class="form-group">
+                                                <input class="input @error('phone_no') is-danger @enderror" type="text" name="phone_no" id="phone_no" value="{{old('phone_no')?? $user->phone_no ?? ''}}" placeholder=" User Name">
+                                                <p class="help is-danger">{{ $errors->first('phone_no')}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="col-md-4">
                                             <label for="roles">Roles:</label>
                                             <input type="hidden" name="roles" value="rolesSelected" />
                                             @foreach($all_roles as $role)

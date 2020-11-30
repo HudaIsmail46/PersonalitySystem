@@ -30,12 +30,16 @@
                                     <tr>
                                         <th>User Id</th>
                                         <th>Name</th>
+                                        <th>Phone No</th>
+                                        <th>Email</th>
                                         <th></th>
                                     </tr>
                                     @foreach($users as $user)
                                         <tr>
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
+                                            <td>{{ $user->phone_no }}</td>
+                                            <td>{{ $user->email }}</td>
                                             <td>
                                                 <div class="row">
                                                     <a href={{route('user.show', $user->id)}}><button class='btn btn-primary mr-2'>View</button></a>

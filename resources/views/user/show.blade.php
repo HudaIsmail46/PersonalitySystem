@@ -27,6 +27,7 @@
                 <div class="card-header">
                     <h3 class="mb-0">{{$user->name}}</h3>
                     <p class="mb-1">{{$user->phone_no}}</p>
+                    <p class="mb-1">{{$user->email}}</p>
                 </div>
                 <div class="card-body">
                     <h4>Roles</h4>
