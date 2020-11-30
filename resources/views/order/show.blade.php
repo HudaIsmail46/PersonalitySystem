@@ -110,15 +110,16 @@
                             @endcan
                         </table>
                         @can('create orders')
-                            <div class="row mt-5 ml-0">
+                            <div class="row mt-3 ml-0">
                                 <a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary mr-2">Edit</a>
-
+                                @if($order->state == "App\State\Order\Draft")
                                 <form class='mb-0' action="{{ route('order.destroy', $order->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
                                         type="submit">Delete <i class="fa fa-trash"></i></button>
                                 </form>
+                                @endif
                             </div>
                         @endcan
                     </div>

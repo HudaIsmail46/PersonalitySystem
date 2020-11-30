@@ -78,4 +78,15 @@ class Order extends Model
                 [Returned::class, Completed::class]
             ]);
     }
+
+    protected static function boot() 
+    {
+      parent::boot();
+
+      static::deleting(function($order) {
+         foreach ($order->runnerJobs()->get() as $runnerJobs) {
+            $runnerJobs->delete();
+         }
+      });
+    }
 }
