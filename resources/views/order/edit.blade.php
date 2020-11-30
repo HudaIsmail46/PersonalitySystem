@@ -141,7 +141,7 @@
                         <div class="field">
                             <label class="label" for ="actual_length">Actual length</label>
                             <div class="form-group">
-                                <input class="input @error('actual_length') is-danger @enderror" type="number" name="actual_length" id="actual_length" value="{{old('actual_length')?? $order->actual_length ?? ''}}" placeholder="actual_length">
+                                <input class="input @error('actual_length') is-danger @enderror" type="number" name="actual_length" id="actual_length" value="{{old('actual_length')?? $order->actual_length ?? ''}}" placeholder="Actual Length">
 
                                 @error('actual_length')
                                     <p class="help is-danger">{{$errors->first('actual_length')}}</p>
@@ -152,7 +152,7 @@
                         <div class="field">
                             <label class="label" for ="actual_width">Actual width</label>
                             <div class="form-group">
-                                <input class="input @error('actual_width') is-danger @enderror" type="number" name="actual_width" id="actual_width" value="{{old('actual_width')?? $order->actual_width ?? ''}}" placeholder="actual_width">
+                                <input class="input @error('actual_width') is-danger @enderror" type="number" name="actual_width" id="actual_width" value="{{old('actual_width')?? $order->actual_width ?? ''}}" placeholder="Actual Width">
 
                                 @error('actual_width')
                                     <p class="help is-danger">{{$errors->first('actual_width')}}</p>
