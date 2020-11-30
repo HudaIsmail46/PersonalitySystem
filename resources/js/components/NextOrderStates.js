@@ -8,11 +8,19 @@ function NextOrderStates(props) {
         switch(order.state) {
             case  "App\\State\\Order\\PickupScheduled":
                 states = (
-                    <div
+                    <div>
+                        <button
                         className="btn btn-success btn-block"
                         onClick={()=> onClick(order.id,  "App\\State\\Order\\Collected")}
-                    >
-                        Collected
+                        >
+                            Collected
+                        </button>
+                        <button
+                         className="btn btn-success btn-block"
+                         onClick={()=> onClick(order.id,  "App\\State\\Order\\PendingPickupSchedule")}
+                        >
+                            Incomplete Pickup
+                        </button>
                     </div>
                 )
                 break;
@@ -66,11 +74,19 @@ function NextOrderStates(props) {
                 break;
             case "App\\State\\Order\\ReturnScheduled":
                 states = (
-                    <div
-                        className="btn btn-success btn-block"
-                        onClick={()=> onClick(order.id, "App\\State\\Order\\Returned")}
-                    >
-                        Returned To Customer
+                    <div>
+                        <button
+                            className="btn btn-success btn-block"
+                            onClick={()=> onClick(order.id,  "App\\State\\Order\\Returned")}
+                        >
+                            Returned To Customer
+                        </button>
+                        <button
+                            className="btn btn-success btn-block"
+                            onClick={()=> onClick(order.id,  "App\\State\\Order\\PendingReturnSchedule")}
+                        >
+                            Incomplete Return
+                        </button>
                     </div>
                 );
                 break;
