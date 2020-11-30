@@ -1,4 +1,4 @@
-@if (!$runnerJob->completed_at)
+@if (!$runnerJob->completed_at && $runnerJob->state != "canceled")
     <div class="row mt-2 ml-0">
         <form action="{{ route('runner_job.complete', $runnerJob->id) }}" method="post">
             @csrf
