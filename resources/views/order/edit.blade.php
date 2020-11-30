@@ -190,7 +190,7 @@
 
                             <div class="form-group">
                                 <input class="input @error('paid_at') is-danger @enderror" type="datetime-local" name="paid_at" id="paid_at"
-                                value="{{Carbon\Carbon::parse($order->paid_at)-> toDateTimeString() ? Carbon\Carbon::parse($order->paid_at)-> format('Y-m-d\TH:i'):null}}">
+                                value="{{$order->paid_at ? Carbon\Carbon::parse($order->paid_at)-> format('Y-m-d\TH:i'): ''}}">
 
                                 @error('paid_at')
                                     <p class="help is-danger">{{$errors->first('paid_at')}}</p>
