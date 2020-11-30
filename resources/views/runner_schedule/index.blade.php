@@ -29,7 +29,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <tr>
-                                        <th>Runner Id</th>
+                                        <th>Runner Schedule Id</th>
                                         <th>Runner</th>
                                         <th>Scheduled at</th>
                                         <th>Runner Jobs</th>
