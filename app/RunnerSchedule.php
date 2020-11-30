@@ -33,4 +33,15 @@ class RunnerSchedule extends Model
     {
         return $this->morphMany('App\Comment', 'commentable');
     }
+
+    protected static function boot()
+    {
+      parent::boot();
+
+      static::deleting(function($runner_schedule) {
+         foreach ($runner_schedule->runnerJobs()->get() as $runnerJobs) {
+            $runnerJobs->delete();
+         }
+      });
+    }
 }
