@@ -54,8 +54,7 @@
                                         Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address">
                                     </div>
                                 </div>
-
-                                <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
+                                    <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
                             </form>
                             <div class="table-responsive">
                                 @include('booking.table')

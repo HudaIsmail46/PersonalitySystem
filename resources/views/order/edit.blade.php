@@ -189,7 +189,7 @@
                             <label class="label" for ="paid_at">Paid At</label>
 
                             <div class="form-group">
-                                <input class="input @error('paid_at') is-danger @enderror" type="datetime-local" name="paid_at" id="paid_at" 
+                                <input class="input @error('paid_at') is-danger @enderror" type="datetime-local" name="paid_at" id="paid_at"
                                 value="{{Carbon\Carbon::parse($order->paid_at)-> toDateTimeString() ? Carbon\Carbon::parse($order->paid_at)-> format('Y-m-d\TH:i'):null}}">
 
                                 @error('paid_at')
@@ -234,11 +234,10 @@
                         </div>
 
                         @include('images.create', ['imageableId' => $order->id, 'imageableType' => App\Order::class ])
-                        <br>
 
                         <div class="field is grouped">
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn mt-2 btn-primary" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>

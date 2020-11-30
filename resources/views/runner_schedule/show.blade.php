@@ -8,7 +8,7 @@
 
     <div class="content">
         <div class="container-fluid">
-            <div class="row justify-content-betweeen">
+            <div class="row">
                 <div class=" col-md-6 mt-4 card">
                     <div class="card-header">
                         <h3 class="mb-0">Runner Schedule Data</h3>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="col-5 mt-4 ">
+                <div class="col-md-5 mx-1 mt-4">
                     @include('comment.index', ['model' => $runner_schedule, 'appName' => App\RunnerSchedule::class])
                 </div>
 
