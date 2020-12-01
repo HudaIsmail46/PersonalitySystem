@@ -1,5 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="/home" class="brand-link">
+    <a
+        href={{Auth::user()->hasRole(['Runner', 'Vendor']) ? '#' : route('home')}}
+        class="brand-link">
         <img src={{ asset('img/cleanherologo100.png') }} alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">CleanHero</span>
     </a>
@@ -13,16 +15,18 @@
             </div>
         </div>
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column">
-                <li class="nav-item">
-                    <a href="{{route('home')}}" class="nav-link">
-                        <i class=" fas fa-home nav-icon"></i>
-                        <p>
-                            Home
-                        </p>
-                    </a>
-                </li>
-            </ul>
+            @if(!Auth::user()->hasRole(['Runner', 'Vendor']))
+                <ul class="nav nav-pills nav-sidebar flex-column">
+                    <li class="nav-item">
+                        <a href="{{route('home')}}" class="nav-link">
+                            <i class=" fas fa-home nav-icon"></i>
+                            <p>
+                                Home
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            @endif
             @can('list bookings')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ (request()->is('booking*')) ? 'open' : '' }}">
