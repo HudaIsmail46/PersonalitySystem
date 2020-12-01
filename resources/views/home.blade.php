@@ -20,33 +20,31 @@
 
     <!-- Main content -->
 
-    @if(Auth::user()->hasRole('Runner'))
-    
-    @else
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Incomplete Bookings</h5>
-                            <canvas id="incompleteBooking" config="{{$incompleteBookingChart}}"></canvas>
+    @if(!Auth::user()->hasRole(['Runner', 'Vendor']))
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Incomplete Bookings</h5>
+                                <canvas id="incompleteBooking" config="{{$incompleteBookingChart}}"></canvas>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class='col-lg-8'>
-                    <div class="card ">
-                        <div class="card-body">
-                            <h5 class="card-title">Monthly Bookings</h5>
+                    <div class='col-lg-8'>
+                        <div class="card ">
+                            <div class="card-body">
+                                <h5 class="card-title">Monthly Bookings</h5>
 
-                            <canvas id="monthlyBooking" config="{{$monthlyBookingChart}}"></canvas>
+                                <canvas id="monthlyBooking" config="{{$monthlyBookingChart}}"></canvas>
+                            </div>
                         </div>
                     </div>
+                    <!-- /.col-md-6 -->
                 </div>
-                <!-- /.col-md-6 -->
-            </div>
 
-        </div><!-- /.container-fluid -->
-    </div>
+            </div><!-- /.container-fluid -->
+        </div>
     @endif
 @endsection
