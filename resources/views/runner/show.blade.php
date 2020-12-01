@@ -87,6 +87,7 @@
                             <th>Location</th>
                             <th>Customer</th>
                             <th>Status</th>
+                            <th></th>
                         </tr>
                         @foreach ($runnerJobs as $runnerJob)
                             <tr>
@@ -99,7 +100,11 @@
                                     Phone No : {{ $runnerJob->order->customer->phone_no }}
                                 </td>
                                 <td>{{ $runnerJob->state }}</td>
+                                <td>
+                                    <a href={{route('runner_job.show', $runnerJob->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
+                                </td>
                         @endforeach
+
                         </tr>
                     </table>
                 </div>
