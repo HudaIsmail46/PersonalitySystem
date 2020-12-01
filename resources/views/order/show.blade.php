@@ -126,9 +126,13 @@
                         @endcan
                     </div>
                 </div>
-                <div class="col-md-5 mx-1 ">
+                <div class="col-md-5 mx-1 ">  
+                @hasrole('Vendor') 
+                    @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
+                @else
                     @include('order.runner_job')
                     @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
+                @endhasrole
                 </div>
             </div>
         </div>
