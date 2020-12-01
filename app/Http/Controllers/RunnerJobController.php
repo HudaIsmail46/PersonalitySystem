@@ -10,6 +10,7 @@ use App\State\Order\PendingReturnSchedule;
 use App\State\Order\PickupScheduled;
 use App\State\Order\ReturnScheduled;
 use App\State\Order\Collected;
+use App\State\Order\Completed;
 use App\State\Order\ReceivedWarehouse;
 use App\State\Order\VendorCollected;
 use App\State\Order\InHouseCleaning;
@@ -162,7 +163,7 @@ class RunnerJobController extends Controller
         ]);
 
         $runnerJob->update([
-            'state' => $transitionTo
+            'state' => 'completed',
         ]);
 
         return redirect()->route('runner_job.show', $runnerJob);
@@ -171,7 +172,7 @@ class RunnerJobController extends Controller
     public function abort(RunnerJob $runnerJob)
     {
         $runnerJob->update([
-            'state' =>'canceled',
+            'state' => 'canceled',
         ]);
 
         $order = $runnerJob->order;
@@ -186,7 +187,7 @@ class RunnerJobController extends Controller
             'state' => $transitionTo
         ]);
 
-        return redirect()->route('runner_job.show',$runnerJob);
+        return redirect()->route('runner_job.show', $runnerJob);
     }
 
     protected function validates()
