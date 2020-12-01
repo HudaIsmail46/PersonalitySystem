@@ -39,6 +39,19 @@ function RunnerJobEdit(props) {
         })
     }
 
+    const orderStatuses = (state) => {
+        if(state == "App\\State\\Order\\Completed" ){
+            status = "Completed" 
+        }
+        else if(state == "App\\State\\Order\\PendingPickupSchedule" || state == "App\\State\\Order\\PendingReturnSchedule"){
+            status = "Canceled" 
+        }
+        return (
+            status
+        );
+    }
+    
+
     const submit = () => {
         if(runnerJob.id){
             axios.put(`/runner_job/${runnerJob.id}`,{
@@ -130,7 +143,7 @@ function RunnerJobEdit(props) {
                         <th>Type</th>
                         <th>Location</th>
                         <th>Customer</th>
-                        <th>Order State</th>
+                        <th>Order</th>
                         <th></th>
                     </tr>
                     {runnerJobs.map(scheduledOrder => {return (
@@ -150,8 +163,12 @@ function RunnerJobEdit(props) {
                                 <br/>
                                 Phone No : {scheduledOrder.order.customer.phone_no}
                             </td>
-                            <td>{humaniseOrderState(scheduledOrder.order.state)}</td>
-                            <td><div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div></td>
+                            <td>Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br></br>
+                                {humaniseOrderState(scheduledOrder.order.state)}</td>
+                            <td>{ orderStatuses(scheduledOrder.order.state) ? status :
+                                  <div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div>
+                            }
+                            </td>
                         </tr>
                     )})}
                 </tbody>
