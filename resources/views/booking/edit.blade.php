@@ -29,16 +29,6 @@
                 <div class="card-header">
                     <h3 class="mb-0">Update Booking</h3>
                 </div>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
                 @if($message = Session::get('success'))
                 <div class="alert alert-success alert-block">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -92,37 +82,55 @@
                                 </tr>
                             </table>
 
-                            <div class="col-md-6">
+                            <div class="field">
                                 <label class="label" for="price">Price</label>
-                                <div class="control">
-                                    <input class="input @error('price') is-danger @enderror" type="number" name="price" id="price" value="{{old('price')?? $booking->price ?? ''}}" placeholder=" Actual Price (RM)">
-                                    <p class="help is-danger">{{ $errors->first('price')}}</p>
-                                </div>
-
-                                <label class="label" for="receipt_number">Receipt Number </label>
-                                <div class="control">
-                                    <input class="input @error('receipt_number') is-danger @enderror" type="string" name="receipt_number" id="receipt_number" value="{{old('receipt_number')?? $booking->receipt_number ?? ''}}" placeholder=" Receipt Number">
-                                    <p class="help is-danger">{{ $errors->first('receipt_number')}}</p>
-                                </div>
-
-                                <label class="label" for="invoice_number">Invoice Number </label>
-                                <div class="control">
-                                    <input class="input @error('invoice_number') is-danger @enderror" type="string" name="invoice_number" id="invoice_number" value="{{old('invoice_number')?? $booking->invoice_number ?? ''}}" placeholder=" Invoice Number">
-                                    <p class="help is-danger">{{ $errors->first('invoice_number')}}</p>
+                                <div class="form-group row ">
+                                    <div class="col-md-4">
+                                        <input class="form-control @error('price') is-invalid @enderror" type="number"
+                                            name="price" id="price" step='.01'
+                                            value="{{old('price')?? $booking->price ?? ''}}" placeholder=" Actual Price (RM)">
+                                        <div class="invalid-feedback">{{ $errors->first('price') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-5">
-                                <label class="label" for="status">Status</label>
-                                <div class="form-group">
-                                    <select id="status"  class="form-control form-control-sm" name="status">
-                                        <option value="">--SELECT STATUS--</option>
-                                        @foreach(App\Booking::STATUS as $status)
-                                            <option value="{{$status}}"{{$booking->status == $status ? 'selected': ''}}>{{$status}}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="field">
+                                <label class="label" for="receipt_number">Receipt Number </label>
+                                <div class="form-group row ">
+                                    <div class="col-md-4">
+                                        <input class="form-control @error('receipt_number') is-invalid @enderror" type="number"
+                                            name="receipt_number" id="receipt_number" 
+                                            value="{{old('receipt_number')?? $booking->receipt_number ?? ''}}" placeholder=" Receipt Number">  
+                                        <div class="invalid-feedback">{{ $errors->first('receipt_number') }}</div>
+                                    </div>
                                 </div>
-                                <p class="help is-danger">{{ $errors->first('status')}}</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="invoice_number">Invoice Number </label>
+                                <div class="form-group row ">
+                                    <div class="col-md-4">
+                                        <input class="form-control @error('invoice_number') is-invalid @enderror" type="number"
+                                            name="invoice_number" id="invoice_number" 
+                                            value="{{old('invoice_number')?? $booking->invoice_number ?? ''}}" placeholder=" Invoice Number">  
+                                        <div class="invalid-feedback">{{ $errors->first('invoice_number') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="status">Status </label>
+                                <div class="form-group row">
+                                    <div class="col-auto">
+                                        <select id="status" name="status" class="custom-select @error('status') is-invalid @enderror">
+                                            <option value="">--SELECT STATUS--</option>
+                                            @foreach(App\Booking::STATUS as $status)
+                                                <option value="{{$status}}"{{$booking->status == $status ? 'selected': ''}}>{{$status}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">{{ $errors->first('status') }}</div>
+                                    </div>
+                                </div>
                             </div>
                             @include('images.create', ['images' => $booking->images, 'imageableId' => $booking->id, 'imageableType' => App\Booking::class ])
 

@@ -12,17 +12,6 @@
                 <div class="card-header">
                     <h3 class="mb-0">Create User</h3>
                 </div>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-
                 <div class="inner">
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.store')}}">
@@ -30,43 +19,58 @@
                             @method('POST')
                             <div class="field" id="form">
                                 <div class="field">
-                                    <label class="label" for="event_title">Name </label>
-                                    <div class="form-group">
-                                        <input class="input @error('name') is-danger @enderror" type="text" name="name" id="name" value="{{old('name')??''}}"
-                                        placeholder="Name">
-                                        <p class="help is-danger">{{ $errors->first('name')}}</p>
+                                    <label class="label" for="name">Name <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('name') is-invalid @enderror"
+                                                type="text" name="name" id="name"
+                                                value="{{ old('name') }}" placeholder="Name">
+                                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label class="label" for="event_title">Email </label>
-                                    <div class="form-group">
-                                        <input class="input @error('email') is-danger @enderror" type="text" name="email" id="email" value="{{old('email')??''}}"
-                                        placeholder=" User Email">
-                                        <p class="help is-danger">{{ $errors->first('email')}}</p>
+                                    <label class="label" for="email">Email <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('email') is-invalid @enderror"
+                                                type="text" name="email" id="email"
+                                                value="{{ old('email') }}" placeholder="Email">
+                                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label class="label" for="phone_no">Phone No </label>
-                                    <div class="form-group">
-                                        <input class="input @error('phone_no') is-danger @enderror" type="text" name="phone_no" id="phone_no" value="{{old('phone_no')??''}}"
-                                        placeholder=" User Phone No">
-                                        <p class="help is-danger">{{ $errors->first('phone_no')}}</p>
+                                    <label class="label" for="phone_no">Phone No <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('phone_no') is-invalid @enderror"
+                                                type="text" name="phone_no" id="phone_no"
+                                                value="{{ old('phone_no') }}" placeholder="Phone Number">
+                                            <div class="invalid-feedback">{{ $errors->first('phone_no') }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label class="label" for="event_title">Password </label>
-                                    <div class="form-group">
-                                        <input class="input @error('password') is-danger @enderror" type="password" name="password" id="password"
-                                        placeholder="Password">
-                                        <p class="help is-danger">{{ $errors->first('password')}}</p>
+                                    <label class="label" for="password">Password <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('password') is-invalid @enderror"
+                                                type="password" name="password" id="password"
+                                                value="{{ old('password') }}" placeholder="Password">
+                                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label class="label" for="event_title">Password Confirmation</label>
-                                    <div class="form-group">
-                                        <input class="input @error('password_confirmation') is-danger @enderror" type="password" name="password_confirmation" id="password_confirmation"
-                                        placeholder="Password">
-                                        <p class="help is-danger">{{ $errors->first('password_confirmation')}}</p>
+                                    <label class="label" for="password_confirmation">Password Confirmation <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                type="password" name="password_confirmation" id="password_confirmation"
+                                                value="{{ old('password_confirmation') }}" placeholder="password_confirmation">
+                                            <div class="invalid-feedback">{{ $errors->first('password_confirmation') }}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>

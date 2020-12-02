@@ -197,6 +197,7 @@ class OrderController extends Controller
             'size' => 'required',
             'material' => 'required',
             'price' => 'required',
+            'quantity' => 'required',
             'prefered_pickup_datetime' => 'required',
             'address_1' => 'required',
             'postcode' => 'required',

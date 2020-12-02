@@ -75,7 +75,7 @@ class CustomerController extends Controller
             'phone_no' => $this->formatPhoneNo($request->phone_no)
         ]);
         $customer->save();
-        return back()->with('success', 'Customers created successfully.');
+        return redirect()->route('customer.show', $customer->id)->with('success', 'Customers created successfully.');
     }
 
     /**

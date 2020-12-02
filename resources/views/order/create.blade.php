@@ -19,92 +19,160 @@
                             <div class="mb-5 mt-2">
                                 <h3>Customer</h3>
                                 <div class="field">
-                                    <label class="label" for ="customer_name">Customer Name</label>
-                                    <div class="form-group">
-                                        <input class="input @error('customer_name') is-danger @enderror" type="text" name="customer_name" id="customer_name" value="{{old('customer_name')}}" placeholder="Customer Name">
-
-                                        @error('customer_name')
-                                            <p class="help is-danger">{{$errors->first('customer_name')}}</p>
-                                        @enderror
+                                    <label class="label" for="customer_name">Customer Name <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('customer_name') is-invalid @enderror"
+                                                type="text" name="customer_name" id="customer_name"
+                                                value="{{ old('customer_name') }}" placeholder="Customer Name">
+                                            <div class="invalid-feedback">{{ $errors->first('customer_name') }}</div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="field">
-                                    <label class="label" for ="customer_phone_no">Customer Phone No</label>
-
-                                    <div class="form-group">
-                                        <input class="input @error('customer_phone_no') is-danger @enderror" type="text" name="customer_phone_no" id="customer_phone_no" value="{{old('customer_phone_no')}}" placeholder="Customer Phone No">
-                                        @error('customer_phone_no')
-                                            <p class="help is-danger">{{$errors->first('customer_name')}}</p>
-                                        @enderror
+                                    <label class="label" for="customer_phone_no">Customer Phone No <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('customer_phone_no') is-invalid @enderror"
+                                                type="text" name="customer_phone_no" id="customer_phone_no"
+                                                value="{{ old('customer_phone_no') }}" placeholder="Customer Name">
+                                            <div class="invalid-feedback">{{ $errors->first('customer_phone_no') }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                             <h3>Order</h3>
                             <div class="field">
-                                <label class="label" for ="address_1">Address 1</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('address_1') is-danger @enderror" type="text" name="address_1" id="address_1" value="{{old('address_1')}}" placeholder="Address 1">
-                                    @error('address_1')
-                                        <p class="help is-danger">{{$errors->first('address_1')}}</p>
-                                    @enderror
+                                <label class="label" for="address_1">Address 1 <span class="text-danger">*</span></label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('address_1') is-invalid @enderror" type="text"
+                                            name="address_1" id="address_1" value="{{ old('address_1') }}"
+                                            placeholder="Address 1">
+                                        <div class="invalid-feedback">{{ $errors->first('address_1') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="address_2">Address 2</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('address_2') is-danger @enderror" type="text" name="address_2" id="address_2" value="{{old('address_2')}}" placeholder="Address 2">
-                                    @error('address_2')
-                                        <p class="help is-danger">{{$errors->first('address_2')}}</p>
-                                    @enderror
+                                <label class="label" for="address_2">Address 2</label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('address_2') is-invalid @enderror" type="text"
+                                            name="address_2" id="address_2" value="{{ old('address_2') }}"
+                                            placeholder="Address 2">
+                                        <div class="invalid-feedback">{{ $errors->first('address_2') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="postcode">Postcode</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('postcode') is-danger @enderror" type="text" name="postcode" id="postcode" value="{{old('postcode')}}" placeholder="Postcode">
-                                    @error('postcode')
-                                        <p class="help is-danger">{{$errors->first('postcode')}}</p>
-                                    @enderror
+                                <label class="label" for="postcode">Postcode <span class="text-danger">*</span></label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('postcode') is-invalid @enderror" type="text"
+                                            name="postcode" id="postcode" value="{{ old('postcode') }}"
+                                            placeholder="Postcode">
+                                        <div class="invalid-feedback">{{ $errors->first('postcode') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="city">City</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('city') is-danger @enderror" type="text" name="city" id="city" value="{{old('city')}}" placeholder="City">
-                                    @error('city')
-                                        <p class="help is-danger">{{$errors->first('city')}}</p>
-                                    @enderror
+                                <label class="label" for="city">City <span class="text-danger">*</span></label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('city') is-invalid @enderror" type="text"
+                                            name="city" id="city" value="{{ old('city') }}" placeholder="City">
+                                        <div class="invalid-feedback">{{ $errors->first('city') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="location_state">Location State</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('location_state') is-danger @enderror" type="text" name="location_state" id="location_state" value="{{old('location_state')}}" placeholder="Location State">
-                                    @error('location_state')
-                                        <p class="help is-danger">{{$errors->first('location_state')}}</p>
-                                    @enderror
+                                <label class="label" for="location_state">Location State <span class="text-danger">*</span></label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('location_state') is-invalid @enderror"
+                                            type="text" name="location_state" id="location_state"
+                                            value="{{ old('location_state') }}" placeholder="Location State">
+                                        <div class="invalid-feedback">{{ $errors->first('location_state') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="field" id="form">
-                                <div class="field">
-                                    <label class="label" for ="size">Size</label>
+                            <div class="field">
+                                <label class="label" for="size">Size  <span class="text-danger">*</span></label>
+                                <div class="form-group row ">
+                                    <div class="col-md-4">
+                                        <select id="size" name="size"
+                                            class="custom-select @error('size') is-invalid @enderror">
+                                            <option value="">--SELECT SIZE--</option>
+                                            @foreach (App\Order::SIZES as $size)
+                                                <option value="{{ $size }}"
+                                                    {{ old('size') == $size ? 'selected' : '' }}>
+                                                    {{ $size }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">{{ $errors->first('size') }}</div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                    <div class="form-group">
-                                        <select id="size" name="size">
-                                                <option value="">--SELECT SIZE--</option>
-                                            @foreach(App\Order::SIZES as $size)
-                                                <option value="{{$size}}" {{old('size') == $size ? 'selected' : ''}}>{{$size}}</option>
+                            <div class="field">
+                                <label class="label" for="material">Material  <span class="text-danger">*</span></label>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <select id="material" name="material"
+                                            class="custom-select @error('size') is-invalid @enderror">
+                                            <option value="">--SELECT MATERIAL--</option>
+                                            @foreach (App\Order::MATERIALS as $material)
+                                                <option value="{{ $material }}"
+                                                    {{ old('material') == $material ? 'selected' : '' }}>{{ $material }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">{{ $errors->first('material') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="quantity">Quantity  <span class="text-danger">*</span></label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('quantity') is-invalid @enderror"
+                                            type="number" name="quantity" id="quantity" value="{{ old('quantity') }}"
+                                            placeholder="Quantity">
+                                        <div class="invalid-feedback">{{ $errors->first('quantity') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="paid_at">Deposit Paid At</label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs">
+                                        <input class="form-control" type="datetime-local" name="deposit_paid_at"
+                                            id="deposit_paid_at"  value="{{ old('deposit_paid_at') }}">
+                                        <div class="invalid-feedback">{{ $errors->first('paid_at') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="deposit_payment_method">Deposit Payment Method</label>
+                                <div class="form-group row">
+                                    <div class="col-sm-5">
+                                        <select id="deposit_payment_method" name="deposit_payment_method"
+                                            class="form-control">
+                                            <option value="">--SELECT PAYMENT METHOD--</option>
+                                            @foreach (App\Order::PAYMENTS as $payment)
+                                                <option value="{{ $payment }}">{{ $payment }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -112,72 +180,29 @@
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="material">Material</label>
-
-                                <div class="form-group">
-                                    <select id="material" name="material">
-                                            <option value="">--SELECT MATERIAL--</option>
-                                        @foreach(App\Order::MATERIALS as $material)
-                                            <option value="{{$material}}" {{old('material') == $material ? 'selected' : ''}}>{{$material}}</option>
-                                        @endforeach
-                                    </select>
+                                <label class="label" for="price">Price</label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('price') is-invalid @enderror" type="number"
+                                            name="price" id="price" step='.01' value="{{ (float) old('price') }}"
+                                            placeholder="price">
+                                        <div class="invalid-feedback">{{ $errors->first('price') }}</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="quantity">Quantity</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('quantity') is-danger @enderror" type="number" name="quantity" id="quantity" value="{{old('quantity')}}" placeholder="quantity">
-                                    @error('quantity')
-                                        <p class="help is-danger">{{$errors->first('quantity')}}</p>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for ="paid_at">Deposit Paid At</label>
-    
-                                <div class="form-group">
-                                    <input class="input @error('deposit_paid_at') is-danger @enderror" type="datetime-local" name="deposit_paid_at" id="deposit_paid_at">
-                                    @error('deposit_paid_at')
-                                        <p class="help is-danger">{{$errors->first('deposit_paid_at')}}</p>
-                                    @enderror
-                                </div>
-                            </div>
-    
-                            <div class="field">
-                                <label class="label" for ="deposit_payment_method">Deposit Payment Method</label>
-                                <div class="form-group">
-                                    <select id="deposit_payment_method" name="deposit_payment_method">
-                                        <option value="">--SELECT PAYMENT METHOD--</option>
-                                        @foreach(App\Order::PAYMENTS as $payment)
-                                            <option value="{{$payment}}" >{{$payment}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-    
-
-                            <div class="field">
-                                <label class="label" for ="price">Price</label>
-
-                                <div class="form-group">
-                                    <input class="input @error('price') is-danger @enderror" type="number" name="price" id="price" step='.01' value="{{(float)old('price')}}" placeholder="price">
-                                    @error('price')
-                                        <p class="help is-danger">{{$errors->first('number')}}</p>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for ="prefered_pickup_datetime">Prefered Pickup Date and Time</label>
-                                <div class="form-group">
-                                    <input class="input @error('prefered_pickup_datetime') is-danger @enderror" type="datetime-local" name="prefered_pickup_datetime" id="prefered_pickup_datetime" value="{{old('prefered_pickup_datetime')}}" placeholder="prefered_pickup_datetime">
-
-                                    @error('prefered_pickup_datetime')
-                                        <p class="help is-danger">{{$errors->first('prefered_pickup_datetime')}}</p>
-                                    @enderror
+                                <label class="label" for="prefered_pickup_datetime">Prefered Pickup Date and Time  <span class="text-danger">*</span></label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input
+                                            class="form-control @error('prefered_pickup_datetime') is-invalid @enderror"
+                                            type="datetime-local" name="prefered_pickup_datetime"
+                                            id="prefered_pickup_datetime" value="{{ old('prefered_pickup_datetime') }}"
+                                            placeholder="prefered_pickup_datetime">
+                                        <div class="invalid-feedback">{{ $errors->first('prefered_pickup_datetime') }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
