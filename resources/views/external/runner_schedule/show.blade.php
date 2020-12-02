@@ -72,7 +72,7 @@
                                     <th>Status</th>
                                     <th></th>
                                 </tr>
-                                @foreach ($runner_schedule->runnerJobs as $runnerJob)
+                                @foreach ($runnerJobs as $runnerJob)
                                     <tr>
                                         <td><a href={{route('external.runner_job.show', $runnerJob->id)}}>{{ $runnerJob->id }}</td>
                                         <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>

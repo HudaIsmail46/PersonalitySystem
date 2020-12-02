@@ -64,7 +64,8 @@ class RunnerScheduleController extends Controller
      */
     public function show(RunnerSchedule $runner_schedule)
     {
-        return view('runner_schedule.show', compact('runner_schedule'));
+        $runnerJobs = $runner_schedule->runnerJobs()->orderBy('scheduled_at')->get();
+        return view('runner_schedule.show', compact('runner_schedule', 'runnerJobs'));
     }
 
     /**
