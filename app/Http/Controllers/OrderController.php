@@ -41,7 +41,7 @@ class OrderController extends Controller
             ->when($phone_no, function ($q) use ($phone_no) {
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
             })
-            ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
+            ->orderBy('city', 'DESC')->paginate(50);
 
         return view('order.index', compact('orders'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
