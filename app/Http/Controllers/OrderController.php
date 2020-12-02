@@ -81,6 +81,8 @@ class OrderController extends Controller
             'quantity' => $request->quantity,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
+            'deposit_payment_method' => $request->deposit_payment_method,
+            'deposit_paid_at' => $request->deposit_paid_at,
         ]);
         $order->save();
 
@@ -138,6 +140,8 @@ class OrderController extends Controller
             'payment_method' => $request->payment_method,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
+            'deposit_payment_method' => $request->deposit_payment_method,
+            'deposit_paid_at' => $request->deposit_paid_at
         ]);
 
         $order->save();
@@ -181,7 +185,7 @@ class OrderController extends Controller
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
-            'location_state' => 'required',
+            'location_state' => 'required'
         ]);
     }
 

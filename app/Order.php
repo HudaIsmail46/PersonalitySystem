@@ -26,7 +26,7 @@ class Order extends Model
         'size', 'material', 'price', 'prefered_pickup_datetime', 'actual_length',
         'actual_width', 'actual_material', 'actual_price', 'customer_id', 'state', 'quantity',
         'address_1', 'address_2', 'postcode', 'city', 'location_state', 'raw_payload',
-        'payment_method','paid_at', 'woocommerce_order_id'
+        'payment_method','paid_at', 'woocommerce_order_id', 'deposit_paid_at', 'deposit_payment_method'
     ];
 
     use SoftDeletes;
@@ -35,7 +35,7 @@ class Order extends Model
     const SIZES = ['s', 'm', 'l'];
     const MATERIALS = ['wool', 'cotton', 'silk', 'synthetic'];
     const PAYMENTS = ['cash', 'bank transfer', 'fpx'];
-    protected $dates = ['prefered_pickup_datetime','paid_at'];
+    protected $dates = ['prefered_pickup_datetime','paid_at', 'deposit_paid_at'];
 
     public function customer()
     {

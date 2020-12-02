@@ -186,6 +186,31 @@
                         </div>
 
                         <div class="field">
+                            <label class="label" for ="paid_at">Deposit Paid At</label>
+
+                            <div class="form-group">
+                                <input class="input @error('deposit_paid_at') is-danger @enderror" type="datetime-local" name="deposit_paid_at" id="deposit_paid_at"
+                                value="{{$order->deposit_paid_at ? Carbon\Carbon::parse($order->deposit_paid_at)-> format('Y-m-d\TH:i'): ''}}">
+
+                                @error('deposit_paid_at')
+                                    <p class="help is-danger">{{$errors->first('deposit_paid_at')}}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label" for ="deposit_payment_method">Deposit Payment Method</label>
+                            <div class="form-group">
+                                <select id="deposit_payment_method" name="deposit_payment_method">
+                                    <option value="">--SELECT PAYMENT METHOD--</option>
+                                    @foreach(App\Order::PAYMENTS as $payment)
+                                        <option value="{{$payment}}" {{$order->deposit_payment_method == $payment ? 'selected' : ''}}>{{$payment}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
                             <label class="label" for ="paid_at">Paid At</label>
 
                             <div class="form-group">

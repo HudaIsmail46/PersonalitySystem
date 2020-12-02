@@ -84,6 +84,17 @@
                                 <td>{{ money($order->actual_price) }}</td>
                             </tr>
                             <tr>
+                                <td>Deposit Detail</td>
+                                <td>    
+                                    @if($order->deposit_paid_at != null)
+                                        Paid at  {{ $order->deposit_paid_at ? myLongDateTime(new Carbon\Carbon($order->deposit_paid_at)) : null}}
+                                            via {{ $order->deposit_payment_method}}
+                                    @else
+                                        Not yet paid.
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Payment Detail</td>
                                 <td>    
                                     @if($order->paid_at != null)
