@@ -29,7 +29,7 @@ class RunnerJobController extends Controller
      */
     public function show(RunnerJob $runnerJob)
     {
-        return view('runner_job.show', compact('runnerJob'));
+        return view('external.runner_job.show', compact('runnerJob'));
     }
 
     public function complete(RunnerJob $runnerJob)
@@ -53,7 +53,7 @@ class RunnerJobController extends Controller
             'state' => 'completed',
         ]);
 
-        return redirect()->route('runner_job.show', $runnerJob);
+        return redirect()->route('external.runner_job.show', $runnerJob);
     }
 
     public function abort(RunnerJob $runnerJob)
@@ -74,6 +74,6 @@ class RunnerJobController extends Controller
             'state' => $transitionTo
         ]);
 
-        return redirect()->route('runner_job.show', $runnerJob);
+        return redirect()->route('external.runner_job.show', $runnerJob);
     }
 }
