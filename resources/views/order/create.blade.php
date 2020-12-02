@@ -136,7 +136,7 @@
                             </div>
 
                             <div class="field">
-                                <label class="label" for ="prefered date time">Prefered Pickup Date and Time</label>
+                                <label class="label" for ="prefered_pickup_datetime">Prefered Pickup Date and Time</label>
                                 <div class="form-group">
                                     <input class="input @error('prefered_pickup_datetime') is-danger @enderror" type="datetime-local" name="prefered_pickup_datetime" id="prefered_pickup_datetime" value="{{old('prefered_pickup_datetime')}}" placeholder="prefered_pickup_datetime">
 

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NextOrderStates from './NextOrderStates';
-import {humaniseOrderState} from '../helpers.js';
+import {dateFormatter, humaniseOrderState} from '../helpers.js';
 window.humaniseOrderState = humaniseOrderState;
+
 
 
 function OrderTable(props) {
@@ -56,9 +57,9 @@ function OrderTable(props) {
                             {order.city},<br/>
                             {order.location_state}
                         </td>
-                        <td>{order.prefered_pickup_datetime}</td>
+                        <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
-                        <td>{ permissions ? null : <NextOrderStates order={order} onClick={changeRunnerJobstate}/>}                        
+                        <td>{ permissions ? null : <NextOrderStates order={order} onClick={changeRunnerJobstate}/>}
                             <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>
                         </td>
                     </tr>

@@ -194,7 +194,7 @@ function RunnerJobEdit(props) {
                         <tr key={order.id} >
                             <td>{order.id}</td>
                             <td>{humaniseOrderState(order.state)}</td>
-                            <td>{order.prefered_pickup_datetime}</td>
+                            <td>{dateFormatter(order.prefered_pickup_datetime )}</td>
                             <td>
                                 {order.address_1},<br></br>
                                 {order.address_2},<br></br>
