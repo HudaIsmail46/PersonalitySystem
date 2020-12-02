@@ -4,7 +4,7 @@ namespace App\Webhooks\Woocommerce;
 use App\Order;
 use App\Customer;
 use Carbon\Carbon;
-use App\State\Order\PendingPickupSchedule;
+use App\State\Order\Draft;
 
 class WebhookHandler
 {
@@ -20,6 +20,7 @@ class WebhookHandler
             $order = new Order;
 
             $order->fill([
+                'woocommerce_order_id' => $payload["id"],
                 'quantity'=> $item["quantity"],
                 'material' => strtolower(static::valueByKey('carpet-materials', $item['meta_data'])),
                 'size' => strtolower(static::valueByKey('carpet-sizes', $item['meta_data'])),
@@ -32,10 +33,10 @@ class WebhookHandler
                 'location_state' => $billing["state"],
                 'customer_id' => $customer->id,
                 'raw_payload' => json_encode($payload),
-                'state' => PendingPickupSchedule::class
+                'state' => Draft::class
             ]);
+
             $order->save();
-            logger($order);
         }
 
 
@@ -49,6 +50,7 @@ class WebhookHandler
         $time = [];
         preg_match('/(\d{2}:\d{2})/', $timeRange, $time);
         $dateTime = Carbon::createFromFormat("yy-m-d H:i", $date." ".$time[0]);
+
         return $dateTime;
     }
 
