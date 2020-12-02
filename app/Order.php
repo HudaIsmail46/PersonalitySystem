@@ -64,6 +64,7 @@ class Order extends Model
             ->default(Draft::class)
             ->allowTransitions([
                 [Draft::class, PendingPickupSchedule::class],
+                [Draft::class, ReceivedWarehouse::class],
                 [PendingPickupSchedule::class, PickupScheduled::class],
                 [PickupScheduled::class, Collected::class],
                 [PickupScheduled::class, PendingPickupSchedule::class],
@@ -72,6 +73,7 @@ class Order extends Model
                 [ReceivedWarehouse::class, InHouseCleaning::class],
                 [[VendorCollected::class, InHouseCleaning::class], PendingReturnSchedule::class],
                 [PendingReturnSchedule::class, ReturnScheduled::class],
+                [PendingReturnSchedule::class, Returned::class],
                 [ReturnScheduled::class, Returned::class],
                 [ReturnScheduled::class, PendingReturnSchedule::class],
                 [Returned::class, PendingPickupSchedule::class],

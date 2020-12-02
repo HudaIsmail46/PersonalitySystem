@@ -82,7 +82,6 @@ class OrderController extends Controller
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);
         $order->save();
-        $this->setState($order, $request->status);
 
         return redirect()->route('order.show', $order->id)->with('Order is created.');
     }
@@ -122,7 +121,6 @@ class OrderController extends Controller
 
         $this->validateUpdateOrders();
 
-
         $order->fill([
             'address_1' => $request->address_1,
             'address_2' => $request->address_2,
@@ -142,8 +140,6 @@ class OrderController extends Controller
         ]);
 
         $order->save();
-        $this->setState($order, $request->status);
-
 
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
@@ -170,13 +166,6 @@ class OrderController extends Controller
         return $order;
     }
 
-    protected function setState(Order $order, String $state)
-    {
-        if ($state == PendingPickupSchedule::class && $order->state == Draft::class) {
-            $order->transitionTo(PendingPickupSchedule::class);
-        }
-    }
-
     protected function priceCents($price)
     {
         return $price ? $price * 100 : 0;
@@ -188,7 +177,6 @@ class OrderController extends Controller
             'size' => 'required',
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
-            'status' => 'required',
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
@@ -205,7 +193,6 @@ class OrderController extends Controller
             'material' => 'required',
             'price' => 'required',
             'prefered_pickup_datetime' => 'required',
-            'status' => 'required',
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',

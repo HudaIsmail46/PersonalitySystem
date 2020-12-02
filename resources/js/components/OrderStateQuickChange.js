@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NextOrderStates from './NextOrderStates';
@@ -8,17 +8,8 @@ function OrderStateQuickChange(props) {
 
     const changeRunnerJobstate = (orderId, state) => {
         axios.post(`/order/status/${orderId}`,{state})
-            .then(function (response) {
-                let orderList = orders.map((order)=> {
-                    let orderObj = order;
-                    if(order.id == response.data.id){
-                        orderObj = response.data
-                    }
-
-                    return orderObj;
-                })
-                
-                setOrders(orderList);
+            .then(function (_response) {
+                location.reload();
             })
             .catch(function (error) {
                 

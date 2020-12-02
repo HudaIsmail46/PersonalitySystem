@@ -221,18 +221,6 @@
                             </div>
                         </div>
 
-                        <div class="field">
-                            <label class="label" for ="status">Status</label>
-
-                            <div class="form-group">
-                                <select id="status" name="status">
-                                    @foreach($availableStates as $status)
-                                        <option value="{{$status}}" {{$order->state == $status ? 'selected': ''}}>{{humaniseOrderState($status)}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
                         @include('images.create', ['imageableId' => $order->id, 'imageableType' => App\Order::class ])
 
                         <div class="field is grouped">

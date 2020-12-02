@@ -6,9 +6,27 @@ function NextOrderStates(props) {
     const nextStates = (order) => {
         let states;
         switch(order.state) {
+            case  "App\\State\\Order\\Draft":
+                states = (
+                    <div className='mb-1'>
+                        <button
+                        className="btn btn-success btn-block"
+                        onClick={()=> onClick(order.id,  "App\\State\\Order\\PendingPickupSchedule")}
+                        >
+                            Pending Pickup Schedule
+                        </button>
+                        <button
+                         className="btn btn-success btn-block"
+                         onClick={()=> onClick(order.id,  "App\\State\\Order\\ReceivedWarehouse")}
+                        >
+                            Customer Drop Off In Warehouse
+                        </button>
+                    </div>
+                )
+                break;
             case  "App\\State\\Order\\PickupScheduled":
                 states = (
-                    <div>
+                    <div className='mb-1'>
                         <button
                         className="btn btn-success btn-block"
                         onClick={()=> onClick(order.id,  "App\\State\\Order\\Collected")}
@@ -36,7 +54,7 @@ function NextOrderStates(props) {
                 break;
             case "App\\State\\Order\\ReceivedWarehouse":
                 states = (
-                    <div>
+                    <div className='mb-1'>
                         <button
                             className="btn btn-success btn-block"
                             onClick={()=> onClick(order.id, "App\\State\\Order\\VendorCollected")}
@@ -72,9 +90,19 @@ function NextOrderStates(props) {
                     </div>
                 );
                 break;
+            case "App\\State\\Order\\PendingReturnSchedule":
+                states = (
+                    <div
+                        className="btn btn-success btn-block"
+                        onClick={()=> onClick(order.id, "App\\State\\Order\\Returned")}
+                    >
+                        Customer Self Collect
+                    </div>
+                );
+                break;
             case "App\\State\\Order\\ReturnScheduled":
                 states = (
-                    <div>
+                    <div className='mb-1'>
                         <button
                             className="btn btn-success btn-block"
                             onClick={()=> onClick(order.id,  "App\\State\\Order\\Returned")}
@@ -92,7 +120,7 @@ function NextOrderStates(props) {
                 break;
             case "App\\State\\Order\\Returned":
                 states = (
-                    <div>
+                    <div className='mb-1'>
                         <div
                             className="btn btn-success btn-block"
                             onClick={()=> onClick(order.id, "App\\State\\Order\\Completed")}
