@@ -41,6 +41,13 @@
                                     <td>{{ $runnerJob->order->id }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Customer</td>
+                                    <td> Name : {{ $runnerJob->order->customer->name }}
+                                        <br />
+                                        Phone No : {{ $runnerJob->order->customer->phone_no }}
+                                    </td>
+                                </tr>                          
+                                <tr>
                                     <td>Scheduled At</td>
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
                                 </tr>
@@ -54,15 +61,13 @@
                                     <td>{{ $runnerJob->order->quantity }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Location</td>
-                                    <td>{!! orderAddress($runnerJob->order)!!}</td>
+                                    <td>Price</td>
+                                    <td>{{  money($runnerJob->order->price) }}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Customer</td>
-                                    <td> Name : {{ $runnerJob->order->customer->name }}
-                                        <br />
-                                        Phone No : {{ $runnerJob->order->customer->phone_no }}
-                                    </td>
+                                    <td>Location</td>
+                                    <td>{!! orderAddress($runnerJob->order)!!}</td>
                                 </tr>
                                 <tr>
                                     <td>Completed At</td>

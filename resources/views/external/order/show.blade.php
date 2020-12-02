@@ -34,61 +34,12 @@
                                 <td> {{ $order->id }}</td>
                             </tr>
                             <tr>
-                                <td>Customer</td>
-                                <td>
-                                    Name : {{ $order->customer->name }}
-                                    <br>
-                                    Phone No : {{ $order->customer->phone_no }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Address</td>
-                                <td>
-                                    {!! orderAddress($order) !!}
-                                </td>
-                            </tr>
-                            <tr>
                                 <td>Size</td>
                                 <td>{{ $order->size }}</td>
                             </tr>
                             <tr>
                                 <td>Material</td>
                                 <td>{{ $order->material }}</td>
-                            </tr>
-                            <tr>
-                                <td>Price</td>
-                                <td>{{ money($order->price) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Prefered Pickup Date Time</td>
-                                <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime)) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Actual Length</td>
-                                <td>{{ $order->actual_length }}</td>
-                            </tr>
-                            <tr>
-                                <td>Actual width</td>
-                                <td>{{ $order->actual_width }}</td>
-                            </tr>
-                            <tr>
-                                <td>Actual Material</td>
-                                <td>{{ $order->actual_material }}</td>
-                            </tr>
-                            <tr>
-                                <td>Actual Price</td>
-                                <td>{{ money($order->actual_price) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Payment Detail</td>
-                                <td>    
-                                    @if($order->paid_at != null)
-                                        Paid at  {{ $order->paid_at ? myLongDateTime(new Carbon\Carbon($order->paid_at)) : null}}
-                                            via {{ $order->payment_method}}
-                                    @else
-                                        Not yet paid.
-                                    @endif
-                                </td>
                             </tr>
                             <tr>
                                 <td>Quantity</td>
