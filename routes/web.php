@@ -92,11 +92,10 @@ Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::put('/{runner_schedule}', 'RunnerScheduleController@update')->name('update');
 });
 
-##Runner CRUD
-Route::prefix('/runner')->name('runner.')->group(function () {
-    Route::get('/index', 'RunnerController@index')->name('index');
-    Route::get('/{runner_schedule}', 'RunnerController@show')->name('show');
-    Route::put('/{runner_schedule}', 'RunnerController@start')->name('start');
+##External RunnerSchedule CRUD
+Route::prefix('external/runner_schedule')->name('external.runner_schedule.')->group(function () {
+    Route::get('/index', 'External\RunnerScheduleController@index')->name('index');
+    Route::get('/{runner_schedule}', 'External\RunnerScheduleController@show')->name('show');
 });
 
 ##RunnerJob CRUD
@@ -110,6 +109,13 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::put('/{runner_job}', 'RunnerJobController@update')->name('update');
     Route::put('/complete/{runner_job}', 'RunnerJobController@complete')->name('complete');
     Route::put('/abort/{runner_job}', 'RunnerJobController@abort')->name('abort');
+});
+
+##External Runner CRUD
+Route::prefix('/external/runner')->name('external.runner.')->group(function (){
+    Route::get('/index', 'External\RunnerController@index')->name('index');
+    Route::get('/{runner_schedule}', 'External\RunnerController@show')->name('show');
+    Route::put('/{runner_schedule}', 'External\RunnerController@start')->name('start');
 });
 
 #image
