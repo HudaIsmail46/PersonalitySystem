@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Http\Controllers\External;
+
+use App\Http\Controllers\Controller;
+use App\RunnerJob;
+use App\Order;
+use App\State\Order\Returned;
+use App\State\Order\PendingPickupSchedule;
+use App\State\Order\PendingReturnSchedule;
+use App\State\Order\PickupScheduled;
+use App\State\Order\ReturnScheduled;
+use App\State\Order\Collected;
+use App\State\Order\Completed;
+use App\State\Order\ReceivedWarehouse;
+use App\State\Order\VendorCollected;
+use App\State\Order\InHouseCleaning;
+use App\State\Order\Scheduled;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+
+class RunnerJobController extends Controller
+{
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\RunnerJob  $runnerJob
+     * @return \Illuminate\Http\Response
+     */
+    public function show(RunnerJob $runnerJob)
+    {
+        return view('runner_job.show', compact('runnerJob'));
+    }
+
+    public function complete(RunnerJob $runnerJob)
+    {
+        $runnerJob->fill([
+            'completed_at' => Carbon::now(),
+        ]);
+        $runnerJob->save();
+
+        $order = $runnerJob->order;
+        if ($order->state == PickupScheduled::class) {
+            $transitionTo = Collected::class;
+        } else if ($order->state == ReturnScheduled::class) {
+            $transitionTo = Returned::class;
+        }
+        $order->update([
+            'state' => $transitionTo
+        ]);
+
+        $runnerJob->update([
+            'state' => 'completed',
+        ]);
+
+        return redirect()->route('runner_job.show', $runnerJob);
+    }
+
+    public function abort(RunnerJob $runnerJob)
+    {
+        $runnerJob->update([
+            'state' => 'canceled',
+        ]);
+
+        $order = $runnerJob->order;
+
+        if ($order->state == PickupScheduled::class) {
+            $transitionTo = PendingPickupSchedule::class;
+        } else {
+            $transitionTo = PendingReturnSchedule::class;
+        }
+
+        $order->update([
+            'state' => $transitionTo
+        ]);
+
+        return redirect()->route('runner_job.show', $runnerJob);
+    }
+}

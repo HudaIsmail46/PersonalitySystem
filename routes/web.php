@@ -117,6 +117,13 @@ Route::prefix('/runner_job')->name('runner_job.')->group(function () {
     Route::put('/abort/{runner_job}', 'RunnerJobController@abort')->name('abort');
 });
 
+##External RunnerJob CRUD
+Route::prefix('/external/runner_job')->name('external.runner_job.')->group(function () {
+    Route::get('/{runner_job}', 'External\RunnerJobController@show')->name('show');
+    Route::put('/complete/{runner_job}', 'External\RunnerJobController@complete')->name('complete');
+    Route::put('/abort/{runner_job}', 'External\RunnerJobController@abort')->name('abort');
+});
+
 ##External Runner CRUD
 Route::prefix('/external/runner')->name('external.runner.')->group(function (){
     Route::get('/index', 'External\RunnerController@index')->name('index');
