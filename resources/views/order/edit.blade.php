@@ -246,7 +246,7 @@
                             </div>
                         </div>
 
-                        @include('images.create', ['imageableId' => $order->id, 'imageableType' => App\Order::class ])
+                        @include('images.create', ['images' => $order->images, 'imageableId' => $order->id, 'imageableType' => App\Order::class ])
 
                         <div class="field is grouped">
                             <div class="form-group">
