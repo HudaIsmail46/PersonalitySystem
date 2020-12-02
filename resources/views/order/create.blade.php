@@ -146,18 +146,6 @@
                                 </div>
                             </div>
 
-                            <div class="field">
-                                <label class="label" for ="status">Status</label>
-
-                                <div class="form-group">
-                                    <select id="status" name="status">
-                                            <option value="">--SELECT STATUS--</option>
-                                    @foreach($availableStates as $value=>$status)
-                                            <option value="{{$value}}" {{old('status') == $status ? 'selected' : ''}}>{{humaniseOrderState($status)}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </form>
                     </div>
