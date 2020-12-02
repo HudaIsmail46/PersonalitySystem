@@ -37,6 +37,10 @@
                                     <td>{{ $runnerJob->id }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Order Id</td>
+                                    <td>{{ $runnerJob->order->id }}</td>
+                                </tr>
+                                <tr>
                                     <td>Scheduled At</td>
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
                                 </tr>
