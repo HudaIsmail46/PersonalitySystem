@@ -26,7 +26,7 @@ class Order extends Model
         'size', 'material', 'price', 'prefered_pickup_datetime', 'actual_length',
         'actual_width', 'actual_material', 'actual_price', 'customer_id', 'state', 'quantity',
         'address_1', 'address_2', 'postcode', 'city', 'location_state', 'raw_payload',
-        'payment_method','paid_at'
+        'payment_method','paid_at', 'woocommerce_order_id'
     ];
 
     use SoftDeletes;

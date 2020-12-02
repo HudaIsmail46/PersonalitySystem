@@ -34,6 +34,10 @@
                                 <td> {{ $order->id }}</td>
                             </tr>
                             <tr>
+                                <td>Woocommerce Order Ref</td>
+                                <td>{{ $order->woocommerce_order_id}}</td>
+                            </tr>
+                            <tr>
                                 <td>Customer</td>
                                 <td>
                                     Name : {{ $order->customer->name }}
