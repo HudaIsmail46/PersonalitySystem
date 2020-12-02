@@ -30,7 +30,7 @@ class RunnerController extends Controller
     public function show(RunnerSchedule $runner_schedule)
     {
         $this->authorizeUser($runner_schedule);
-        $runnerJobs = $runner_schedule->runnerJobs()->with('order.customer')->get();
+        $runnerJobs = $runner_schedule->runnerJobs()->orderBy('scheduled_at')->with('order.customer')->get();
         return view('external.runner.show', compact('runner_schedule','runnerJobs'));    
     }
     /**
