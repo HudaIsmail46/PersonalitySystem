@@ -125,6 +125,17 @@
                             </div>
 
                             <div class="field">
+                                <label class="label" for ="quantity">Quantity</label>
+
+                                <div class="form-group">
+                                    <input class="input @error('quantity') is-danger @enderror" type="number" name="quantity" id="quantity" value="{{old('quantity')}}" placeholder="quantity">
+                                    @error('quantity')
+                                        <p class="help is-danger">{{$errors->first('quantity')}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="field">
                                 <label class="label" for ="price">Price</label>
 
                                 <div class="form-group">

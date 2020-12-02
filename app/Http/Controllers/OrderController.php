@@ -78,6 +78,7 @@ class OrderController extends Controller
             'location_state' => $request->location_state,
             'size' => $request->size,
             'material' => $request->material,
+            'quantity' => $request->quantity,
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
         ]);

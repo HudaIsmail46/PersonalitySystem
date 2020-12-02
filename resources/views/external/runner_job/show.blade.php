@@ -50,6 +50,10 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Quantity</td>
+                                    <td>{{ $runnerJob->order->quantity }}</td>
+                                </tr>
+                                <tr>
                                     <td>Location</td>
                                     <td>{!! orderAddress($runnerJob->order)!!}</td>
                                 </tr>
