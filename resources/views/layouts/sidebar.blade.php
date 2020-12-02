@@ -168,7 +168,7 @@
             @can('list assignedRunnerSchedule')
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href={{route('runner.index')}} class="nav-link {{ (request()->is('runner/index')) ? 'active' : '' }}">
+                        <a href={{route('external.runner.index')}} class="nav-link {{ (request()->is('runner/index')) ? 'active' : '' }}">
                             <i class=" fas fa-running nav-icon"></i>
                             <p>
                                 Runner Schedule
