@@ -8,7 +8,7 @@ window.humaniseOrderState = humaniseOrderState;
 
 
 function OrderTable(props) {
-    const { proporders, permissions } = props;
+    const { proporders, internal } = props;
     const [orders, setOrders] = useState(proporders.data);
 
 
@@ -44,7 +44,7 @@ function OrderTable(props) {
                 </tr>
                 {orders.map(order => {return (
                 <tr key={order.id}>
-                        <td><a href={`/order/${order.id}`}>{ order.id }</a></td>
+                        <td><a href={internal ? `/external/order/${order.id}`:`/order/${order.id}`}>{ order.id }</a></td>
                         <td>
                             { order.customer.name }
                             <br/>
@@ -59,8 +59,9 @@ function OrderTable(props) {
                         </td>
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
-                        <td>{ permissions ? null : <NextOrderStates order={order} onClick={changeRunnerJobstate}/>}
-                            <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>
+                        <td>{ internal ? null : <NextOrderStates order={order} onClick={changeRunnerJobstate}/>}
+                            { internal ? <a href={`/external/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a> :
+                             <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>}       
                         </td>
                     </tr>
                 )})}

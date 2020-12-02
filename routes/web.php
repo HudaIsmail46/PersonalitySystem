@@ -81,6 +81,12 @@ Route::prefix('/order')->name('order.')->group(function () {
     Route::post('/status/{order}', 'OrderController@status')->name('status');
 });
 
+##External order CRUD
+Route::prefix('external/order')->name('external.order.')->group(function () {
+    Route::get('/index', 'External\OrderController@index')->name('index');
+    Route::get('/{order}', 'External\OrderController@show')->name('show');
+});
+
 ##RunnerSchedule CRUD
 Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::get('/index', 'RunnerScheduleController@index')->name('index');
@@ -125,9 +131,6 @@ Route::delete('/image/delete', 'ImageController@destroy')->name('image.destroy')
 #comment
 Route::post('/comment', 'CommentController@store')->name('comment.store');
 Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
-
-#vendor
-Route::get('/vendor_collected/index', 'VendorController@index')->name('vendor_collected.index');
 
 #inHouseCleaning
 Route::get('/inhouse_cleaning/index', 'InHouseCleaningController@index')->name('inhouse_cleaning.index');

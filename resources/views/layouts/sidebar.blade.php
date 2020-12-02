@@ -180,7 +180,7 @@
             @can('list vendorCollected orders')
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href={{route('vendor_collected.index')}} class="nav-link {{ (request()->is('vendor_collected/index')) ? 'active' : '' }}">
+                        <a href={{route('external.order.index')}} class="nav-link {{ (request()->is('vendor_collected/index')) ? 'active' : '' }}">
                             <i class=" fas fa-inbox nav-icon"></i>
                             <p>
                                 Vendor Collected
