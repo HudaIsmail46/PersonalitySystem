@@ -32,7 +32,7 @@ class LoginController extends Controller
             return route('runner.index');
         }
         elseif(auth()->user()->hasRole('Vendor')){
-            return route('vendor_collected.index');
+            return route('external.order.index');
         }
     
         return route('home');
