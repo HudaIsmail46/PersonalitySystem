@@ -18,7 +18,7 @@ use App\State\Order\Scheduled;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class RunnerJobController extends Controller
+class RunnerJobController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

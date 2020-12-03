@@ -9,7 +9,7 @@ use App\Order;
 use App\State\Order\PendingPickupSchedule;
 use App\State\Order\PendingReturnSchedule;
 
-class RunnerScheduleController extends Controller
+class RunnerScheduleController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

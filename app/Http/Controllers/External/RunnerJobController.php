@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthenticatedController;
 use App\RunnerJob;
 use App\Order;
 use App\State\Order\Returned;
@@ -19,7 +19,7 @@ use App\State\Order\Scheduled;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class RunnerJobController extends Controller
+class RunnerJobController extends AuthenticatedController
 {
     /**
      * Display the specified resource.

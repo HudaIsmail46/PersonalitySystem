@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 
-class InHouseCleaningController extends Controller
+class InHouseCleaningController extends AuthenticatedController
 {
      /**
      * Display a listing of the resource.

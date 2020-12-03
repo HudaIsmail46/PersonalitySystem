@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthenticatedController;
 use App\RunnerSchedule;
 
-class RunnerScheduleController extends Controller
+class RunnerScheduleController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

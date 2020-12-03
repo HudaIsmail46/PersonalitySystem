@@ -141,3 +141,6 @@ Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.
 
 #inHouseCleaning
 Route::get('/inhouse_cleaning/index', 'InHouseCleaningController@index')->name('inhouse_cleaning.index');
+
+#External CustomerOrder
+Route::get('/external/customer/order/{orderId}', 'External\CustomerOrderController@show')->name('customer_order.show');

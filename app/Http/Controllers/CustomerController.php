@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Customer;
 
 
-class CustomerController extends Controller
+class CustomerController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

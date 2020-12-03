@@ -6,18 +6,8 @@ use Illuminate\Http\Request;
 use App\Chart\IncompleteBooking;
 use App\Chart\MonthlyBooking;
 
-class HomeController extends Controller
+class HomeController extends AuthenticatedController
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *

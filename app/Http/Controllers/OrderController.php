@@ -8,11 +8,12 @@ use App\Image;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
 use App\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Http\Request;
 
 
-class OrderController extends Controller
+class OrderController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.
@@ -97,7 +98,8 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('order.show', compact('order'));
+        $encId = Crypt::encryptString ($order->id);
+        return view('order.show', compact('order', 'encId'));
     }
 
     /**

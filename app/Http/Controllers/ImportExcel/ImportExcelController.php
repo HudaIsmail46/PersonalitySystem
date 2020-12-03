@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\ImportExcel;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthenticatedController;
 use App\Imports\ImportBookings;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Booking;
 
-class ImportExcelController extends Controller
+class ImportExcelController extends AuthenticatedController
 
 {
     /**
