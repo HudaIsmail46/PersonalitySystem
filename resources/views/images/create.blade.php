@@ -5,7 +5,12 @@
     data-imageableid="{{$imageableId}}"
     data-imageabletype="{{$imageableType}}">
 </div>
-<div class="btn btn-primary mt-2" id="addMoreFile">Select file</div>
+
+@if (count($images) > 0)
+    <div class="btn btn-primary mt-2" id="addMoreFile">Add More</div>
+@else
+    <div class="btn btn-primary mt-2" id="addMoreFile">Select file</div>
+@endif
 
 <div class="dz-preview dz-file-preview d-none" id="dzPreview" >
     <div class="dz-details d-flex">

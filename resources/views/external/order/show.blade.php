@@ -53,7 +53,7 @@
                                 <td>Image</td>
                                 <td>
                                     @include('images.table', ['images' => $order->images, 'can_delete_image' => auth()->user()->can('create orders')])
-                                    @include('images.create', ['imageableId' => $order->id, 'imageableType' => App\Order::class ])
+                                    @include('images.create', ['images' => $order->images, 'imageableId' => $order->id, 'imageableType' => App\Order::class ])
                                 </td>
                             </tr>
                         </table>

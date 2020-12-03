@@ -124,7 +124,7 @@
                                 </div>
                                 <p class="help is-danger">{{ $errors->first('status')}}</p>
                             </div>
-                            @include('images.create', ['imageableId' => $booking->id, 'imageableType' => App\Booking::class ])
+                            @include('images.create', ['images' => $booking->images, 'imageableId' => $booking->id, 'imageableType' => App\Booking::class ])
 
                             <button type="submit" class="btn mt-2 btn-primary">Submit</button>
                         </form>
