@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 
-class VendorController extends Controller
+class VendorController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

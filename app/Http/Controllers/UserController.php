@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use \Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class UserController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

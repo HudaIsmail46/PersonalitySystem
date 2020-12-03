@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\External;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthenticatedController;
 use App\Order;
 
-class OrderController extends Controller
+class OrderController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Booking;
 use App\Customer;
 use Illuminate\Support\Facades\DB;
 
-class BookingController extends Controller
+class BookingController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.

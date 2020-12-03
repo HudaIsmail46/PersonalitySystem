@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class CommentController extends AuthenticatedController
 {
     /**
      * Store a newly created resource in storage.

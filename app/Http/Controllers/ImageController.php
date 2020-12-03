@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Image;
 
-class ImageController extends Controller
+class ImageController extends AuthenticatedController
 {
     /**
      * Store a newly created resource in storage.

@@ -139,24 +139,25 @@
                             <div class="row mt-3 ml-0">
                                 <a href="{{ route('order.edit', $order->id) }}" class="btn btn-primary mr-2">Edit</a>
                                 @if($order->state == "App\State\Order\Draft")
-                                <form class='mb-0' action="{{ route('order.destroy', $order->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
-                                        type="submit">Delete <i class="fa fa-trash"></i></button>
-                                </form>
+                                    <form class='mb-0' action="{{ route('order.destroy', $order->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger mr-2" onclick="return confirm('Are you sure?')"
+                                            type="submit">Delete <i class="fa fa-trash"></i></button>
+                                    </form>
                                 @endif
+                                <a href="{{ route('customer_order.show', $encId) }}" target="_blank" class="btn btn-primary mr-2 ml-auto">Public Order Page</a>
                             </div>
                         @endcan
                     </div>
                 </div>
                 <div class="col-md-5 mx-1 ">  
-                @hasrole('Vendor') 
-                    @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
-                @else
-                    @include('order.runner_job')
-                    @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
-                @endhasrole
+                    @hasrole('Vendor') 
+                        @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
+                    @else
+                        @include('order.runner_job')
+                        @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
+                    @endhasrole
                 </div>
             </div>
         </div>
