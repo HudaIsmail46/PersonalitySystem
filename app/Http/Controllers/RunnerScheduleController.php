@@ -76,7 +76,7 @@ class RunnerScheduleController extends Controller
     public function edit(RunnerSchedule $runner_schedule)
     {
         $runners  = User::role('Runner')->get();
-        $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->with('customer')->get();
+        $orders = Order::whereState('state', [PendingPickupSchedule::class, PendingReturnSchedule::class])->orderBy('city', 'ASC')->with('customer')->get();
         $runnerJobs = $runner_schedule->runnerJobs()->with('order.customer')->get();
 
         return view('runner_schedule.edit', compact('runner_schedule', 'runners', 'orders', 'runnerJobs'));
