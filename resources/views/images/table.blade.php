@@ -11,16 +11,16 @@
             <div class='col-4 align-self-center'>
                 <div class="d-flex flex-column my-auto">
                     <p>{{$image->caption}}</p>
-                    @if($can_delete_image)
-                    <form class='mb-0' action="{{ route('image.destroy') }}"
-                        method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name='image_id' value="{{$image->id}}">
-                        <button class="btn btn-danger mt-auto" onclick="return confirm('Are you sure?')"
-                            type="submit">Delete <i class="fa fa-trash"></i>
-                        </button>
-                    </form>
+                    @if($can_delete_image || ($image->user_id == Auth()->user()->id))
+                        <form class='mb-0' action="{{ route('image.destroy') }}"
+                            method="post">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name='image_id' value="{{$image->id}}">
+                            <button class="btn btn-danger mt-auto" onclick="return confirm('Are you sure?')"
+                                type="submit">Delete <i class="fa fa-trash"></i>
+                            </button>
+                        </form>
                     @endif
                 </div>
             </div>

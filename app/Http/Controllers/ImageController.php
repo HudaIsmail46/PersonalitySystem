@@ -16,11 +16,12 @@ class ImageController extends AuthenticatedController
     public function store(Request $request)
     {
         $this->validateImage();
-
+        $id = $request->user()->id;
         $image = new Image;
 
         if (request()->hasFile('file')) {
             $image->fill([
+                'user_id' => $id,
                 'imageable_id' => $request->imageable_id,
                 'imageable_type' => $request->imageable_type,
                 'file' => request()->file->store('uploads', 'public'),
