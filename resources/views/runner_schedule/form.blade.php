@@ -23,7 +23,7 @@
                 name="scheduled_at"
                 id="scheduled_at"
                 value="{{ old('runner_schedule')?? date('Y-m-d\TH:i',strtotime($runner_schedule->scheduled_at)) }}"
-                placeholder=" scheduled_at">>
+                placeholder=" scheduled_at">
                 <div class="invalid-feedback">{{ $errors->first('scheduled_at') }}</div>
             </div>
         </div>

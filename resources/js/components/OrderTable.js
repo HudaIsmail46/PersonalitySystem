@@ -8,7 +8,7 @@ window.humaniseOrderState = humaniseOrderState;
 
 
 function OrderTable(props) {
-    const { proporders, internal } = props;
+    const { proporders, internal, canreopenorder } = props;
     const [orders, setOrders] = useState(proporders.data);
 
 
@@ -63,7 +63,7 @@ function OrderTable(props) {
                         </td>
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
-                        <td>{ internal ? null : <NextOrderStates order={order} onClick={changeRunnerJobstate}/>}
+                        <td>{ internal ? null : <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>}
                             { internal ? <a href={`/external/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a> :
                              <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>}       
                         </td>

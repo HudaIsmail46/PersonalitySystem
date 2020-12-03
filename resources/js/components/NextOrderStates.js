@@ -1,7 +1,7 @@
 import React from 'react';
 
 function NextOrderStates(props) {
-    const { onClick, order } = props;
+    const { onClick, order, canReopenOrder } = props;
     
     const nextStates = (order) => {
         let states;
@@ -135,6 +135,16 @@ function NextOrderStates(props) {
                         </div>
                     </div>
                 );
+                break;
+            case canReopenOrder && "App\\State\\Order\\Completed" : 
+                    states = (
+                        <div
+                            className="btn btn-success btn-block"
+                            onClick={()=> onClick(order.id, "App\\State\\Order\\PendingPickupSchedule")}
+                        >
+                            Re-Open Order
+                        </div>
+                    );
                 break;
             default:
                 break;
