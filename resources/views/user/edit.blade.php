@@ -28,17 +28,6 @@
                     <div class="card-header">
                         <h3 class="mb-0">Update User</h3>
                     </div>
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-
                     <div class="inner">
                         <div class="card-body">
                             <form method="POST" action="{{ route('user.update', $user->id)}}">
@@ -46,20 +35,26 @@
                                 @method('PUT')
                                 <div class="field" id="form">
                                     <div class="field">
-                                        <div class="col-md-4">
-                                            <label class="label" for="event_title">Name </label>
-                                            <div class="form-group">
-                                                <input class="input @error('name') is-danger @enderror" type="text" name="name" id="name" value="{{old('name')?? $user->name ?? ''}}" placeholder=" User Name">
-                                                <p class="help is-danger">{{ $errors->first('name')}}</p>
+                                        <div class="field">
+                                            <label class="label" for="name">Name </label>
+                                            <div class="form-group row mx-0">
+                                                <div class="col-xs-4">
+                                                    <input class="form-control @error('name') is-invalid @enderror"
+                                                        type="text" name="name" id="name"
+                                                        value="{{old('name')?? $user->name ?? ''}}" placeholder="Name">
+                                                    <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="field">
-                                        <div class="col-md-4">
-                                            <label class="label" for="event_title">Phone No </label>
-                                            <div class="form-group">
-                                                <input class="input @error('phone_no') is-danger @enderror" type="text" name="phone_no" id="phone_no" value="{{old('phone_no')?? $user->phone_no ?? ''}}" placeholder=" User Name">
-                                                <p class="help is-danger">{{ $errors->first('phone_no')}}</p>
+                                        <label class="label" for="phone_no">Phone No </label>
+                                        <div class="form-group row mx-0">
+                                            <div class="col-xs-4">
+                                                <input class="form-control @error('phone_no') is-invalid @enderror"
+                                                    type="text" name="phone_no" id="phone_no"
+                                                    alue="{{old('phone_no')?? $user->phone_no ?? ''}}" placeholder="Phone Number">
+                                                <div class="invalid-feedback">{{ $errors->first('phone_no') }}</div>
                                             </div>
                                         </div>
                                     </div>

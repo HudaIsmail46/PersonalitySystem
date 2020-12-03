@@ -13,16 +13,6 @@
                 <div class="card-header">
                     <h3 class="mb-0">Create Runner Schedule</h3>
                 </div>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 @if ($message = Session::get('success'))
                     <div class="alert alert-success alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
@@ -35,40 +25,51 @@
                             @csrf
                             <div class="field" id="form">
                                 <div class="field">
-                                    <label class="label" for="runner_id"> Runner </label>
-                                    <div class="form-group">
-                                        <select id="runner_id" name="runner_id">
-                                            <option value="">--SELECT RUNNER--</option>
-                                            @foreach($runners as $runner)
-                                                <option value="{{$runner->id}}" {{old('runner_id') == $runner->id ? 'selected' : ''}}>{{$runner->name}}</option>
-                                            @endforeach
-                                        </select>
+                                    <label class="label" for="runner_id"> Runner <span class="text-danger">*</span></label>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <select id="runner_id" name="runner_id"
+                                                class="custom-select @error('runner_id') is-invalid @enderror">
+                                                <option value="">--SELECT RUNNER--</option>
+                                                @foreach ($runners as $runner)
+                                                    <option value="{{ $runner->id }}"
+                                                        {{ old('runner_id') == $runner->id ? 'selected' : '' }}>{{ $runner->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">{{ $errors->first('runner_id') }}</div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="field" >
-                                    <label class="label" for="scheduled_at">Schedule at</label>
-                                    <div class="form-group">
-                                        <input
-                                            class="input @error('scheduled_at') is-danger @enderror"
-                                            type="datetime-local"
-                                            name="scheduled_at"
-                                            id="scheduled_at"
-                                            value="{{ old('runner_schedule') ? date('Y-m-d\TH:i',strtotime($runner_schedule->scheduled_at)) : Carbon\Carbon::now()->toDateTimeLocalString() }}"
-                                            placeholder=" scheduled_at">
-                                        <p class="help is-danger">{{ $errors->first('scheduled_at')}}</p>
+                                <div class="field">
+                                    <label class="label" for="scheduled_at">Schedule at <span class="text-danger">*</span></label>
+                                    <div class="form-group row mx-0">
+                                        <div class="col-xs-4">
+                                            <input class="form-control @error('scheduled_at') is-invalid @enderror"
+                                                type="datetime-local" name="scheduled_at" id="scheduled_at"
+                                                value="{{$runner_schedule->scheduled_at ? Carbon\Carbon::parse($runner_schedule->scheduled_at)-> format('Y-m-d\TH:i'): ''}}">
+                                            <div class="invalid-feedback">{{ $errors->first('scheduled_at') }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="field" >
-                                    <label class="label" for="status">Status </label>
-                                    <div class="form-group">
-                                        <select id="status" name="status">
-                                            <option value="">--SELECT STATUS--</option>
-                                            @foreach(App\RunnerSchedule::STATUS as $status)
-                                                <option value="{{$status}}" {{old('status') == $status ? 'selected' : ''}}>{{$status}}</option>
-                                            @endforeach
-                                        </select>
+                                <div class="field">
+                                    <label class="label" for="status"> Status <span class="text-danger">*</span></label>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <select id="status" name="status"
+                                                class="custom-select @error('status') is-invalid @enderror">
+                                                <option value="">--SELECT STATUS--</option>
+                                                @foreach (App\RunnerSchedule::STATUS as $status)
+                                                    <option value="{{ $status }}"
+                                                        {{ old('status') == $status ? 'selected' : '' }}>{{ $status }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">{{ $errors->first('status') }}</div>
+                                        </div>
                                     </div>
                                 </div>
 
