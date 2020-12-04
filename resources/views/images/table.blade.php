@@ -11,9 +11,12 @@
             <div class='col-4 align-self-center'>
                 <div class="d-flex flex-column my-auto">
                     <p>{{$image->caption}}</p>
-                    @if($can_delete_image || ($image->user_id == Auth()->user()->id))
-                        <form class='mb-0' action="{{ route('image.destroy') }}"
-                            method="post">
+                    <p class="small text-muted">Uploaded at
+                        <br>{{ myShortDateTime(new Carbon\Carbon($image->created_at)) }}
+                        <br>by {{ $image->user->name }}
+                    </p>
+                    @if($can_delete_image || $image->user_id == Auth()->user()->id)
+                        <form class='mb-0' action="{{ route('image.destroy') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name='image_id' value="{{$image->id}}">
