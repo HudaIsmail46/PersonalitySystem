@@ -19,7 +19,7 @@ class InHouseCleaningController extends AuthenticatedController
             ->orderBy('id', 'ASC')
             ->where('state', '=' ,'App\State\Order\InHouseCleaning')
             ->paginate(50);
-        return view('vendor.index', compact('orders'))
+        return view('order.index', compact('orders'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
     }
 }

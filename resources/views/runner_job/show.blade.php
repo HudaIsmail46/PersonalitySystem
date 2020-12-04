@@ -14,13 +14,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        @hasrole('Runner')
-                        <li class="breadcrumb-item"><a href ="{{ route('external.runner.show', $runnerJob->runnerSchedule->id ) }}">Runner
-                            Schedule</a></li>  
-                        @else
                         <li class="breadcrumb-item"><a href ="{{ route('runner_schedule.show', $runnerJob->runnerSchedule->id ) }}">Runner
                             Schedule</a></li>
-                        @endhasrole
                         <li class="breadcrumb-item active">Runner Job</li>
                     </ol>
                 </div>
