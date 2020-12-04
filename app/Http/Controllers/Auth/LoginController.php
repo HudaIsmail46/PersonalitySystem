@@ -29,7 +29,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if(auth()->user()->hasRole('Runner')){
-            return route('runner.index');
+            return route('external.runner.index');
         }
         elseif(auth()->user()->hasRole('Vendor')){
             return route('external.order.index');

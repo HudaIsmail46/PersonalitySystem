@@ -202,6 +202,14 @@ return [
             'Vendor'=>[
                 'list vendorCollected orders'
             ],
+            'CustomerService'=>[
+                'list bookings',
+                'list customers',
+                'list users',
+                'list orders',
+                'list runnerSchedules',
+                'reOpen order'
+            ],
         ],
         'permissions' => [
             'create bookings',
@@ -222,7 +230,8 @@ return [
             'create runnerSchedules',
             'list assignedRunnerSchedule',
             'list vendorCollected orders',
-            'list inhouseCleaning orders'
+            'list inhouseCleaning orders',
+            'reOpen order'
         ]
     ],
 ];

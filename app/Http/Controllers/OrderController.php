@@ -27,6 +27,8 @@ class OrderController extends AuthenticatedController
         $name = $request->name;
         $phone_no = $request->phone_no;
 
+        $canReopenOrder = Auth()->user()->can('reOpen order');
+
         $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
             ->with('customer')
             ->select('orders.*', 'customers.name', 'customers.phone_no')
@@ -44,7 +46,7 @@ class OrderController extends AuthenticatedController
             })
             ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
 
-        return view('order.index', compact('orders'))
+        return view('order.index', compact('orders', 'canReopenOrder'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
     }
 
