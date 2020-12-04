@@ -15,7 +15,7 @@
         <script src="https://kit.fontawesome.com/be4357277b.js" crossorigin="anonymous"></script>
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     </head>
 
@@ -40,72 +40,83 @@
                                     <h3 class="mb-0">Order Detail</h3>
                                 </div>
                                 <div class="card-body p-1 text-capitalize">
-                                    <table class='table table-bordered table-striped w-100'>
-                                        <tr>
-                                            <td> Order Id</td>
-                                            <td> {{ $order->id }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Woocommerce Order Ref</td>
-                                            <td>{{ $order->woocommerce_order_id}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer</td>
-                                            <td>
-                                                Name : {{ $order->customer->name }}
-                                                <br>
-                                                Phone No : {{ $order->customer->phone_no }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address</td>
-                                            <td>
-                                                {!! orderAddress($order) !!}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Size</td>
-                                            <td>{{ $order->size }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Material</td>
-                                            <td>{{ $order->material }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Price</td>
-                                            <td>{{ money($order->price) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Deposit Detail</td>
-                                            <td>    
+
+                                    <div  class=" row">
+                                        <div class=" col sm-4">
+                                            <div  class="ml-2 ">
+                                                <p><b>From :</b>
+                                                    <br> Clean Hero (M) Sdn Bhd
+                                                    <br>12A Jalan Perindustrian
+                                                    <br>Suntrack Hub Perindustrian
+                                                    <br>Suntrack Off,
+                                                    <br>Jalan P/1A, Seksyen 13,
+                                                    <br>43650 Bandar Baru Bangi,
+                                                    <br>Selangor
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col sm-4">
+                                            <div  class="ml-2 ">
+                                                <p><b>To :</b>
+                                                    <br>{{ $order->customer->name }}
+                                                    <br>{!! orderAddress($order) !!}
+                                                    <br>{{ $order->customer->phone_no }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div  class="mr-5">
+                                            <div class="row ml-0" >
+                                                <p class="font-weight-bold"> Woocommerce Order Ref :</p>
+                                                <p>{{ $order->woocommerce_order_id}}</p>
+                                            </div>
+                                            <div class="row  ml-0" >
+                                                <p class="font-weight-bold"> Order ID :</p>
+                                                <p>{{ $order->id }}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class='table table-bordered table-striped w-100'>
+                                            <tr>
+                                                <th>Quantity</th>
+                                                <th>material</th>
+                                                <th>Size</th>
+                                                <th>Status</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ $order->quantity }} </td>
+                                                <td> {{ $order->material }}</td>
+                                                <td> {{ $order->size }}</td>
+                                                <td> {{humaniseOrderState($order->state) }}</td>
+                                                <td> {{money($order->price) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3>Payment</h3>
+                                        <div>
+                                            <p><b> Deposit Detail :</b><br>
                                                 @if($order->deposit_paid_at != null)
-                                                    Paid at  {{ $order->deposit_paid_at ? myLongDateTime(new Carbon\Carbon($order->deposit_paid_at)) : null}}
+                                                    Paid at  {{ $order->deposit_paid_at ? myLongDateTime(new Carbon\Carbon($order->deposit_paid_at)) : null}}<br>
                                                         via {{ $order->deposit_payment_method}}
                                                 @else
                                                     Not yet paid.
                                                 @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payment Detail</td>
-                                            <td>    
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p><b>Payment Detail :</b><br>
                                                 @if($order->paid_at != null)
-                                                    Paid at  {{ $order->paid_at ? myLongDateTime(new Carbon\Carbon($order->paid_at)) : null}}
+                                                    Paid at  {{ $order->paid_at ? myLongDateTime(new Carbon\Carbon($order->paid_at)) : null}}<br>
                                                         via {{ $order->payment_method}}
                                                 @else
                                                     Not yet paid.
                                                 @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quantity</td>
-                                            <td>{{ $order->quantity }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Status</td>
-                                            <td>{{ humaniseOrderState($order->state) }}</td>
-                                        </tr>
-                                    </table>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
