@@ -116,16 +116,7 @@
                             <tr>
                                 <td>Image</td>
                                 <td>
-                                    @hasrole('Vendor')
-                                    <form method="POST" action="{{ route('order.update', $order->id)}}" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
                                     @include('images.table', ['images' => $order->images, 'can_delete_image' => auth()->user()->can('create orders')])
-                                    @include('images.create', ['imageableId' => $order->id, 'imageableType' => App\Order::class ])
-                                    </form>
-                                    @else
-                                    @include('images.table', ['images' => $order->images, 'can_delete_image' => auth()->user()->can('create orders')])
-                                    @endhasrole
                                 </td>
                             </tr>
                             @can('create orders')
@@ -152,12 +143,8 @@
                     </div>
                 </div>
                 <div class="col-md-5 mx-1 ">  
-                    @hasrole('Vendor') 
-                        @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
-                    @else
                         @include('order.runner_job')
                         @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
-                    @endhasrole
                 </div>
             </div>
         </div>
