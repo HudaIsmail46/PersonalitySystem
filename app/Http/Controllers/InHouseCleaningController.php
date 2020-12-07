@@ -15,11 +15,12 @@ class InHouseCleaningController extends AuthenticatedController
 
     public function index()
     {
+        $canReopenOrder = Auth()->user()->can('reOpen order');
         $orders = Order::with('customer')
             ->orderBy('id', 'ASC')
             ->where('state', '=' ,'App\State\Order\InHouseCleaning')
             ->paginate(50);
-        return view('order.index', compact('orders'))
+        return view('order.index', compact('orders', 'canReopenOrder'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
     }
 }
