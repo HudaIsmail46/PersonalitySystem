@@ -53,7 +53,7 @@
                                             <div class="col-xs-4">
                                                 <input class="form-control @error('phone_no') is-invalid @enderror"
                                                     type="text" name="phone_no" id="phone_no"
-                                                    alue="{{old('phone_no')?? $user->phone_no ?? ''}}" placeholder="Phone Number">
+                                                    value="{{old('phone_no')?? $user->phone_no ?? ''}}" placeholder="Phone Number">
                                                 <div class="invalid-feedback">{{ $errors->first('phone_no') }}</div>
                                             </div>
                                         </div>
