@@ -113,7 +113,7 @@ class RunnerScheduleController extends AuthenticatedController
     {
         return request()->validate([
             'runner_id' => 'required',
-            'scheduled_at' => 'required',
+            'scheduled_at' => 'required|after_or_equal:today',
             'status' => 'required',
         ]);
     }

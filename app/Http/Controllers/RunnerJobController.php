@@ -195,7 +195,7 @@ class RunnerJobController extends AuthenticatedController
         return request()->validate([
             'runner_schedule_id' => 'required',
             'order_id' => 'required',
-            'scheduled_at' => 'required'
+            'scheduled_at' => 'required|after_or_equal:today'
         ]);
     }
 }
