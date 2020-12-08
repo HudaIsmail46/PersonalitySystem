@@ -14,7 +14,7 @@ class WebhookHandler
         $payload = $data["payload"];
         $billing = $payload["billing"];
         $item = $payload["line_items"][0];//for now we only process pnd, the cart is not mixed with other item
-        if($item['product_id'] == "601294001492"){//hardcoded for now, this is referring for pnd product only
+        if($item['product_id'] == "6989120000408"){//hardcoded for now, this is referring for pnd product only
             $customer = Customer::findOrCreate($billing["first_name"]." ".$billing['last_name'], $billing["phone"]);
 
             $order = new Order;
