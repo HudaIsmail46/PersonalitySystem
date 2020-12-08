@@ -192,7 +192,7 @@ function RunnerJobEdit(props) {
                                         (() => {
                                             if (scheduledOrder.order.customer.phone_no !== null) {
                                                 return (
-                                                    <div>Phone No : {scheduledOrder.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a></div>
+                                                    <div>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a></div>
                                                 )
                                             }
                                         })()

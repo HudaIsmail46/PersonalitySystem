@@ -22,7 +22,7 @@ calculate = function (cal_length,cal_width, total_length,actual_size)
     }
     else{
         document.getElementById(total_length).innerHTML =total + " ft";
-        document.getElementById(actual_size).innerHTML = "l";
+        document.getElementById(actual_size).innerHTML = "L";
     }
 
 }

@@ -58,36 +58,31 @@
                                 <td>{!! orderAddress($order) !!}</td>
                             </tr>
                             <tr>
-                                <td>Size</td>
-                                <td>{{ $order->size }}</td>
-                            </tr>
-                            <tr>
-                                <td>Material</td>
-                                <td>{{ $order->material }}</td>
-                            </tr>
-                            <tr>
-                                <td>Price</td>
-                                <td>{{ money($order->price) }}</td>
-                            </tr>
-                            <tr>
                                 <td>Prefered Pickup Date Time</td>
                                 <td>{{ myLongDateTime(Carbon\Carbon::parse($order->prefered_pickup_datetime)) }}</td>
                             </tr>
                             <tr>
-                                <td>Actual Length</td>
-                                <td>{{ $order->actual_length }}</td>
+                                <td>Item</td>
+                                <td>
+                                    @foreach($order->orderItems as $index => $item)
+                                    <strong>Item {{$index+1}} : </strong>
+                                    <p>
+                                    Material : {{ $item->material }} <br>
+                                    Size : {{ strtoupper($item->size) }} <br>
+                                    Quantity : {{ $item->quantity }} unit<br>
+                                    Price : {{  money($item->price) }}
+                                    </p>
+                                
+                                @endforeach
+                                </td>
                             </tr>
                             <tr>
-                                <td>Actual width</td>
-                                <td>{{ $order->actual_width }}</td>
+                                <td>Total Quantity</td>
+                                <td>{{ $order->quantity }}</td>
                             </tr>
                             <tr>
-                                <td>Actual Material</td>
-                                <td>{{ $order->actual_material }}</td>
-                            </tr>
-                            <tr>
-                                <td>Actual Price</td>
-                                <td>{{ money($order->actual_price) }}</td>
+                                <td>Total Price</td>
+                                <td>{{ money($order->price) }}</td>
                             </tr>
                             <tr>
                                 <td>Deposit Amount</td>
@@ -118,10 +113,6 @@
                                         Not yet paid.
                                     @endif
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Quantity</td>
-                                <td>{{ $order->quantity }}</td>
                             </tr>
                             <tr>
                                 <td>Status</td>

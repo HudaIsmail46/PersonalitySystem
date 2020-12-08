@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Customer;
+use App\OrderItem;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
 use Illuminate\Support\Facades\Crypt;
@@ -60,8 +61,10 @@ class OrderController extends AuthenticatedController
      */
     public function create()
     {
+        $materials = Order::MATERIALS;
+        $sizes = Order::SIZES;
         $availableStates = [Draft::class, PendingPickupSchedule::class];
-        return view('order.create', compact('availableStates'));
+        return view('order.create', compact('materials', 'sizes', 'availableStates'));
     }
 
     /**
@@ -83,10 +86,10 @@ class OrderController extends AuthenticatedController
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,
-            'size' => $request->size,
-            'material' => $request->material,
-            'quantity' => $request->quantity,
-            'price' => $this->priceCents($request->price),
+            'size'=> null,
+            'material'=> null,
+            'price' => $this->priceCents(array_sum($request->price_item)),
+            'quantity' => array_sum($request->quantity_item),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
@@ -95,6 +98,20 @@ class OrderController extends AuthenticatedController
             'walk_in_customer' =>isset($request->walk_in_customer),
         ]);
         $order->save();
+
+        $order_item = new OrderItem;
+        for ($i = 0; $i < count((array)$request->material); $i++) {
+            $data[] = [
+                'order_id' => $order->id,
+                'size' => $request->size[$i],
+                'material' => $request->material[$i],
+                'quantity' => $request->quantity_item[$i],
+                'price' =>  $this->priceCents($request->price_item[$i]),
+                'created_at' => $order_item->freshTimestamp(),
+                'updated_at' => $order_item->freshTimestamp()
+            ];
+        }
+        $order_item->insert($data);
 
         return redirect()->route('order.show', $order->id)->with('Order is created.');
     }
@@ -126,8 +143,10 @@ class OrderController extends AuthenticatedController
      */
     public function edit(Order $order)
     {
+        $materials = Order::MATERIALS;
+        $sizes = Order::SIZES;
         $availableStates = [Draft::class, PendingPickupSchedule::class];
-        return view('order.edit', compact('order', 'availableStates'));
+        return view('order.edit', compact('order', 'materials', 'sizes', 'availableStates'));
     }
 
     /**
@@ -149,15 +168,9 @@ class OrderController extends AuthenticatedController
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,
-            'actual_length' => $request->actual_length,
-            'actual_width' => $request->actual_width,
-            'actual_material' => $request->actual_material,
-            'actual_price' => $this->priceCents($request->actual_price),
-            'size' => $request->size,
             'quantity' => $request->quantity,
             'paid_at' => $request->paid_at,
             'payment_method' => $request->payment_method,
-            'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
@@ -167,6 +180,44 @@ class OrderController extends AuthenticatedController
         ]);
 
         $order->save();
+
+        for ($i = 0; $i < count((array)$request->material); $i++) {
+            if ($request->item_id != null  && array_key_exists($i, $request->item_id)) {
+                OrderItem::find($request->item_id[$i])
+                    ->update([
+                        'material' => $request->material[$i],
+                        'size' => $request->size[$i],
+                        'quantity' => $request->quantity_item[$i],
+                        'price' =>  $this->priceCents($request->price_item[$i])
+                    ]);
+                    
+            } else {
+                if ($request->material[$i] != null) {
+                    $order_item = new OrderItem;
+                    $data[] = [
+                        'order_id' => $order->id,
+                        'size' => $request->size[$i],
+                        'material' => $request->material[$i],
+                        'quantity' => $request->quantity_item[$i],
+                        'price' =>  $this->priceCents($request->price_item[$i]),
+                        'created_at' => $order_item->freshTimestamp(),
+                        'updated_at' => $order_item->freshTimestamp()
+                    ];
+                    $order_item->insert($data);
+                }
+            }
+        }
+
+        if ($request->delete) {
+            for ($i = 0; $i < count($request->delete); $i++) {
+                OrderItem::where('id', $request->delete[$i])->delete();
+            }
+        }
+
+        $total_quantity = OrderItem::where('order_id', $order->id)->sum('quantity');
+        $total_price = OrderItem::where('order_id', $order->id)->sum('price');
+
+        $order->update(['quantity' => $total_quantity, 'price' => $total_price]);
 
         return redirect()->route('order.show', $order)->with('Order is Updated.');
     }
@@ -199,8 +250,6 @@ class OrderController extends AuthenticatedController
     protected function validateUpdateOrders()
     {
         return request()->validate([
-            'size' => 'required',
-            'price' => 'required',
             'prefered_pickup_datetime' => 'required',
             'address_1' => 'required',
             'postcode' => 'required',
@@ -211,19 +260,27 @@ class OrderController extends AuthenticatedController
 
     protected function validateCreateOrders()
     {
-        $validateData = request()->validate([
-            'customer_name' => 'required',
-            'customer_phone_no' => 'required',
-            'size' => 'required',
-            'material' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'prefered_pickup_datetime' => 'required|after_or_equal:today',
-            'address_1' => 'required',
-            'postcode' => 'required',
-            'city' => 'required',
-            'location_state' => 'required',
-        ]);
+        $validateData = request()->validate(
+            [
+                'customer_name' => 'required',
+                'customer_phone_no' => 'required',
+                'material.*' => 'required',
+                'size.*' => 'required',
+                'price_item.*' => 'required',
+                'quantity_item.*' => 'required',
+                'prefered_pickup_datetime' => 'required|after_or_equal:today',
+                'address_1' => 'required',
+                'postcode' => 'required',
+                'city' => 'required',
+                'location_state' => 'required',
+            ],
+            [
+                'material.*.required' => 'Please select a material.',
+                'size.*.required' => 'Material size required.',
+                'quantity_item.*.required' => 'Quantity item required.',
+                'price_item.*.required' => 'Price item required.'
+            ]
+        );
         return $validateData;
     }
 }

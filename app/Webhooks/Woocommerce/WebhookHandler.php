@@ -3,6 +3,7 @@
 namespace App\Webhooks\Woocommerce;
 
 use App\Order;
+use App\OrderItem;
 use App\Customer;
 use Carbon\Carbon;
 use App\State\Order\Draft;
@@ -30,10 +31,9 @@ class WebhookHandler
 
             $order->fill([
                 'woocommerce_order_id' => $payload["id"],
-                'quantity'=> $item["quantity"],
-                'material' => strtolower(static::valueByKey('carpet-material', $item['meta_data'])),
-                'size' => static::getOrdersize($item['meta_data']),
-                'price' => $item["total"]*100,
+                'quantity' => 0,
+                'deposit_amount' => static::valueByKey('_wc_deposits_deposit_amount', $payload["meta_data"]),
+                'price' => 0,
                 'prefered_pickup_datetime' => static::preferedDateTime($payload["meta_data"]),
                 'address_1' => $billing["address_1"],
                 'address_2' => $billing["address_2"],
@@ -46,21 +46,43 @@ class WebhookHandler
             ]);
 
             $order->save();
+            
+            for ($i = 0; $i < count($payload["line_items"]) ; $i++) {
+                
+                $order_item = new OrderItem;
+    
+                $items = $payload["line_items"][$i];
+
+                $order_item->fill([
+                    'order_id' => $order->id,
+                    'quantity' => $items["quantity"],
+                    'material' => strtolower(static::valueByKey('carpet-material', $items['meta_data'])),
+                    'size' =>  static::getOrdersize($items['meta_data']),
+                    'price' => $items["total"] * 100,
+                ]);
+                
+                $order_item->save();
+            }
+            
+            $total_quantity = $order_item->where('order_id', $order->id)->sum('quantity');
+            $total_price = $order_item->where('order_id', $order->id)->sum('price');
+
+            $order->update(['quantity' => $total_quantity, 'price' => $total_price]);
         }
-
-
         http_response_code(200);
     }
 
     public static function getOrderSize($data)
     {
         $size = strtolower(static::valueByKey('carpet-size', $data));
-        if (preg_match('/large/', $size)){
+        if (preg_match('/Large/', $size)){
             return 'l';
-        } elseif (preg_match('/medium/', $size)){
+        } elseif (preg_match('/Medium/', $size)){
             return 'm';
-        } else {
+        } elseif (preg_match('/Small/', $size)){
             return 's';
+        } else {
+            return 'xs';
         }
     }
 

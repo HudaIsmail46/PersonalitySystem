@@ -35,16 +35,19 @@
                                 <td> {{ $order->id }}</td>
                             </tr>
                             <tr>
-                                <td>Size</td>
-                                <td>{{ $order->size }}</td>
-                            </tr>
-                            <tr>
-                                <td>Material</td>
-                                <td>{{ $order->material }}</td>
-                            </tr>
-                            <tr>
-                                <td>Quantity</td>
-                                <td>{{ $order->quantity }}</td>
+                                <td>Item</td>
+                                <td>
+                                @foreach($order->OrderItems()->get() as $index => $item)
+                                    <strong>Item {{$index+1}} : </strong>
+                                    <p>
+                                    Material : {{ $item->material }} <br>
+                                    Size : {{ $item->size }} <br>
+                                    Quantity : {{ $item->quantity }} unit<br>
+                                    Price : {{  money($item->price) }}
+                                    </p>
+                                
+                                @endforeach
+                                </td>
                             </tr>
                             <tr>
                                 <td>Status</td>
