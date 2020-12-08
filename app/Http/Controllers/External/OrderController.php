@@ -31,6 +31,13 @@ class OrderController extends AuthenticatedController
      */
     public function show(Order $order)
     {
-        return view('external.order.show', compact('order'));
+        $runnerJobImages = [];
+        $runnerJobs = $order->runnerJobs()->get();
+        if ($runnerJobs != null) {
+            foreach ($runnerJobs as $runnerJob) {
+                $runnerJobImages = $runnerJob->images;
+            }
+        }
+        return view('external.order.show', compact('order', 'runnerJobImages'));
     }
 }

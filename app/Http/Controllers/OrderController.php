@@ -100,8 +100,15 @@ class OrderController extends AuthenticatedController
      */
     public function show(Order $order)
     {
+        $runnerJobImages = [];
+        $runnerJobs = $order->runnerJobs()->get();
+        if ($runnerJobs != null) {
+            foreach ($runnerJobs as $runnerJob) {
+                $runnerJobImages = $runnerJob->images;
+            }
+        }
         $encId = Crypt::encryptString($order->id);
-        return view('order.show', compact('order', 'encId'));
+        return view('order.show', compact('runnerJobImages', 'order', 'encId'));
     }
 
     /**

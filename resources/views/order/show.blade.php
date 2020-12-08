@@ -85,7 +85,7 @@
                             </tr>
                             <tr>
                                 <td>Deposit Detail</td>
-                                <td>    
+                                <td>
                                     @if($order->deposit_paid_at != null)
                                         Paid at  {{ $order->deposit_paid_at ? myLongDateTime(new Carbon\Carbon($order->deposit_paid_at)) : null}}
                                             via {{ $order->deposit_payment_method}}
@@ -96,7 +96,7 @@
                             </tr>
                             <tr>
                                 <td>Payment Detail</td>
-                                <td>    
+                                <td>
                                     @if($order->paid_at != null)
                                         Paid at  {{ $order->paid_at ? myLongDateTime(new Carbon\Carbon($order->paid_at)) : null}}
                                             via {{ $order->payment_method}}
@@ -116,6 +116,7 @@
                             <tr>
                                 <td>Image</td>
                                 <td>
+                                    @include('images.table', ['images' => $runnerJobImages, 'can_delete_image' => auth()->user()->can('create runnerSchedules')])
                                     @include('images.table', ['images' => $order->images, 'can_delete_image' => auth()->user()->can('create orders')])
                                 </td>
                             </tr>
@@ -142,7 +143,7 @@
                         @endcan
                     </div>
                 </div>
-                <div class="col-md-5 mx-1 ">  
+                <div class="col-md-5 mx-1 ">
                         @include('order.runner_job')
                         @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
                 </div>

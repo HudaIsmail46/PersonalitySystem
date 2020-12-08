@@ -53,6 +53,7 @@
                             <tr>
                                 <td>Image</td>
                                 <td>
+                                    @include('images.table', ['images' => $runnerJobImages, 'can_delete_image' => auth()->user()->can('create runnerSchedules')])
                                     @include('images.table', ['images' => $order->images, 'can_delete_image' => auth()->user()->can('create orders')])
                                     @include('images.create', ['images' => $order->images, 'imageableId' => $order->id, 'imageableType' => App\Order::class ])
                                 </td>
@@ -60,7 +61,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-5 mx-1 ">  
+                <div class="col-md-5 mx-1 ">
                     @include('comment.index', ['model' => $order, 'appName' => App\Order::class])
                 </div>
             </div>
