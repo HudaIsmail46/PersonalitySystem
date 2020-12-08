@@ -100,7 +100,7 @@ class OrderController extends AuthenticatedController
      */
     public function show(Order $order)
     {
-        $encId = Crypt::encryptString ($order->id);
+        $encId = Crypt::encryptString($order->id);
         return view('order.show', compact('order', 'encId'));
     }
 
@@ -185,7 +185,7 @@ class OrderController extends AuthenticatedController
         return request()->validate([
             'size' => 'required',
             'price' => 'required',
-            'prefered_pickup_datetime' => 'required',
+            'prefered_pickup_datetime' => 'required|after_or_equal:today',
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
@@ -202,7 +202,7 @@ class OrderController extends AuthenticatedController
             'material' => 'required',
             'price' => 'required',
             'quantity' => 'required',
-            'prefered_pickup_datetime' => 'required',
+            'prefered_pickup_datetime' => 'required|after_or_equal:today',
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
