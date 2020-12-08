@@ -10,7 +10,8 @@ class WebhookHandler
 {
     public static function handle($data)
     {
-        $payload = json_decode($data, true);
+        $data = json_decode($data, true);
+        $payload = $data["payload"];
         $billing = $payload["billing"];
         $item = $payload["line_items"][0];//for now we only process pnd, the cart is not mixed with other item
         if($item['product_id'] == "601294001492"){//hardcoded for now, this is referring for pnd product only
