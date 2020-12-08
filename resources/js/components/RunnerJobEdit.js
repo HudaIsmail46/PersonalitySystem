@@ -51,6 +51,10 @@ function RunnerJobEdit(props) {
         );
     }
     
+    const canceledRunnerJob = (runnerJobState) => {
+        if (runnerJobState == "canceled")
+          return  true;
+    }
 
     const submit = () => {
         if(runnerJob.id){
@@ -148,26 +152,56 @@ function RunnerJobEdit(props) {
                     </tr>
                     {runnerJobs.map(scheduledOrder => {return (
                         <tr key={scheduledOrder.id} >
-                            <td>{scheduledOrder.id}</td>
-                            <td>{scheduledOrder.scheduled_at}</td>
-                            <td>{scheduledOrder.job_type}</td>
-                            <td>
-                                {scheduledOrder.order.address_1},<br></br>
-                                {scheduledOrder.order.address_2},<br></br>
-                                {scheduledOrder.order.postcode},<br></br>
-                                {scheduledOrder.order.city},<br></br>
-                                {scheduledOrder.order.location_state}
+                            <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.id}</del> :
+                                 scheduledOrder.id}
+                            </td>
+                            <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.scheduled_at}</del> :
+                                 scheduledOrder.scheduled_at}
+                            </td>
+                            <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.job_type}</del> :
+                                 scheduledOrder.job_type}
                             </td>
                             <td>
-                                Name : {scheduledOrder.order.customer.name}
-                                <br/>
-                                Phone No : {scheduledOrder.order.customer.phone_no}
+                                {canceledRunnerJob(scheduledOrder.state) ? 
+                                <del>
+                                    {scheduledOrder.order.address_1},<br></br>
+                                    {scheduledOrder.order.address_2},<br></br>
+                                    {scheduledOrder.order.postcode},<br></br>
+                                    {scheduledOrder.order.city},<br></br>
+                                    {scheduledOrder.order.city},<br></br>
+                                    {scheduledOrder.order.location_state}
+                                </del> :
+                                <p>
+                                    {scheduledOrder.order.address_1},<br></br>
+                                    {scheduledOrder.order.address_2},<br></br>
+                                    {scheduledOrder.order.postcode},<br></br>
+                                    {scheduledOrder.order.city},<br></br>
+                                    {scheduledOrder.order.location_state}
+                                </p>}
                             </td>
-                            <td>Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br></br>
-                                {humaniseOrderState(scheduledOrder.order.state)}</td>
+                            <td>
+                                {canceledRunnerJob(scheduledOrder.state) ? 
+                                <del> 
+                                    Name : {scheduledOrder.order.customer.name} <br/>
+                                    Phone No : {scheduledOrder.order.customer.phone_no}
+                                </del> :
+                                <p>
+                                    Name : {scheduledOrder.order.customer.name} <br/>
+                                    Phone No : {scheduledOrder.order.customer.phone_no}
+                                </p>}
+                            </td>
+                            <td>{canceledRunnerJob(scheduledOrder.state) ? 
+                                <del>
+                                    Id : {scheduledOrder.order.id}<br></br>
+                                    {humaniseOrderState(scheduledOrder.order.state)}
+                                </del> :
+                                <p>
+                                    Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br></br>
+                                    {humaniseOrderState(scheduledOrder.order.state)}
+                                </p>}
+                            </td>
                             <td>{ orderStatuses(scheduledOrder.order.state) ? status :
-                                  <div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div>
-                            }
+                                  <div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div>}
                             </td>
                         </tr>
                     )})}
