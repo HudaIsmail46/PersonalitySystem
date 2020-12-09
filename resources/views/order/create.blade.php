@@ -93,7 +93,7 @@
                             </div>
 
                             <div class="field">
-                                <label class="label" for="location_state">Location State <span class="text-danger">*</span></label>
+                                <label class="label" for="location_state">State <span class="text-danger">*</span></label>
                                 <div class="form-group row mx-0">
                                     <div class="col-xs-4">
                                         <input class="form-control @error('location_state') is-invalid @enderror"
