@@ -31,6 +31,9 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-2">
+                                            Id: <input class="form-control form-control-sm" type="search" name="id" placeholder="id" value="{{request()->id}}">
+                                        </div>
+                                        <div class="col-md-2">
                                             Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
                                         </div>
                                         <div class="col-md-2">

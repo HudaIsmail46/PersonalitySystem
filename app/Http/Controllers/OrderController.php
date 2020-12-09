@@ -25,8 +25,8 @@ class OrderController extends AuthenticatedController
         $state = $request->state;
         $date = $request->date;
         $name = $request->name;
+        $id = $request->id;
         $phone_no = $request->phone_no;
-
         $canReopenOrder = Auth()->user()->can('reOpen order');
 
         $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
@@ -34,6 +34,9 @@ class OrderController extends AuthenticatedController
             ->select('orders.*', 'customers.name', 'customers.phone_no')
             ->when($state, function ($q) use ($state) {
                 return $q->where('state', $state);
+            })
+            ->when($id, function ($q) use ($id) {
+                return $q->where('orders.id', $id);
             })
             ->when($date, function ($q) use ($date) {
                 return $q->whereDate('prefered_pickup_datetime', $date);
@@ -45,6 +48,7 @@ class OrderController extends AuthenticatedController
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
             })
             ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
+            // dd($orders);
 
         return view('order.index', compact('orders', 'canReopenOrder'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
