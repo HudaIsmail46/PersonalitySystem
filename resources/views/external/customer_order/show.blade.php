@@ -117,6 +117,13 @@
                                             </p>
                                         </div>
                                     </div>
+
+                                    <div class="d-flex justify-content-end mb-2">
+                                        <a class="btn btn-primary" href="{{ route('customer_order.pdf',$orderId)}}">
+                                            <i class="fa fa-download">
+                                                </i> Generate PDF</a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

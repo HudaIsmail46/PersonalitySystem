@@ -125,7 +125,7 @@ Route::prefix('/external/runner_job')->name('external.runner_job.')->group(funct
 });
 
 ##External Runner CRUD
-Route::prefix('/external/runner')->name('external.runner.')->group(function (){
+Route::prefix('/external/runner')->name('external.runner.')->group(function () {
     Route::get('/index', 'External\RunnerController@index')->name('index');
     Route::get('/{runner_schedule}', 'External\RunnerController@show')->name('show');
     Route::put('/{runner_schedule}', 'External\RunnerController@start')->name('start');
@@ -144,3 +144,6 @@ Route::get('/inhouse_cleaning/index', 'InHouseCleaningController@index')->name('
 
 #External CustomerOrder
 Route::get('/external/customer/order/{orderId}', 'External\CustomerOrderController@show')->name('customer_order.show');
+
+#PDF
+Route::get('/pdfconverter/{orderId}', 'External\CustomerOrderController@pdf')->name('customer_order.pdf');
