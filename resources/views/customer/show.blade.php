@@ -32,6 +32,7 @@
                         Name: {{$customer->name}}
                         <br>
                         Phone: {{$customer->phone_no}}
+                                <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                         <br>
                         Address: {{$customer->address ?? '-'}}
                         <br>

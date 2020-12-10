@@ -38,7 +38,10 @@
                                         <tr>
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
-                                            <td>{{ $user->phone_no }}</td>
+                                            <td>
+                                                {{ $user->phone_no }}
+                                                <a href="https://api.whatsapp.com/send?phone= {{$user->phone_no  }}"><i class="fab fa-whatsapp" style="color:rgb(79, 206, 93)"></i></a>
+                                            </td>
                                             <td>{{ $user->email }}</td>
                                             <td>
                                                 <div class="row">
@@ -51,14 +54,14 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit">Delete</button>
-    
+
                                                         </form>
                                                     @endcan
                                                 </div>
                                             </td>
                                         </tr>
                                     @endforeach
-    
+
                                 </table>
                                 {{ $users ?? ''->links() }}
                             </div>

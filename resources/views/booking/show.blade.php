@@ -36,6 +36,7 @@
                                     href="{{ route('customer.show', $booking->customer) }}">{{ $booking->customer->name }}</a>
                                 <br>
                                 Phone No. : {{ $booking->customer->phone_no }}
+                                            <a href="https://api.whatsapp.com/send?phone={{ $booking->customer->phone_no }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                             @else
                                 Name : -
                                 <br>
