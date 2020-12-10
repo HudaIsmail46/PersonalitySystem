@@ -87,6 +87,7 @@ class BookingController extends AuthenticatedController
             'event_ends' => $request->event_ends,
             'address_1' => $request->address_1,
             'address_2' => $request->address_2,
+            'address_3' => $request->address_3,
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,

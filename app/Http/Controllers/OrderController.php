@@ -48,7 +48,6 @@ class OrderController extends AuthenticatedController
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
             })
             ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
-            // dd($orders);
 
         return view('order.index', compact('orders', 'canReopenOrder'))
             ->with('i', ($orders->get('page', 1) - 1) * 50);
@@ -80,6 +79,7 @@ class OrderController extends AuthenticatedController
             'customer_id' => $customer->id,
             'address_1' => $request->address_1,
             'address_2' => $request->address_2,
+            'address_3' => $request->address_,
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,

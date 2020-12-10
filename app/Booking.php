@@ -11,7 +11,7 @@ class Booking extends Model
         'gc_event_ends', 'gc_description', 'gc_team', 'name', 'phone_no', 'status',
         'receipt_number', 'invoice_number', 'gc_price', 'price', 'service_type',
         'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic', 
-        'address_1','address_2','postcode','city','location_state',
+        'address_1','address_2','address_3','postcode','city','location_state',
         'af_reference', 'remarks', 'team'];
 
     use SoftDeletes;
