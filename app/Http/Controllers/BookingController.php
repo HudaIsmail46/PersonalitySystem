@@ -79,7 +79,7 @@ class BookingController extends AuthenticatedController
     public function store(Request $request)
     {
         $this->validateCreateBooking();
-        $customer = Customer::findOrCreate($request->customer_name, $this->formatPhoneNo($request->customer_phone_no));
+        $customer = Customer::findOrCreate($request->customer_name, formatPhoneNo($request->customer_phone_no));
         $booking = new Booking;
         $booking->fill([
             'customer_id' => $customer->id,
@@ -144,17 +144,6 @@ class BookingController extends AuthenticatedController
     protected function priceCents($price)
     {
         return $price ? $price * 100 : 0;
-    }
-
-    protected function formatPhoneNo($phone_no)
-    {
-        if (preg_match('/^6/', $phone_no) || preg_match('/[\[^\+\]]/', $phone_no)) {
-            $phone_number = preg_replace('/\D+/', '', $phone_no);
-        } else {
-            $phone = preg_replace('/\D+/', '', $phone_no);
-            $phone_number =  "6" . $phone;
-        }
-        return $phone_number;
     }
 
     protected function validateCreateBooking()

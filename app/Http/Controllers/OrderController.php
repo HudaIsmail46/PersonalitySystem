@@ -73,7 +73,7 @@ class OrderController extends AuthenticatedController
     public function store(Request $request)
     {
         $this->validateCreateOrders();
-        $customer = Customer::findOrCreate($request->customer_name, $request->customer_phone_no);
+        $customer = Customer::findOrCreate($request->customer_name, formatPhoneNo($request->customer_phone_no));
         $order = new Order;
         $order->fill([
             'customer_id' => $customer->id,

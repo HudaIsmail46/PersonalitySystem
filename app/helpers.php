@@ -49,3 +49,16 @@ if (!function_exists('bookingAddress')) {
         return $address;
     }
 }
+
+if (!function_exists('formatPhoneNo')) {
+    function formatPhoneNo(String $phone_no)
+    {
+        if (preg_match('/^6/', $phone_no) || preg_match('/[\[^\+\]]/', $phone_no)) {
+            $phone_number = preg_replace('/\D+/', '', $phone_no);
+        } else {
+            $phone = preg_replace('/\D+/', '', $phone_no);
+            $phone_number =  "6" . $phone;
+        }
+        return $phone_number;
+    }
+}
