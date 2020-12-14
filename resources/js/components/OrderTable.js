@@ -53,6 +53,7 @@ function OrderTable(props) {
                             { order.customer.name }
                             <br/>
                             { order.customer.phone_no }
+                            <a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`}><i class="fab fa-whatsapp" style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
                         </td>
                         <td>
                             {order.address_1},<br/>
@@ -65,7 +66,7 @@ function OrderTable(props) {
                         <td>{ humaniseOrderState(order.state) }</td>
                         <td>{ internal ? null : <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>}
                             { internal ? <a href={`/external/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a> :
-                             <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>}       
+                             <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>}
                         </td>
                     </tr>
                 )})}

@@ -81,6 +81,7 @@
                                         <td> Name : {{ $runnerJob->order->customer->name }}
                                             <br />
                                             Phone No : {{ $runnerJob->order->customer->phone_no }}
+                                                        <a href="https://api.whatsapp.com/send?phone= {{$runnerJob->order->customer->phone_no  }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                                         </td>
                                         <td>{{ $runnerJob->state }}</td>
                                         <td>

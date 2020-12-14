@@ -58,7 +58,10 @@
                                         <td><a href="{{$customer->path()}}">{{ $customer ->id}}</td>
                                         <td>{{ $customer->name}}</td>
                                         <td>{{ $customer->address }}</td>
-                                        <td>{{ $customer->phone_no }}</td>
+                                        <td>
+                                            {{ $customer->phone_no }}
+                                            <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
+                                        </td>
                                         <td>
                                             Total Bookings = {{ $customer->bookings()->count()}}
                                             <br>

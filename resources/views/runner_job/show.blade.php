@@ -64,6 +64,7 @@
                                     <td> Name : {{ $runnerJob->order->customer->name }}
                                         <br />
                                         Phone No : {{ $runnerJob->order->customer->phone_no }}
+                                                    <a href="https://api.whatsapp.com/send?phone= {{ $runnerJob->order->customer->phone_no }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -77,7 +78,7 @@
                                         @include('images.table', ['images' =>  $runnerJob->images, 'can_delete_image' => auth()->user()->can('create runnerSchedules')])
                                         @include('images.create', ['images' => $runnerJob->images, 'imageableId' => $runnerJob->id, 'imageableType' => App\RunnerJob::class ])
                                     </td>
-                                </tr>        
+                                </tr>
                             </table>
                         </div>
                         @include('runner_job.form')

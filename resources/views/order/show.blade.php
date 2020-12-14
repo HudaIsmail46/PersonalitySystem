@@ -43,6 +43,7 @@
                                     Name : {{ $order->customer->name }}
                                     <br>
                                     Phone No : {{ $order->customer->phone_no }}
+                                                <a href="https://api.whatsapp.com/send?phone= {{ $order->customer->phone_no }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                                 </td>
                             </tr>
                             <tr>

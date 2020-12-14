@@ -20,6 +20,7 @@
                         {{$runnerJob->runnerSchedule->runner->name}}
                         <br>
                         {{$runnerJob->runnerSchedule->runner->phone_no}}
+                        <a href="https://api.whatsapp.com/send?phone=  {{$runnerJob->runnerSchedule->runner->phone_no}}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                     </td>
                     <td><a href="{{route('runner_job.show', $runnerJob->id)}}">View</a></td>
                 </tr>

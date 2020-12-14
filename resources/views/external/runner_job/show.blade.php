@@ -15,7 +15,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href ="{{ route('external.runner.show', $runnerJob->runnerSchedule->id ) }}">Runner
-                            Schedule</a></li>  
+                            Schedule</a></li>
                         <li class="breadcrumb-item active">Runner Job</li>
                     </ol>
                 </div>
@@ -45,8 +45,9 @@
                                     <td> Name : {{ $runnerJob->order->customer->name }}
                                         <br />
                                         Phone No : {{ $runnerJob->order->customer->phone_no }}
+                                                    <a href="https://api.whatsapp.com/send?phone= {{$runnerJob->order->customer->phone_no  }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
                                     </td>
-                                </tr>                          
+                                </tr>
                                 <tr>
                                     <td>Scheduled At</td>
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
@@ -80,7 +81,7 @@
                                         @include('images.table', ['images' =>  $runnerJob->images, 'can_delete_image' => auth()->user()->can('create runnerSchedules')])
                                         @include('images.create', ['images' => $runnerJob->images, 'imageableId' => $runnerJob->id, 'imageableType' => App\RunnerJob::class ])
                                     </td>
-                                </tr>        
+                                </tr>
                             </table>
                         </div>
                         @include('external.runner_job.form')

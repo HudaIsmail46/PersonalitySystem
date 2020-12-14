@@ -41,16 +41,16 @@ function RunnerJobEdit(props) {
 
     const orderStatuses = (state) => {
         if(state == "App\\State\\Order\\Completed" ){
-            status = "Completed" 
+            status = "Completed"
         }
         else if(state == "App\\State\\Order\\PendingPickupSchedule" || state == "App\\State\\Order\\PendingReturnSchedule"){
-            status = "Canceled" 
+            status = "Canceled"
         }
         return (
             status
         );
     }
-    
+
     const canceledRunnerJob = (runnerJobState) => {
         if (runnerJobState == "canceled")
           return  true;
@@ -162,7 +162,7 @@ function RunnerJobEdit(props) {
                                  scheduledOrder.job_type}
                             </td>
                             <td>
-                                {canceledRunnerJob(scheduledOrder.state) ? 
+                                {canceledRunnerJob(scheduledOrder.state) ?
                                 <del>
                                     {scheduledOrder.order.address_1},<br></br>
                                     {scheduledOrder.order.address_2},<br></br>
@@ -180,17 +180,19 @@ function RunnerJobEdit(props) {
                                 </p>}
                             </td>
                             <td>
-                                {canceledRunnerJob(scheduledOrder.state) ? 
-                                <del> 
+                                {canceledRunnerJob(scheduledOrder.state) ?
+                                <del>
                                     Name : {scheduledOrder.order.customer.name} <br/>
                                     Phone No : {scheduledOrder.order.customer.phone_no}
+                                                <a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`}><i class="fab fa-whatsapp" style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
                                 </del> :
                                 <p>
                                     Name : {scheduledOrder.order.customer.name} <br/>
                                     Phone No : {scheduledOrder.order.customer.phone_no}
+                                                <a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`}><i class="fab fa-whatsapp"  style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
                                 </p>}
                             </td>
-                            <td>{canceledRunnerJob(scheduledOrder.state) ? 
+                            <td>{canceledRunnerJob(scheduledOrder.state) ?
                                 <del>
                                     Id : {scheduledOrder.order.id}<br></br>
                                     {humaniseOrderState(scheduledOrder.order.state)}
@@ -240,6 +242,7 @@ function RunnerJobEdit(props) {
                                 Name : {order.customer.name}
                                 <br/>
                                 Phone No : {order.customer.phone_no}
+                                            <a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`}><i class="fab fa-whatsapp"  style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
                             </td>
                             <td><div className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</div></td>
                         </tr>
