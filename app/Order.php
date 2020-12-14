@@ -25,8 +25,8 @@ class Order extends Model
     protected $fillable = [
         'size', 'material', 'price', 'prefered_pickup_datetime', 'actual_length',
         'actual_width', 'actual_material', 'actual_price', 'customer_id', 'state', 'quantity',
-        'address_1', 'address_2','address_3', 'postcode', 'city', 'location_state', 'raw_payload',
-        'payment_method','paid_at', 'woocommerce_order_id', 'deposit_paid_at', 'deposit_payment_method'
+        'address_1', 'address_2', 'address_3', 'postcode', 'city', 'location_state', 'raw_payload',
+        'payment_method', 'paid_at', 'woocommerce_order_id', 'deposit_paid_at', 'deposit_payment_method', 'deposit_amount',
     ];
 
     use SoftDeletes;
@@ -35,7 +35,7 @@ class Order extends Model
     const SIZES = ['s', 'm', 'l'];
     const MATERIALS = ['wool', 'cotton', 'silk', 'synthetic'];
     const PAYMENTS = ['cash', 'bank transfer', 'fpx'];
-    protected $dates = ['prefered_pickup_datetime','paid_at', 'deposit_paid_at'];
+    protected $dates = ['prefered_pickup_datetime', 'paid_at', 'deposit_paid_at'];
 
     public function customer()
     {
@@ -46,12 +46,12 @@ class Order extends Model
     {
         return $this->morphMany('App\Image', 'imageable');
     }
-    
+
     public function comments()
     {
         return $this->morphMany('App\Comment', 'commentable');
     }
-    
+
     public function runnerJobs()
     {
         return $this->hasMany(RunnerJob::class);
@@ -81,14 +81,14 @@ class Order extends Model
             ]);
     }
 
-    protected static function boot() 
+    protected static function boot()
     {
-      parent::boot();
+        parent::boot();
 
-      static::deleting(function($order) {
-         foreach ($order->runnerJobs()->get() as $runnerJobs) {
-            $runnerJobs->delete();
-         }
-      });
+        static::deleting(function ($order) {
+            foreach ($order->runnerJobs()->get() as $runnerJobs) {
+                $runnerJobs->delete();
+            }
+        });
     }
 }

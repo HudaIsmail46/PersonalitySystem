@@ -215,6 +215,19 @@
                         </div>
 
                         <div class="field">
+                            <label class="label" for="deposit_amount">Deposit Amount</label>
+                            <div class="form-group row ">
+                                <div class="col-md-4">
+                                    <input class="form-control @error('deposit_amount') is-invalid @enderror" type="number"
+                                        name="deposit_amount" id="deposit_amount" step='.01'
+                                        value="{{ (float) (old('deposit_amount') ?? ($order->deposit_amount / 100 ?? 0)) }}"
+                                        placeholder="Deposit amount">
+                                    <div class="invalid-feedback">{{ $errors->first('deposit_amount') }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
                             <label class="label" for="deposit_paid_at">Deposit Paid At</label>
                             <div class="form-group row mx-0">
                                 <div class="col-xs-4">
@@ -258,7 +271,7 @@
                                 </div>
                             </div>
                         </div>
-        
+
                         <div class="field">
                             <label class="label" for="payment_method">Payment Method</label>
                             <div class="form-group row ">
