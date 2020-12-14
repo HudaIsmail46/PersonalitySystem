@@ -85,6 +85,10 @@
                                 <td>{{ money($order->actual_price) }}</td>
                             </tr>
                             <tr>
+                                <td>Deposit Amount</td>
+                                <td>{{ money($order->deposit_amount) }}</td>
+                            </tr>
+                            <tr>
                                 <td>Deposit Detail</td>
                                 <td>
                                     @if($order->deposit_paid_at != null)

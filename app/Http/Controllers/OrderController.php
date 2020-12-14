@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\Customer;
 use App\Image;
+use Cknow\Money\Money;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
 use App\Http\Controllers\ImageController;
@@ -90,6 +91,7 @@ class OrderController extends AuthenticatedController
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
+            'deposit_amount' => $this->priceCents($request->deposit_amount),
         ]);
         $order->save();
 
@@ -156,7 +158,8 @@ class OrderController extends AuthenticatedController
             'price' => $this->priceCents($request->price),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
             'deposit_payment_method' => $request->deposit_payment_method,
-            'deposit_paid_at' => $request->deposit_paid_at
+            'deposit_paid_at' => $request->deposit_paid_at,
+            'deposit_amount' => $this->priceCents($request->deposit_amount),
         ]);
 
         $order->save();

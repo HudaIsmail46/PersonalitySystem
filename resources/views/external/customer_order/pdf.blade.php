@@ -104,7 +104,7 @@
 
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
-                <td colspan="5">
+                <td colspan="7">
                     <table>
                         <tr>
                             <td class="title">
@@ -123,7 +123,7 @@
             </tr>
 
             <tr class="information">
-                <td colspan="5">
+                <td colspan="7">
                     <table>
                         <tr>
                             <td>
@@ -156,6 +156,8 @@
                 <td>Size</td>
                 <td>Status</td>
                 <td>Price</td>
+                <td>Deposit Amount</td>
+                <td>Balance Payment</td>
             </tr>
 
             <tr class="item">
@@ -164,6 +166,9 @@
                 <td> {{ $order->size }}</td>
                 <td> {{humaniseOrderState($order->state) }}</td>
                 <td> {{money($order->price) }}</td>
+                <td> {{money($order->deposit_amount) }}</td>
+                <td>{{\Cknow\Money\Money::MYR($order->price)->subtract(\Cknow\Money\Money::MYR($order->deposit_amount))}}</td>
+
             </tr>
 
             <table style="padding-top: 50px">
