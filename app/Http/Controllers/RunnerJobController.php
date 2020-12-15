@@ -134,9 +134,7 @@ class RunnerJobController extends AuthenticatedController
             $transitionTo = PendingReturnSchedule::class;
         }
 
-        $order->update([
-            'state' => $transitionTo
-        ]);
+        $order->state->transitionTo($transitionTo);
 
         $runnerJob->delete();
         $runnerJobs = $runnerSchedule->runnerJobs->load('order.customer');
@@ -158,9 +156,8 @@ class RunnerJobController extends AuthenticatedController
         } else if ($order->state == ReturnScheduled::class) {
             $transitionTo = Returned::class;
         }
-        $order->update([
-            'state' => $transitionTo
-        ]);
+
+        $order->state->transitionTo($transitionTo);
 
         $runnerJob->update([
             'state' => 'completed',

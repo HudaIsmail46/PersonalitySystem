@@ -182,9 +182,7 @@ class OrderController extends AuthenticatedController
 
     public function status(Order $order, Request $request)
     {
-        $order->update([
-            'state' => $request->state
-        ]);
+        $order->state->transitionTo($request->state);
         $order->load('customer');
         return $order;
     }
