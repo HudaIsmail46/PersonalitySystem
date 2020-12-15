@@ -31,8 +31,10 @@
                     <div class='mt-3 mb-5'>
                         Name: {{$customer->name}}
                         <br>
-                        Phone: {{$customer->phone_no}}
-                                <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
+                            @if ($customer->phone_no !=null)
+                                Phone: {{$customer->phone_no}}
+                                <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                            @endif
                         <br>
                         Address: {{$customer->address ?? '-'}}
                         <br>

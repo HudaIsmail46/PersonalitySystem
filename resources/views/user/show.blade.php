@@ -26,7 +26,11 @@
             <div class="col-md-6 card ">
                 <div class="card-header">
                     <h3 class="mb-0">{{$user->name}}</h3>
-                    <p class="mb-1">{{$user->phone_no}}<a href="https://api.whatsapp.com/send?phone= {{$user->phone_no  }}"><i class="fab fa-whatsapp" style="color:rgb(79, 206, 93)"></i></a></p>
+                    <p class="mb-1">
+                        @if ($user->phone_no !=null)
+                            {{$user->phone_no}}
+                            <a href="https://api.whatsapp.com/send?phone= {{$user->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a></p>
+                        @endif
                     <p class="mb-1">{{$user->email}}</p>
                 </div>
                 <div class="card-body">

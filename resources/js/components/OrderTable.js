@@ -52,8 +52,15 @@ function OrderTable(props) {
                         <td>
                             { order.customer.name }
                             <br/>
-                            { order.customer.phone_no }
-                            <a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`}><i class="fab fa-whatsapp" style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
+                            {
+                                (() => {
+                                    if (order.customer.phone_no !== null) {
+                                        return (
+                                            <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green"></i></a></div>
+                                        )
+                                    }
+                                })()
+                            }
                         </td>
                         <td>
                             {order.address_1},<br/>

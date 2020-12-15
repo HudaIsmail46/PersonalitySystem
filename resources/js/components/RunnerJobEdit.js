@@ -183,13 +183,28 @@ function RunnerJobEdit(props) {
                                 {canceledRunnerJob(scheduledOrder.state) ?
                                 <del>
                                     Name : {scheduledOrder.order.customer.name} <br/>
-                                    Phone No : {scheduledOrder.order.customer.phone_no}
-                                                <a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`}><i class="fab fa-whatsapp" style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
+                                    {
+                                        (() => {
+                                            if (scheduledOrder.order.customer.phone_no !== null) {
+                                                return (
+                                                    <div>Phone No : {scheduledOrder.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green"></i></a></div>
+                                                )
+                                            }
+                                        })()
+                                    }
                                 </del> :
                                 <p>
                                     Name : {scheduledOrder.order.customer.name} <br/>
-                                    Phone No : {scheduledOrder.order.customer.phone_no}
-                                                <a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`}><i class="fab fa-whatsapp"  style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
+                                    {
+                                        (() => {
+                                            if (scheduledOrder.order.customer.phone_no !== null) {
+                                                return (
+                                                    <div>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green"></i></a></div>
+                                                )
+                                            }
+                                        })()
+                                    }
+
                                 </p>}
                             </td>
                             <td>{canceledRunnerJob(scheduledOrder.state) ?
@@ -241,8 +256,15 @@ function RunnerJobEdit(props) {
                             <td>
                                 Name : {order.customer.name}
                                 <br/>
-                                Phone No : {order.customer.phone_no}
-                                            <a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`}><i class="fab fa-whatsapp"  style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a>
+                                {
+                                    (() => {
+                                        if (order.customer.phone_no !== null) {
+                                            return (
+                                                <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp"  style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a></div>
+                                            )
+                                        }
+                                    })()
+                                }
                             </td>
                             <td><div className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</div></td>
                         </tr>

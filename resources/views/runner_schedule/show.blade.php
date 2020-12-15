@@ -25,8 +25,10 @@
                                     <td>
                                         {{ $runner_schedule->runner->name }}
                                         <br>
-                                        {{ $runner_schedule->runner->phone_no }}
-                                        <a href="https://api.whatsapp.com/send?phone= {{$runner_schedule->runner->phone_no  }}"><i class="fab fa-whatsapp" style="color:green"></i></a>
+                                        @if ($runner_schedule->runner->phone_no !=null)
+                                            {{ $runner_schedule->runner->phone_no }}
+                                            <a href="https://api.whatsapp.com/send?phone= {{$runner_schedule->runner->phone_no  }}" target="blank"><i class="fab fa-whatsapp" style="color:green"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -95,8 +97,10 @@
                                         <td>{!! orderAddress($runnerJob->order) !!}</td>
                                         <td> Name : {{ $runnerJob->order->customer->name }}
                                             <br />
-                                            Phone No : {{ $runnerJob->order->customer->phone_no }}
-                                            <a href="https://api.whatsapp.com/send?phone= {{$runnerJob->order->customer->phone_no  }}"><i class="fab fa-whatsapp"  style="color:rgb(79, 206, 93)"></i></a>
+                                            @if ($runnerJob->order->customer->phone_no !=null)
+                                                Phone No : {{ $runnerJob->order->customer->phone_no }}
+                                                <a href="https://api.whatsapp.com/send?phone= {{$runnerJob->order->customer->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green"  ></i></a>
+                                            @endif
                                         </td>
                                         <td>{{ $runnerJob->state }}</td>
                                         <td>

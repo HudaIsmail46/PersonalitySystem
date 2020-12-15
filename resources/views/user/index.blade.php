@@ -39,8 +39,10 @@
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>
-                                                {{ $user->phone_no }}
-                                                <a href="https://api.whatsapp.com/send?phone= {{$user->phone_no  }}"><i class="fab fa-whatsapp" style="color:rgb(79, 206, 93)"></i></a>
+                                                @if ($user->phone_no!= null)
+                                                    {{ $user->phone_no}}
+                                                    <a href="https://api.whatsapp.com/send?phone= {{ $user->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                                @endif
                                             </td>
                                             <td>{{ $user->email }}</td>
                                             <td>
