@@ -5,12 +5,9 @@ import NextOrderStates from './NextOrderStates';
 import {dateFormatter, humaniseOrderState} from '../helpers.js';
 window.humaniseOrderState = humaniseOrderState;
 
-
-
 function OrderTable(props) {
     const { proporders, internal, canreopenorder } = props;
     const [orders, setOrders] = useState(proporders.data);
-
 
     const changeRunnerJobstate = (orderId, state) => {
         axios.post(`/order/status/${orderId}`,{state})
@@ -72,8 +69,8 @@ function OrderTable(props) {
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
                         <td>{ internal ? null : <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>}
-                            { internal ? <a href={`/external/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a> :
-                             <a href={`/order/${order.id}`}><button class='btn btn-s btn-primary mr-2'>View </button></a>}
+                            { internal ? <a href={`/external/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a> :
+                             <a href={`/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a>}
                         </td>
                     </tr>
                 )})}

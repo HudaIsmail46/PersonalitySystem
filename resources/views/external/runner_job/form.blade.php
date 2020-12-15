@@ -1,4 +1,4 @@
-@if (!$runnerJob->completed_at && $runnerJob->state != "canceled")
+@if (!$runnerJob->completed_at && $runnerJob->state != "canceled" && $runnerJob->order->leave_warehouse_at)
     <div class="row mt-2 ml-0">
         <form action="{{ route('external.runner_job.complete', $runnerJob->id) }}" method="post">
             @csrf

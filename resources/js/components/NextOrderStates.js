@@ -105,6 +105,18 @@ function NextOrderStates(props) {
                     <div className='mb-1'>
                         <button
                             className="btn btn-success btn-block"
+                            onClick={()=> onClick(order.id,  "App\\State\\Order\\InDelivery")}
+                        >
+                            Runner Collected
+                        </button>
+                    </div>
+                );
+                break;
+            case "App\\State\\Order\\InDelivery":
+                states = (
+                    <div className='mb-1'>
+                        <button
+                            className="btn btn-success btn-block"
                             onClick={()=> onClick(order.id,  "App\\State\\Order\\Returned")}
                         >
                             Returned To Customer
