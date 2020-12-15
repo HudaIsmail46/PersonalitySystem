@@ -33,7 +33,10 @@
                         <h3>Customer</h3>
                         Name : {{$order->customer->name}}
                         <br>
-                        Phone No : {{$order->customer->phone_no}}
+                        @if ($order->customer->phone_no !=null)
+                            Phone No : {{$order->customer->phone_no}}
+                            <a href="https://api.whatsapp.com/send?phone= {{ $order->customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                        @endif
                     </div>
                     <h3>Order</h3>
                     <form method="POST" action="{{ route('order.update', $order->id)}}" enctype="multipart/form-data">
