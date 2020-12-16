@@ -18,16 +18,16 @@ if(imageable)
         previewTemplate: dzPreview
     };
 
-    var myDropzone = new window.Dropzone("div#dropzone", { url: "/image"});
+    var myDropzone = new window.Dropzone("div#dropzone", { url: "/image", params: {
+        imageable_id: imageable_id,
+        imageable_type: imageable_type,
+        _token: token
+    }});
 
     addMoreFile.addEventListener("click", ()=>{ myDropzone.hiddenFileInput.click(); });
 
     myDropzone.on("sending", function(file, xhr, formData) {
-        // Will send the filesize along with the file as POST data.
         var caption = file.previewElement.querySelector("input#caption");
-        formData.append("imageable_id", imageable_id);
-        formData.append("imageable_type", imageable_type);
-        formData.append("_token", token);
         formData.append("caption", caption.value)
         caption.setAttribute("readonly", "readonly")
         file.previewElement.querySelector(".buttons").setAttribute("style", "display: none;");
