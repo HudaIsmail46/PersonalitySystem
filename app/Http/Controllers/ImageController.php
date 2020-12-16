@@ -22,8 +22,8 @@ class ImageController extends AuthenticatedController
         if (request()->hasFile('file')) {
             $image->fill([
                 'user_id' => $id,
-                'imageable_id' => $request->imageable_id,
-                'imageable_type' => $request->imageable_type,
+                'imageable_id' => $request->query('imageable_id'),
+                'imageable_type' => $request->query('imageable_type'),
                 'file' => request()->file->store('uploads', 'public'),
                 'caption' => $request->caption
             ]);

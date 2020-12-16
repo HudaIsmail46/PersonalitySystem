@@ -7,6 +7,7 @@ if(imageable)
     var token = imageable.getAttribute('data-token');
     var imageable_id = imageable.getAttribute('data-imageableid');
     var imageable_type = imageable.getAttribute('data-imageabletype');
+    var url = "/image?imageable_id=" + imageable_id + "&imageable_type=" + imageable_type;
     Dropzone.autoDiscover = false;
     Dropzone.options.dropzone =
     {
@@ -18,9 +19,7 @@ if(imageable)
         previewTemplate: dzPreview
     };
 
-    var myDropzone = new window.Dropzone("div#dropzone", { url: "/image", params: {
-        imageable_id: imageable_id,
-        imageable_type: imageable_type,
+    var myDropzone = new window.Dropzone("div#dropzone", { url: url, params: {
         _token: token
     }});
 
@@ -31,7 +30,6 @@ if(imageable)
         formData.append("caption", caption.value)
         caption.setAttribute("readonly", "readonly")
         file.previewElement.querySelector(".buttons").setAttribute("style", "display: none;");
-        
     });
 
     myDropzone.on("addedfile", function(file) {
