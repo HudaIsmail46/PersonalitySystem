@@ -46,6 +46,12 @@
                     <div class="table-responsive">
                         @include('booking.table', ['bookings'=>$customer->bookings()->get()])
                     </div>
+
+                    <h2>Orders:-</h2>
+                    <div class="table-responsive">
+                        @include('order.table', ['orders'=>$customer->orders()->get()])
+                    </div>
+
                     @can('edit customers')
                     <div class="row mt-5">
                         <a href="{{ route('customer.edit',$customer->id)}}" class="btn btn-primary mr-2">Edit</a>
