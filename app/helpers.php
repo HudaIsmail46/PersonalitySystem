@@ -28,7 +28,10 @@ if (!function_exists('orderAddress')) {
     function orderAddress(App\Order $order)
     {
         if (!is_null($order->address_1) || !is_null($order->address_2) || !is_null($order->address_3) || !is_null($order->postcode) || !is_null($order->city) || !is_null($order->location_state)) {
-            $address = $order->address_1 . ", <br/>" . $order->address_2 . ", <br/>" . $order->address_3 . ", <br/>" . $order->postcode . ", <br/>" . $order->city . ", <br/>" . $order->location_state;
+            $addressString = $order->address_1 . ", <br/>" . $order->address_2 . ", <br/>" . $order->address_3 . ", <br/>" . $order->postcode . ", <br/>" . $order->city . ", <br/>" . $order->location_state . "<br/>";
+            if($addressString !== null){
+                $address = $addressString . "<a href='https://www.google.com/maps/place/{$addressString}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
+            }
         } else {
             $address = '-';
         }
@@ -41,7 +44,10 @@ if (!function_exists('bookingAddress')) {
     function bookingAddress(App\Booking $booking)
     {
         if (!is_null($booking->address_1) || !is_null($booking->address_2) || !is_null($booking->address_3) || !is_null($booking->postcode) || !is_null($booking->city) || !is_null($booking->location_state)) {
-            $address = $booking->address_1 . ", <br/>" . $booking->address_2 . ", <br/>" . $booking->address_3 . ", <br/>" . $booking->postcode . ", <br/>" . $booking->city . ", <br/>" . $booking->location_state;
+             $addressString = $booking->address_1 . ", <br/>" . $booking->address_2 . ", <br/>" . $booking->address_3 . ", <br/>" . $booking->postcode . ", <br/>" . $booking->city . ", <br/>" . $booking->location_state;
+             if($addressString !== null){
+                $address = $addressString . "<a href='https://www.google.com/maps/place/{$addressString}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
+            }
         } else {
             $address = '-';
         }
@@ -54,7 +60,10 @@ if (!function_exists('customerAddress')) {
     function customerAddress(App\Customer $customer)
     {
         if (!is_null($customer->address_1) || !is_null($customer->address_2) || !is_null($customer->address_3) || !is_null($customer->postcode) || !is_null($customer->city) || !is_null($customer->location_state)) {
-            $address = $customer->address_1 . ", <br/>" . $customer->address_2 . ", <br/>" . $customer->address_3 . ", <br/>" . $customer->postcode . ", <br/>" . $customer->city . ", <br/>" . $customer->location_state;
+            $addressString = $customer->address_1 . ", <br/>" . $customer->address_2 . ", <br/>" . $customer->address_3 . ", <br/>" . $customer->postcode . ", <br/>" . $customer->city . ", <br/>" . $customer->location_state;
+            if($addressString !== null){
+                $address = $addressString . "<a href='https://www.google.com/maps/place/{$addressString}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
+            }
         } else {
             $address = '-';
         }

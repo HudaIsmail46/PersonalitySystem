@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import {dateFormatter, humaniseOrderState} from '../helpers.js';
+import {dateFormatter, humaniseOrderState, orderAddress} from '../helpers.js';
 import dateFormat from 'dateformat';
 window.humaniseOrderState = humaniseOrderState;
+window.orderAddress =orderAddress;
 
 function RunnerJobEdit(props) {
     const { proporders, runnerschedule, runnerjobs } = props;
@@ -95,6 +96,22 @@ function RunnerJobEdit(props) {
             closeModal();
     }
 
+    const displayAddress = (order) => {
+        if (orderAddress(order) !== null) {
+            return (
+                <div>
+                    {order.address_1}
+                    {order.address_2}
+                    {order.address_3}<br/>
+                    {order.postcode}<br/>
+                    {order.city}<br/>
+                    {order.location_state}
+                    <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i class="fas fa-map-marked-alt icon-blue"></i></a>
+                </div>
+            )
+        }
+    }
+
     const runnerJobForm = () => {
         let timeValue = dateFormat(runnerJob.scheduled_at, "HH:MM");
         return (
@@ -164,19 +181,11 @@ function RunnerJobEdit(props) {
                             <td>
                                 {canceledRunnerJob(scheduledOrder.state) ?
                                 <del>
-                                    {scheduledOrder.order.address_1},<br></br>
-                                    {scheduledOrder.order.address_2},<br></br>
-                                    {scheduledOrder.order.postcode},<br></br>
-                                    {scheduledOrder.order.city},<br></br>
-                                    {scheduledOrder.order.city},<br></br>
-                                    {scheduledOrder.order.location_state}
+                                    {displayAddress(scheduledOrder.order)}
+
                                 </del> :
                                 <p>
-                                    {scheduledOrder.order.address_1},<br></br>
-                                    {scheduledOrder.order.address_2},<br></br>
-                                    {scheduledOrder.order.postcode},<br></br>
-                                    {scheduledOrder.order.city},<br></br>
-                                    {scheduledOrder.order.location_state}
+                                    {displayAddress(scheduledOrder.order)}
                                 </p>}
                             </td>
                             <td>
@@ -247,11 +256,7 @@ function RunnerJobEdit(props) {
                             <td>{humaniseOrderState(order.state)}</td>
                             <td>{dateFormatter(order.prefered_pickup_datetime )}</td>
                             <td>
-                                {order.address_1},<br></br>
-                                {order.address_2},<br></br>
-                                {order.postcode},<br></br>
-                                {order.city},<br></br>
-                                {order.location_state}
+                                {displayAddress(order)}
                             </td>
                             <td>
                                 Name : {order.customer.name}
@@ -260,7 +265,7 @@ function RunnerJobEdit(props) {
                                     (() => {
                                         if (order.customer.phone_no !== null) {
                                             return (
-                                                <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp"  style={{color: 'rgb(79, 206, 93)',marginLeft:'2px'}}></i></a></div>
+                                                <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green" ></i></a></div>
                                             )
                                         }
                                     })()

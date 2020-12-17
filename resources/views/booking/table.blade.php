@@ -18,7 +18,7 @@
                 <span class="badge badge-warning">Incomplete Data</span>
             @endif
         </td>
-        <td>{{ $booking->gc_address }}</td>
+        <td>{!! bookingAddress($booking) !!}</td>
         <td>
             Start: {{ myLongDateTime(new Carbon\Carbon($booking->gc_event_begins)) }}<br>
             End: {{ myLongDateTime(new Carbon\Carbon($booking->gc_event_ends)) }}
