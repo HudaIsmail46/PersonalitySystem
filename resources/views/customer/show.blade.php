@@ -36,7 +36,7 @@
                                 <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
                             @endif
                         <br>
-                        Address: {{$customer->address ?? '-'}}
+                        Address: {!! customerAddress($customer) !!}
                         <br>
                         Life Time Value: {{money($customer->bookings()->sum('price'))}}
                         <br>

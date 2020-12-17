@@ -57,10 +57,10 @@
 
                                         <td><a href="{{$customer->path()}}">{{ $customer ->id}}</td>
                                         <td>{{ $customer->name}}</td>
-                                        <td>{{ $customer->address }}</td>
+                                        <td> {!! customerAddress($customer) !!}</td>
                                         <td>
                                             @if ($customer->phone_no != null)
-                                                Phone No : {{ $customer->phone_no }}
+                                                {{ $customer->phone_no }}
                                                 <a href="https://api.whatsapp.com/send?phone= {{ $customer->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
                                             @endif
                                         </td>
