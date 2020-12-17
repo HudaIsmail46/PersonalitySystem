@@ -25,10 +25,12 @@ class CustomerController extends AuthenticatedController
             return $q->where('name', 'ILIKE', '%' . $name . '%');
         })
             ->when($address, function ($q) use ($address) {
-                return $q->where('address', 'ILIKE', '%' . $address . '%');
+                return $q->where('address_1', 'ILIKE', '%' . $address . '%')
+                         ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
+                         ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
             })
             ->when($phone_no, function ($q) use ($phone_no) {
-                return $q->where('phone_no', 'ILIKE', '%' . $phone_no . '%');
+                return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
             })
             ->orderBy('id', 'ASC')->paginate(20);
 

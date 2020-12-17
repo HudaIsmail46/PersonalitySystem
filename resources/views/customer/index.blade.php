@@ -30,13 +30,13 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-2">
-                                        Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name">
+                                        Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
                                     </div>
                                     <div class="col-md-2">
-                                        Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address">
+                                        Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address" value="{{request()->address}}">
                                     </div>
                                     <div class="col-md-2">
-                                        Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone no">
+                                        Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone number" value="{{request()->phone_no}}">
                                     </div>
                                 </div>
 

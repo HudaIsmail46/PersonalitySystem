@@ -43,7 +43,7 @@ class OrderController extends AuthenticatedController
                 return $q->whereDate('prefered_pickup_datetime', $date);
             })
             ->when($name, function ($q) use ($name) {
-                return $q->where('customers.name', 'LIKE', '%' . $name . '%');
+                return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
             })
             ->when($phone_no, function ($q) use ($phone_no) {
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
