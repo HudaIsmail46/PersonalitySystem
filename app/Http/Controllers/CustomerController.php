@@ -98,7 +98,7 @@ class CustomerController extends AuthenticatedController
     public function update(Request $request, Customer $customer)
     {
         $customer->update($this->validateCustomers());
-        return back()->with('success', 'Customers updated successfully.');
+        return redirect()->route('customer.show', $customer->id)->with('success', 'Customers updated successfully.');
     }
 
     /**
