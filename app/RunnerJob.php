@@ -32,4 +32,11 @@ class RunnerJob extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function canBeCompleted()
+    {
+        return !$this->completed_at &&
+                $this->state != "canceled" &&
+                ($this->job_type == 'pickup' || ($this->job_type == 'delivery' && $this->order->leave_warehouse_at));
+    }
+
 }

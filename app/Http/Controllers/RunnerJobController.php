@@ -9,6 +9,7 @@ use App\State\Order\PendingPickupSchedule;
 use App\State\Order\PendingReturnSchedule;
 use App\State\Order\PickupScheduled;
 use App\State\Order\ReturnScheduled;
+use App\State\Order\InDelivery;
 use App\State\Order\Collected;
 use App\State\Order\Completed;
 use App\State\Order\ReceivedWarehouse;
@@ -153,7 +154,7 @@ class RunnerJobController extends AuthenticatedController
         $order = $runnerJob->order;
         if ($order->state == PickupScheduled::class) {
             $transitionTo = Collected::class;
-        } else if ($order->state == ReturnScheduled::class) {
+        } else if ($order->state == InDelivery::class) {
             $transitionTo = Returned::class;
         }
 
