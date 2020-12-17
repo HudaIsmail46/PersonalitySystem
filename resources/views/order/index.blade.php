@@ -37,7 +37,7 @@
                                             Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
                                         </div>
                                         <div class="col-md-2">
-                                            Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone no" value="{{request()->phone_no}}">
+                                            Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone number" value="{{request()->phone_no}}">
                                         </div>
                                         <div class="col-md-2">
                                             Prefered Date Time: <input class="form-control form-control-sm" type="date" name="date" value="{{request()->date}}">

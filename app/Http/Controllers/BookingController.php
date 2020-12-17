@@ -24,7 +24,7 @@ class BookingController extends AuthenticatedController
         $address = $request->address;
 
         $bookings = Booking::when($name, function ($q) use ($name) {
-                return $q->where('name', 'LIKE', '%' . $name . '%');
+                return $q->where('name', 'ILIKE', '%' . $name . '%');
             })
             ->when($phone, function ($q) use ($phone) {
                 return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
@@ -36,7 +36,7 @@ class BookingController extends AuthenticatedController
                 return $q->where('gc_team', $team);
             })
             ->when($address, function ($q) use ($address) {
-                return $q->where('gc_address',  'LIKE', '%' . $address . '%');
+                return $q->where('gc_address',  'ILIKE', '%' . $address . '%');
             })
             ->orderBy('gc_event_begins', 'DESC')->paginate(10);
 
