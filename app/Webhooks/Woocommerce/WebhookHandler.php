@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Webhooks\Woocommerce;
+
 use App\Order;
 use App\Customer;
 use Carbon\Carbon;
@@ -13,9 +14,17 @@ class WebhookHandler
         $data = json_decode($data, true);
         $payload = $data["payload"];
         $billing = $payload["billing"];
-        $item = $payload["line_items"][0];//for now we only process pnd, the cart is not mixed with other item
-        if($item['product_id'] == env('PRODUCT_ID', "601294001492")){//hardcoded for now, this is referring for pnd product only
-            $customer = Customer::findOrCreate($billing["first_name"]." ".$billing['last_name'], $billing["phone"]);
+        $item = $payload["line_items"][0]; //for now we only process pnd, the cart is not mixed with other item
+        if ($item['product_id'] == env('PRODUCT_ID', '')) { //hardcoded for now, this is referring for pnd product only
+            $customer = Customer::findOrCreate($billing["first_name"] . " " . $billing['last_name'], $billing["phone"]);
+           
+            $customer->update([
+                $customer->address_1 = $billing["address_1"],
+                $customer->address_2 = $billing["address_2"],
+                $customer->postcode =  $billing["postcode"],
+                $customer->city = $billing["city"],
+                $customer->location_state = $billing["state"]
+            ]);
 
             $order = new Order;
 
@@ -40,7 +49,7 @@ class WebhookHandler
         }
 
 
-       http_response_code(200);
+        http_response_code(200);
     }
 
     public static function getOrderSize($data)
@@ -74,6 +83,4 @@ class WebhookHandler
             }
         }
     }
-
-
 }

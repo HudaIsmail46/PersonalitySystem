@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Customer extends Model
 {
-    protected $fillable = [ 'name', 'phone_no','address', 'gender', 'nric', 'email'];
+    protected $fillable = [ 'name', 'phone_no', 'address_1', 'address_2', 'address_3', 'postcode', 'city', 'location_state', 'gender', 'nric', 'email'];
+
+    use SoftDeletes;
 
     public function path()
     {
@@ -47,5 +49,18 @@ class Customer extends Model
         }
 
         return $customer;
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($customer) {
+            foreach ($customer->orders()->get() as $orders) {
+                $orders->delete();
+            }
+            foreach ($customer->bookings()->get() as $bookings) {
+                $bookings->delete();
+            }
+        });
     }
 }

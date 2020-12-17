@@ -50,6 +50,19 @@ if (!function_exists('bookingAddress')) {
     }
 }
 
+if (!function_exists('customerAddress')) {
+    function customerAddress(App\Customer $customer)
+    {
+        if (!is_null($customer->address_1) || !is_null($customer->address_2) || !is_null($customer->address_3) || !is_null($customer->postcode) || !is_null($customer->city) || !is_null($customer->location_state)) {
+            $address = $customer->address_1 . ", <br/>" . $customer->address_2 . ", <br/>" . $customer->address_3 . ", <br/>" . $customer->postcode . ", <br/>" . $customer->city . ", <br/>" . $customer->location_state;
+        } else {
+            $address = '-';
+        }
+
+        return $address;
+    }
+}
+
 if (!function_exists('formatPhoneNo')) {
     function formatPhoneNo(String $phone_no)
     {
