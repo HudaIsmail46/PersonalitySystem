@@ -58,7 +58,7 @@
                                 </tr>
                                 <tr>
                                     <td>Address</td>
-                                    <td align="left">{{$booking->gc_address}}</td>
+                                    <td align="left">{!! bookingAddress($booking) !!}</td>
                                 </tr>
                                 <tr>
                                     <td>Event Begins</td>
@@ -99,8 +99,8 @@
                                 <div class="form-group row ">
                                     <div class="col-md-4">
                                         <input class="form-control @error('receipt_number') is-invalid @enderror" type="number"
-                                            name="receipt_number" id="receipt_number" 
-                                            value="{{old('receipt_number')?? $booking->receipt_number ?? ''}}" placeholder=" Receipt Number">  
+                                            name="receipt_number" id="receipt_number"
+                                            value="{{old('receipt_number')?? $booking->receipt_number ?? ''}}" placeholder=" Receipt Number">
                                         <div class="invalid-feedback">{{ $errors->first('receipt_number') }}</div>
                                     </div>
                                 </div>
@@ -111,8 +111,8 @@
                                 <div class="form-group row ">
                                     <div class="col-md-4">
                                         <input class="form-control @error('invoice_number') is-invalid @enderror" type="number"
-                                            name="invoice_number" id="invoice_number" 
-                                            value="{{old('invoice_number')?? $booking->invoice_number ?? ''}}" placeholder=" Invoice Number">  
+                                            name="invoice_number" id="invoice_number"
+                                            value="{{old('invoice_number')?? $booking->invoice_number ?? ''}}" placeholder=" Invoice Number">
                                         <div class="invalid-feedback">{{ $errors->first('invoice_number') }}</div>
                                     </div>
                                 </div>

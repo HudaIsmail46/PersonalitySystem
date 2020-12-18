@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NextOrderStates from './NextOrderStates';
-import {dateFormatter, humaniseOrderState} from '../helpers.js';
+import {dateFormatter, humaniseOrderState, orderAddress} from '../helpers.js';
 window.humaniseOrderState = humaniseOrderState;
+window.orderAddress= orderAddress;
 
 function OrderTable(props) {
     const { proporders, internal, canreopenorder } = props;
@@ -60,11 +61,24 @@ function OrderTable(props) {
                             }
                         </td>
                         <td>
-                            {order.address_1},<br/>
-                            {order.address_2},<br/>
-                            {order.postcode},<br/>
-                            {order.city},<br/>
-                            {order.location_state}
+                            {
+                                (() => {
+                                    if (orderAddress(order) !== null) {
+                                        return (
+                                            <div>
+                                                {order.address_1}
+                                                {order.address_2}
+                                                {order.address_3}<br/>
+                                                {order.postcode}<br/>
+                                                {order.city}<br/>
+                                                {order.location_state}
+                                                <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i class="fas fa-map-marked-alt icon-blue"></i></a>
+                                            </div>
+                                        )
+                                    }
+                                })()
+                            }
+
                         </td>
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
