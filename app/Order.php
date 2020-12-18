@@ -35,7 +35,7 @@ class Order extends Model
         'address_1', 'address_2', 'address_3', 'postcode', 'city', 'location_state', 'raw_payload',
         'payment_method', 'paid_at', 'woocommerce_order_id', 'deposit_paid_at', 'deposit_payment_method',
         'deposit_amount', 'collected_at', 'arrived_warehouse_at', 'vendor_collected_at',
-        'vendor_returned_at', 'leave_warehouse_at', 'returned_at'
+        'vendor_returned_at', 'leave_warehouse_at', 'returned_at', 'notice_ambilan_ref'
     ];
 
     use SoftDeletes;

@@ -30,7 +30,7 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-sm-1">
                                             Id: <input class="form-control form-control-sm" type="search" name="id" placeholder="id" value="{{request()->id}}">
                                         </div>
                                         <div class="col-md-2">
@@ -50,6 +50,9 @@
                                                     <option value="{{$state}}" {{(request()->state == $state) ? 'selected' : '' }} class='text-capitalize'>{{humaniseOrderState($state)}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            Notis Ambilan: <input class="form-control form-control-sm" type="search" name="notice_ambilan_ref" placeholder="notis ambilan" value="{{request()->notice_ambilan_ref}}">
                                         </div>
                                         <button class="btn btn-primary mt-auto" type="submit">Search <i class="fa fa-search"></i></button>
                                     </div>
