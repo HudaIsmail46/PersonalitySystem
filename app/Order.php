@@ -41,8 +41,8 @@ class Order extends Model
     use SoftDeletes;
     use HasStates;
 
-    const SIZES = ['s', 'm', 'l'];
-    const MATERIALS = ['wool', 'cotton', 'silk', 'synthetic'];
+    const SIZES = ['xs', 's', 'm', 'l'];
+    const MATERIALS = ['wool', 'cotton', 'silk', 'synthetic', 'shaggy'];
     const PAYMENTS = ['cash', 'bank transfer', 'fpx'];
     protected $dates = ['prefered_pickup_datetime','paid_at', 'deposit_paid_at',
         'collected_at', 'arrived_warehouse_at', 'vendor_collected_at', 'vendor_returned_at',
