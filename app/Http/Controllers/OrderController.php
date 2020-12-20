@@ -28,6 +28,7 @@ class OrderController extends AuthenticatedController
         $name = $request->name;
         $id = $request->id;
         $phone_no = $request->phone_no;
+        $notice_ambilan_ref = $request->notice_ambilan_ref;
         $canReopenOrder = Auth()->user()->can('reOpen order');
 
         $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
@@ -47,6 +48,9 @@ class OrderController extends AuthenticatedController
             })
             ->when($phone_no, function ($q) use ($phone_no) {
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
+            })
+            ->when($notice_ambilan_ref, function ($q) use ($notice_ambilan_ref) {
+                return $q->where('orders.notice_ambilan_ref', 'ILIKE', '%' . $notice_ambilan_ref . '%');
             })
             ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
 
@@ -92,6 +96,7 @@ class OrderController extends AuthenticatedController
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
             'deposit_amount' => $this->priceCents($request->deposit_amount),
+            'notice_ambilan_ref' => $request->notice_ambilan_ref,
         ]);
         $order->save();
 
@@ -160,6 +165,7 @@ class OrderController extends AuthenticatedController
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
             'deposit_amount' => $this->priceCents($request->deposit_amount),
+            'notice_ambilan_ref' => $request->notice_ambilan_ref,
         ]);
 
         $order->save();

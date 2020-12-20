@@ -306,6 +306,18 @@
                             </div>
                         </div>
 
+                        <div class="field">
+                            <label class="label" for="notice_ambilan_ref">Notis Ambilan </label>
+                            <div class="form-group row">
+                                <div class="col-auto">
+                                    <input class="form-control @error('notice_ambilan_ref') is-invalid @enderror" type="text"
+                                        name="notice_ambilan_ref" id="notice_ambilan_ref" value="{{ old('notice_ambilan_ref') ?? ($order->notice_ambilan_ref ?? '') }}"
+                                        placeholder="Notis Ambilan">
+                                    <div class="invalid-feedback">{{ $errors->first('notice_ambilan_ref') }}</div>
+                                </div>
+                            </div>
+                        </div>
+
                         @include('images.create', ['images' => $order->images, 'imageableId' =>
                         $order->id,
                         'imageableType' => App\Order::class ])

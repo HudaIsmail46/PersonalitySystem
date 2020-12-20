@@ -126,6 +126,10 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Notis Ambilan </td>
+                                <td>{{ $order->notice_ambilan_ref }}</td>
+                            </tr>
+                            <tr>
                                 <td>Logs</td>
                                 <td>
                                     <div class="row">
