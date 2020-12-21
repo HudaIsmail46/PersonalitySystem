@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\RunnerSchedule;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Order;
 use App\State\Order\PendingPickupSchedule;
 use App\State\Order\PendingReturnSchedule;
@@ -19,9 +20,11 @@ class RunnerScheduleController extends AuthenticatedController
 
     public function index()
     {
-        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->orderBy('id', 'ASC')->paginate(50);
+        $today = Carbon::today()->toDateTimeString();
+        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('scheduled_at', '>=' , $today)->orderBy('id', 'ASC')->paginate(50);
+        $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->paginate(50);
 
-        return view('runner_schedule.index', compact('runner_schedules'));
+        return view('runner_schedule.index', compact('runner_schedules', 'previous_runner_schedules'));
     }
 
     /**
