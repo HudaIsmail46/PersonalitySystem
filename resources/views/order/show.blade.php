@@ -31,7 +31,12 @@
                         <table class='table table-bordered table-striped w-100'>
                             <tr>
                                 <td> Order Id</td>
-                                <td> {{ $order->id }}</td>
+                                <td>
+                                    {{ $order->id }}<br>
+                                    @if($order->walk_in_customer)
+                                        <span class="badge badge-success">walk in customer</span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Woocommerce Order Ref</td>

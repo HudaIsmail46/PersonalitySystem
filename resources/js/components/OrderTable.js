@@ -55,7 +55,7 @@ function OrderTable(props) {
                                 (() => {
                                     if (order.customer.phone_no !== null) {
                                         return (
-                                            <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green"></i></a></div>
+                                            <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a></div>
                                         )
                                     }
                                 })()
@@ -73,7 +73,7 @@ function OrderTable(props) {
                                                 {order.postcode}<br/>
                                                 {order.city}<br/>
                                                 {order.location_state}
-                                                <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i class="fas fa-map-marked-alt icon-blue"></i></a>
+                                                <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
                                             </div>
                                         )
                                     }
@@ -82,13 +82,13 @@ function OrderTable(props) {
 
                         </td>
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
-                        <td>{ humaniseOrderState(order.state) }</td> 
+                        <td>{ humaniseOrderState(order.state) }</td>
                         <td>{ order.notice_ambilan_ref}</td>
                         <td>{ internal ? null : <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>}
                             { internal ? <a href={`/external/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a> :
                              <a href={`/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a>}
                         </td>
-                       
+
                     </tr>
                 )})}
             </tbody>
