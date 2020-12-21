@@ -106,7 +106,7 @@ function RunnerJobEdit(props) {
                     {order.postcode}<br/>
                     {order.city}<br/>
                     {order.location_state}
-                    <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i class="fas fa-map-marked-alt icon-blue"></i></a>
+                    <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
                 </div>
             )
         }
@@ -196,11 +196,21 @@ function RunnerJobEdit(props) {
                                         (() => {
                                             if (scheduledOrder.order.customer.phone_no !== null) {
                                                 return (
-                                                    <div>Phone No : {scheduledOrder.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green"></i></a></div>
+                                                    <div>Phone No : {scheduledOrder.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a></div>
                                                 )
                                             }
                                         })()
                                     }
+                                    {
+                                        (() => {
+                                            if (scheduledOrder.order.walk_in_customer == '1') {
+                                                return (
+                                                <div> <span class="badge badge-success">walk in customer</span>  </div>
+                                                )
+                                            }
+                                        })()
+                                    }
+
                                 </del> :
                                 <p>
                                     Name : {scheduledOrder.order.customer.name} <br/>
@@ -208,12 +218,20 @@ function RunnerJobEdit(props) {
                                         (() => {
                                             if (scheduledOrder.order.customer.phone_no !== null) {
                                                 return (
-                                                    <div>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green"></i></a></div>
+                                                    <div>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a></div>
                                                 )
                                             }
                                         })()
                                     }
-
+                                    {
+                                        (() => {
+                                            if (scheduledOrder.order.walk_in_customer == '1') {
+                                                return (
+                                                <div> <span class="badge badge-success">walk in customer</span>  </div>
+                                                )
+                                            }
+                                        })()
+                                    }
                                 </p>}
                             </td>
                             <td>{canceledRunnerJob(scheduledOrder.state) ?
@@ -223,7 +241,8 @@ function RunnerJobEdit(props) {
                                 </del> :
                                 <p>
                                     Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br></br>
-                                    {humaniseOrderState(scheduledOrder.order.state)}
+                                    {humaniseOrderState(scheduledOrder.order.state)}<br/>
+
                                 </p>}
                             </td>
                             <td>{ orderStatuses(scheduledOrder.order.state) ? status :
@@ -265,7 +284,16 @@ function RunnerJobEdit(props) {
                                     (() => {
                                         if (order.customer.phone_no !== null) {
                                             return (
-                                                <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i class="fab fa-whatsapp icon-green" ></i></a></div>
+                                                <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green" ></i></a></div>
+                                            )
+                                        }
+                                    })()
+                                }
+                                {
+                                    (() => {
+                                        if (order.walk_in_customer == '1') {
+                                            return (
+                                                <span class="badge badge-success">walk in customer</span>
                                             )
                                         }
                                     })()

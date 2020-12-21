@@ -42,8 +42,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="field">
+                                    <input type="checkbox" id="walk_in_customer" name="walk_in_customer" value="1">
+                                            <label for="walk_in_customer"> Walk in Customer</label>
+                                </div>
                             </div>
-
                             <h3>Order</h3>
                             <div class="field">
                                 <label class="label" for="address_1">Address 1 <span class="text-danger">*</span></label>
@@ -230,7 +233,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="field">
                                 <label class="label" for="notice_ambilan_ref">Notis Ambilan</label>
                                 <div class="form-group row mx-0">
