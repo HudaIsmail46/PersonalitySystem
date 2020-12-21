@@ -84,7 +84,6 @@
                                 </tr>
                             </table>
                         </div>
-                        @include('runner_job.form')
                     </div>
                 </div>
                 <div class="col-md-5 ml-2 ">

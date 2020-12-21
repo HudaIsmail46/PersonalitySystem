@@ -83,13 +83,14 @@ class Order extends Model
                 [ReceivedWarehouse::class, VendorCollected::class, ToVendorCollected::class],
                 [ReceivedWarehouse::class, InHouseCleaning::class],
                 [[VendorCollected::class, InHouseCleaning::class], PendingReturnSchedule::class, ToCleaningCompleted::class],
-                [InDelivery::class, PendingReturnSchedule::class],
                 [PendingReturnSchedule::class, ReturnScheduled::class],
                 [PendingReturnSchedule::class, Returned::class, ToReturned::class],
                 [ReturnScheduled::class, InDelivery::class, ToInDelivery::class],
                 [InDelivery::class, Returned::class, ToReturned::class],
-                [Returned::class, PendingPickupSchedule::class],
-                [Returned::class, Completed::class]
+                [[InDelivery::class,ReturnScheduled::class], PendingReturnSchedule::class],
+                [Returned::class, Draft::class],
+                [Returned::class, Completed::class],
+                [Completed::class, Draft::class]
             ]);
     }
 

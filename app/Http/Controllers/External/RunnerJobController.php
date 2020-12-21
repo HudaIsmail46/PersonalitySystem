@@ -69,9 +69,7 @@ class RunnerJobController extends AuthenticatedController
             $transitionTo = PendingReturnSchedule::class;
         }
 
-        $order->update([
-            'state' => $transitionTo
-        ]);
+        $order->state->transitionTo($transitionTo);
 
         return redirect()->route('external.runner_job.show', $runnerJob);
     }

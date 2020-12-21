@@ -143,51 +143,6 @@ class RunnerJobController extends AuthenticatedController
         return json_encode(['runnerJobs' => $runnerJobs, 'orders' => $orders]);
     }
 
-    public function complete(RunnerJob $runnerJob)
-    {
-        $runnerJob = $runnerJob->find($runnerJob->id);
-        $runnerJob->fill([
-            'completed_at' => Carbon::now(),
-        ]);
-        $runnerJob->save();
-
-        $order = $runnerJob->order;
-        if ($order->state == PickupScheduled::class) {
-            $transitionTo = Collected::class;
-        } else if ($order->state == InDelivery::class) {
-            $transitionTo = Returned::class;
-        }
-
-        $order->state->transitionTo($transitionTo);
-
-        $runnerJob->update([
-            'state' => 'completed',
-        ]);
-
-        return redirect()->route('runner_job.show', $runnerJob);
-    }
-
-    public function abort(RunnerJob $runnerJob)
-    {
-        $runnerJob->update([
-            'state' => 'canceled',
-        ]);
-
-        $order = $runnerJob->order;
-
-        if ($order->state == PickupScheduled::class) {
-            $transitionTo = PendingPickupSchedule::class;
-        } else {
-            $transitionTo = PendingReturnSchedule::class;
-        }
-
-        $order->update([
-            'state' => $transitionTo
-        ]);
-
-        return redirect()->route('runner_job.show', $runnerJob);
-    }
-
     protected function validates()
     {
         return request()->validate([
