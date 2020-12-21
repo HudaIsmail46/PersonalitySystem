@@ -23,40 +23,18 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                           <h3 class="mb-0">Runner Schedule Details</h3>
+                           <h3 class="mb-0">Today's Runner Schedule</h3>
                         </div>
                         <div class='card-body'>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>Runner Schedule Id</th>
-                                        <th>Runner</th>
-                                        <th>Scheduled at</th>
-                                        <th>Runner Jobs</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                    @foreach($runner_schedules as $runner_schedule)
-                                        <tr>
-                                            <td><a href="{{$runner_schedule->path()}}">{{ $runner_schedule->id}}</td>
-                                            <td>{{ $runner_schedule->runner->name}}</td>
-                                            <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at))}}</td>
-                                            <td>
-                                                @foreach($runner_schedule->runnerJobs as $job)
-                                                    <li>{{ myLongDateTime(new Carbon\Carbon($job->scheduled_at))}} at {{$job->order->city . ', ' . $job->order->location_state}}</li>
-                                                @endforeach
-                                            </td>
-                                            <td>{{ $runner_schedule->status}}</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href={{route('runner_schedule.show', $runner_schedule->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </table>
-                                {{ $runner_schedules ?? ''->links() }}
-                            </div>
+                            @include('runner_schedule.table', ['runner_schedules' => $runner_schedules])
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                           <h3 class="mb-0">Previous Runner Schedule</h3>
+                        </div>
+                        <div class='card-body'>
+                            @include('runner_schedule.table', ['runner_schedules' => $previous_runner_schedules])
                         </div>
                     </div>
                 </div>

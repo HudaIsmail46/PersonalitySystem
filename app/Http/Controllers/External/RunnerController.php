@@ -4,7 +4,6 @@ namespace App\Http\Controllers\External;
 
 use App\Http\Controllers\AuthenticatedController;
 use App\RunnerSchedule;
-
 use Carbon\Carbon;
 
 class RunnerController extends AuthenticatedController
@@ -17,8 +16,11 @@ class RunnerController extends AuthenticatedController
     public function index()
     {
         $id = Auth()->user()->id;
-        $runner_schedules = RunnerSchedule::orderBy('id', 'ASC')->where('runner_id',$id)->where('status', '!=' ,'draft')->get();
-        return view('external.runner.index',compact('runner_schedules'));
+        $today = Carbon::today()->toDateTimeString();
+        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->where('scheduled_at', '>=' , $today)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
+        $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->where('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
+
+        return view('external.runner.index', compact('runner_schedules', 'previous_runner_schedules'));
     }
 
      /**
