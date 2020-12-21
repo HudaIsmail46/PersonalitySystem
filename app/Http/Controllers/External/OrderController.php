@@ -15,11 +15,11 @@ class OrderController extends AuthenticatedController
     public function index()
     {
         $orders = Order::with('customer')
-        ->orderBy('id', 'ASC')
-        ->where('state', '=' ,'App\State\Order\VendorCollected')
-        ->paginate(50);
-    return view('external.order.index', compact('orders'))
-        ->with('i', ($orders->get('page', 1) - 1) * 50);
+            ->orderBy('id', 'ASC')
+            ->where('state', '=', 'App\State\Order\VendorCollected')
+            ->paginate(10);
+        return view('external.order.index', compact('orders'))
+            ->with('i', ($orders->get('page', 1) - 1) * 5);
     }
 
 

@@ -52,10 +52,10 @@ class OrderController extends AuthenticatedController
             ->when($notice_ambilan_ref, function ($q) use ($notice_ambilan_ref) {
                 return $q->where('orders.notice_ambilan_ref', 'ILIKE', '%' . $notice_ambilan_ref . '%');
             })
-            ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(50);
+            ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(10);
 
         return view('order.index', compact('orders', 'canReopenOrder'))
-            ->with('i', ($orders->get('page', 1) - 1) * 50);
+            ->with('i', ($orders->get('page', 1) - 1) * 5);
     }
 
     /**
