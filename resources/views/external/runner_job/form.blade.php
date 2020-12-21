@@ -12,4 +12,6 @@
             <button class="btn btn-danger mr-2" type="submit">Unable to complete</button>
         </form>
     </div>
+@else
+    <div class="text-danger">Please Pickup Item From Warehouse First</div>
 @endif
