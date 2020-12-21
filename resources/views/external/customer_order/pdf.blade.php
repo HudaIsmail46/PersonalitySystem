@@ -199,6 +199,47 @@
                 </tr>
             </table>
         </table>
+
+        <div class="ml-4 mr-5 mt-3">
+            <p>
+                <strong><u>Terma &amp; Syarat:</u></strong>
+            <p>
+                1. Tempoh cucian karpet mengambil masa 3
+                minggu.<br>
+                2. CleanHero akan menolak atau tidak
+                meneruskan cucian bagi karpet yang telah
+                reput, berlubang atau berpotensi menjadi
+                rosak.<br>
+                3. Pelanggan hendaklah memaklumkan kepada
+                pekerja CleanHero berkaitan material
+                pembuatan karpet sekiranya tiada maklumat
+                berkaitan di atas label karpet. Kami tidak akan
+                bertanggungjawab sekiranya ketiadaan
+                maklumat mengenai material menyebabkan
+                karpet anda rosak akibat kaedah cucian.<br>
+                4. Karpet yang tidak dituntut dalam tempoh 60
+                hari dari tarikh siap dicuci, akan dilupus, dijual
+                atau diderma. Tiada pemulangan wang deposit
+                akan dilakukan.<br>
+            </p>
+            <strong><u>Terms &amp; Conditions:</u></strong>
+            <p>
+                1. Carpet cleaning duration will take 3 weeks.<br>
+                2. CleanHero will not accept or continue the
+                cleaning process if the carpet is weakened,
+                already torn or has potential to degrade.<br>
+                3. Customer need to inform CleanHero’s
+                technician on the material of the carpet fabric if
+                there is no information label at the back of the
+                carpet. We will not be responsible if lack of
+                information caused wrong cleaning method and
+                hence damaging the carpet.<br>
+                4. If carpet is not collected in 60 days after
+                cleaning, we have the right to dispose, sell or
+                donate it. No deposit will be refunded.<br>
+            </p>
+            </p>
+        </div>
     </div>
 </body>
 </html>

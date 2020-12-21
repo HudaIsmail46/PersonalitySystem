@@ -89,13 +89,12 @@
                                             </tr>
                                             <tr>
                                                 <td>{{ $order->quantity }} </td>
-                                                <td> {{ $order->material }}</td>
-                                                <td> {{ $order->size }}</td>
-                                                <td> {{humaniseOrderState($order->state) }}</td>
-                                                <td> {{money($order->price) }}</td>
-                                                <td> {{money($order->deposit_amount) }}</td>
-                                                 <td>{{\Cknow\Money\Money::MYR($order->price)->subtract(\Cknow\Money\Money::MYR($order->deposit_amount))}}</td>
-
+                                                <td>{{ $order->material }}</td>
+                                                <td>{{ $order->size }}</td>
+                                                <td>{{ humaniseOrderState($order->state) }}</td>
+                                                <td>{{ money($order->price) }}</td>
+                                                <td>{{ money($order->deposit_amount) }}</td>
+                                                <td>{{ \Cknow\Money\Money::MYR($order->price)->subtract(\Cknow\Money\Money::MYR($order->deposit_amount))}}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -120,6 +119,49 @@
                                                     Not yet paid.
                                                 @endif
                                             </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-footer p-4 pb-4 " style="text-transform: none">
+                                        <div class="row">
+                                            <div>
+                                                <strong class="ml-3"><u>Terma &amp; Syarat:</u></strong><br><br>
+                                                <ol class="mr-3">
+                                                    <li>Tempoh cucian karpet mengambil masa 3
+                                                        minggu.</li>
+                                                    <li>CleanHero akan menolak atau tidak
+                                                        meneruskan cucian bagi karpet yang telah
+                                                        reput, berlubang atau berpotensi menjadi
+                                                        rosak.</li>
+                                                    <li>Pelanggan hendaklah memaklumkan kepada
+                                                        pekerja CleanHero berkaitan material
+                                                        pembuatan karpet sekiranya tiada maklumat
+                                                        berkaitan di atas label karpet. Kami tidak akan
+                                                        bertanggungjawab sekiranya ketiadaan
+                                                        maklumat mengenai material menyebabkan
+                                                        karpet anda rosak akibat kaedah cucian.</li>
+                                                    <li>Karpet yang tidak dituntut dalam tempoh 60
+                                                        hari dari tarikh siap dicuci, akan dilupus, dijual
+                                                        atau diderma. Tiada pemulangan wang deposit
+                                                        akan dilakukan.</li>
+                                                </ol>
+                                                <strong class="ml-3"><u>Terms &amp; Conditions:</u></strong><br><br>
+                                                <ol class="mr-3">
+                                                    <li>Carpet cleaning duration will take 3 weeks.</li>
+                                                    <li>CleanHero will not accept or continue the
+                                                        cleaning process if the carpet is weakened,
+                                                        already torn or has potential to degrade.</li>
+                                                    <li>Customer need to inform CleanHero’s
+                                                        technician on the material of the carpet fabric if
+                                                        there is no information label at the back of the
+                                                        carpet. We will not be responsible if lack of
+                                                        information caused wrong cleaning method and
+                                                        hence damaging the carpet.</li>
+                                                    <li>If carpet is not collected in 60 days after
+                                                        cleaning, we have the right to dispose, sell or
+                                                        donate it. No deposit will be refunded.</li>
+                                                    </p>
+                                            </div>
                                         </div>
                                     </div>
 
