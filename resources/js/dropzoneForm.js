@@ -15,6 +15,7 @@ if(imageable)
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
         addRemoveLinks: false,
         timeout: 5000,
+        resizeWidth: 1000,
         autoQueue: false,
         previewTemplate: dzPreview
     };
