@@ -70,6 +70,19 @@
                         </div>
 
                         <div class="field">
+                            <label class="label" for="address_3">Address 3</label>
+                            <div class="form-group row">
+                                <div class="col-8">
+                                    <input class="form-control @error('address_3') is-invalid @enderror" type="text"
+                                        name="address_3" id="address_3"
+                                        value="{{ old('address_3') ?? ($order->address_3 ?? '') }}"
+                                        placeholder="Address 3">
+                                    <div class="invalid-feedback">{{ $errors->first('address_3') }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
                             <label class="label" for="postcode">Postcode</label>
                             <div class="form-group row">
                                 <div class="col-auto">
