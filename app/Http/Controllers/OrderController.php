@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Customer;
-use App\Image;
-use Cknow\Money\Money;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
-use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Http\Request;
