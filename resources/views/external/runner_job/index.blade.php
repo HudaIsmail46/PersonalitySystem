@@ -13,6 +13,7 @@
                     <th>Location</th>
                     <th>Customer</th>
                     <th>Status</th>
+                    <th>Notis Ambilan</th>
                     <th></th>
                 </tr>
                 @foreach ($runnerJobs as $runnerJob )
@@ -29,6 +30,7 @@
                             @endif
                         </td>
                         <td>{{ $runnerJob->state }}</td>
+                        <td>{{ $runnerJob->order->notice_ambilan_ref }}</td>
                         <td>
                             <a href={{route('external.runner_job.show', $runnerJob->id)}}><button class='btn btn-s btn-primary mr-2'>View </button></a>
                         </td>

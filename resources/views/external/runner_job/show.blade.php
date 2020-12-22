@@ -41,6 +41,10 @@
                                     <td>{{ $runnerJob->order->id }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Notis Ambilan</td>
+                                    <td>{{ $runnerJob->order->notice_ambilan_ref }}</td>
+                                </tr>
+                                <tr>
                                     <td>Customer</td>
                                     <td> Name : {{ $runnerJob->order->customer->name }}
                                         <br />

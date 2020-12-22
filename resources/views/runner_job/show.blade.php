@@ -41,7 +41,11 @@
                                     <td> <a href={{route('order.show', $runnerJob->order->id)}}>{{$runnerJob->order->id}}
                                         <a href={{route('order.show', $runnerJob->order->id)}}><button class='btn btn-sm mx-2 btn-primary mr-2'>View </button></a>
                                     </td>
-                                    </tr>
+                                </tr>
+                                <tr>
+                                    <td>Notis Ambilan</td>
+                                    <td>{{ $runnerJob->order->notice_ambilan_ref }}</td>
+                                </tr>
                                 <tr>
                                     <td>Scheduled At</td>
                                     <td>{{ myLongDateTime(new Carbon\Carbon($runnerJob->scheduled_at)) }}</td>
