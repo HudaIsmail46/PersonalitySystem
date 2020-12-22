@@ -141,63 +141,70 @@
                                         <div class="col-6">
                                             Created At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{myShortDateTime(new Carbon\Carbon($order->created_at))}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Last Updated at
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{myShortDateTime(new Carbon\Carbon($order->updated_at))}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Collected At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{$order->collected_at ? myShortDateTime(new Carbon\Carbon($order->collected_at)) : '-'}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Arrived Warehouse At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{$order->arrived_warehouse_at ? myShortDateTime(new Carbon\Carbon($order->arrived_warehouse_at)) : '-'}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Vendor Collected At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{$order->vendor_collected_at ? myShortDateTime(new Carbon\Carbon($order->vendor_collected_at)) : '-'}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Vendor Returned At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{$order->vendor_returned_at ? myShortDateTime(new Carbon\Carbon($order->vendor_returned_at)) : '-'}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Runner PickUp At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{$order->leave_warehouse_at ? myShortDateTime(new Carbon\Carbon($order->leave_warehouse_at)) : '-'}}
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="row">
                                         <div class="col-6">
                                             Customer Received At
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-6 my-auto">
                                             {{$order->returned_at ? myShortDateTime(new Carbon\Carbon($order->returned_at)) : '-'}}
                                         </div>
                                     </div>

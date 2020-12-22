@@ -147,3 +147,11 @@ Route::get('/external/customer/order/{orderId}', 'External\CustomerOrderControll
 
 #PDF
 Route::get('/pdfconverter/{orderId}', 'External\CustomerOrderController@pdf')->name('customer_order.pdf');
+
+#ADMIN
+##order CRUD
+Route::prefix('/admin/order')->name('admin.order.')->group(function () {
+    Route::get('/{order}/edit', 'Admin\OrderController@edit')->name('edit');
+    Route::delete('/{order}', 'Admin\OrderController@destroy')->name('destroy');
+    Route::put('/{order}', 'Admin\OrderController@update')->name('update');
+});
