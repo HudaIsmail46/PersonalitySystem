@@ -205,7 +205,7 @@ class OrderController extends AuthenticatedController
         return request()->validate([
             'size' => 'required',
             'price' => 'required',
-            'prefered_pickup_datetime' => 'required|after_or_equal:today',
+            'prefered_pickup_datetime' => 'required',
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
