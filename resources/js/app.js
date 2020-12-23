@@ -8,6 +8,7 @@ require('./bootstrap');
 require('./adminlte');
 require('./chart');
 require('./dropzoneForm');
+require('./calculateSize');
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -18,3 +19,7 @@ require('./dropzoneForm');
 require('./components/RunnerJobEdit');
 require('./components/OrderTable');
 require('./components/OrderStateQuickChange');
+
+
+
+
