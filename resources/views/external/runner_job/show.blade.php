@@ -45,6 +45,14 @@
                                     <td>{{ $runnerJob->order->notice_ambilan_ref }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Status</td>
+                                    <td>
+                                        <h5>
+                                            @include('runner_job.status', ['state' => $runnerJob->state])
+                                        </h5>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Customer</td>
                                     <td> Name : {{ $runnerJob->order->customer->name }}
                                         <br />

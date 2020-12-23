@@ -12,11 +12,14 @@
             <tr>
                 <td><a href="{{ $runner_schedule->path() }}">{{ $runner_schedule->id }}</td>
                 <td>{{ $runner_schedule->runner->name }}</td>
-                <td>{{ myLongDateTime(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
+                <td>{{ myDate(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
                 <td>
                     @foreach ($runner_schedule->runnerJobs as $job)
-                        <li>{{ myLongDateTime(new Carbon\Carbon($job->scheduled_at)) }} at
-                            {{ $job->order->city . ', ' . $job->order->location_state }}</li>
+                        <li>
+                            {{ myTime(new Carbon\Carbon($job->scheduled_at)) }} at
+                            {{ $job->order->city . ', ' . $job->order->location_state }} 
+                           @include('runner_job.status', ['state' => $job->state])
+                        </li> 
                     @endforeach
                 </td>
                 <td>{{ $runner_schedule->status }}</td>
