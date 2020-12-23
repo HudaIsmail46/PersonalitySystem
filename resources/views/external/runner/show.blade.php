@@ -72,7 +72,6 @@
                     @method('PUT')
                     <button class="btn btn-success mr-2" type="submit">Start</button>
                 </form>
-            @else
             @endif
         </div>
         </div>

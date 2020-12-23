@@ -95,6 +95,11 @@ class Order extends Model
             ]);
     }
 
+    public function balance_to_pay()
+    {
+        return $this->price - $this->deposit_amount;
+    }
+
     protected static function boot()
     {
         parent::boot();

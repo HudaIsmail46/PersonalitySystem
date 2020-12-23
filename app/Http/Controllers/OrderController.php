@@ -7,9 +7,7 @@ use App\Customer;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
 use Illuminate\Support\Facades\Crypt;
-
 use Illuminate\Http\Request;
-
 
 class OrderController extends AuthenticatedController
 {

@@ -18,6 +18,7 @@ use App\State\Order\InHouseCleaning;
 use App\State\Order\Scheduled;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class RunnerJobController extends AuthenticatedController
 {
@@ -29,7 +30,8 @@ class RunnerJobController extends AuthenticatedController
      */
     public function show(RunnerJob $runnerJob)
     {
-        return view('external.runner_job.show', compact('runnerJob'));
+        $encId = Crypt::encryptString($runnerJob->order->id);
+        return view('external.runner_job.show', compact('runnerJob', 'encId'));
     }
 
     public function complete(RunnerJob $runnerJob)

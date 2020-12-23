@@ -81,6 +81,14 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Deposit</td>
+                                    <td>{{ money($runnerJob->order->deposit_amount) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Balance To be paid</td>
+                                    <td>{{ money($runnerJob->order->balance_to_pay())}}</td>
+                                </tr>
+                                <tr>
                                     <td>Location</td>
                                     <td>{!! orderAddress($runnerJob->order)!!}</td>
                                 </tr>
@@ -99,6 +107,7 @@
                             </table>
                         </div>
                         @include('external.runner_job.form')
+                        <a href="{{ route('customer_order.show', $encId) }}" target="_blank" class="btn btn-primary mr-2 ml-auto">Public Order Page</a>
                     </div>
                 </div>
                 <div class="col-md-5 ml-2 ">

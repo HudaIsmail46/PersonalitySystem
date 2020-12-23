@@ -94,7 +94,7 @@
                                                 <td>{{ humaniseOrderState($order->state) }}</td>
                                                 <td>{{ money($order->price) }}</td>
                                                 <td>{{ money($order->deposit_amount) }}</td>
-                                                <td>{{ \Cknow\Money\Money::MYR($order->price)->subtract(\Cknow\Money\Money::MYR($order->deposit_amount))}}</td>
+                                                <td>{{ money($order->balance_to_pay())}}</td>
                                             </tr>
                                         </table>
                                     </div>
