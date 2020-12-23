@@ -86,7 +86,14 @@ class UserController extends AuthenticatedController
     {
         $roles = $request->roles;
         $user->syncRoles($roles);
-        $user->update($this->validateUpdateUser());
+        $this->validateUpdateUser();
+        
+        $user->fill([
+            'name' => $request->name,
+            'phone_no' => formatPhoneNo($request->phone_no)
+        ]);
+
+        $user->save();
         return redirect()->route('user.show', $user->id)->with('User details updated.');
     }
 
