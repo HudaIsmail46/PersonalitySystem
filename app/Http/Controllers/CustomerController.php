@@ -78,7 +78,7 @@ class CustomerController extends AuthenticatedController
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,
-            'phone_no' => $this->formatPhoneNo($request->phone_no)
+            'phone_no' => formatPhoneNo($request->phone_no)
         ]);
         $customer->save();
         return redirect()->route('customer.show', $customer->id)->with('success', 'Customers created successfully.');
@@ -115,7 +115,7 @@ class CustomerController extends AuthenticatedController
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,
-            'phone_no' => $this->formatPhoneNo($request->phone_no)
+            'phone_no' => formatPhoneNo($request->phone_no)
         ]);
 
         $customer->save();
@@ -145,16 +145,5 @@ class CustomerController extends AuthenticatedController
             'city' => 'required',
             'location_state' => 'required',
         ]);
-    }
-
-    protected function formatPhoneNo($phone_no)
-    {
-        if (preg_match('/^6/', $phone_no) || preg_match('/[\[^\+\]]/', $phone_no)) {
-            $phone_number = preg_replace('/\D+/', '', $phone_no);
-        } else {
-            $phone = preg_replace('/\D+/', '', $phone_no);
-            $phone_number =  "6" . $phone;
-        }
-        return $phone_number;
     }
 }
