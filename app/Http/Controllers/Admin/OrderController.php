@@ -32,7 +32,6 @@ class OrderController extends AuthenticatedController
     {
 
         $this->validateUpdateOrders();
-
         $order->fill($request->all());
 
         $order->save();

@@ -39,7 +39,7 @@
                         @endif
                     </div>
                     <h3>Order</h3>
-                    <form method="POST" action="{{ route('order.update', $order->id)}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.order.update', $order->id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -349,7 +349,7 @@
                                     <select id="state" name="state"
                                         class="custom-select @error('state') is-invalid @enderror">
                                         @foreach(App\Order::getStatesFor('state') as $state)
-                                            <option value="{{$state}}" {{(request()->state == $state) ? 'selected' : '' }} class='text-capitalize'>{{humaniseOrderState($state)}}</option>
+                                            <option value="{{$state}}" {{($order->state == $state) ? 'selected' : '' }} class='text-capitalize'>{{humaniseOrderState($state)}}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">{{ $errors->first('state') }}</div>
