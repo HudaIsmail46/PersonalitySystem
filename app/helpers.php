@@ -16,6 +16,20 @@ if (!function_exists('myShortDateTime')) {
     }
 }
 
+if (!function_exists('myTime')) {
+    function myTime(Carbon $dateTime)
+    {
+        return $dateTime->format('H:i:s');
+    }
+}
+
+if (!function_exists('myDate')) {
+    function myDate(Carbon $dateTime)
+    {
+        return $dateTime->format('D, dS M Y');
+    }
+}
+
 if (!function_exists('humaniseOrderState')) {
     function humaniseOrderState(String $state)
     {
