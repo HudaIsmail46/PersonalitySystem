@@ -19,7 +19,8 @@ export const orderAddress =(order) => {
     if (order.address_1 !== null || order.address_2 !== null || order.address_3 !== null || order.postcode !== null || order.city !== null || order.location_state !== null) {
         return (
                 order = order.address_1.concat(order.address_2 ,',', order.address_3, ',', order.postcode , ',' , order.city , ',' , order.location_state),
-                order.replace("null","")
+                order.replaceAll("null","")
+                     .replaceAll(',,' ,', ')
         )
     }
 }

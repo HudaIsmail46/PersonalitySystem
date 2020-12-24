@@ -100,13 +100,8 @@ function RunnerJobEdit(props) {
         if (orderAddress(order) !== null) {
             return (
                 <div>
-                    {order.address_1}
-                    {order.address_2}
-                    {order.address_3}<br/>
-                    {order.postcode}<br/>
-                    {order.city}<br/>
-                    {order.location_state}
-                    <a href={`https://www.google.com/maps/place/${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
+                   {orderAddress(order)}
+                    <a href={`http://maps.google.com/maps?q=${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
                 </div>
             )
         }
