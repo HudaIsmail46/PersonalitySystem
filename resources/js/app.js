@@ -19,7 +19,4 @@ require('./calculateSize');
 require('./components/RunnerJobEdit');
 require('./components/OrderTable');
 require('./components/OrderStateQuickChange');
-
-
-
-
+require('./components/SelectCustomer');
