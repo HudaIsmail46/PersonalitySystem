@@ -29,19 +29,14 @@
                     <h3 class="mb-0">Update Order</h3>
                 </div>
                 <div class="card-body">
-                    <div class="mt-3 mb-5">
-                        <h3>Customer</h3>
-                        Name : {{$order->customer->name}}
-                        <br>
-                        @if ($order->customer->phone_no !=null)
-                            Phone No : {{$order->customer->phone_no}}
-                            <a href="https://api.whatsapp.com/send?phone= {{ $order->customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
-                        @endif
-                    </div>
-                    <h3>Order</h3>
                     <form method="POST" action="{{ route('admin.order.update', $order->id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="mt-3 mb-5">
+                            <h3>Customer</h3>
+                            <div id="SelectCustomer" data-customer_options="{{json_encode($customer_options)}}" data-selected_customer="{{json_encode($selected_customer)}}"></div>
+                        </div>
+                        <h3>Order</h3>
 
                         <div class="field">
                             <label class="label" for="address_1">Address 1</label>

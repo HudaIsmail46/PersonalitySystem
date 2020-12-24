@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Order;
+use App\Customer;
 use App\Http\Controllers\AuthenticatedController;
 
 use Illuminate\Http\Request;
@@ -18,7 +19,18 @@ class OrderController extends AuthenticatedController
      */
     public function edit(Order $order)
     {
-        return view('admin.order.edit', compact('order'));
+        $customers = Customer::select('id', 'name', 'phone_no')->get();
+        $customer_options = [];
+        $selected_customer = [];
+        foreach($customers as $customer){
+            $option = ['value'=> $customer->id, 'label'=> $customer->name . ", " . $customer->phone_no];
+            if($order->customer_id == $customer->id){
+               $selected_customer = $option;
+            }
+            array_push($customer_options, $option);
+        }
+
+        return view('admin.order.edit', compact('order', 'customer_options', 'selected_customer'));
     }
 
     /**
@@ -30,7 +42,6 @@ class OrderController extends AuthenticatedController
      */
     public function update(Request $request, Order $order)
     {
-
         $this->validateUpdateOrders();
         $order->fill($request->all());
 
