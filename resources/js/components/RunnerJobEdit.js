@@ -165,6 +165,7 @@ function RunnerJobEdit(props) {
                         <th>Location</th>
                         <th>Customer</th>
                         <th>Order</th>
+                        <th>Notis Ambilan</th>
                         <th></th>
                     </tr>
                     {runnerJobs.map(scheduledOrder => {return (
@@ -240,10 +241,13 @@ function RunnerJobEdit(props) {
                                     {humaniseOrderState(scheduledOrder.order.state)}
                                 </del> :
                                 <p>
-                                    Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br></br>
+                                    Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br/>
                                     {humaniseOrderState(scheduledOrder.order.state)}<br/>
 
                                 </p>}
+                            </td>
+                            <td>
+                                {scheduledOrder.order.notice_ambilan_ref}
                             </td>
                             <td>{ orderStatuses(scheduledOrder.order.state) ? status :
                                   <div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div>}
@@ -267,6 +271,7 @@ function RunnerJobEdit(props) {
                         <th>Prefered Pickup</th>
                         <th>Location</th>
                         <th>Customer</th>
+                        <th>Notis Ambilan</th>
                         <th></th>
                     </tr>
                     {orders.map(order => {return (
@@ -299,6 +304,7 @@ function RunnerJobEdit(props) {
                                     })()
                                 }
                             </td>
+                            <td>{order.notice_ambilan_ref}</td>
                             <td><div className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</div></td>
                         </tr>
                     )})}
