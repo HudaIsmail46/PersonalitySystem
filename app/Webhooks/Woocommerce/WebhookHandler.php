@@ -33,7 +33,9 @@ class WebhookHandler
                 'woocommerce_order_id' => $payload["id"],
                 'quantity' => 0,
                 'deposit_amount' => static::valueByKey('_wc_deposits_deposit_amount', $payload["meta_data"]),
-                'price' => 0,
+                'price' => 0,//to be removed
+                'size' => 's',//to be removed
+                'material'=> 'invalid',//to be removed
                 'prefered_pickup_datetime' => static::preferedDateTime($payload["meta_data"]),
                 'address_1' => $billing["address_1"],
                 'address_2' => $billing["address_2"],
