@@ -21,10 +21,13 @@ class RunnerScheduleController extends AuthenticatedController
     public function index()
     {
         $today = Carbon::today()->toDateTimeString();
-        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('scheduled_at', '>=' , $today)->orderBy('id', 'ASC')->paginate(50);
-        $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->paginate(50);
+        $tomorrow = Carbon::tomorrow()->toDateTimeString();
+     
+        $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->whereDate('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->paginate(50);
+        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->whereDate('scheduled_at', $today)->orderBy('id', 'ASC')->paginate(50);
+        $future_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->whereDate('scheduled_at' ,'>=', $tomorrow)->orderBy('id', 'ASC')->paginate(50);
 
-        return view('runner_schedule.index', compact('runner_schedules', 'previous_runner_schedules'));
+        return view('runner_schedule.index', compact('runner_schedules', 'previous_runner_schedules', 'future_runner_schedules'));
     }
 
     /**

@@ -14,7 +14,7 @@
                 <td>{{ $runner_schedule->runner->name }}</td>
                 <td>{{ myDate(new Carbon\Carbon($runner_schedule->scheduled_at)) }}</td>
                 <td>
-                    @foreach ($runner_schedule->runnerJobs as $job)
+                    @foreach ($runner_schedule->runnerJobs->sortBy('scheduled_at') as $job)
                         <li>
                             {{ myTime(new Carbon\Carbon($job->scheduled_at)) }} at
                             {{ $job->order->city . ', ' . $job->order->location_state }} 
