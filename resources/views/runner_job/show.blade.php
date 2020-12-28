@@ -46,9 +46,9 @@
                                     <td>Notis Ambilan</td>
                                     <td>{{ $runnerJob->order->notice_ambilan_ref }}</td>
                                 </tr>
-                                <tr>    
+                                <tr>
                                     <td>Status</td>
-                                    <td> 
+                                    <td>
                                         <h5>
                                             @include('runner_job.status', ['state' => $runnerJob->state])
                                         </h5>
@@ -78,6 +78,7 @@
                                         @if ($runnerJob->order->customer->phone_no !=null)
                                             Phone No : {{ $runnerJob->order->customer->phone_no }}
                                             <a href="https://api.whatsapp.com/send?phone= {{ $runnerJob->order->customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                            <a href="tel:{{$runnerJob->order->customer->phone_no }}"><i class="fas fa-phone"></i></a>
                                         @endif
 
                                     </td>
