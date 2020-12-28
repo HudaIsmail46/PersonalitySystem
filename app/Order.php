@@ -69,6 +69,11 @@ class Order extends Model
         return $this->hasMany(RunnerJob::class);
     }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     protected function registerStates(): void
     {
         $this
@@ -104,10 +109,13 @@ class Order extends Model
     {
         parent::boot();
 
-        static::deleting(function ($order) {
-            foreach ($order->runnerJobs()->get() as $runnerJobs) {
-                $runnerJobs->delete();
-            }
-        });
+      static::deleting(function($order) {
+         foreach ($order->runnerJobs()->get() as $runnerJob) {
+            $runnerJob->delete();
+        }
+        foreach ($order->Orderitems()->get() as $orderItem) {
+                $orderItem->delete();
+         }
+      });
     }
 }

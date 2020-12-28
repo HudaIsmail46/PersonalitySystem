@@ -120,55 +120,6 @@
                             </div>
 
                             <div class="field">
-                                <label class="label" for="size">Size  <span class="text-danger">*</span></label>
-                                <div class="form-group row ">
-                                    <div class="col-md-4">
-                                        <select id="size" name="size"
-                                            class="custom-select @error('size') is-invalid @enderror">
-                                            <option value="">--SELECT SIZE--</option>
-                                            @foreach (App\Order::SIZES as $size)
-                                                <option value="{{ $size }}"
-                                                    {{ old('size') == $size ? 'selected' : '' }}>
-                                                    {{ $size }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">{{ $errors->first('size') }}</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="material">Material  <span class="text-danger">*</span></label>
-                                <div class="form-group row">
-                                    <div class="col-md-4">
-                                        <select id="material" name="material"
-                                            class="custom-select @error('size') is-invalid @enderror">
-                                            <option value="">--SELECT MATERIAL--</option>
-                                            @foreach (App\Order::MATERIALS as $material)
-                                                <option value="{{ $material }}"
-                                                    {{ old('material') == $material ? 'selected' : '' }}>{{ $material }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">{{ $errors->first('material') }}</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label class="label" for="quantity">Quantity  <span class="text-danger">*</span></label>
-                                <div class="form-group row mx-0">
-                                    <div class="col-xs-4">
-                                        <input class="form-control @error('quantity') is-invalid @enderror"
-                                            type="number" name="quantity" id="quantity" value="{{ old('quantity') }}"
-                                            placeholder="Quantity">
-                                        <div class="invalid-feedback">{{ $errors->first('quantity') }}</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="field">
                                 <label class="label" for="deposit_amount">Deposit Amount</label>
                                 <div class="form-group row mx-0">
                                     <div class="col-xs-4">
@@ -205,19 +156,18 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="field">
-                                <label class="label" for="price">Price</label>
-                                <div class="form-group row mx-0">
-                                    <div class="col-xs-4">
-                                        <input class="form-control @error('price') is-invalid @enderror" type="number"
-                                            name="price" id="price" step='.01' value="{{ (float) old('price') }}"
-                                            placeholder="price">
-                                        <div class="invalid-feedback">{{ $errors->first('price') }}</div>
-                                    </div>
-                                </div>
-                            </div>
-
+                           
+                            <label class="label" for="items">Items<span class="text-danger">*</span></label>
+                            <div id="AddItem" data-materials="{{json_encode($materials)}}" data-sizes="{{json_encode($sizes)}}" data-fields="{{0}}"></div> 
+                                <div class="@error('quantity_item.*') is-invalid @enderror"></div> 
+                                <div class="invalid-feedback">{{ $errors->first('quantity_item.*') }}</div>
+                                <div class="@error('price_item.*') is-invalid @enderror"></div> 
+                                <div class="invalid-feedback">{{  $errors->first('price_item.*') }}</div>
+                                <div class="@error('material.*') is-invalid @enderror"></div> 
+                                <div class="invalid-feedback">{{  $errors->first('material.*') }}</div>
+                                <div class="@error('size.*') is-invalid @enderror"></div> 
+                                <div class="invalid-feedback">{{  $errors->first('size.*') }}</div>
+                         
                             <div class="field">
                                 <label class="label" for="prefered_pickup_datetime">Prefered Pickup Date and Time  <span class="text-danger">*</span></label>
                                 <div class="form-group row mx-0">

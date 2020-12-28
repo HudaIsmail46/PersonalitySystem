@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
-import Select from 'react-select'
+import Select from 'react-select';
 
 function SelectCustomer(props) {
     const { customer_options, selected_customer} = props;

@@ -20,3 +20,4 @@ require('./components/RunnerJobEdit');
 require('./components/OrderTable');
 require('./components/OrderStateQuickChange');
 require('./components/SelectCustomer');
+require('./components/AddItem');
