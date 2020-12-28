@@ -13,7 +13,10 @@ class ExistingJobEdited extends AafinanceWebhook
     {
         $customer = static::createOrUpdateCustomer($data);
         $booking = Booking::firstWhere('af_reference',  $data['JobId']);
-
+        if (!$booking) {
+            $booking = new Booking;
+            $booking->fill(['af_reference' => $data['JobId']]);
+        }
         $booking->fill([
             'customer_id' => $customer ? $customer->id : null,
             'created_at' => static::dateFromFormat($data['RequestDate']),
