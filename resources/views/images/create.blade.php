@@ -19,6 +19,11 @@
             <div class="dz-filename"><span data-dz-name></span><small><span class="dz-size ml-2" data-dz-size></span></small></div>
             <input type="text" placeholder='Image Caption' name='caption' id='caption' class='w-100'>
             <p id="imageCaption"></p>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" data-dz-uploadprogress>
+                    <span class="progress-text"></span>
+                </div>
+            </div>            
             <div class="mb-1 mt-2 buttons">
                 <div class="btn btn-primary upload">Upload</div>
                 <div class="btn btn-danger cancel">Cancel</div>

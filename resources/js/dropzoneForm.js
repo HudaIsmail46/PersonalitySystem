@@ -7,6 +7,7 @@ if(imageable)
     var token = imageable.getAttribute('data-token');
     var imageable_id = imageable.getAttribute('data-imageableid');
     var imageable_type = imageable.getAttribute('data-imageabletype');
+    var upload_progress = imageable.getAttribute('data-dz-uploadprogress');
     var url = "/image?imageable_id=" + imageable_id + "&imageable_type=" + imageable_type;
     Dropzone.autoDiscover = false;
     Dropzone.options.dropzone =
@@ -45,4 +46,10 @@ if(imageable)
         file.previewElement.querySelector("#imageCaption").innerText = caption.value;
         file.previewElement.querySelector(".dz-success-mark").classList.remove('d-none')
     });
+
+    myDropzone.on("uploadprogress", function(file, progress, bytesSent) {
+            var progressElement = file.previewElement.querySelector("[data-dz-uploadprogress]");
+            progressElement.style.width = progress.toFixed(2) + "%";
+            progressElement.querySelector(".progress-text").textContent = progress.toFixed(2) + "%";
+    })
 }
