@@ -150,8 +150,11 @@ Route::get('/pdfconverter/{orderId}', 'External\CustomerOrderController@pdf')->n
 
 #ADMIN
 ##order CRUD
-Route::prefix('/admin/order')->name('admin.order.')->group(function () {
-    Route::get('/{order}/edit', 'Admin\OrderController@edit')->name('edit');
-    Route::delete('/{order}', 'Admin\OrderController@destroy')->name('destroy');
-    Route::put('/{order}', 'Admin\OrderController@update')->name('update');
+Route::prefix('/admin')->name('admin')->group(function () {
+    Route::get('/order/{order}/edit', 'Admin\OrderController@edit')->name('.order.edit');
+    Route::delete('/order/{order}', 'Admin\OrderController@destroy')->name('.order.destroy');
+    Route::put('/order/{order}', 'Admin\OrderController@update')->name('.order.update');
+
+    Route::get('/webhook/index', 'Admin\WebhookController@index')->name('.webhook.index');
+    Route::get('/webhook/{webhook}', 'Admin\WebhookController@show')->name('.webhook.show');
 });
