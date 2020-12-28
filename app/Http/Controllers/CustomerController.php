@@ -139,7 +139,7 @@ class CustomerController extends AuthenticatedController
     {
         return request()->validate([
             'name' => 'required',
-            'phone_no' => 'required',
+            'phone_no' => 'required|unique:customers',
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
