@@ -22,6 +22,7 @@
                         @if ($runnerJob->runnerSchedule->runner->phone_no !=null)
                             {{$runnerJob->runnerSchedule->runner->phone_no}}
                             <a href="https://api.whatsapp.com/send?phone=  {{$runnerJob->runnerSchedule->runner->phone_no}}" target="blank"><i class="fab fa-whatsapp icon-green" ></i></a>
+                            <a href="tel:{{$runnerJob->runnerSchedule->runner->phone_no}}"><i class="fas fa-phone"></i></a>
                         @endif
                     </td>
                     <td><a href="{{route('runner_job.show', $runnerJob->id)}}">View</a></td>

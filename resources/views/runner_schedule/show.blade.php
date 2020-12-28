@@ -28,6 +28,7 @@
                                         @if ($runner_schedule->runner->phone_no !=null)
                                             {{ $runner_schedule->runner->phone_no }}
                                             <a href="https://api.whatsapp.com/send?phone= {{$runner_schedule->runner->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green" ></i></a>
+                                            <a href="tel:{{$runner_schedule->runner->phone_no}}"><i class="fas fa-phone"></i></a>
                                         @endif
                                     </td>
                                 </tr>
@@ -101,6 +102,7 @@
                                             @if ($runnerJob->order->customer->phone_no !=null)
                                                 Phone No : {{ $runnerJob->order->customer->phone_no }}
                                                 <a href="https://api.whatsapp.com/send?phone= {{$runnerJob->order->customer->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green"  ></i></a>
+                                                <a href="tel:{{$runnerJob->order->customer->phone_no }}"><i class="fas fa-phone"></i></a>
                                             @endif
                                         </td>
                                         <td>{{ $runnerJob->state }}</td>

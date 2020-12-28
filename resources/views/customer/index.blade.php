@@ -62,6 +62,7 @@
                                             @if ($customer->phone_no != null)
                                                 {{ $customer->phone_no }}
                                                 <a href="https://api.whatsapp.com/send?phone= {{ $customer->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                                <a href="tel:{{$customer->phone_no }}"><i class="fas fa-phone"></i></a>
                                             @endif
                                         </td>
                                         <td>

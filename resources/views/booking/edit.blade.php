@@ -41,7 +41,11 @@
                         @if($booking->customer)
                         Name : <a href="{{route('customer.show', $booking->customer)}}">{{ $booking->customer->name }}</a>
                         <br>
-                        Phone No. : {{ $booking->customer->phone_no }}
+                            @if ($booking->customer->phone_no !=null)
+                                    Phone No. : {{ $booking->customer->phone_no }}
+                                    <a href="https://api.whatsapp.com/send?phone={{ $booking->customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                    <a href="tel:{{$booking->customer->phone_no }}"><i class="fas fa-phone"></i></a>
+                            @endif
                         @else
                         Name : -
                         <br>
