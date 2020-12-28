@@ -16,11 +16,15 @@ class RunnerController extends AuthenticatedController
     public function index()
     {
         $id = Auth()->user()->id;
-        $today = Carbon::today()->toDateTimeString();
-        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->where('scheduled_at', '>=' , $today)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
-        $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->where('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
 
-        return view('external.runner.index', compact('runner_schedules', 'previous_runner_schedules'));
+        $today = Carbon::today()->toDateTimeString();
+        $tomorrow = Carbon::tomorrow()->toDateTimeString();
+     
+        $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->whereDate('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
+        $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->whereDate('scheduled_at', $today)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
+        $future_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->where('runner_id',$id)->whereDate('scheduled_at' ,'>=', $tomorrow)->orderBy('id', 'ASC')->where('status', '!=' ,'draft')->get();
+
+        return view('external.runner.index', compact('runner_schedules', 'previous_runner_schedules', 'future_runner_schedules'));
     }
 
      /**
