@@ -163,7 +163,7 @@ class OrderController extends AuthenticatedController
             'deposit_paid_at' => $request->deposit_paid_at,
             'deposit_amount' => $this->priceCents($request->deposit_amount),
             'notice_ambilan_ref' => $request->notice_ambilan_ref,
-            'walk_in_customer' =>isset($request->walk_in_customer),
+            'walk_in_customer' =>isset($request->walk_in_customer) ,
         ]);
 
         $order->save();
