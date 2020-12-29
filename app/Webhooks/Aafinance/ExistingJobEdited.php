@@ -25,7 +25,11 @@ class ExistingJobEdited extends AafinanceWebhook
             'remarks' => $data['Remark'] . "\n" . json_encode($data['JobAddtionalCost']),
             'status' => $data['Status'],
             'price' => $data['TotalAmount'] ? $data['TotalAmount'] * 100 : 0,
-            'address' => static::address($data)
+            'address_1' => $address_1,
+            'address_2' => $address_2,
+            'city' => $city,
+            'postcode' => $postcode,
+            'location_state' => $location_state,
         ]);
         $booking->save();
 
