@@ -99,10 +99,10 @@ function RunnerJobEdit(props) {
     const displayAddress = (order) => {
         if (orderAddress(order) !== null) {
             return (
-                <div>
+                <React.Fragment>
                    {orderAddress(order)}
                     <a href={`http://maps.google.com/maps?q=${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
-                </div>
+                </React.Fragment>
             )
         }
     }
@@ -151,108 +151,108 @@ function RunnerJobEdit(props) {
     const runnerJobsTable = () => {
         return (
             <div className="table-responsive">
-            <table className="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Runner Job Id</th>
-                        <th>Scheduled At</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>Customer</th>
-                        <th>Order</th>
-                        <th>Notis Ambilan</th>
-                        <th></th>
-                    </tr>
-                    {runnerJobs.map(scheduledOrder => {return (
-                        <tr key={scheduledOrder.id} >
-                            <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.id}</del> :
-                                 scheduledOrder.id}
-                            </td>
-                            <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.scheduled_at}</del> :
-                                 scheduledOrder.scheduled_at}
-                            </td>
-                            <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.job_type}</del> :
-                                 scheduledOrder.job_type}
-                            </td>
-                            <td>
-                                {canceledRunnerJob(scheduledOrder.state) ?
-                                <del>
-                                    {displayAddress(scheduledOrder.order)}
-
-                                </del> :
-                                <p>
-                                    {displayAddress(scheduledOrder.order)}
-                                </p>}
-                            </td>
-                            <td>
-                                {canceledRunnerJob(scheduledOrder.state) ?
-                                <del>
-                                    Name : {scheduledOrder.order.customer.name} <br/>
-                                    {
-                                        (() => {
-                                            if (scheduledOrder.order.customer.phone_no !== null) {
-                                                return (
-                                                    <div>Phone No : {scheduledOrder.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a>
-                                                     <a href={'tel:'+ scheduledOrder.order.customer.phone_no} target='blank'><i class="fas fa-phone icon-phone"></i></a></div>
-                                                )
-                                            }
-                                        })()
-                                    }
-                                    {
-                                        (() => {
-                                            if (scheduledOrder.order.walk_in_customer == '1') {
-                                                return (
-                                                <div> <span class="badge badge-success">walk in customer</span>  </div>
-                                                )
-                                            }
-                                        })()
-                                    }
-
-                                </del> :
-                                <p>
-                                    Name : {scheduledOrder.order.customer.name} <br/>
-                                    {
-                                        (() => {
-                                            if (scheduledOrder.order.customer.phone_no !== null) {
-                                                return (
-                                                    <div>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a>
-                                                    <a href={'tel:'+ scheduledOrder.order.customer.phone_no} target='blank'><i class="fas fa-phone icon-phone"></i></a></div>
-                                                )
-                                            }
-                                        })()
-                                    }
-                                    {
-                                        (() => {
-                                            if (scheduledOrder.order.walk_in_customer == '1') {
-                                                return (
-                                                <div> <span class="badge badge-success">walk in customer</span>  </div>
-                                                )
-                                            }
-                                        })()
-                                    }
-                                </p>}
-                            </td>
-                            <td>{canceledRunnerJob(scheduledOrder.state) ?
-                                <del>
-                                    Id : {scheduledOrder.order.id}<br></br>
-                                    {humaniseOrderState(scheduledOrder.order.state)}
-                                </del> :
-                                <p>
-                                    Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br/>
-                                    {humaniseOrderState(scheduledOrder.order.state)}<br/>
-
-                                </p>}
-                            </td>
-                            <td>
-                                {scheduledOrder.order.notice_ambilan_ref}
-                            </td>
-                            <td>{ orderStatuses(scheduledOrder.order.state) ? status :
-                                  <div className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</div>}
-                            </td>
+                <table className="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Runner Job Id</th>
+                            <th>Scheduled At</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th>Customer</th>
+                            <th>Order</th>
+                            <th>Notis Ambilan</th>
+                            <th></th>
                         </tr>
-                    )})}
-                </tbody>
-            </table>
+                        {runnerJobs.map(scheduledOrder => {return (
+                            <tr key={scheduledOrder.id} >
+                                <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.id}</del> :
+                                    scheduledOrder.id}
+                                </td>
+                                <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.scheduled_at}</del> :
+                                    scheduledOrder.scheduled_at}
+                                </td>
+                                <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.job_type}</del> :
+                                    scheduledOrder.job_type}
+                                </td>
+                                <td>
+                                    {canceledRunnerJob(scheduledOrder.state) ?
+                                    <del>
+                                        {displayAddress(scheduledOrder.order)}
+
+                                    </del> :
+                                    <p>
+                                        {displayAddress(scheduledOrder.order)}
+                                    </p>}
+                                </td>
+                                <td>
+                                    {canceledRunnerJob(scheduledOrder.state) ?
+                                    <del>
+                                        Name : {scheduledOrder.order.customer.name} <br/>
+                                        {
+                                            (() => {
+                                                if (scheduledOrder.order.customer.phone_no !== null) {
+                                                    return (
+                                                        <div>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a>
+                                                        <a href={'tel:'+ scheduledOrder.order.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></div>
+                                                    )
+                                                }
+                                            })()
+                                        }
+                                        {
+                                            (() => {
+                                                if (scheduledOrder.order.walk_in_customer == '1') {
+                                                    return (
+                                                    <div> <span className="badge badge-success">walk in customer</span>  </div>
+                                                    )
+                                                }
+                                            })()
+                                        }
+
+                                    </del> :
+                                    <p>
+                                        Name : {scheduledOrder.order.customer.name} <br/>
+                                        {
+                                            (() => {
+                                                if (scheduledOrder.order.customer.phone_no !== null) {
+                                                    return (
+                                                        <span>Phone No : {scheduledOrder.order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${scheduledOrder.order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a>
+                                                        <a href={'tel:'+ scheduledOrder.order.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></span>
+                                                    )
+                                                }
+                                            })()
+                                        }
+                                        {
+                                            (() => {
+                                                if (scheduledOrder.order.walk_in_customer == '1') {
+                                                    return (
+                                                    <span> <span className="badge badge-success">walk in customer</span>  </span>
+                                                    )
+                                                }
+                                            })()
+                                        }
+                                    </p>}
+                                </td>
+                                <td>{canceledRunnerJob(scheduledOrder.state) ?
+                                    <del>
+                                        Id : {scheduledOrder.order.id}<br></br>
+                                        {humaniseOrderState(scheduledOrder.order.state)}
+                                    </del> :
+                                    <p>
+                                        Id : <a href={`/order/${scheduledOrder.order.id}`}>{scheduledOrder.order.id}</a><br/>
+                                        {humaniseOrderState(scheduledOrder.order.state)}<br/>
+
+                                    </p>}
+                                </td>
+                                <td>
+                                    {scheduledOrder.order.notice_ambilan_ref}
+                                </td>
+                                <td>{ orderStatuses(scheduledOrder.order.state) ? status :
+                                    <span className="btn btn-primary" onClick={()=> editRunnerJob(scheduledOrder)}>Edit Schedule</span>}
+                                </td>
+                            </tr>
+                        )})}
+                    </tbody>
+                </table>
             </div>
         )
     }
@@ -287,7 +287,7 @@ function RunnerJobEdit(props) {
                                         if (order.customer.phone_no !== null) {
                                             return (
                                                 <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green" ></i></a>
-                                                <a href={'tel:'+ order.customer.phone_no} target='blank'><i class="fas fa-phone icon-phone"></i></a></div>
+                                                <a href={'tel:'+ order.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></div>
                                             )
                                         }
                                     })()
@@ -296,14 +296,14 @@ function RunnerJobEdit(props) {
                                     (() => {
                                         if (order.walk_in_customer == '1') {
                                             return (
-                                                <span class="badge badge-success">walk in customer</span>
+                                                <span className="badge badge-success">walk in customer</span>
                                             )
                                         }
                                     })()
                                 }
                             </td>
                             <td>{order.notice_ambilan_ref}</td>
-                            <td><div className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</div></td>
+                            <td><span className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</span></td>
                         </tr>
                     )})}
                 </tbody>
