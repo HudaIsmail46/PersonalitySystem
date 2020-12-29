@@ -21,35 +21,16 @@
             </div>
         </div>
     </div>
-</div>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 card">
+            <div class="col-md-7 card">
                 <div class="card-header">
                     <h3 class="mb-0">Update Order</h3>
                 </div>
-                <div class="card-body">
-                    <div class="mt-3 mb-5">
-                        <h3>Customer</h3>
-                        Name : {{$order->customer->name}}
-                        <br>
-                        @if ($order->customer->phone_no !=null)
-                            Phone No : {{$order->customer->phone_no}}
-                            <a href="https://api.whatsapp.com/send?phone= {{ $order->customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
-                            <a href="tel:{{$order->customer->phone_no}}"><i class="fas fa-phone"></i></a>
-                        @endif
-
-                        <form method="POST" action="{{ route('order.update', $order->id)}}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-
-                        <div class="field">
-                            <input type="checkbox" name="walk_in_customer" id="walk_in_customer" value='1' {{ old('walk_in_customer', $order->walk_in_customer ?? '')? 'checked="checked"':null }}>
-                            <label for="walk_in_customer"> Walk in Customer</label>
-                        </div>
-
-                    </div>
+                    <form method="POST" action="{{ route('order.update', $order->id)}}" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                     <div class="card-body">
                         <div class="mt-3 mb-5">
                             <h3>Customer</h3>
@@ -59,12 +40,15 @@
                                 Phone No : {{ $order->customer->phone_no }}
                                 <a href="https://api.whatsapp.com/send?phone= {{ $order->customer->phone_no }}"
                                     target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                <a href="tel:{{$order->customer->phone_no}}"><i class="fas fa-phone"></i></a>
                             @endif
+
+                            <div class="field">
+                                <input type="checkbox" name="walk_in_customer" id="walk_in_customer" value='1' {{ old('walk_in_customer', $order->walk_in_customer ?? '')? 'checked="checked"':null }}>
+                                <label for="walk_in_customer"> Walk in Customer</label>
+                            </div>
                         </div>
                         <h3>Order</h3>
-                        <form method="POST" action="{{ route('order.update', $order->id) }}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
 
                             <div class="field">
                                 <label class="label" for="address_1">Address 1</label>
@@ -366,7 +350,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div class="col-md-3 mx-4">
                     <div class="card">
                         <div class="card-header">
@@ -384,7 +367,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="field">
                                 <label class="label" for="cal_width">Actual width (ft) </label>
                                 <div class="form-group row">
