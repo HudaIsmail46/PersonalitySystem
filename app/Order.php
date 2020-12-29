@@ -36,7 +36,7 @@ class Order extends Model
         'payment_method', 'paid_at', 'woocommerce_order_id', 'deposit_paid_at', 'deposit_payment_method',
         'deposit_amount', 'collected_at', 'arrived_warehouse_at', 'vendor_collected_at',
         'vendor_returned_at', 'leave_warehouse_at', 'returned_at', 'notice_ambilan_ref',
-        'walk_in_customer'
+        'walk_in_customer', 'created_by'
     ];
 
     use SoftDeletes;
@@ -52,6 +52,11 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function images()

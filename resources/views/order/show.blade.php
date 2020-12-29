@@ -144,6 +144,15 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-6">
+                                            Created By
+                                        </div>
+                                        <div class="col-6 my-auto">
+                                            {{$order->creator->name}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-6">
                                             Last Updated at
                                         </div>
                                         <div class="col-6 my-auto">
