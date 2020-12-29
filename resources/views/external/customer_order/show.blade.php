@@ -76,26 +76,45 @@
                                         </div>
 
                                     </div>
-                                    <div class="table-responsive">
+                                    <div class="table-responsive p-2">
                                         <table class='table table-bordered table-striped w-100'>
                                             <tr>
                                                 <th>Quantity</th>
-                                                <th>material</th>
+                                                <th>Item</th>
                                                 <th>Size</th>
-                                                <th>Status</th>
-                                                <th>Price</th>
-                                                <th>Deposit Amount</th>
-                                                <th>Balance Payment</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                            @foreach ($order->orderItems as $item)
+                                            <tr>
+                                                <td>{{ $item->quantity }} </td>
+                                                <td>{{ $item->material }}</td>
+                                                <td>{{ strtoUpper($item->size) }}</td>
+                                                <td>{{ money($item->price) }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+
+                                    <div class="table-responsive p-2">
+                                        <table class='table table-bordered table-striped w-50 float-right'>
+                                            <tr>
+                                                <th>Subtotal</th>
+                                                <td>
+                                                {{ money($order->price) }}
+                                                </td>    
                                             </tr>
                                             <tr>
-                                                <td>{{ $order->quantity }} </td>
-                                                <td>{{ $order->material }}</td>
-                                                <td>{{ $order->size }}</td>
-                                                <td>{{ humaniseOrderState($order->state) }}</td>
-                                                <td>{{ money($order->price) }}</td>
-                                                <td>{{ money($order->deposit_amount) }}</td>
-                                                <td>{{ money($order->balance_to_pay())}}</td>
+                                                <th>Deposit Amount</th>
+                                                <td>
+                                                {{ money($order->deposit_amount) }}
+                                                </td>    
                                             </tr>
+                                            <tr>
+                                                <th>TOTAL</th>
+                                                <td>
+                                                {{ money($order->balance_to_pay()) }}
+                                                </td>     
+                                            </tr>     
                                         </table>
                                     </div>
                                     <div class="ml-3">
