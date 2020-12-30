@@ -154,7 +154,7 @@
                                             Created By
                                         </div>
                                         <div class="col-6 my-auto">
-                                            {{$order->creator->name}}
+                                            {{$order->creator ? $order->creator->name : '-'}}
                                         </div>
                                     </div>
                                     <hr>
