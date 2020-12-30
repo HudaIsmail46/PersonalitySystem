@@ -49,6 +49,7 @@ function AddItem(props) {
                                 type="number"
                                 name="quantity_item[]"
                                 id="quantity_item"
+                                value="1"
                                 placeholder="Quantity"
                             />
                         </td>
