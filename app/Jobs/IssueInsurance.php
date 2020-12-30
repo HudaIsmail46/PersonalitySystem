@@ -42,7 +42,7 @@ class IssueInsurance implements ShouldQueue
                 'client_email' => 'insurance.cleanhero@gmail.com',
                 'project_date' => Carbon::parse($this->booking->event_begins)->format('Y-m-d'),
                 'project_day' => '1',
-                'project_value' => $this->booking->price /100,
+                'project_value' => $this->toInt($this->booking->price /100),
                 'name_of_contractor' => 'CleanHero Sdn Bhd',
                 'name_of_client' => $this->alphabetOnly($this->booking->customer->name),
                 'scope_of_work' => 'Carpet And Upholstery Cleaning',
@@ -70,5 +70,10 @@ class IssueInsurance implements ShouldQueue
     private function alphabetOnly($string)
     {
         return preg_replace('/[\W\d]*/i', '', $string);
+    }
+
+    private function toInt($float)
+    {
+        return (int)$float;
     }
 }
