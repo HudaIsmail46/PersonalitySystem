@@ -35,7 +35,7 @@ class IssueInsurance implements ShouldQueue
      */
     public function handle()
     {
-        if (!$this->booking->covernote_id) {
+        if (!$this->booking->covernote_id && $this->booking->price > 0 ) {
 
             $body = [
                 'client_mobile' => formatPhoneNo($this->booking->customer->phone_no),
