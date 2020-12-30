@@ -94,6 +94,8 @@ class OrderController extends AuthenticatedController
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
             'deposit_amount' => $this->priceCents($request->deposit_amount),
+            'discount_type' => $request->discount_type,
+            'discount_rate' => $request->discount_rate,
             'notice_ambilan_ref' => $request->notice_ambilan_ref,
             'walk_in_customer' =>isset($request->walk_in_customer),
             'created_by' => Auth()->user()->id,
@@ -176,6 +178,8 @@ class OrderController extends AuthenticatedController
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
             'deposit_amount' => $this->priceCents($request->deposit_amount),
+            'discount_type' => $request->discount_type,
+            'discount_rate' => $request->discount_rate,
             'notice_ambilan_ref' => $request->notice_ambilan_ref,
             'walk_in_customer' =>isset($request->walk_in_customer) ,
         ]);

@@ -82,8 +82,15 @@
                                 <td>{{ $order->quantity }}</td>
                             </tr>
                             <tr>
+                                <td>Discount</td>
+                                <td>@if($order->discount_type!=null)
+                                    {{ $order->discount_type }} {{ $order->discount_rate }}%
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Total Price</td>
-                                <td>{{ money($order->price) }}</td>
+                                <td>{{ money($order->totalPrice()) }}</td>
                             </tr>
                             <tr>
                                 <td>Deposit Amount</td>

@@ -201,6 +201,26 @@
                     <td style="border-bottom: none">
                         Kindly proceed with the payment before the due date to: </td>
                     <td>
+                        Discount {{$order->discount_rate}}%
+                    </td>
+                    <td style="text-align:right">
+                        - {{ money($order->discount()) }}
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td style="border-bottom: none">
+                        Cleanhero (M) Sdn Bhd </td>
+                    <td>
+                        Total
+                    </td>
+                    <td style="text-align:right">
+                        {{ money($order->totalPrice()) }}
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td style="border-bottom: none">
+                        CIMB: 8603 558 004</td>                    
+                    <td>
                         Deposit Amount
                     </td>
                     <td style="text-align:right">
@@ -209,9 +229,7 @@
                 </tr>
                 <tr class="item-last">
                     <td style="border-bottom: none">
-                        Cleanhero (M) Sdn Bhd
-                        <br>CIMB: 8603 558 004<br>
-                        <br>SST Reg No : W24-1905-32100002
+                       SST Reg No : W24-1905-32100002
                     </td>
                     <td>
                         <b>TOTAL DUE</b>

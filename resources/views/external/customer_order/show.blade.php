@@ -104,13 +104,25 @@
                                                 </td>    
                                             </tr>
                                             <tr>
+                                                <th>Discount {{$order->discount_rate}}%</th>
+                                                <td>
+                                                - {{ money($order->discount()) }}
+                                                </td>    
+                                            </tr>
+                                            <tr>
+                                                <th>TOTAL </th>
+                                                <td>
+                                                {{ money($order->totalPrice()) }}
+                                                </td>     
+                                            </tr>
+                                            <tr>
                                                 <th>Deposit Amount</th>
                                                 <td>
                                                 {{ money($order->deposit_amount) }}
                                                 </td>    
                                             </tr>
                                             <tr>
-                                                <th>TOTAL</th>
+                                                <th>TOTAL DUE</th>
                                                 <td>
                                                 {{ money($order->balance_to_pay()) }}
                                                 </td>     
