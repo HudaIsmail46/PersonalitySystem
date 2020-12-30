@@ -15,8 +15,6 @@ class CustomerController extends AuthenticatedController
      */
     public function index(Request $request)
     {
-
-
         $name = $request->name;
         $address = $request->address;
         $phone_no = $request->phone_no;
