@@ -36,7 +36,7 @@ class Order extends Model
         'payment_method', 'paid_at', 'woocommerce_order_id', 'deposit_paid_at', 'deposit_payment_method',
         'deposit_amount', 'collected_at', 'arrived_warehouse_at', 'vendor_collected_at',
         'vendor_returned_at', 'leave_warehouse_at', 'returned_at', 'notice_ambilan_ref',
-        'walk_in_customer', 'created_by'
+        'walk_in_customer', 'created_by', 'discount_type', 'discount_rate'
     ];
 
     use SoftDeletes;
@@ -107,7 +107,17 @@ class Order extends Model
 
     public function balance_to_pay()
     {
-        return $this->price - $this->deposit_amount;
+        return $this->price - $this->deposit_amount - $this->discount();
+    }
+
+    public function discount()
+    {
+        return ($this->discount_rate / 100) * $this->price;
+    }
+
+    public function totalPrice()
+    {
+        return $this->price - $this->discount();
     }
 
     protected static function boot()

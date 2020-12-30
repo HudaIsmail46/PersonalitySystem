@@ -156,6 +156,30 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="field">
+                                <label class="label" for="discount_type">Discount Type</label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('discount_type') is-invalid @enderror"
+                                            type="text" name="discount_type" id="discount_type"
+                                            value="{{ old('discount_type') }}" placeholder="Discount Type">
+                                        <div class="invalid-feedback">{{ $errors->first('discount_type') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label" for="discount_rate">Discount Rate (%)</label>
+                                <div class="form-group row mx-0">
+                                    <div class="col-xs-4">
+                                        <input class="form-control @error('discount_rate') is-invalid @enderror" type="number"
+                                            name="discount_rate" id="discount_rate" value="{{ old('discount_rate') }}"
+                                            placeholder="Discount Rate">
+                                        <div class="invalid-feedback">{{ $errors->first('discount_rate') }}</div>
+                                    </div>
+                                </div>
+                            </div>
                            
                             <label class="label" for="items">Items<span class="text-danger">*</span></label>
                             <div id="AddItem" data-materials="{{json_encode($materials)}}" data-sizes="{{json_encode($sizes)}}" data-fields="{{0}}"></div> 
