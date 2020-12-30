@@ -58,7 +58,7 @@
                             </form>
                             <div class="table-responsive">
                                 @include('booking.table')
-                                {{ $bookings ?? ''->links() }}
+                                {{ $bookings->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>

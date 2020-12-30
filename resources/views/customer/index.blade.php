@@ -79,7 +79,7 @@
                                     @endforeach
 
                                 </table>
-                                {{ $customers ?? ''->links() }}
+                                {{ $customers->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>
