@@ -44,7 +44,7 @@ class IssueInsurance implements ShouldQueue
                 'project_day' => '1',
                 'project_value' => $this->booking->price /100,
                 'name_of_contractor' => 'CleanHero Sdn Bhd',
-                'name_of_client' => $this->booking->customer->name,
+                'name_of_client' => $this->alphabetOnly($this->booking->customer->name),
                 'scope_of_work' => 'Carpet And Upholstery Cleaning',
                 'project_location' => $this->address($this->booking)
             ];
@@ -65,5 +65,10 @@ class IssueInsurance implements ShouldQueue
     {
         return $booking->address_1 .', '. $booking->address_2 .', '. $booking->city
             .', '. $booking->postcode .', '. $booking->location_state;
+    }
+
+    private function alphabetOnly($string)
+    {
+        return preg_replace('/[\W\d]*/i', '', $string);
     }
 }
