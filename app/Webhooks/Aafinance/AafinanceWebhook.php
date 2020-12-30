@@ -20,14 +20,22 @@ class AafinanceWebhook
         if($customerData){
             $phone_no =  $customerData['PhoneNumber'];
             $name = $customerData['Fullname'];
-            $address = static::address($customerData);
+            $address_1 = $data['StreetAddress1'];
+            $address_2 =  $data['StreetAddress2'];
+            $city = $data['City'];
+            $postcode = $data['PostCode'];
+            $location_state = $data['State'];
             $email = $customerData['Email'];
             $nric = $customerData['Nric'];
             $gender = $customerData['Gender'];
             $customer = Customer::findOrCreate($name, $phone_no);
             if($customer){
                 $customer->update([
-                    'address' => $address,
+                    'address_1' => $address_1,
+                    'address_2' => $address_2,
+                    'city' => $city,
+                    'postcode' => $postcode,
+                    'location_state' => $location_state,
                     'email' => $email,
                     'nric' => $nric,
                     'gender' => $gender
@@ -36,12 +44,6 @@ class AafinanceWebhook
         }
 
         return $customer;
-    }
-
-    public static function address($data)
-    {
-        return $data['StreetAddress1'] . $data['StreetAddress2'] . $data['City']
-            . $data['PostCode'] . $data['State'];
     }
 
     public static function createOrUpdateBookingItems(Booking $booking, $jobItems)

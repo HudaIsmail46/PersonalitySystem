@@ -6,16 +6,21 @@ use App\Customer;
 use App\BookingItem;
 use Carbon\Carbon;
 use App\Webhooks\Aafinance\AafinanceWeebhook;
+use App\Jobs\IssueInsurance;
 
 class NewJobAttendanceAdded extends AafinanceWebhook
 {
     public static function handle($data)
     {
-        $booking = Booking::firstWhere('af_reference',  $data['Job']['JobId']);
+        if ($data['ClockType'] == "Clock-Out") {
+            $booking = Booking::firstWhere('af_reference',  $data['Job']['JobId']);
+        
+            $booking->fill([
+                "team" => $data['Agent']['Fullname']
+            ]);
+            $booking->save();
 
-        $booking->fill([
-            "team" => $data['Agent']['Fullname']
-        ]);
-        $booking->save();
+            IssueInsurance::dispatch($booking);
+        }
     }
 }
