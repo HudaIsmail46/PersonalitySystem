@@ -109,7 +109,12 @@
                             </tr>
                             <tr>
                                 <td>Balance To Be Paid</td>
-                                <td>{{money($order->balance_to_pay())}}</td>
+                                <td>@if($order->paid_at != null)
+                                    Fully Paid
+                                    @else
+                                    {{money($order->balance_to_pay())}}
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Payment Detail</td>

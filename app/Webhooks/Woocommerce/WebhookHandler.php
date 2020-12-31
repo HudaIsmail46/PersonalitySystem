@@ -32,10 +32,8 @@ class WebhookHandler
             $order->fill([
                 'woocommerce_order_id' => $payload["id"],
                 'quantity' => 0,
-                'deposit_amount' => static::valueByKey('_wc_deposits_deposit_amount', $payload["meta_data"]),
-                'price' => 0,//to be removed
-                'size' => 's',//to be removed
-                'material'=> 'invalid',//to be removed
+                'deposit_amount' => priceCents(static::valueByKey('_wc_deposits_deposit_amount', $payload["meta_data"])),
+                'price' => 0,
                 'prefered_pickup_datetime' => static::preferedDateTime($payload["meta_data"]),
                 'address_1' => $billing["address_1"],
                 'address_2' => $billing["address_2"],
@@ -60,8 +58,9 @@ class WebhookHandler
                     'quantity' => $items["quantity"],
                     'material' => strtolower(static::valueByKey('carpet-material', $items['meta_data'])),
                     'size' =>  static::getOrdersize($items['meta_data']),
-                    'price' => $items["total"] * 100,
+                    'price' => priceCents($items["total"]),
                 ]);
+                // logger($order_item);
                 
                 $order_item->save();
             }
@@ -77,11 +76,11 @@ class WebhookHandler
     public static function getOrderSize($data)
     {
         $size = strtolower(static::valueByKey('carpet-size', $data));
-        if (preg_match('/Large/', $size)){
+        if (preg_match('/Large/i', $size)){
             return 'l';
-        } elseif (preg_match('/Medium/', $size)){
+        } elseif (preg_match('/Medium/i', $size)){
             return 'm';
-        } elseif (preg_match('/Small/', $size)){
+        } elseif (preg_match('/Small/i', $size)){
             return 's';
         } else {
             return 'xs';

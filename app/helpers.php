@@ -107,3 +107,10 @@ if (!function_exists('formatPhoneNo')) {
         return $phone_number;
     }
 }
+
+if (!function_exists('priceCents')) {
+    function priceCents(int $price)
+    {
+        return $price ? $price * 100 : 0;
+    }
+}
