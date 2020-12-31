@@ -86,14 +86,12 @@ class OrderController extends AuthenticatedController
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,
-            'size'=> "s",
-            'material'=> "synthetic",
-            'price' => $this->priceCents(array_sum($request->price_item)),
+            'price' => priceCents(array_sum($request->price_item)),
             'quantity' => array_sum($request->quantity_item),
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
-            'deposit_amount' => $this->priceCents($request->deposit_amount),
+            'deposit_amount' => priceCents($request->deposit_amount),
             'discount_type' => $request->discount_type,
             'discount_rate' => $request->discount_rate,
             'notice_ambilan_ref' => $request->notice_ambilan_ref,
@@ -109,7 +107,7 @@ class OrderController extends AuthenticatedController
                 'size' => $request->size[$i],
                 'material' => $request->material[$i],
                 'quantity' => $request->quantity_item[$i],
-                'price' =>  $this->priceCents($request->price_item[$i]),
+                'price' =>  priceCents($request->price_item[$i]),
                 'created_at' => $order_item->freshTimestamp(),
                 'updated_at' => $order_item->freshTimestamp()
             ];
@@ -177,7 +175,7 @@ class OrderController extends AuthenticatedController
             'prefered_pickup_datetime' => $request->prefered_pickup_datetime,
             'deposit_payment_method' => $request->deposit_payment_method,
             'deposit_paid_at' => $request->deposit_paid_at,
-            'deposit_amount' => $this->priceCents($request->deposit_amount),
+            'deposit_amount' => priceCents($request->deposit_amount),
             'discount_type' => $request->discount_type,
             'discount_rate' => $request->discount_rate,
             'notice_ambilan_ref' => $request->notice_ambilan_ref,
@@ -193,7 +191,7 @@ class OrderController extends AuthenticatedController
                         'material' => $request->material[$i],
                         'size' => $request->size[$i],
                         'quantity' => $request->quantity_item[$i],
-                        'price' =>  $this->priceCents($request->price_item[$i])
+                        'price' =>  priceCents($request->price_item[$i])
                     ]);
                     
             } else {
@@ -204,7 +202,7 @@ class OrderController extends AuthenticatedController
                         'size' => $request->size[$i],
                         'material' => $request->material[$i],
                         'quantity' => $request->quantity_item[$i],
-                        'price' =>  $this->priceCents($request->price_item[$i]),
+                        'price' =>  priceCents($request->price_item[$i]),
                         'created_at' => $order_item->freshTimestamp(),
                         'updated_at' => $order_item->freshTimestamp()
                     ];
@@ -245,11 +243,6 @@ class OrderController extends AuthenticatedController
         $order->state->transitionTo($request->state);
         $order->load('customer');
         return $order;
-    }
-
-    protected function priceCents($price)
-    {
-        return $price ? $price * 100 : 0;
     }
 
     protected function validateUpdateOrders()
