@@ -130,6 +130,24 @@ function NextOrderStates(props) {
                     </div>
                 );
                 break;
+            case canReopenOrder && "App\\State\\Order\\Returned":
+                states = (
+                    <div className='mb-1'>
+                        <button
+                            className="btn btn-success btn-block"
+                            onClick={()=> onClick(order.id, "App\\State\\Order\\Draft")}
+                        >
+                            Reprocessing
+                        </button>
+                        <button
+                            className="btn btn-success btn-block"
+                            onClick={()=> onClick(order.id, "App\\State\\Order\\Completed")}
+                        >
+                            Complete
+                        </button>
+                    </div>
+                );
+                break;
             case "App\\State\\Order\\Returned":
                 states = (
                         <div
@@ -137,16 +155,6 @@ function NextOrderStates(props) {
                             onClick={()=> onClick(order.id, "App\\State\\Order\\Completed")}
                         >
                             Complete
-                        </div>
-                );
-                break;
-            case canReopenOrder && "App\\State\\Order\\Returned":
-                states = (
-                        <div
-                            className="btn btn-success btn-block"
-                            onClick={()=> onClick(order.id, "App\\State\\Order\\Draft")}
-                        >
-                            Reprocessing
                         </div>
                 );
                 break;
