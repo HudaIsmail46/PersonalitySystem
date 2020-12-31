@@ -35,10 +35,11 @@
                                 Name : <a
                                     href="{{ route('customer.show', $booking->customer) }}">{{ $booking->customer->name }}</a>
                                 <br>
-                                @if ($booking->customer->phone_no !=null)
+                                @if ($booking->customer->phone_no != null)
                                     Phone No. : {{ $booking->customer->phone_no }}
-                                    <a href="https://api.whatsapp.com/send?phone={{ $booking->customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
-                                    <a href="tel:{{$booking->customer->phone_no }}"><i class="fas fa-phone"></i></a>
+                                    <a href="https://api.whatsapp.com/send?phone={{ $booking->customer->phone_no }}"
+                                        target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                    <a href="tel:{{ $booking->customer->phone_no }}"><i class="fas fa-phone"></i></a>
                                 @endif
                             @else
                                 Name : -
@@ -106,7 +107,7 @@
                                 @if ($booking->price != null)
                                     <tr>
                                         <td>Actual Price</td>
-                                        <td>{{  money($booking->price) }}</td>
+                                        <td>{{ money($booking->price) }}</td>
                                     </tr>
                                 @endif
                                 <tr>
@@ -115,12 +116,51 @@
                                     <td>{{ $booking->status }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Covernote Id</td>
+                                    <td>{{ $booking->covernote_id }}</td>
+                                </tr>
+                                <tr>
                                     <td>Image</td>
                                     <td>
-                                        @include('images.table', ['images' => $booking->images, 'can_delete_image' => auth()->user()->can('edit bookings')])
+                                        @include('images.table', ['images' => $booking->images, 'can_delete_image' =>
+                                        auth()->user()->can('edit bookings')])
                                     </td>
                                 </tr>
                             </table>
+                        </div>
+                        <h2>Booking Items</h2>
+                        <div class='mt-3 mb-5'>
+                            @foreach ($booking->bookingItems as $bookingItem)
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                            <tr>
+                                                <td>Product Name</td>
+                                                <td> {{ $bookingItem->aafinance_webhook['Product']['ProductName'] ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td> Product Code</td>
+                                                <td>{{ $bookingItem->aafinance_webhook['Product']['ProductCode'] ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td> Category </td>
+                                                <td>{{ $bookingItem->aafinance_webhook['Product']['Category'] ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td> Remark </td>
+                                                <td>{{ $bookingItem->remark ?? ''}}</td>
+                                            </tr>
+                                        <tr>
+                                            <td> Quantity</td>
+                                            <td>{{ $bookingItem->quantity }}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td> Price </td>
+                                            <td>{{ money($bookingItem->price) }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            @endforeach
                         </div>
                         @can('edit bookings')
                             <div class="row mt-5 ml-0">

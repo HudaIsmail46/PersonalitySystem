@@ -92,11 +92,11 @@ class BookingController extends AuthenticatedController
             'city' => $request->city,
             'location_state' => $request->location_state,
             'booking_type' => $request->booking_type,
-            'discount' => $this->priceCents($request->discount),
-            'deposit' => $this->priceCents($request->deposit),
+            'discount' => priceCents($request->discount),
+            'deposit' => priceCents($request->deposit),
             'pic' => $request->pic,
             'remarks' => $request->remarks,
-            'estimated_price' => $this->priceCents($request->estimated_price),
+            'estimated_price' => priceCents($request->estimated_price),
             'team' => $request->team,
         ]);
         $booking->save();
