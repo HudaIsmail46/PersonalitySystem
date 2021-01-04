@@ -133,6 +133,9 @@
                                 <p> Order ID :
                                     {{ $order->id }}
                                 </p>
+                                @if ($order->paid_at)
+                                    <h3 style="color: red;"><strong>PAID</strong></h3>
+                                @endif
                             </td>
                         </tr>
                     </table>

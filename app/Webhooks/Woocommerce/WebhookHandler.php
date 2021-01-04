@@ -62,7 +62,6 @@ class WebhookHandler
                         'size' =>  static::getOrdersize($items['meta_data']),
                         'price' => priceCents($items["total"]),
                     ]);
-                    // logger($order_item);
                     
                     $order_item->save();
                 }
