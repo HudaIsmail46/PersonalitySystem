@@ -109,7 +109,7 @@ if (!function_exists('formatPhoneNo')) {
 }
 
 if (!function_exists('priceCents')) {
-    function priceCents(int $price)
+    function priceCents($price)
     {
         return $price ? $price * 100 : 0;
     }
