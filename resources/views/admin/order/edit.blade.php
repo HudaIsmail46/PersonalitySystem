@@ -36,6 +36,11 @@
                             <h3>Customer</h3>
                             <div id="SelectCustomer" data-customer_options="{{json_encode($customer_options)}}" data-selected_customer="{{json_encode($selected_customer)}}"></div>
                         </div>
+
+                        <div class="field">
+                            <input type="checkbox" name="walk_in_customer" id="walk_in_customer" value='1' {{ old('walk_in_customer', $order->walk_in_customer ?? '')? 'checked="checked"':null }}>
+                            <label for="walk_in_customer"> Walk in Customer</label>
+                        </div>
                         <h3>Order</h3>
 
                         <div class="field">
@@ -116,48 +121,12 @@
                         </div>
 
                         <div class="field">
-                            <label class="label" for="size">Size</label>
-                            <div class="form-group row ">
-                                <div class="col-md-4">
-                                    <select id="size" name="size"
-                                        class="custom-select @error('size') is-invalid @enderror">
-                                        <option value="">--SELECT SIZE--</option>
-                                        @foreach (App\Order::SIZES as $size)
-                                            <option value="{{ $size }}" {{ $order->size == $size ? 'selected' : '' }}>
-                                                {{ $size }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">{{ $errors->first('size') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="material">Material  <span class="text-danger">*</span></label>
-                            <div class="form-group row">
-                                <div class="col-md-4">
-                                    <select id="material" name="material"
-                                        class="custom-select @error('size') is-invalid @enderror">
-                                        <option value="">--SELECT MATERIAL--</option>
-                                        @foreach (App\Order::MATERIALS as $material)
-                                            <option value="{{ $material }}"
-                                                {{ $order->material == $material ? 'selected' : '' }}>{{ $material }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">{{ $errors->first('material') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="price">Price(in cents)</label>
+                            <label class="label" for="price">Price(RM)</label>
                             <div class="form-group row ">
                                 <div class="col-md-4">
                                     <input class="form-control @error('price') is-invalid @enderror" type="number"
                                         name="price" id="price" step='.01'
-                                        value="{{(old('price') ?? $order->price  ?? 0) }}"
+                                        value="{{(old('price') ?? $order->price/100  ?? 0) }}"
                                         placeholder="price">
                                     <div class="invalid-feedback">{{ $errors->first('price') }}</div>
                                 </div>
@@ -179,65 +148,9 @@
                             </div>
                         </div>
 
+                        @include('order.orderItemField')
                         <div class="field">
-                            <label class="label" for="actual_length">Actual length (ft) </label>
-                            <div class="form-group row">
-                                <div class="col-auto">
-                                    <input class="form-control @error('actual_length') is-invalid @enderror"
-                                        type="number" name="actual_length" id="actual_length"
-                                        value="{{ old('actual_length') ?? ($order->actual_length ?? '') }}"
-                                        placeholder="Actual Length">
-                                    <div class="invalid-feedback">{{ $errors->first('actual_length') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="actual_width">Actual width (ft) </label>
-                            <div class="form-group row">
-                                <div class="col-auto">
-                                    <input class="form-control @error('actual_width') is-invalid @enderror"
-                                        type="number" name="actual_width" id="actual_width"
-                                        value="{{ old('actual_width') ?? ($order->actual_width ?? '') }}"
-                                        placeholder="Actual Width">
-                                    <div class="invalid-feedback">{{ $errors->first('actual_width') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="actual_material">Actual material</label>
-                            <div class="form-group row ">
-                                <div class="col-md-4">
-                                    <select id="actual_material" name="actual_material"
-                                        class="custom-select @error('actual_material') is-invalid @enderror">
-                                        <option value="">--SELECT ACTUAL MATERIAL--</option>
-                                        @foreach (App\Order::MATERIALS as $actual_material)
-                                            <option value="{{ $actual_material }}"
-                                                {{ $order->actual_material == $actual_material ? 'selected' : '' }}>
-                                                {{ $actual_material }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">{{ $errors->first('size') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="actual_price">Actual price</label>
-                            <div class="form-group row mx-0">
-                                <div class="col-xs-4">
-                                    <input class="form-control @error('actual_price') is-invalid @enderror"
-                                        name="actual_price" id="actual_price" step='.01'
-                                        value="{{ (float) (old('actual_price') ?? ($order->actual_price / 100 ?? 0)) }}">
-                                    <div class="invalid-feedback">{{ $errors->first('actual_price') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="deposit_amount">Deposit Amount</label>
+                            <label class="label" for="deposit_amount">Deposit Amount(RM)</label>
                             <div class="form-group row ">
                                 <div class="col-md-4">
                                     <input class="form-control @error('deposit_amount') is-invalid @enderror" type="number"
@@ -308,19 +221,6 @@
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">{{ $errors->first('payment_method') }}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <label class="label" for="quantity">Quantity </label>
-                            <div class="form-group row mx-0">
-                                <div class="col-xs-4">
-                                    <input class="form-control @error('quantity') is-invalid @enderror" type="number"
-                                        name="quantity" id="quantity"
-                                        value="{{ old('quantity') ?? ($order->quantity ?? '') }}"
-                                        placeholder="Quantity">
-                                    <div class="invalid-feedback">{{ $errors->first('quantity') }}</div>
                                 </div>
                             </div>
                         </div>
