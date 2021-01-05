@@ -83,7 +83,7 @@
                             </tr>
                             <tr>
                                 <td>Discount</td>
-                                <td>@if($order->discount_type!=null)
+                                <td>@if($order->discount_rate!=null)
                                     {{ $order->discount_type }} {{ $order->discount_rate }}%
                                     @endif
                                 </td>
