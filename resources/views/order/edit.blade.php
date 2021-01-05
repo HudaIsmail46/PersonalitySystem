@@ -259,10 +259,7 @@
                                 </div>
                             </div>
 
-                            @include('images.create', ['images' => $order->images, 'imageableId' =>
-                            $order->id,
-                            'imageableType' => App\Order::class ])
-
+                       
                             <div class="field is grouped">
                                 <div class="form-group">
                                     <button class="btn mt-2 btn-primary" type="submit">Submit</button>
