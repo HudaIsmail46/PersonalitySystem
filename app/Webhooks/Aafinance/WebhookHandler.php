@@ -12,6 +12,7 @@ use App\Webhooks\Aafinance\NewJobAttendanceAdded;
 // use App\Webhooks\Aafinance\ExistingJobAssignmentAssigned;
 // use App\Webhooks\Aafinance\ExistingJobAssignmentAccepted;
 // use App\Webhooks\Aafinance\ExistingJobAssignmentCancelled;
+use App\Webhooks\Aafinance\NewSalesInvoicePaymentAdded;
 
 class WebhookHandler
 {
@@ -33,6 +34,9 @@ class WebhookHandler
             break;
         case "NewJobAttendanceAdded":
             NewJobAttendanceAdded::handle($eventMessage);
+            break;
+        case "NewSalesInvoicePaymentAdded":
+            NewSalesInvoicePaymentAdded::handle($eventMessage);
             break;
         default:
             break;

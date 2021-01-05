@@ -61,11 +61,9 @@ if (!function_exists('bookingAddress')) {
     function bookingAddress(App\Booking $booking)
     {
         if (!is_null($booking->address_1) || !is_null($booking->address_2) || !is_null($booking->address_3) || !is_null($booking->postcode) || !is_null($booking->city) || !is_null($booking->location_state)) {
-             $addressString = $booking->address_1 . "," . $booking->address_2 . ","  .  $booking->address_3 . " "  . $booking->postcode . ","  . $booking->city . ", "  . $booking->location_state;
-
-            $cleanUpAddress = str_replace(",,", "",$addressString);
-            if($cleanUpAddress !== null){
-                $address = $cleanUpAddress . "<a href='http://maps.google.com/maps?q={$cleanUpAddress}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
+             $addressString = $booking->fullAddress();
+            if($addressString !== null){
+                $address = $addressString . "<a href='http://maps.google.com/maps?q={$addressString}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
             }
 
         } else {

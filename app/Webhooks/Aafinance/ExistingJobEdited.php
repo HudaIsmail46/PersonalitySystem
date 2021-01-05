@@ -30,6 +30,7 @@ class ExistingJobEdited extends AafinanceWebhook
             'city' => $data['City'],
             'postcode' => $data['PostCode'],
             'location_state' => $data['State'],
+            'aafinance_webhook' => $data
         ]);
         $booking->save();
 
