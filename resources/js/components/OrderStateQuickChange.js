@@ -4,7 +4,7 @@ import axios from 'axios';
 import NextOrderStates from './NextOrderStates';
 
 function OrderStateQuickChange(props) {
-    const { order } = props;
+    const { order, canreopenorder } = props;
 
     const changeRunnerJobstate = (orderId, state) => {
         axios.post(`/order/status/${orderId}`,{state})
@@ -18,7 +18,7 @@ function OrderStateQuickChange(props) {
 
     return (
         <div>
-            <NextOrderStates order={order} onClick={changeRunnerJobstate}/>
+            <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>
         </div>
     );
 }

@@ -132,8 +132,9 @@ class OrderController extends AuthenticatedController
                 $runnerJobImages = $runnerJob->images;
             }
         }
+        $canReopenOrder = Auth()->user()->can('reOpen order');
         $encId = Crypt::encryptString($order->id);
-        return view('order.show', compact('runnerJobImages', 'order', 'encId'));
+        return view('order.show', compact('runnerJobImages', 'order', 'encId', 'canReopenOrder'));
     }
 
     /**

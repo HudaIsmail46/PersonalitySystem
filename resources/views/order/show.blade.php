@@ -231,7 +231,7 @@
                             @can('create orders')
                                 <tr>
                                     <td>Action</td>
-                                    <td><div id='OrderStateQuickChange' data-order="{{json_encode($order)}}"></div></td>
+                                    <td><div id='OrderStateQuickChange' data-order="{{json_encode($order)}}" data-canreopenorder="{{ json_encode($canReopenOrder)}}" ></div></td>
                                 </tr>
                             @endcan
                         </table>
