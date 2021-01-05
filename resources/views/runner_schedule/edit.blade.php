@@ -26,7 +26,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-10 card">
+            <div class="col-md-12 card">
                 <div class="card-header">
                     <h3 class="mb-0">Edit Runner Schedule</h3>
                 </div>
