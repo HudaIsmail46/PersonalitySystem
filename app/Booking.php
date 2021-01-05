@@ -20,7 +20,10 @@ class Booking extends Model
     const TYPE = ['RES', 'COM', 'HQ', 'P&D'];
     const STATUS = ['APPROVED', 'NOT APPROVED', 'POSTPONED','IN PROGRESS', 'HUTANG', 'RECUCI', 'APPROVED', 'PENDING', 'NOT VALID',];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'event_ends', 'event_begins'];
+    // protected $casts = [
+    //     'options' => 'array',
+    // ];
 
     public function path()
     {
@@ -37,7 +40,7 @@ class Booking extends Model
         return $this->hasMany(BookingItem::class);
     }
 
-    public function isComplete()
+    public function isComplete()//is irrelevant now
     {
         return !is_null($this->gc_event_title)
             && !is_null($this->gc_address)
@@ -48,7 +51,7 @@ class Booking extends Model
             && !is_null($this->phone_no);
     }
 
-    public function scopeComplete($query)
+    public function scopeComplete($query)//is irrelevant now
     {
         return $query->whereNotNull("gc_event_title")
             ->whereNotNull("gc_address")
@@ -67,5 +70,16 @@ class Booking extends Model
     public function comments()
     {
         return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    public function fullAddress()
+    {
+        $addressString = $this->address_1 . "," . $this->address_2 . "," 
+            .  $this->address_3 . " "  . $this->postcode . ","  . $this->city . ", " 
+            . $this->location_state;
+
+        $addressString = str_replace(",,", "",$addressString);
+
+        return $addressString;
     }
 }
