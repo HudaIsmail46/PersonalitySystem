@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import {dateFormatter, humaniseOrderState, orderAddress} from '../helpers.js';
 import dateFormat from 'dateformat';
+import DataTable from "react-data-table-component";
+
 window.humaniseOrderState = humaniseOrderState;
 window.orderAddress =orderAddress;
 
@@ -11,6 +13,9 @@ function RunnerJobEdit(props) {
     const [modalShow, setModalShow] = useState(false);
     const [order, setOrder] = useState({});
     const [orders, setOrders] = useState(proporders);
+    const [searchState, setSearchState] =useState("");
+    const [searchAddress, setSearchAddress] =useState("");
+    const [searchCustomerName, setSearchCustomerName] =useState("");
     const [runnerJobs, setRunnerJobs] = useState(runnerjobs);
     const [runnerJob, setRunnerJob] = useState({});
 
@@ -18,7 +23,7 @@ function RunnerJobEdit(props) {
         setOrder(order);
         setModalShow(true);
     }
-
+    
     const editRunnerJob = (runnerJob) => {
         setRunnerJob(runnerJob);
         setModalShow(true);
@@ -257,69 +262,178 @@ function RunnerJobEdit(props) {
         )
     }
 
-    const ordersTable = () => {
-        return (
-            <div className="table-responsive">
-            <table className="table table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Order Id</th>
-                        <th>Status</th>
-                        <th>Prefered Pickup</th>
-                        <th>Location</th>
-                        <th>Customer</th>
-                        <th>Notis Ambilan</th>
-                        <th></th>
-                    </tr>
-                    {orders.map(order => {return (
-                        <tr key={order.id} >
-                            <td>{order.id}</td>
-                            <td>{humaniseOrderState(order.state)}</td>
-                            <td>{dateFormatter(order.prefered_pickup_datetime )}</td>
-                            <td>
-                                {displayAddress(order)}
-                            </td>
-                            <td>
-                                Name : {order.customer.name}
-                                <br/>
+    const customStyles = {
+        headCells: {
+          style: {
+            fontSize: '17px',
+            fontWeight: '600',
+            '&:not(:last-of-type)': {
+                          borderRightStyle: 'ridge',
+                          borderRightWidth: '1px',
+          },
+          },
+        },
+        cells: {
+          style: {
+            fontSize: '16px',
+            '&:not(:last-of-type)': {
+                          borderRightStyle: 'ridge',
+                          borderRightWidth: '1px',
+                          borderRightColor: 'ridge',
+                        },
+          },
+        },
+        headRow: {
+          style: {
+            borderTopStyle: 'ridge',
+            borderTopWidth: '1px',
+            borderTopColor: 'ridge',
+          },
+        },
+      };
+
+    const columns = [
+        {
+          name: "Order Id",
+          selector: "id",
+          sortable: true,
+          cell: row => <div className="col-md-4"><div>{row.id}</div></div>,
+        },
+        {
+          name: "Status",
+          selector: "state",
+          sortable: true,
+          cell: row => <div><div>{humaniseOrderState(row.state)}</div></div>,
+        },
+        {
+          name: "Prefered pickup",
+          selector: "prefered_pickup_datetime",
+          sortable: true,
+          cell: row => <div className="mr-5"><div>{dateFormatter(row.prefered_pickup_datetime)}</div></div>,
+
+
+        },
+        {
+            name: "Location",
+            selector:"address_1",
+            sortable: true,
+            cell: row => <div><div>{displayAddress(row)}</div></div>,
+        },
+        {
+            name: "Customer",
+            selector:"  customer.name",
+            sortable: true,
+            cell: row => <div>
+                                <div>{row.customer.name}</div>
                                 {
                                     (() => {
-                                        if (order.customer.phone_no !== null) {
+                                        if (row.customer.phone_no !== null) {
                                             return (
-                                                <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green" ></i></a>
-                                                <a href={'tel:'+ order.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></div>
+                                                <div>{row.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${row.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green" ></i></a>
+                                                <a href={'tel:'+ row.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></div>
                                             )
                                         }
                                     })()
                                 }
                                 {
                                     (() => {
-                                        if (order.walk_in_customer == '1') {
+                                        if (row.walk_in_customer == '1') {
                                             return (
                                                 <span className="badge badge-success">walk in customer</span>
                                             )
                                         }
                                     })()
                                 }
-                            </td>
-                            <td>{order.notice_ambilan_ref}</td>
-                            <td><span className="btn btn-primary" onClick={()=> scheduleOrder(order)}>Add to Runner Schedule</span></td>
-                        </tr>
-                    )})}
-                </tbody>
-            </table>
+                        </div>,
+        },
+        {
+            name: "Notis Ambilan",
+            selector: "notice_ambilan_ref",
+            sortable: true,
+
+        },
+        {
+            name: "",
+            cell: row => <div><div><span className="btn btn-primary" onClick={()=> {scheduleOrder(row)}}>Add to Runner Schedule</span></div></div>,
+
+        },
+      ];
+
+      const search=(rows)=>{
+
+        let searchResult = rows;
+        if (searchState !='' ) {
+            searchResult = searchResult.filter((row) =>row.state.indexOf(searchState)>-1);
+
+        }
+        if(searchAddress != ''){
+            searchResult = searchResult.filter((row) =>row.city.toString().toLowerCase().indexOf(searchAddress) > -1);
+        }
+        if(searchCustomerName != ''){
+            searchResult = searchResult.filter((row) =>row.customer.name.toString().toLowerCase().indexOf(searchCustomerName)>-1);
+        }
+
+        if (searchResult.length == 0) {
+
+            searchResult = searchResult;
+        }
+
+        return searchResult;
+      }
+
+      const  table =() => {
+       return (
+            <div>
+                <div className="table-responsive">
+                    <table className="mt-1">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <label htmlFor="Search"> Search Status  </label>
+                                        <select className="custom-select " value={searchState} onChange={(e) => setSearchState(e.target.value)}>
+                                            <option value="">SELECT STATUS</option>
+                                            <option value="App\State\Order\PendingPickupSchedule">Pending Pickup Schedule</option>
+                                            <option value="App\State\Order\PendingReturnSchedule">Pending Return Schedule</option>
+                                        </select>
+                                </td>
+                                <td>
+                                    <label htmlFor="Search" className="ml-3"> Search City </label>
+                                    <input type="text" className="form-control ml-3" placeholder=" Search City" value ={searchAddress} onChange={(e) => setSearchAddress(e.target.value)}/>
+                                </td>
+                                <td>
+                                    <label htmlFor="Search" className="ml-5"> Search Name </label>
+                                    <input type="text" className=" form-control ml-5" placeholder=" Search Name" value ={searchCustomerName} onChange={(e) => setSearchCustomerName(e.target.value)}/>
+
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div>
+                    <DataTable className="table table-bordered mt-3"
+                        data={search(orders)}
+                        columns ={columns}
+                        defaultSortField="id"
+                        pagination
+                        noHeader
+                        highlightOnHover
+                        striped
+                        customStyles={customStyles}
+                        dense
+                    />
+                </div>
             </div>
-        )
-    }
+        );
+      }
 
     return (
         <div className="field">
             {modalShow && runnerJobForm()}
             <h3>Runner Jobs</h3>
             {runnerJobsTable()}
+            <h3>Order to be Scheduled</h3>
+            {table()}
 
-            <h3>Orders to be scheduled</h3>
-            {ordersTable()}
         </div>
     );
 }
@@ -331,3 +445,10 @@ if (element) {
     Object.keys(props).map(key=> props[key] = JSON.parse(props[key]));
     ReactDOM.render(<RunnerJobEdit {...props}/>, element);
 }
+
+
+
+
+
+
+
