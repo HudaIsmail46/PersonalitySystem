@@ -12,7 +12,7 @@ class Booking extends Model
         'receipt_number', 'invoice_number', 'gc_price', 'price', 'service_type',
         'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic', 
         'address_1','address_2','address_3','postcode','city','location_state',
-        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook'];
+        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook', 'aafinance_payment'];
 
     use SoftDeletes;
     const TEAM = ['HQ1', 'HQ2', 'HQ3', 'HQ4', 'HQ5', 'HQ6','HQ7', 'HQ8', 'AUX1', 'AUX3', 'AUX4'];
@@ -23,6 +23,7 @@ class Booking extends Model
     protected $dates = ['deleted_at', 'event_ends', 'event_begins'];
     protected $casts = [
         'aafinance_webhook' => 'array',
+        'aafinance_payment' => 'array'
     ];
 
     public function path()

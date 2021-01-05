@@ -15,6 +15,7 @@ class AddAafinanceRawWebhookToBookings extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             $table->json('aafinance_webhook')->nullable();
+            $table->json('aafinance_payment')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddAafinanceRawWebhookToBookings extends Migration
     {
         Schema::table('bookings', function (Blueprint $table) {
             $table->dropColumn('aafinance_webhook');
+            $table->dropColumn('aafinance_payment');
         });
     }
 }
