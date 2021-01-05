@@ -33,6 +33,7 @@ function OrderTable(props) {
         <table className="table table-bordered table-striped">
             <tbody>
                 <tr>
+                    <th>No.</th>
                     <th>Order Id</th>
                     <th>Woocommerce Order Ref</th>
                     <th>Customer</th>
@@ -42,8 +43,11 @@ function OrderTable(props) {
                     <th>Notis Ambilan </th>
                     <th>Action</th>
                 </tr>
-                {orders.map(order => {return (
+                {orders.map((order,index) => {return (
                 <tr key={order.id}>
+                        <td>
+                            {index+1 }
+                        </td>
                         <td>
                             <a href={internal ? `/external/order/${order.id}`:`/order/${order.id}`}>{ order.id }</a>
                         </td>
