@@ -107,6 +107,12 @@ function RunnerJobEdit(props) {
         }
     }
 
+    const sortByScheduledFor = (scheduledOrder) => {
+        return scheduledOrder.sort(function(a,b){
+            return new Date(a.scheduled_at) - new Date(b.scheduled_at);
+          });
+    }
+
     const runnerJobForm = () => {
         let timeValue = dateFormat(runnerJob.scheduled_at, "HH:MM");
         return (
@@ -162,7 +168,7 @@ function RunnerJobEdit(props) {
                         <th>Notis Ambilan</th>
                         <th></th>
                     </tr>
-                    {runnerJobs.map(scheduledOrder => (
+                    {sortByScheduledFor(runnerJobs).map(scheduledOrder => (
                         <tr key={scheduledOrder.id} >
                             <td>{canceledRunnerJob(scheduledOrder.state) ? <del>{scheduledOrder.id}</del> :
                                 scheduledOrder.id}
