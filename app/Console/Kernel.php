@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\ImportGoogleCalendars'
+        'App\Console\Commands\SendIssueInsurance'
     ];
 
     /**
@@ -22,14 +22,21 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
+     
+    // protected function schedule(Schedule $schedule)
+    // {
+    //     $schedule->command('google_calendar:import')
+    //         ->everyFifteenMinutes()
+    //         ->timezone('Asia/Kuala_Lumpur')
+    //         ->between('8:00', '22:00');
+    // }
+
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('google_calendar:import')
-            ->everyFifteenMinutes()
-            ->timezone('Asia/Kuala_Lumpur')
-            ->between('8:00', '22:00');
+        $schedule->command('issue_insurance:import')
+                    ->daily();
     }
-
     /**
      * Register the commands for the application.
      *

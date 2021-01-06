@@ -53,11 +53,14 @@ class IssueInsurance implements ShouldQueue
                 ->post('https://senangpks.com.my/api/public/api/cleanHero', $body);
 
             if ($response["message"] == "success" && $response["data"]["covernote_id"]) {
-                $this->booking->update(['covernote_id'=> $response["data"]["covernote_id"]]);
+                $this->booking->update([
+                    'covernote_id'=> $response["data"]["covernote_id"],
+                    'insured_at'=> Carbon::now()
+                    ]);
             } else {
                 Log::error("booking: " . $this->booking->id . " " . $response["data"]["error_msg"]);
             }
-        
+
         }
     }
 

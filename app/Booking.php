@@ -10,9 +10,9 @@ class Booking extends Model
     protected $fillable = ['gc_id','gc_event_title', 'gc_address', 'gc_event_begins',
         'gc_event_ends', 'gc_description', 'gc_team', 'name', 'phone_no', 'status',
         'receipt_number', 'invoice_number', 'gc_price', 'price', 'service_type',
-        'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic', 
+        'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic',
         'address_1','address_2','address_3','postcode','city','location_state',
-        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook', 'aafinance_payment'];
+        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook', 'aafinance_payment','insured_at'];
 
     use SoftDeletes;
     const TEAM = ['HQ1', 'HQ2', 'HQ3', 'HQ4', 'HQ5', 'HQ6','HQ7', 'HQ8', 'AUX1', 'AUX3', 'AUX4'];
@@ -75,8 +75,8 @@ class Booking extends Model
 
     public function fullAddress()
     {
-        $addressString = $this->address_1 . "," . $this->address_2 . "," 
-            .  $this->address_3 . " "  . $this->postcode . ","  . $this->city . ", " 
+        $addressString = $this->address_1 . "," . $this->address_2 . ","
+            .  $this->address_3 . " "  . $this->postcode . ","  . $this->city . ", "
             . $this->location_state;
 
         $addressString = str_replace(",,", "",$addressString);

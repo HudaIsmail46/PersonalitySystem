@@ -120,6 +120,10 @@
                                     <td>{{ $booking->covernote_id }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Log</td>
+                                    <td>{{ $booking->insured_at }}</td>
+                                </tr>
+                                <tr>
                                     <td>Image</td>
                                     <td>
                                         @include('images.table', ['images' => $booking->images, 'can_delete_image' =>
