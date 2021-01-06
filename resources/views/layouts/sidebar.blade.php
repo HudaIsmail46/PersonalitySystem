@@ -50,6 +50,13 @@
                                         <p>Create Bookings</p>
                                     </a>
                                 @endcan
+                                @can('import bookingProduct')
+                                    <a href={{route('booking_product.import.new')}} class="nav-link {{ (request()->is('booking_products/import-excel')) ? 'active' : '' }}">
+                                        <i class="fas fa-file-import nav-icon"></i>
+
+                                        <p>Import Booking Products</p>
+                                    </a>
+                                @endcan
                             </li>
                         </ul>
                     </li>

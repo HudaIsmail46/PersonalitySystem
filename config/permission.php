@@ -231,7 +231,8 @@ return [
             'list assignedRunnerSchedule',
             'list vendorCollected orders',
             'list inhouseCleaning orders',
-            'reOpen order'
+            'reOpen order',
+            'import bookingProduct'
         ]
     ],
 ];
