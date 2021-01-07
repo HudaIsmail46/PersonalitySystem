@@ -14,13 +14,11 @@ class NewJobAttendanceAdded extends AafinanceWebhook
     {
         if ($data['ClockType'] == "Clock-Out") {
             $booking = Booking::firstWhere('af_reference',  $data['Job']['JobId']);
-        
+
             $booking->fill([
                 "team" => $data['Agent']['Fullname']
             ]);
             $booking->save();
-
-            IssueInsurance::dispatch($booking);
         }
     }
 }
