@@ -6,6 +6,7 @@ use App\Customer;
 use App\BookingItem;
 use Carbon\Carbon;
 use App\Webhooks\Aafinance\AafinanceWeebhook;
+use App\Jobs\ReportBooking;
 
 class ExistingJobEdited extends AafinanceWebhook
 {
@@ -35,5 +36,7 @@ class ExistingJobEdited extends AafinanceWebhook
         $booking->save();
 
         $bookingItems = static::createOrUpdateBookingItems($booking, $data['JobItems']);
+
+        ReportBooking::dispatch($booking);
     }
 }

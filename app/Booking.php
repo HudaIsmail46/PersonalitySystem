@@ -61,4 +61,103 @@ class Booking extends Model
 
         return $addressString;
     }
+
+    public function additions()
+    {
+        $additions = [];
+        foreach($this->aafinance_webhook['JobAddtionalCost'] as $addition)
+        {
+            if ($addition['Amount'] > 0) {
+                $additionstring =  $addition['Description'] . ' RM ' . $addition['Amount'];
+                array_push($additions, $additionstring);
+            }
+        }
+        
+        return $additions;
+    }
+
+    public function deductions()
+    {
+        $deductions = [];
+        foreach($this->aafinance_webhook['JobAddtionalCost'] as $deduction)
+        {
+            if ($deduction['Amount'] < 0) {
+                $deductionString =  $deduction['Description'] . ' RM ' . $deduction['Amount'];
+                array_push($deductions, $deductionString);
+            }
+        }
+        
+        return $deductions;
+    }
+
+    public function deposit()
+    {
+        return $this->aafinance_webhook['JobDeposit'] ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;   
+    }
+
+    public function handledBy()
+    {
+        return $this->aafinance_webhook['CreationUser'];
+    }
+
+    public function productList()
+    {
+        $productList = [];
+        foreach($this->aafinance_webhook['JobItems'] as $item)
+        {
+            $product = "name: " . $item["Product"]["ProductName"]
+                . ", code: " . $item["Product"]["ProductCode"]
+                . ", category: " . $item["Product"]["Category"]
+                . ", price: " . $item["UnitPrice"]
+                . ", quantity: " . $item["Quantity"]
+                . ", remark: " . $item["Remark"];
+
+            array_push($productList, $product);
+        }
+
+        return $productList;
+    }
+
+    private function sumPrice($regex)
+    {
+        $price = 0;
+        foreach($this->aafinance_webhook['JobItems'] as $item)
+        {
+            if (preg_match($regex, $item["Product"]["ProductCode"])) {
+                $price += $item["UnitPrice"];
+            };
+        }
+
+        return $price;
+    }
+
+    public function ckuResidentialPrice()
+    {
+        $regex = "/^1\d{2}$/";
+        return $this->sumPrice($regex);
+    }
+
+    public function ckuCommercialPrice()
+    {
+        $regex = "/^3\d{2}$/";
+        return $this->sumPrice($regex);
+    }
+
+    public function mcsResidentialPrice()
+    {
+        $regex = "/^4\d{2}$/";
+        return $this->sumPrice($regex);
+    }
+
+    public function mcsCommercialPrice()
+    {
+        $regex = "/^5\d{2}$/";
+        return $this->sumPrice($regex);
+    }
+
+    public function hqPrice()
+    {
+        $regex = "/^2\d{2}$/";
+        return $this->sumPrice($regex);
+    }
 }

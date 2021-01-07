@@ -4,7 +4,7 @@ namespace App\Webhooks\Aafinance;
 use App\Booking;
 use Carbon\Carbon;
 use App\Webhooks\Aafinance\AafinanceWeebhook;
-use App\Jobs\IssueInsurance;
+use App\Jobs\ReportBooking;
 
 class NewSalesInvoicePaymentAdded extends AafinanceWebhook
 {
@@ -16,10 +16,12 @@ class NewSalesInvoicePaymentAdded extends AafinanceWebhook
                 "aafinance_payment" => $data,
                 "status" => 'Paid',
                 "receipt_number" => $data['ReceiptReferenceNo'],
-                "invoice_number" => $data['ReceiptReferenceNo'],
+                "invoice_number" => $data['SalesInvoiceId'],
             ]);
 
             $booking->save();
+
+            ReportBooking::dispatch($booking);
         }
     }
 }
