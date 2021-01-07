@@ -41,28 +41,6 @@ class Booking extends Model
         return $this->hasMany(BookingItem::class);
     }
 
-    public function isComplete()//is irrelevant now
-    {
-        return !is_null($this->gc_event_title)
-            && !is_null($this->gc_address)
-            && !is_null($this->gc_event_begins)
-            && !is_null($this->gc_event_ends)
-            && !is_null($this->gc_description)
-            && !is_null($this->name)
-            && !is_null($this->phone_no);
-    }
-
-    public function scopeComplete($query)//is irrelevant now
-    {
-        return $query->whereNotNull("gc_event_title")
-            ->whereNotNull("gc_address")
-            ->whereNotNull("gc_event_begins")
-            ->whereNotNull("gc_event_ends")
-            ->whereNotNull("gc_description")
-            ->whereNotNull("name")
-            ->whereNotNull("phone_no");
-    }
-
     public function images()
     {
         return $this->morphMany('App\Image','imageable');

@@ -24,14 +24,6 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Incomplete Bookings</h5>
-                                <canvas id="incompleteBooking" config="{{$incompleteBookingChart}}"></canvas>
-                            </div>
-                        </div>
-                    </div>
                     <div class='col-lg-8'>
                         <div class="card ">
                             <div class="card-body">
