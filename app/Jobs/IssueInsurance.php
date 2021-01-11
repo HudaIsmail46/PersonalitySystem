@@ -35,7 +35,7 @@ class IssueInsurance implements ShouldQueue
      */
     public function handle()
     {
-        if (!$this->booking->covernote_id && $this->booking->price > 0 ) {
+        if ($this->eligibleForInsurance() ) {
 
             $body = [
                 'client_mobile' => formatPhoneNo($this->booking->customer->phone_no),
@@ -64,6 +64,16 @@ class IssueInsurance implements ShouldQueue
         }
     }
 
+    private function eligibleForInsurance()
+    {
+        return !$this->booking->covernote_id &&
+            ( 
+                $this->booking->ckuResidentialPrice() > 0 ||
+                $this->booking->ckuCommercialPrice() > 0 ||
+                $this->booking->hqPrice() > 0
+            );
+    }
+
     private function address($booking)
     {
         return $booking->address_1 .', '. $booking->address_2 .', '. $booking->city
@@ -72,7 +82,7 @@ class IssueInsurance implements ShouldQueue
 
     private function alphabetOnly($string)
     {
-        return preg_replace('/[\W\d]*/i', '', $string);
+        return preg_replace('/[\W\d_]*/i', '', $string);
     }
 
     private function toInt($float)
