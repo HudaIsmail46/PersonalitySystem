@@ -92,12 +92,12 @@ class Booking extends Model
 
     public function deposit()
     {
-        return $this->aafinance_webhook['JobDeposit'] ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;   
+        return array_key_exists('JobDeposit', $this->aafinance_webhook) ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;   
     }
 
     public function handledBy()
     {
-        return $this->aafinance_webhook['CreationUser'];
+        return array_key_exists('CreationUser', $this->aafinance_webhook) ? $this->aafinance_webhook['CreationUser'] : '';
     }
 
     public function productList()
