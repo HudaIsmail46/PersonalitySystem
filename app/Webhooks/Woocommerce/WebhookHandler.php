@@ -19,7 +19,7 @@ class WebhookHandler
             $billing = $payload["billing"];
             $item = $payload["line_items"][0]; //for now we only process pnd, the cart is not mixed with other item
             if ($item['product_id'] == env('PRODUCT_ID', '')) { //hardcoded for now, this is referring for pnd product only
-                $customer = Customer::findOrCreate($billing["first_name"] . " " . $billing['last_name'], $billing["phone"]);
+                $customer = Customer::findOrCreate($billing["first_name"] . " " . $billing['last_name'], formatPhoneNo($billing["phone"]));
             
                 $customer->update([
                     $customer->address_1 = $billing["address_1"],
