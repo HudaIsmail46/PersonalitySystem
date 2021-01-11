@@ -30,7 +30,7 @@ class JobListSheet
         $sheetId = env('SHEET_ID');
         $data = [
             [
-                $this->booking->customer->name,//name
+                $this->booking->customer ? $this->booking->customer->name : '',//name
                 $this->booking->fullAddress(),// alamat
                 $this->booking->customer->phone_no,// no telefon 1
                 '',// no telefon 2
