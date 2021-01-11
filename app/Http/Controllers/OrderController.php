@@ -26,6 +26,8 @@ class OrderController extends AuthenticatedController
         $phone_no = $request->phone_no;
         $notice_ambilan_ref = $request->notice_ambilan_ref;
         $canReopenOrder = Auth()->user()->can('reOpen order');
+        $canCreateOrder = Auth()->user()->can('create orders');
+        $customerService = Auth()->user()->hasRole('CustomerService');
 
         $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
             ->with('customer')
@@ -50,7 +52,7 @@ class OrderController extends AuthenticatedController
             })
             ->orderBy('prefered_pickup_datetime', 'DESC')->paginate(10);
 
-        return view('order.index', compact('orders', 'canReopenOrder'))
+        return view('order.index', compact('orders', 'canReopenOrder', 'canCreateOrder',  'customerService' ))
             ->with('i', ($orders->get('page', 1) - 1) * 5);
     }
 

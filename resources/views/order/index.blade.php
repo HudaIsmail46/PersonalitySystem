@@ -59,7 +59,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
-                            <div id="OrderTable" data-proporders="{{ json_encode($orders) }}" data-canreopenorder="{{ json_encode($canReopenOrder) }}"></div>
+                            <div id="OrderTable" data-proporders="{{ json_encode($orders) }}" data-canreopenorder="{{ json_encode($canReopenOrder) }}" data-customerservice="{{ json_encode($customerService)}}" data-cancreateorder="{{ json_encode($canCreateOrder)}}"></div>
                                 {{ $orders->withQueryString()->links() }}
                             </div>
                         </div>
