@@ -92,7 +92,9 @@ class Booking extends Model
 
     public function deposit()
     {
-        return array_key_exists('JobDeposit', $this->aafinance_webhook) ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;   
+        if (array_key_exists('JobDeposit', $this->aafinance_webhook)) {
+            return $this->aafinance_webhook['JobDeposit'] ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;
+        }
     }
 
     public function handledBy()
