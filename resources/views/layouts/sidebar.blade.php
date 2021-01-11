@@ -50,6 +50,13 @@
                                         <p>Create Bookings</p>
                                     </a>
                                 @endcan
+                                @can('follow up')
+                                <a href={{route('follow_up.index')}} class="nav-link {{ (request()->is('follow_up/index')) ? 'active' : '' }}">
+                                    <i class="fas fa-pen nav-icon"></i>
+
+                                    <p>Follow Up</p>
+                                </a>
+                            @endcan
                             </li>
                         </ul>
                     </li>
@@ -175,7 +182,7 @@
                             </p>
                         </a>
                     </li>
-                </ul>    
+                </ul>
             @endcan
             @can('list vendorCollected orders')
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
@@ -187,7 +194,7 @@
                             </p>
                         </a>
                     </li>
-                </ul>    
+                </ul>
             @endcan
             @can('list inhouseCleaning orders')
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
@@ -199,7 +206,7 @@
                             </p>
                         </a>
                     </li>
-                </ul>    
+                </ul>
             @endcan
         </nav>
     </div>
