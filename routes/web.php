@@ -35,6 +35,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 ## Import
 Route::get('/bookings/import-excel', 'ImportExcel\ImportExcelController@index')->name('booking.import.new');
 Route::post('/bookings/import-excel', 'ImportExcel\ImportExcelController@import')->name('booking.import');
+Route::get('/booking_products/import-excel', 'ImportExcel\ImportExcelController@productIndex')->name('booking_product.import.new');
+Route::post('/booking_products/import-excel', 'ImportExcel\ImportExcelController@productImport')->name('booking_product.import');
 
 ## Booking CRUD
 Route::prefix('/booking')->name('booking.')->group(function () {

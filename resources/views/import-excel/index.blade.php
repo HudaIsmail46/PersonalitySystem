@@ -33,7 +33,7 @@
                     @csrf
                     <input type="file" name="import_file" class="form-control">
                     <br>
-                    <button class="btn btn-success">Import File</button>
+                    <button class="btn btn-success">Import Booking File</button>
                 </form>
             </div>
         </div>
