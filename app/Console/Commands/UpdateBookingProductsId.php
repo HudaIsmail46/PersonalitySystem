@@ -41,15 +41,17 @@ class UpdateBookingProductsId extends Command
     {
         $booking_items = BookingItem::whereNull('booking_product_id')->get();
         foreach ($booking_items as $booking_item) {
-            $products_id = $booking_item->aafinance_webhook['Product']['ProductId'];
-            $id = BookingProduct::where('product_id', $products_id)->pluck('id')->first();
-            if ($id != null) {
-
-                $booking_item->fill([
-                    'booking_product_id' => $id,
-                ]);
-                $booking_item->save();
-                $this->info("Booking Product Id updated");
+            if (array_key_exists('Product', $booking_item->aafinance_webhook) && array_key_exists('ProductId', $booking_item->aafinance_webhook['Product']) ) {
+                $products_id = $booking_item->aafinance_webhook['Product']['ProductId'];
+                $id = BookingProduct::where('product_id', $products_id)->pluck('id')->first();
+                if ($id) {
+    
+                    $booking_item->fill([
+                        'booking_product_id' => $id,
+                    ]);
+                    $booking_item->save();
+                    $this->info("Booking Product Id updated");
+                }
             }
         }
         return 0;

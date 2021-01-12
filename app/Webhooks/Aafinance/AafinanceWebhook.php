@@ -55,7 +55,7 @@ class AafinanceWebhook
                 'booking_id' => $booking->id
             ]);
             $bookingItem->fill([
-                'aafinance_webhook' => json_encode($jobItem),
+                'aafinance_webhook' => $jobItem,
                 'quantity' => $jobItem['Quantity'],
                 'price' => $jobItem['UnitPrice'] ? $jobItem['UnitPrice'] *100 : 0 ,
                 'remark' => $jobItem['Remark'],
