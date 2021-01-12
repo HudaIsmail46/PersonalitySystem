@@ -43,22 +43,22 @@ class JobListSheet
                 implode("\n", $this->booking->deductions()),// deduction
                 $this->booking->deposit() ? 'paid' : '',// deposit status
                 $this->booking->deposit() ? $this->booking->deposit() : '',// deposit value
-                $this->booking->ckuResidentialPrice(),// actual cku residential
-                $this->booking->ckuCommercialPrice(),// actual cku commercial
-                $this->booking->mcsResidentialPrice(),// actual mcs residential
-                $this->booking->mcsCommercialPrice(),// actual mcs commercial
-                $this->booking->hqPrice(),// actual hq
+                $this->booking->estimatedCkuResidentialPrice(),// actual cku residential
+                $this->booking->estimatedCkuCommercialPrice(),// actual cku commercial
+                $this->booking->estimatedMcsResidentialPrice(),// actual mcs residential
+                $this->booking->estimatedMcsCommercialPrice(),// actual mcs commercial
+                $this->booking->estimatedHqPrice(),// actual hq
                 '',// estimated p&d
                 $this->booking->handledBy() ? $this->booking->handledBy() : '',// handled by
                 '',// ecom
                 implode("\n", $this->booking->productList()),// products
                 $this->booking->team ? $this->booking->team : '',// team
                 $this->booking->aafinance_payment ? 'paid' : 'no record',// payment status
-                $this->booking->ckuResidentialPrice(),// actual cku residential
-                $this->booking->ckuCommercialPrice(),// actual cku commercial
-                $this->booking->mcsResidentialPrice(),// actual mcs residential
-                $this->booking->mcsCommercialPrice(),// actual mcs commercial
-                $this->booking->hqPrice(),// actual hq
+                $this->booking->actualCkuResidentialPrice(),// actual cku residential
+                $this->booking->actualCkuCommercialPrice(),// actual cku commercial
+                $this->booking->actualMcsResidentialPrice(),// actual mcs residential
+                $this->booking->actualMcsCommercialPrice(),// actual mcs commercial
+                $this->booking->actualHqPrice(),// actual hq
                 '',// actual p&d
                 $this->booking->invoice_number ? $this->booking->invoice_number : '',// no invois
                 $this->booking->af_reference ? $this->booking->af_reference : '',// jobId
