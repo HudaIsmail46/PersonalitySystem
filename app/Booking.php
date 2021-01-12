@@ -12,7 +12,8 @@ class Booking extends Model
         'receipt_number', 'invoice_number', 'gc_price', 'price', 'service_type',
         'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic',
         'address_1','address_2','address_3','postcode','city','location_state',
-        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook', 'aafinance_payment','insured_at'];
+        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook',
+        'aafinance_payment','insured_at', 'aafinance_invoice'];
 
     use SoftDeletes;
     const TEAM = ['HQ1', 'HQ2', 'HQ3', 'HQ4', 'HQ5', 'HQ6','HQ7', 'HQ8', 'AUX1', 'AUX3', 'AUX4'];
@@ -23,7 +24,8 @@ class Booking extends Model
     protected $dates = ['deleted_at', 'event_ends', 'event_begins'];
     protected $casts = [
         'aafinance_webhook' => 'array',
-        'aafinance_payment' => 'array'
+        'aafinance_payment' => 'array',
+        'aafinance_invoice' => 'array'
     ];
 
     public function path()
@@ -65,7 +67,13 @@ class Booking extends Model
     public function additions()
     {
         $additions = [];
-        foreach($this->aafinance_webhook['JobAddtionalCost'] as $addition)
+        if ($this->aafinance_invoice) {
+            $additionsData = $this->aafinance_invoice['SalesInvoiceAddtionalCosts'];
+        } else {
+            $additionsData = $this->aafinance_webhook['JobAddtionalCost'];
+        }
+        
+        foreach($additionsData as $addition)
         {
             if ($addition['Amount'] > 0) {
                 $additionstring =  $addition['Description'] . ' RM ' . $addition['Amount'];
@@ -79,7 +87,13 @@ class Booking extends Model
     public function deductions()
     {
         $deductions = [];
-        foreach($this->aafinance_webhook['JobAddtionalCost'] as $deduction)
+        if ($this->aafinance_invoice) {
+            $deductionsData = $this->aafinance_invoice['SalesInvoiceAddtionalCosts'];
+        } else {
+            $deductionsData = $this->aafinance_webhook['JobAddtionalCost'];
+        }
+
+        foreach($deductionsData as $deduction)
         {
             if ($deduction['Amount'] < 0) {
                 $deductionString =  $deduction['Description'] . ' RM ' . $deduction['Amount'];
@@ -105,22 +119,35 @@ class Booking extends Model
     public function productList()
     {
         $productList = [];
-        foreach($this->aafinance_webhook['JobItems'] as $item)
-        {
-            $product = "name: " . $item["Product"]["ProductName"]
-                . ", code: " . $item["Product"]["ProductCode"]
-                . ", category: " . $item["Product"]["Category"]
-                . ", price: " . $item["UnitPrice"]
-                . ", quantity: " . $item["Quantity"]
-                . ", remark: " . $item["Remark"];
+        if ($this->aafinance_invoice) {
+            foreach($this->aafinance_invoice['SalesInvoiceItems'] as $item)
+            {
+                $product = "name: " . $item["Product"]["ProductName"]
+                    . ", code: " . $item["Product"]["ProductCode"]
+                    . ", category: " . $item["Product"]["Category"]
+                    . ", price: " . $item["SellPrice"]
+                    . ", quantity: " . $item["Quantity"];
 
-            array_push($productList, $product);
+                array_push($productList, $product);
+            }
+        } else {
+            foreach($this->aafinance_webhook['JobItems'] as $item)
+            {
+                $product = "name: " . $item["Product"]["ProductName"]
+                    . ", code: " . $item["Product"]["ProductCode"]
+                    . ", category: " . $item["Product"]["Category"]
+                    . ", price: " . $item["UnitPrice"]
+                    . ", quantity: " . $item["Quantity"]
+                    . ", remark: " . $item["Remark"];
+
+                array_push($productList, $product);
+            }
         }
 
         return $productList;
     }
 
-    private function sumPrice($regex)
+    private function sumEstimatedPrice($regex)
     {
         $price = 0;
         foreach($this->aafinance_webhook['JobItems'] as $item)
@@ -133,33 +160,76 @@ class Booking extends Model
         return $price;
     }
 
-    public function ckuResidentialPrice()
+    public function estimatedCkuResidentialPrice()
     {
         $regex = "/^1\d{2}$/";
-        return $this->sumPrice($regex);
+        return $this->sumEstimatedPrice($regex);
     }
 
-    public function ckuCommercialPrice()
+    public function estimatedCkuCommercialPrice()
     {
         $regex = "/^3\d{2}$/";
-        return $this->sumPrice($regex);
+        return $this->sumEstimatedPrice($regex);
     }
 
-    public function mcsResidentialPrice()
+    public function estimatedMcsResidentialPrice()
     {
         $regex = "/^4\d{2}$/";
-        return $this->sumPrice($regex);
+        return $this->sumEstimatedPrice($regex);
     }
 
-    public function mcsCommercialPrice()
+    public function estimatedMcsCommercialPrice()
     {
         $regex = "/^5\d{2}$/";
-        return $this->sumPrice($regex);
+        return $this->sumEstimatedPrice($regex);
     }
 
-    public function hqPrice()
+    public function estimatedHqPrice()
     {
         $regex = "/^2\d{2}$/";
-        return $this->sumPrice($regex);
+        return $this->sumEstimatedPrice($regex);
+    }
+
+    private function sumActualPrice($regex)
+    {
+        $price = 0;
+        foreach($this->aafinance_invoice['SalesInvoiceItems'] as $item)
+        {
+            if (preg_match($regex, $item["Product"]["ProductCode"])) {
+                $price += $item["SellPrice"];
+            };
+        }
+
+        return $price;
+    }
+
+    public function actualCkuResidentialPrice()
+    {
+        $regex = "/^1\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function actualCkuCommercialPrice()
+    {
+        $regex = "/^3\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function actualMcsResidentialPrice()
+    {
+        $regex = "/^4\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function actualMcsCommercialPrice()
+    {
+        $regex = "/^5\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function actualHqPrice()
+    {
+        $regex = "/^2\d{2}$/";
+        return $this->sumActualPrice($regex);
     }
 }
