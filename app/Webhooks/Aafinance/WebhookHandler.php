@@ -42,6 +42,9 @@ class WebhookHandler
         case "NewSalesInvoiceAdded":
             SalesInvoiceAdded::handle($eventMessage);
             break;
+        case "ExistingSalesInvoiceEdited":
+            SalesInvoiceAdded::handle($eventMessage);
+            break;
         default:
             break;
       }
