@@ -42,11 +42,9 @@ if (!function_exists('orderAddress')) {
     function orderAddress(App\Order $order)
     {
         if (!is_null($order->address_1) || !is_null($order->address_2) || !is_null($order->address_3) || !is_null($order->postcode) || !is_null($order->city) || !is_null($order->location_state)) {
-            $addressString = $order->address_1 . ","  . $order->address_2 . ","  . $order->address_3 . " "  . $order->postcode . ","  . $order->city . ", "  . $order->location_state  ;
-
-            $cleanUpAddress = str_replace(",,", "",$addressString);
-            if($cleanUpAddress !== null){
-                $address = $cleanUpAddress . "<a href='http://maps.google.com/maps?q={$cleanUpAddress}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
+            $addressString = $order->fullAddress();
+            if($addressString){
+                $address = $addressString . "<a href='http://maps.google.com/maps?q={$addressString}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
             }
 
         } else {
@@ -61,8 +59,8 @@ if (!function_exists('bookingAddress')) {
     function bookingAddress(App\Booking $booking)
     {
         if (!is_null($booking->address_1) || !is_null($booking->address_2) || !is_null($booking->address_3) || !is_null($booking->postcode) || !is_null($booking->city) || !is_null($booking->location_state)) {
-             $addressString = $booking->fullAddress();
-            if($addressString !== null){
+            $addressString = $booking->fullAddress();
+            if($addressString){
                 $address = $addressString . "<a href='http://maps.google.com/maps?q={$addressString}' target='blank'> <i class='fas fa-map-marked-alt icon-blue'></i></a>";
             }
 
