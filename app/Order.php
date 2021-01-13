@@ -25,6 +25,7 @@ use App\State\Order\ToVendorCollected;
 use App\State\Order\ToCleaningCompleted;
 use App\State\Order\ToReturned;
 use App\State\Order\ToInDelivery;
+use App\State\Order\ToCompleted;
 
 class Order extends Model
 {
@@ -100,7 +101,7 @@ class Order extends Model
                 [InDelivery::class, Returned::class, ToReturned::class],
                 [[InDelivery::class,ReturnScheduled::class], PendingReturnSchedule::class],
                 [Returned::class, Draft::class],
-                [Returned::class, Completed::class],
+                [Returned::class, Completed::class, ToCompleted::class],
                 [Completed::class, Draft::class]
             ]);
     }
@@ -115,9 +116,46 @@ class Order extends Model
         return ($this->discount_rate / 100) * $this->price;
     }
 
+    public function deductions()
+    {
+        $deduction = '';
+        if ($this->discount_rate) {
+            $deduction = $this->discount_type . " " . $this->discount_rate . '% RM' . $this->discount() / 100;
+        }
+        return $deduction;
+    }
+
     public function totalPrice()
     {
         return $this->price - $this->discount();
+    }
+
+    public function fullAddress()
+    {
+        $addressString = $this->address_1 . "," . $this->address_2 . ","
+            .  $this->address_3 . " "  . $this->postcode . ","  . $this->city . ", "
+            . $this->location_state;
+
+        $addressString = str_replace(",,", "",$addressString);
+
+        return $addressString;
+    }
+
+    public function productList()
+    {
+        $productList = [];
+        
+        foreach($this->orderItems as $item)
+        {
+            $product = "material: " . $item->material
+                . ", size: " . $item->size
+                . ", quantity: " . $item->quantity
+                . ", price: " . $item->price / 100 ;
+
+            array_push($productList, $product);
+        }
+
+        return $productList;
     }
 
     protected static function boot()
