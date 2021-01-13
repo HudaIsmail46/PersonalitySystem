@@ -208,6 +208,34 @@
                     </li>
                 </ul>    
             @endcan
+            @can('list members')
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-{{ (request()->is('member*')) ? 'open' : '' }}">
+                    <a href="#" class="nav-link {{ (request()->is('member*')) ? 'active' : '' }}">
+
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>
+                            Operation Members
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview bg-secondary rounded-lg">
+                        <li class="nav-item">
+                            <a href={{route('member.index')}} class="nav-link {{ (request()->is('member/index')) ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>All members</p>
+                            </a>
+                            @can('create members')
+                                <a href={{route('member.create')}} class="nav-link {{ (request()->is('member/create')) ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Create members</p>
+                                </a>      
+                            @endcan
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        @endcan
         </nav>
     </div>
 </aside>
