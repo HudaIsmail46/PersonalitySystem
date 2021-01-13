@@ -158,7 +158,9 @@ return [
                 'edit users',
                 'delete users',
                 'create orders',
-                'list orders'
+                'list orders',
+                'list members',
+                'create members'
             ],
             'Account' => [
                 'list bookings',
@@ -187,7 +189,9 @@ return [
                 'list orders',
                 'list runnerSchedules',
                 'create runnerSchedules',
-                'reOpen order'
+                'reOpen order',
+                'list members',
+                'create members'
             ],
             'Operation' => [
                 'list bookings',
@@ -233,7 +237,9 @@ return [
             'list vendorCollected orders',
             'list inhouseCleaning orders',
             'reOpen order',
-            'import bookingProduct'
+            'import bookingProduct',
+            'list members',
+            'create members'
         ]
     ],
 ];

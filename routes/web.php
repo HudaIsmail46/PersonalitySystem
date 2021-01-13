@@ -160,3 +160,14 @@ Route::prefix('/admin')->name('admin')->group(function () {
     Route::get('/webhook/index', 'Admin\WebhookController@index')->name('.webhook.index');
     Route::get('/webhook/{webhook}', 'Admin\WebhookController@show')->name('.webhook.show');
 });
+
+##member CRUD
+Route::prefix('/member')->name('member.')->group(function () {
+    Route::get('/index', 'MemberController@index')->name('index');
+    Route::get('/create', 'MemberController@create')->name('create');
+    Route::post('/', 'MemberController@store')->name('store');
+    Route::get('/{member}', 'MemberController@show')->name('show');
+    Route::get('/{member}/edit', 'MemberController@edit')->name('edit');
+    Route::delete('/{member}', 'MemberController@destroy')->name('destroy');
+    Route::put('/{member}', 'MemberController@update')->name('update');
+});
