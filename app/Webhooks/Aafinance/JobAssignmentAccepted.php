@@ -8,11 +8,11 @@ use Carbon\Carbon;
 use App\Webhooks\Aafinance\AafinanceWeebhook;
 use App\Jobs\IssueInsurance;
 
-class NewJobAttendanceAdded extends AafinanceWebhook
+class JobAssignmentAccepted extends AafinanceWebhook
 {
     public static function handle($data)
     {
-        if ($data['ClockType'] == "Clock-Out") {
+        if ($data['Status'] == "Accepted") {
             $booking = Booking::firstWhere('af_reference',  $data['Job']['JobId']);
 
             $booking->fill([

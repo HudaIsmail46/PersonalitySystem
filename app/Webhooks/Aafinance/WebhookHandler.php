@@ -8,7 +8,7 @@ use App\Webhooks\Aafinance\ExistingJobDeleted;
 // use App\Webhooks\Aafinance\ExistingAgentEdited;
 // use App\Webhooks\Aafinance\NewAgentAssignmentAdded;
 // use App\Webhooks\Aafinance\ExistingAgentDeleted;
-use App\Webhooks\Aafinance\NewJobAttendanceAdded;
+use App\Webhooks\Aafinance\JobAssignmentAccepted;
 // use App\Webhooks\Aafinance\ExistingJobAssignmentAssigned;
 // use App\Webhooks\Aafinance\ExistingJobAssignmentAccepted;
 // use App\Webhooks\Aafinance\ExistingJobAssignmentCancelled;
@@ -33,8 +33,8 @@ class WebhookHandler
         case "ExistingJobDeleted":
             ExistingJobDeleted::handle($eventMessage);
             break;
-        case "NewJobAttendanceAdded":
-            NewJobAttendanceAdded::handle($eventMessage);
+        case "ExistingJobAssignmentAccepted":
+            JobAssignmentAccepted::handle($eventMessage);
             break;
         case "NewSalesInvoicePaymentAdded":
             NewSalesInvoicePaymentAdded::handle($eventMessage);
@@ -52,26 +52,3 @@ class WebhookHandler
        http_response_code(200);
     }
 }
-
-// Ignoring these webhooks for now,
-// case 'NewAgentAdded':
-//     NewAgentAdded::handle($eventMessage);
-//     break;
-// case 'ExistingAgentEdited':
-//     ExistingAgentEdited::handle($eventMessage);
-//     break;
-// case "NewAgentAssignmentAdded":
-//     NewAgentAssignmentAdded::handle($eventMessage);
-//     break;
-// case 'ExistingAgentDeleted':
-//     ExistingAgentDeleted::handle($eventMessage);
-//     break;
-// case "ExistingJobAssignmentAssigned":
-//     ExistingJobAssignmentAssigned::handle($eventMessage);
-//     break;
-// case "ExistingJobAssignmentAccepted":
-//     ExistingJobAssignmentAccepted::handle($eventMessage);
-//     break;
-// case "ExistingJobAssignmentCancelled":
-//     ExistingJobAssignmentCancelled::handle($eventMessage);
-//     break;
