@@ -4,6 +4,7 @@ namespace App\Webhooks\Aafinance;
 use App\Booking;
 use App\Customer;
 use App\BookingItem;
+use App\BookingProduct;
 use Carbon\Carbon;
 
 class AafinanceWebhook
@@ -50,11 +51,14 @@ class AafinanceWebhook
     {
         $jobItemIds = [];
         foreach($jobItems as $jobItem){
+            $products_id = $jobItem['Product']['ProductId'];
+            $bookingProductId = BookingProduct::where('product_id', $products_id)->pluck('id')->first();
             $bookingItem = BookingItem::firstOrNew([
                 'aafinance_reference' => $jobItem['JobItemId'],
                 'booking_id' => $booking->id
             ]);
             $bookingItem->fill([
+                'booking_product_id' => $bookingProductId,
                 'aafinance_webhook' => $jobItem,
                 'quantity' => $jobItem['Quantity'],
                 'price' => $jobItem['UnitPrice'] ? $jobItem['UnitPrice'] *100 : 0 ,
@@ -64,6 +68,7 @@ class AafinanceWebhook
             $bookingItem->save();
             array_push($jobItemIds, $bookingItem->id);
         }
+
         foreach ($booking->bookingItems as $bookingItem) {
             if(!in_array($bookingItem->id, $jobItemIds)){
                 $bookingItem->delete();
