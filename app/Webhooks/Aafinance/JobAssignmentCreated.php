@@ -7,8 +7,9 @@ use App\BookingItem;
 use Carbon\Carbon;
 use App\Webhooks\Aafinance\AafinanceWeebhook;
 use App\Jobs\IssueInsurance;
+use App\Jobs\ReportBooking;
 
-class JobAssignmentAccepted extends AafinanceWebhook
+class JobAssignmentCreated extends AafinanceWebhook
 {
     public static function handle($data)
     {
@@ -19,6 +20,8 @@ class JobAssignmentAccepted extends AafinanceWebhook
                 "team" => $data['Agent']['Fullname']
             ]);
             $booking->save();
+
+            ReportBooking::dispatch($booking);
         }
     }
 }
