@@ -193,11 +193,13 @@ class Booking extends Model
     private function sumActualPrice($regex)
     {
         $price = 0;
-        foreach($this->aafinance_invoice['SalesInvoiceItems'] as $item)
-        {
-            if (preg_match($regex, $item["Product"]["ProductCode"])) {
-                $price += $item["SellPrice"];
-            };
+        if ($this->aafinance_invoice) {
+            foreach($this->aafinance_invoice['SalesInvoiceItems'] as $item)
+            {
+                if (preg_match($regex, $item["Product"]["ProductCode"])) {
+                    $price += $item["SellPrice"];
+                };
+            }
         }
 
         return $price;

@@ -68,10 +68,11 @@ class IssueInsurance implements ShouldQueue
     {
         return !$this->booking->covernote_id &&
             ( 
-                $this->booking->ckuResidentialPrice() > 0 ||
-                $this->booking->ckuCommercialPrice() > 0 ||
-                $this->booking->hqPrice() > 0
-            );
+                $this->booking->estimatedCkuResidentialPrice() > 0 ||
+                $this->booking->estimatedCkuCommercialPrice() > 0 ||
+                $this->booking->estimatedHqPrice() > 0
+            ) &&
+            $this->booking->customer;
     }
 
     private function address($booking)
