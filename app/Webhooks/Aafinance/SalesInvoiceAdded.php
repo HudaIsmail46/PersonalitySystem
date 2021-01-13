@@ -13,7 +13,7 @@ class SalesInvoiceAdded extends AafinanceWebhook
         $booking = Booking::firstWhere('af_reference',  $data['JobId']);
         if ($booking) {
             $booking->fill([
-                "aafinance_payment" => $data
+                "aafinance_invoice" => $data
             ]);
 
             $booking->save();
