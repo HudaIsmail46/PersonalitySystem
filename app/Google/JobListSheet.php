@@ -32,7 +32,7 @@ class JobListSheet
             [
                 $this->booking->customer ? $this->booking->customer->name : '',//name
                 $this->booking->fullAddress(),// alamat
-                $this->booking->customer->phone_no,// no telefon 1
+                $this->booking->customer ? $this->booking->customer->phone_no : '',// no telefon 1
                 '',// no telefon 2
                 '',// email
                 $this->booking->event_begins->toDateString(),// tarikh
