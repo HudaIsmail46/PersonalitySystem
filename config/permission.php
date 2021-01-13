@@ -186,7 +186,8 @@ return [
                 'create orders',
                 'list orders',
                 'list runnerSchedules',
-                'create runnerSchedules'
+                'create runnerSchedules',
+                'reOpen order'
             ],
             'Operation' => [
                 'list bookings',

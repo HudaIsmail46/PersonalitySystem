@@ -7,7 +7,7 @@ window.humaniseOrderState = humaniseOrderState;
 window.orderAddress= orderAddress;
 
 function OrderTable(props) {
-    const { proporders, internal, canreopenorder } = props;
+    const { proporders, internal, canreopenorder, cancreateorder, customerservice } = props;
     const [orders, setOrders] = useState(proporders.data);
 
     const changeRunnerJobstate = (orderId, state) => {
@@ -85,7 +85,7 @@ function OrderTable(props) {
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
                         <td>{ order.notice_ambilan_ref}</td>
-                        <td>{ internal ? null : <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>}
+                        <td>{ internal ? null : cancreateorder == true ? <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>  : customerservice == true ? <NextOrderStates order={order} canReopenOrder={canreopenorder} customerService={customerservice} onClick={changeRunnerJobstate}/> :null }
                             { internal ? <a href={`/external/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a> :
                              <a href={`/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a>}
                         </td>
