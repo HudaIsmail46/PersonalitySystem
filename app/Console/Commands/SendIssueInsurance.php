@@ -40,7 +40,7 @@ class SendIssueInsurance extends Command
      */
     public function handle()
     {
-        $bookings = Booking::whereDate('event_begins',Carbon::now()->subDays(2)->toDateTimeString())->get();
+        $bookings = Booking::whereDate('event_begins',Carbon::now()->subDays(3)->toDateTimeString())->get();
         foreach($bookings as $booking){
             if($booking->team) {
 
