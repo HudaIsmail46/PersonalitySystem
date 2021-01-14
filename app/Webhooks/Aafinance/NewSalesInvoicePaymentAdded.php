@@ -14,8 +14,7 @@ class NewSalesInvoicePaymentAdded extends AafinanceWebhook
         if ($booking) {
             $booking->fill([
                 "aafinance_payment" => $data,
-                "receipt_number" => $data['ReceiptReferenceNo'],
-                "invoice_number" => $data['SalesInvoiceId'],
+                "receipt_number" => $data['ReceiptReferenceNo']
             ]);
 
             $booking->save();
