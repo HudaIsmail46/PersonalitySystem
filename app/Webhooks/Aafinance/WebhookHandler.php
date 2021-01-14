@@ -4,14 +4,7 @@ namespace App\Webhooks\Aafinance;
 use App\Webhooks\Aafinance\NewJobAdded;
 use App\Webhooks\Aafinance\ExistingJobEdited;
 use App\Webhooks\Aafinance\ExistingJobDeleted;
-// use App\Webhooks\Aafinance\NewAgentAdded;
-// use App\Webhooks\Aafinance\ExistingAgentEdited;
-// use App\Webhooks\Aafinance\NewAgentAssignmentAdded;
-// use App\Webhooks\Aafinance\ExistingAgentDeleted;
 use App\Webhooks\Aafinance\JobAssignmentCreated;
-// use App\Webhooks\Aafinance\ExistingJobAssignmentAssigned;
-// use App\Webhooks\Aafinance\ExistingJobAssignmentAccepted;
-// use App\Webhooks\Aafinance\ExistingJobAssignmentCancelled;
 use App\Webhooks\Aafinance\NewSalesInvoicePaymentAdded;
 use App\Webhooks\Aafinance\SalesInvoiceAdded;
 
