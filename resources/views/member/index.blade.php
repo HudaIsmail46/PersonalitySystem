@@ -30,18 +30,24 @@
 
                             <form action="{{ route('member.index') }}" method="get">
                                 @csrf
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        Name: <input class="form-control form-control-sm" type="search" name="name"
+
+                                <div class="form-group row float-left">
+                                    <label for="name" class="col-md-3 col-form-label">Name :</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control form-control-md" type="search" name="name"
                                             placeholder="name" value="{{ request()->name }}">
                                     </div>
-                                    <div class="col-md-2">
-                                        Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no"
+                                </div>
+
+                                <div class="form-group row float-left">
+                                    <label for="phone_no" class="col-md-4 col-form-label">Phone No. :</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control form-control-md" type="search" name="phone_no"
                                             placeholder="phone number" value="{{ request()->phone_no }}">
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i
+                                <button class="btn btn-primary ml-4" type="submit">Search <i
                                         class="fa fa-search"></i></button>
                             </form>
                         </div>

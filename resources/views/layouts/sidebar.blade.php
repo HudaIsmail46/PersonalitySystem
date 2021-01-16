@@ -29,8 +29,8 @@
             @endif
             @can('list bookings')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('booking*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ (request()->is('booking*')) ? 'active' : '' }}">
+                    <li class="nav-item has-treeview menu-{{ request()->is('booking*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('booking*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-briefcase"></i>
                             <p>
                                 Bookings
@@ -39,19 +39,22 @@
                         </a>
                         <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
-                                <a href={{route('booking.index')}} class="nav-link {{ (request()->is('booking/index')) ? 'active' : '' }}">
+                                <a href={{ route('booking.index') }}
+                                    class="nav-link {{ request()->is('booking/index') ? 'active' : '' }}">
                                     <i class=" fa fa-calendar-o nav-icon"></i>
                                     <p>All Bookings</p>
                                 </a>
                                 @can('create bookings')
-                                    <a href={{route('booking.create')}} class="nav-link {{ (request()->is('booking/create')) ? 'active' : '' }}">
+                                    <a href={{ route('booking.create') }}
+                                        class="nav-link {{ request()->is('booking/create') ? 'active' : '' }}">
                                         <i class="fas fa-calendar-plus nav-icon"></i>
 
                                         <p>Create Bookings</p>
                                     </a>
                                 @endcan
                                 @can('import bookingProduct')
-                                    <a href={{route('booking_product.import.new')}} class="nav-link {{ (request()->is('booking_products/import-excel')) ? 'active' : '' }}">
+                                    <a href={{ route('booking_product.import.new') }}
+                                        class="nav-link {{ request()->is('booking_products/import-excel') ? 'active' : '' }}">
                                         <i class="fas fa-file-import nav-icon"></i>
 
                                         <p>Import Booking Products</p>
@@ -64,8 +67,8 @@
             @endcan
             @can('list customers')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('customer*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ (request()->is('customer*')) ? 'active' : '' }}">
+                    <li class="nav-item has-treeview menu-{{ request()->is('customer*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('customer*') ? 'active' : '' }}">
 
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -75,12 +78,14 @@
                         </a>
                         <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
-                                <a href={{route('customer.index')}} class="nav-link {{ (request()->is('customer/index')) ? 'active' : '' }}">
+                                <a href={{ route('customer.index') }}
+                                    class="nav-link {{ request()->is('customer/index') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>All Customers</p>
                                 </a>
                                 @can('create customers')
-                                    <a href={{route('customer.create')}} class="nav-link {{ (request()->is('customer/create')) ? 'active' : '' }}">
+                                    <a href={{ route('customer.create') }}
+                                        class="nav-link {{ request()->is('customer/create') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Create Customers</p>
                                     </a>
@@ -120,8 +125,8 @@
             @endcan
             @can('list orders')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('order*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ (request()->is('order*')) ? 'active' : '' }}">
+                    <li class="nav-item has-treeview menu-{{ request()->is('order*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('order*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>
                                 Orders
@@ -130,12 +135,14 @@
                         </a>
                         <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
-                                <a href={{route('order.index')}} class="nav-link {{ (request()->is('order/index')) ? 'active' : '' }}">
+                                <a href={{ route('order.index') }}
+                                    class="nav-link {{ request()->is('order/index') ? 'active' : '' }}">
                                     <i class=" fa fa-shopping-cart nav-icon"></i>
                                     <p>All Orders</p>
                                 </a>
                                 @can('create orders')
-                                    <a href={{route('order.create')}} class="nav-link {{ (request()->is('order/create')) ? 'active' : '' }}">
+                                    <a href={{ route('order.create') }}
+                                        class="nav-link {{ request()->is('order/create') ? 'active' : '' }}">
                                         <i class="fas fa-cart-plus nav-icon"></i>
                                         <p>Create Orders</p>
                                     </a>
@@ -147,8 +154,8 @@
             @endcan
             @can('list runnerSchedules')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ (request()->is('runner_schedule*')) ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ (request()->is('runner_schedule*')) ? 'active' : '' }}">
+                    <li class="nav-item has-treeview menu-{{ request()->is('runner_schedule*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('runner_schedule*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-running "></i>
                             <p>
                                 Runner Schedule
@@ -158,11 +165,13 @@
                         <ul class="nav nav-treeview bg-secondary rounded-lg">
                             <li class="nav-item">
                                 @can('create runnerSchedules')
-                                    <a href={{route('runner_schedule.index')}} class="nav-link {{ (request()->is('runner_schedule/index')) ? 'active' : '' }}">
+                                    <a href={{ route('runner_schedule.index') }}
+                                        class="nav-link {{ request()->is('runner_schedule/index') ? 'active' : '' }}">
                                         <i class=" fa fa-user nav-icon"></i>
                                         <p>All Runner Schedule</p>
                                     </a>
-                                    <a href={{route('runner_schedule.create')}} class="nav-link {{ (request()->is('runner_schedule/create')) ? 'active' : '' }}">
+                                    <a href={{ route('runner_schedule.create') }}
+                                        class="nav-link {{ request()->is('runner_schedule/create') ? 'active' : '' }}">
                                         <i class="fas fa-user-plus nav-icon"></i>
                                         <p>Create Runner Schedule</p>
                                     </a>
@@ -175,14 +184,15 @@
             @can('list assignedRunnerSchedule')
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href={{route('external.runner.index')}} class="nav-link {{ (request()->is('runner/index')) ? 'active' : '' }}">
+                        <a href={{ route('external.runner.index') }}
+                            class="nav-link {{ request()->is('runner/index') ? 'active' : '' }}">
                             <i class=" fas fa-running nav-icon"></i>
                             <p>
                                 Runner Schedule
                             </p>
                         </a>
                     </li>
-                </ul>    
+                </ul>
             @endcan
             @can('list vendorCollected orders')
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
@@ -209,33 +219,95 @@
                 </ul>    
             @endcan
             @can('list members')
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item has-treeview menu-{{ (request()->is('member*')) ? 'open' : '' }}">
-                    <a href="#" class="nav-link {{ (request()->is('member*')) ? 'active' : '' }}">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-{{ request()->is('member*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('member*') ? 'active' : '' }}">
 
-                        <i class="nav-icon fas fa-user-friends"></i>
-                        <p>
-                            Operation Members
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview bg-secondary rounded-lg">
-                        <li class="nav-item">
-                            <a href={{route('member.index')}} class="nav-link {{ (request()->is('member/index')) ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All members</p>
-                            </a>
-                            @can('create members')
-                                <a href={{route('member.create')}} class="nav-link {{ (request()->is('member/create')) ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user-friends"></i>
+                            <p>
+                                Operation Members
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
+                                <a href={{ route('member.index') }}
+                                    class="nav-link {{ request()->is('member/index') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Create members</p>
-                                </a>      
-                            @endcan
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        @endcan
+                                    <p>All members</p>
+                                </a>
+                                @can('create members')
+                                    <a href={{ route('member.create') }}
+                                        class="nav-link {{ request()->is('member/create') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create members</p>
+                                    </a>
+                                @endcan
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
+            @can('list teams')
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-{{ request()->is('team/*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('team/*') ? 'active' : '' }}">
+
+                            <i class="nav-icon fas fa-user-friends"></i>
+                            <p>
+                                Operation Teams
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
+                                <a href={{ route('team.index') }}
+                                    class="nav-link {{ request()->is('team/index') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All Teams</p>
+                                </a>
+                                @can('create teams')
+                                    <a href={{ route('team.create') }}
+                                        class="nav-link {{ request()->is('team/create') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create Teams</p>
+                                    </a>
+                                @endcan
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
+            @can('list teamMembers')
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-{{ request()->is('team_member*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('team_member*') ? 'active' : '' }}">
+
+                            <i class="nav-icon fas fa-user-friends"></i>
+                            <p>
+                                Team Pairings
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
+                                <a href={{ route('team_member.index') }}
+                                    class="nav-link {{ request()->is('team_member/index') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All Team Members</p>
+                                </a>
+                                @can('create teamMembers')
+                                    <a href={{ route('team_member.create') }}
+                                        class="nav-link {{ request()->is('team_member/create') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create Team Members</p>
+                                    </a>
+                                @endcan
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
         </nav>
     </div>
 </aside>

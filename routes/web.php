@@ -171,3 +171,24 @@ Route::prefix('/member')->name('member.')->group(function () {
     Route::delete('/{member}', 'MemberController@destroy')->name('destroy');
     Route::put('/{member}', 'MemberController@update')->name('update');
 });
+
+##team CRUD
+Route::prefix('/team')->name('team.')->group(function () {
+    Route::get('/index', 'TeamController@index')->name('index');
+    Route::get('/create', 'TeamController@create')->name('create');
+    Route::post('/', 'TeamController@store')->name('store');
+    Route::get('/{team}', 'TeamController@show')->name('show');
+    Route::get('/{team}/edit', 'TeamController@edit')->name('edit');
+    Route::delete('/{team}', 'TeamController@destroy')->name('destroy');
+    Route::put('/{team}', 'TeamController@update')->name('update');
+});
+
+##teamMember CRUD
+Route::prefix('/team_member')->name('team_member.')->group(function () {
+    Route::get('/index', 'TeamMemberController@index')->name('index');
+    Route::get('/create', 'TeamMemberController@create')->name('create');
+    Route::post('/', 'TeamMemberController@store')->name('store');
+    Route::get('/{team_member}/edit', 'TeamMemberController@edit')->name('edit');
+    Route::delete('/{team_member}', 'TeamMemberController@destroy')->name('destroy');
+    Route::put('/{team_member}', 'TeamMemberController@update')->name('update');
+});

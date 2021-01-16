@@ -15,4 +15,10 @@ class Member extends Model
         'name', 'phone_no', 'employment_status'
     ];
 
+    public function teamMember()
+    {
+        return $this->belongsTo(TeamMembers::class);
+    }
+
+
 }
