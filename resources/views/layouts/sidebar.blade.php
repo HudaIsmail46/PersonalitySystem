@@ -305,8 +305,6 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Create Team Members</p>
                                     </a>
-                                    <p>Create members</p>
-                                    </a>
                                 @endcan
                             </li>
                         </ul>
