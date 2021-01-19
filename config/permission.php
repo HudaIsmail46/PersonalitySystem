@@ -164,7 +164,9 @@ return [
                 'list teams',
                 'create teams',
                 'list teamMembers',
-                'create teamMembers'
+                'create teamMembers',
+                'list vehicles',
+                'create vehicles'
             ],
             'Account' => [
                 'list bookings',
@@ -199,7 +201,9 @@ return [
                 'list teams',
                 'create teams',
                 'list teamMembers',
-                'create teamMembers'
+                'create teamMembers',
+                'list vehicles',
+                'create vehicles'
             ],
             'Operation' => [
                 'list bookings',
@@ -251,7 +255,9 @@ return [
             'list teams',
             'create teams',
             'list teamMembers',
-            'create teamMembers'
+            'create teamMembers',
+            'list vehicles',
+            'create vehicles'
         ]
     ],
 ];
