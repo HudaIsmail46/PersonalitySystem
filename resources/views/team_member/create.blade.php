@@ -23,15 +23,22 @@
                         <div class="card-body">
                             <form method="post" action="{{ route('team_member.store') }}">
                                 @csrf
-                                <div class="field" id="form">
 
+                                <div class="field" id="form">
                                     <div class="field">
-                                        <label class="label" for="date">Date <span class="text-danger">*</span></label>
-                                        <div class="form-group row mx-0">
-                                            <div class="col-xs-4">
-                                                <input class="form-control @error('date') is-invalid @enderror" type="date"
-                                                    name="date" id="date" value="{{ old('date') }}">
-                                                <div class="invalid-feedback">{{ $errors->first('date') }}
+                                        <div class="row mt-2 mb-2">
+                                            <div class="col-md-4">
+                                                <label class="label" for="from">From<span class="text-danger">*</span></label>
+                                                <input class="form-control @error('from') is-invalid @enderror" type="date"
+                                                    name="from" value="{{ old('from') }}">
+                                                <div class="invalid-feedback">{{ $errors->first('from') }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="label" for="from">To<span class="text-danger">*</span></label>
+                                                <input class="form-control @error('to') is-invalid @enderror" type="date"
+                                                    name="to" value="{{ old('to') }}">
+                                                <div class="invalid-feedback">{{ $errors->first('to') }}
                                                 </div>
                                             </div>
                                         </div>

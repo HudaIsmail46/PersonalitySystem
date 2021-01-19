@@ -7,6 +7,7 @@ use App\Team;
 use App\TeamMember;
 use App\Member;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class TeamMemberController extends Controller
 {
@@ -52,7 +53,11 @@ class TeamMemberController extends Controller
             });
 
         $teams = Team::orderBy('id', 'ASC')->get();
-
+        
+        foreach ($teams as $team) {
+            if (($team->teamMembers)->isEmpty())
+                $team->name = null;
+        }
 
         return view('team_member.index', compact('janTeamMembers', 'febTeamMembers', 'marchTeamMembers', 'teams'));
     }
@@ -65,21 +70,24 @@ class TeamMemberController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $this->validateteamMembers();
+    { 
+        $this->validateCreateTeamMembers();
+        $period = CarbonPeriod::create($request->from, $request->to);
 
-        $teamMember = new TeamMember;
-        $teamMember->fill([
-            'team_id' => $request->team_id,
-            'member1_id' => $request->member_1,
-            'member2_id' => $request->member_2,
-            'member3_id' => $request->member_3,
-            'date' => $request->date
-        ]);
+        foreach ($period as $date) {
 
-        $teamMember->save();
+            $teamMember = new TeamMember;
+            $teamMember->fill([
+                'team_id' => $request->team_id,
+                'member1_id' => $request->member_1,
+                'member2_id' => $request->member_2,
+                'member3_id' => $request->member_3,
+                'date' => $date->format('Y-m-d')
+            ]);
+            $teamMember->save();
+        }
 
-        return redirect()->route('team_member.create')->with('success', 'TeamMembers created successfully.');
+        return redirect()->route('team_member.index')->with('success', 'TeamMembers updated successfully.');
     }
 
     public function edit(TeamMember $teamMember)
@@ -91,7 +99,7 @@ class TeamMemberController extends Controller
 
     public function update(Request $request, TeamMember $teamMember)
     {
-        $this->validateteamMembers();
+        $this->validateUpdateTeamMembers();
 
         $teamMember->fill([
             'team_id' => $request->team_id,
@@ -111,7 +119,16 @@ class TeamMemberController extends Controller
         return redirect()->route('team_member.index')->with('TeamMember succesfully deleted.');
     }
 
-    protected function validateteamMembers()
+    protected function validateCreateTeamMembers()
+    {
+        return request()->validate([
+            'team_id' => 'required',
+            'from' => 'required',
+            'to' => 'required'
+        ]);
+    }
+
+    protected function validateUpdateTeamMembers()
     {
         return request()->validate([
             'team_id' => 'required',
