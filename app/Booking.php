@@ -51,6 +51,10 @@ class Booking extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
+    public function followUp()
+    {
+        return $this->hasMany(FollowUp::class);
+    }
     public function fullAddress()
     {
         $addressString = $this->address_1 . "," . $this->address_2 . ","
@@ -72,7 +76,7 @@ class Booking extends Model
                 array_push($additions, $additionstring);
             }
         }
-        
+
         return $additions;
     }
 
@@ -86,13 +90,13 @@ class Booking extends Model
                 array_push($deductions, $deductionString);
             }
         }
-        
+
         return $deductions;
     }
 
     public function deposit()
     {
-        return $this->aafinance_webhook['JobDeposit'] ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;   
+        return $this->aafinance_webhook['JobDeposit'] ? $this->aafinance_webhook['JobDeposit']['Amount'] : null;
     }
 
     public function handledBy()

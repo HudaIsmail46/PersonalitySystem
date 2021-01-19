@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Booking;
 use App\Customer;
+use App\Events\BookingCreated;
 use Illuminate\Support\Facades\DB;
 
 class BookingController extends AuthenticatedController
@@ -100,6 +101,8 @@ class BookingController extends AuthenticatedController
             'team' => $request->team,
         ]);
         $booking->save();
+
+        event(new BookingCreated($booking));
 
         return redirect()->route('booking.show', $booking->id)->with('Order is created.');
     }

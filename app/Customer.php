@@ -30,6 +30,11 @@ class Customer extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function followUp()
+    {
+        return $this->hasMany(FollowUp::class);
+    }
+
     public function comments()
     {
         return $this->morphMany('App\Comment', 'commentable');

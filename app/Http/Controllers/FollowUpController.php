@@ -4,6 +4,16 @@ namespace App\Http\Controllers;
 
 use App\FollowUp;
 use App\Booking;
+use App\Customer;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
+
+
+
 use Illuminate\Http\Request;
 
 class FollowUpController extends Controller
@@ -13,15 +23,18 @@ class FollowUpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Booking $bookings)
+
+
+
+    public function index(Booking $booking)
     {
-        // $bookings = Booking::orderBy('id');
-        // return view('follow_up.index', compact('bookings'));
-        // dd($bookings);
 
-        $bookings = Booking ::orderBy('id', 'ASC')->paginate(50);
+        $sixMonth = Booking::whereDate('event_begins', '<' , Carbon::now()->subDays(3)->toDateTimeString())->orderBy('event_begins', 'ASC')->paginate(50);
+        $twelveMonth = Booking::whereDate('event_begins', '>=' , Carbon::now()->subDays(3)->toDateTimeString())->orderBy('event_begins', 'ASC')->paginate(50);
 
-        return view('follow_up.index', compact('bookings'));
+        $bookings=Booking::with('followUp')->get();
+
+        return view('follow_up.index', compact('sixMonth', 'twelveMonth','bookings'));
 
     }
 
@@ -41,9 +54,9 @@ class FollowUpController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
-        //
+
     }
 
     /**
@@ -65,7 +78,7 @@ class FollowUpController extends Controller
      */
     public function edit(FollowUp $followUp)
     {
-        //
+        return view('follow_up.edit', compact('followUp'));
     }
 
     /**
@@ -75,9 +88,14 @@ class FollowUpController extends Controller
      * @param  \App\FollowUp  $followUp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FollowUp $followUp)
+    public function update(Request $request,FollowUp $followUp)
     {
-        //
+        $followUp->fill([
+            'follow_up_status' => $request->follow_up_status,
+            'sales_person' => $request->sales_person
+        ]);
+          $followUp->save();
+          return redirect()->route('follow_up.index', $followUp->id)->with('success', 'Customers updated successfully.');
     }
 
     /**
@@ -89,5 +107,14 @@ class FollowUpController extends Controller
     public function destroy(FollowUp $followUp)
     {
         //
+    }
+
+    protected function validateFollowUp()
+    {
+        return request()->validate([
+            'booking_id' => 'required',
+            'customer_id' => 'required',
+            'lead_status' => 'required',
+        ]);
     }
 }

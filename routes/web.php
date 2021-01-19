@@ -142,7 +142,12 @@ Route::delete('/comment/{comment}', 'CommentController@destroy')->name('comment.
 #inHouseCleaning
 Route::get('/inhouse_cleaning/index', 'InHouseCleaningController@index')->name('inhouse_cleaning.index');
 
-Route::get('/follow_up/index','FollowUpController@index')->name('follow_up.index');
+Route::prefix('/follow_up')->name('follow_up.')->group(function () {
+    Route::get('/index', 'FollowUpController@index')->name('index');
+    Route::get('/create', 'FollowUpController@create')->name('create');
+    Route::get('/{followUp}/edit', 'FollowUpController@edit')->name('edit');
+    Route::put('/{followUp}', 'FollowUpController@update')->name('update');
+});
 
 #External CustomerOrder
 Route::get('/external/customer/order/{orderId}', 'External\CustomerOrderController@show')->name('customer_order.show');

@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\SendIssueInsurance'
+        'App\Console\Commands\SendIssueInsurance',
+        'App\Console\Commands\FollowUpLeadStatus'
     ];
 
     /**
@@ -23,7 +24,7 @@ class Kernel extends ConsoleKernel
      * @return void
      */
 
-     
+
     // protected function schedule(Schedule $schedule)
     // {
     //     $schedule->command('google_calendar:import')
@@ -35,7 +36,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('issue_insurance:import')
-                    ->daily();
+                    ->daily()->withoutOverlapping();;
+
+        $schedule->command('follow_up_lead_status:status')
+                    ->everyMinute()->withoutOverlapping();;
     }
     /**
      * Register the commands for the application.

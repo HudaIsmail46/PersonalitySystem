@@ -8,10 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FollowUp extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['gc_id','gc_event_title', 'gc_address', 'gc_event_begins',
-        'gc_event_ends', 'gc_description', 'gc_team', 'name', 'phone_no', 'status',
-        'receipt_number', 'invoice_number', 'gc_price', 'price', 'service_type',
-        'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic',
-        'address_1','address_2','address_3','postcode','city','location_state',
-        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook', 'aafinance_payment','insured_at'];
+    protected $fillable = ['booking_id','customer_id','lead_status','follow_up_status','sales_person','sms_1','sms_2','sms_3'];
+
+    const SALES_PERSON = ['CS1', 'CS2', 'CS3', 'CS4', 'CS5', 'CS6', 'CS7', 'CS8'];
+    const STATUS = ['NO RESPONSE', 'IN PROGRESS', 'DONE'];
+
+        public function booking()
+
+   {
+        return $this->belongsTo(Booking::class);
+    }
+
+    public function customer()
+
+    {
+         return $this->belongsTo(Customer::class);
+     }
 }
