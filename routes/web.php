@@ -192,3 +192,14 @@ Route::prefix('/team_member')->name('team_member.')->group(function () {
     Route::delete('/{team_member}', 'TeamMemberController@destroy')->name('destroy');
     Route::put('/{team_member}', 'TeamMemberController@update')->name('update');
 });
+
+##vehicle CRUD
+Route::prefix('/vehicle')->name('vehicle.')->group(function () {
+    Route::get('/index', 'VehicleController@index')->name('index');
+    Route::get('/create', 'VehicleController@create')->name('create');
+    Route::post('/', 'VehicleController@store')->name('store');
+    Route::get('/{vehicle}', 'VehicleController@show')->name('show');
+    Route::get('/{vehicle}/edit', 'VehicleController@edit')->name('edit');
+    Route::delete('/{vehicle}', 'VehicleController@destroy')->name('destroy');
+    Route::put('/{vehicle}', 'VehicleController@update')->name('update');
+});
