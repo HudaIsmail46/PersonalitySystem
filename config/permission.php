@@ -160,7 +160,11 @@ return [
                 'create orders',
                 'list orders',
                 'list members',
-                'create members'
+                'create members',
+                'list teams',
+                'create teams',
+                'list teamMembers',
+                'create teamMembers'
             ],
             'Account' => [
                 'list bookings',
@@ -191,7 +195,11 @@ return [
                 'create runnerSchedules',
                 'reOpen order',
                 'list members',
-                'create members'
+                'create members',
+                'list teams',
+                'create teams',
+                'list teamMembers',
+                'create teamMembers'
             ],
             'Operation' => [
                 'list bookings',
@@ -239,7 +247,11 @@ return [
             'reOpen order',
             'import bookingProduct',
             'list members',
-            'create members'
+            'create members',
+            'list teams',
+            'create teams',
+            'list teamMembers',
+            'create teamMembers'
         ]
     ],
 ];
