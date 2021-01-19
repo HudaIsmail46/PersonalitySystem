@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Member;
+use App\MemberSchedule;
+use Carbon\Carbon;
 
 class MemberController extends Controller
 {
@@ -64,6 +66,8 @@ class MemberController extends Controller
         ]);
         $member->save();
 
+        $this->updateMemberSchedule($member);
+
         return redirect()->route('member.show', $member->id)->with('success', 'Members created successfully.');
     }
 
@@ -90,6 +94,34 @@ class MemberController extends Controller
     {
         $member->delete();
         return redirect()->route('member.index')->with('Member succesfully deleted.');
+    }
+
+    public function updateMemberSchedule($member)
+    {
+
+        if ($member->employment_status == "full time" || $member->employment_status == "CFS") {
+            $member_availability = "1";
+        } else {
+            $member_availability = "0";
+        }
+
+        $memberSchedules = MemberSchedule::whereMonth('date','>=', $member->created_at->format('m'))->get();
+        $newMember = [['member_id' => $member->id, 'member_name' => $member->name, 'remarks' => '', 'availability' =>  $member_availability]];
+
+        foreach ($memberSchedules as $memberSchedule) {
+
+            $newMembers = array_merge($newMember, $memberSchedule->members);
+            $memberSchedule->update(['members' => $newMembers]);
+        }
+
+        foreach ($memberSchedule->members as $member) {
+            $member_availabilities[] = $member['availability'];
+        }
+
+        $memberSchedule->fill([
+            'total_manpower' => array_sum($member_availabilities),
+        ]);
+        $memberSchedule->save();
     }
 
     protected function validateMembers()

@@ -258,8 +258,8 @@
             @endcan
             @can('list members')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview menu-{{ request()->is('member*') ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ request()->is('member*') ? 'active' : '' }}">
+                    <li class="nav-item has-treeview menu-{{ request()->is('member/*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('member/*') ? 'active' : '' }}">
 
                             <i class="nav-icon fas fa-user-friends"></i>
                             <p>
@@ -371,6 +371,29 @@
                                         <p>Create Vehicle</p>
                                     </a>
                                 @endcan
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
+            @can('schedule members')
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-{{ request()->is('member_schedule*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('member_schedule*') ? 'active' : '' }}">
+
+                            <i class="nav-icon fas fa-calendar"></i>
+                            <p>
+                                Schedules
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
+                                <a href={{ route('member_schedule.index') }}
+                                    class="nav-link {{ request()->is('member_schedule/index') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Jadual Operasi HQ</p>
+                                </a>
                             </li>
                         </ul>
                     </li>

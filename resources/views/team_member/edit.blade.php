@@ -92,10 +92,10 @@
                                                         <option value="{{ $member->id }}" @if ($teamMember->member1 != null)
                                                             {{ $teamMember->member1->id == $member->id ? 'selected' : '' }}>
                                                             {{ $member->name }}
-                                                            {{ $member->employment_status == 'part time' ? 'PT' : ($member->employment_status == 'CFS' ? 'CFS' : '') }}
+                                                            {{ employeeStatus($member->employment_status) }}                                                        
                                                         @else
                                                             >{{ $member->name }}
-                                                            {{ $member->employment_status == 'part time' ? 'PT' : ($member->employment_status == 'CFS' ? 'CFS' : '') }}
+                                                            {{ employeeStatus($member->employment_status) }}                                                        
                                                     @endif
                                                     </option>
                                                     @endforeach
@@ -115,10 +115,10 @@
                                                         <option value="{{ $member->id }}" @if ($teamMember->member2 != null)
                                                             {{ $teamMember->member2->id == $member->id ? 'selected' : '' }}>
                                                             {{ $member->name }}
-                                                            {{ $member->employment_status == 'part time' ? 'PT' : ($member->employment_status == 'CFS' ? 'CFS' : '') }}
+                                                            {{ employeeStatus($member->employment_status) }}                                                        
                                                         @else
                                                             >{{ $member->name }}
-                                                            {{ $member->employment_status == 'part time' ? 'PT' : ($member->employment_status == 'CFS' ? 'CFS' : '') }}
+                                                            {{ employeeStatus($member->employment_status) }}                                                        
                                                     @endif
                                                     </option>
                                                     @endforeach
@@ -137,10 +137,10 @@
                                                         <option value="{{ $member->id }}" @if ($teamMember->member3 != null)
                                                             {{ $teamMember->member3->id == $member->id ? 'selected' : '' }}>
                                                             {{ $member->name }}
-                                                            {{ $member->employment_status == 'part time' ? 'PT' : ($member->employment_status == 'CFS' ? 'CFS' : '') }}
+                                                            {{ employeeStatus($member->employment_status) }}                                                        
                                                         @else
                                                             >{{ $member->name }}
-                                                            {{ $member->employment_status == 'part time' ? 'PT' : ($member->employment_status == 'CFS' ? 'CFS' : '') }}
+                                                            {{ employeeStatus($member->employment_status) }}                                                        
                                                     @endif
                                                     </option>
                                                     @endforeach
