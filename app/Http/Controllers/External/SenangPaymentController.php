@@ -18,7 +18,7 @@ class SenangPaymentController extends Controller
             $order->customer->name,
             $order->customer->email,
             $order->customer->phone_no,
-            'Cleanhero_Carpet_Cleaning_#'.$order->id,
+            'Cleanhero_Carpet_Cleaning_'.$order->id,
             'pnd#'.$order->id,
             $order->balance_to_pay() / 100
         );
