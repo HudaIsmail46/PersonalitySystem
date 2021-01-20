@@ -203,3 +203,7 @@ Route::prefix('/vehicle')->name('vehicle.')->group(function () {
     Route::delete('/{vehicle}', 'VehicleController@destroy')->name('destroy');
     Route::put('/{vehicle}', 'VehicleController@update')->name('update');
 });
+
+##payment
+Route::get('/pay/{order}', 'External\SenangPaymentController@pay')->name('pay');
+Route::get('/senang/return', 'External\SenangPaymentController@senangReturn');

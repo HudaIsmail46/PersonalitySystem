@@ -37,7 +37,12 @@
                         <div class="row d-flex">
                             <div class="col-12 card text-body">
                                 <div class="card-header">
-                                    <h3 class="mb-0">Order Detail</h3>
+                                    <h3 class="mb-0">
+                                        Order Detail 
+                                        @if($order->paid_at)
+                                            <span class='float-right text-danger'><strong>Paid</strong></span>
+                                        @endif
+                                    </h3>
                                 </div>
                                 <div class="card-body p-1 text-capitalize">
 
@@ -104,7 +109,7 @@
                                                 </td>    
                                             </tr>
                                             <tr>
-                                                <th>Discount {{$order->discount_rate}}%</th>
+                                                <th>Discount {{$order->discount_rate ? $order->discount_rate . '%' : ''}}</th>
                                                 <td>
                                                 - {{ money($order->discount()) }}
                                                 </td>    
@@ -129,11 +134,14 @@
                                             </tr>     
                                         </table>
                                     </div>
-                                    <div class="ml-3">
+                                    <div class="ml-3 p-2">
+                                        @if(!$order->paid_at)
+                                            <a href="{{route('pay', $order)}}"><span class="btn btn-primary float-right">Pay Now {{money($order->balance_to_pay())}}</span></a>
+                                        @endif
                                         <h3>Payment</h3>
                                         <div>
                                             <p><b> Deposit Detail :</b><br>
-                                                @if($order->deposit_paid_at != null)
+                                                @if($order->deposit_paid_at)
                                                     Paid at  {{ $order->deposit_paid_at ? myLongDateTime(new Carbon\Carbon($order->deposit_paid_at)) : null}}<br>
                                                         via {{ $order->deposit_payment_method}}
                                                 @else
@@ -143,7 +151,7 @@
                                         </div>
                                         <div>
                                             <p><b>Payment Detail :</b><br>
-                                                @if($order->paid_at != null)
+                                                @if($order->paid_at)
                                                     Paid at  {{ $order->paid_at ? myLongDateTime(new Carbon\Carbon($order->paid_at)) : null}}<br>
                                                         via {{ $order->payment_method}}
                                                 @else
