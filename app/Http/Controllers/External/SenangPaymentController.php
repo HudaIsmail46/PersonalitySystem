@@ -8,6 +8,7 @@ use App\Order;
 use App\SenangPay\SenangPay;
 use Illuminate\Support\Facades\Crypt;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class SenangPaymentController extends Controller
 {
@@ -40,6 +41,8 @@ class SenangPaymentController extends Controller
                         'payment_method' => "SenangPay"
                     ]);
                     $order->save();
+                } else {
+                    Log::error("order: " . $request->order_id . " " . $request->msg);
                 }
 
                 return redirect()->route('customer_order.show', $encId);
