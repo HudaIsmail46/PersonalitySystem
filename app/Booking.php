@@ -48,6 +48,11 @@ class Booking extends Model
         return $this->hasOne(Invoice::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(InvoicePayment::class);
+    }
+
     public function images()
     {
         return $this->morphMany('App\Image','imageable');
