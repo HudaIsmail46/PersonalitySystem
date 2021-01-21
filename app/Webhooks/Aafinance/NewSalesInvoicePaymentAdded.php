@@ -22,7 +22,7 @@ class NewSalesInvoicePaymentAdded extends AafinanceWebhook
 
             $payment = new InvoicePayment;
             $payment->fill([
-                'invoice_id' => $booking->invoice->id,
+                'invoice_id' => $booking->invoice ? $booking->invoice->id : null,
                 'booking_id' => $booking->id,
                 'amount' => $data['Amount'] * 100,
                 'receipt_number' => $data['ReceiptReferenceNo'],
@@ -31,8 +31,6 @@ class NewSalesInvoicePaymentAdded extends AafinanceWebhook
                 'created_by' => $data['CreationUser']
             ]);
             $payment->save();
-
-            
 
             ReportBooking::dispatch($booking);
         }
