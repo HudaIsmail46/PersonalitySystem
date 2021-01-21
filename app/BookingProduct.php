@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\BookingItem;
+use App\BookingProductCategory;
+use App\InvoiceItem;
 
 class BookingProduct extends Model
 {
@@ -19,5 +22,10 @@ class BookingProduct extends Model
     public function bookingProductCategory()
     {
         return $this->belongsTo(BookingProductCategory::class);
+    }
+
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class);
     }
 }
