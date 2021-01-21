@@ -191,6 +191,8 @@ Route::prefix('/team_member')->name('team_member.')->group(function () {
     Route::get('/{team_member}/edit', 'TeamMemberController@edit')->name('edit');
     Route::delete('/{team_member}', 'TeamMemberController@destroy')->name('destroy');
     Route::put('/{team_member}', 'TeamMemberController@update')->name('update');
+    Route::get('/file-export', 'TeamMemberController@fileExport')->name('file-export');
+
 });
 
 ##vehicle CRUD

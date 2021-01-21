@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TeamMemberExport;
 use Illuminate\Http\Request;
 use App\Team;
 use App\TeamMember;
 use App\Member;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TeamMemberController extends Controller
 {
+    public function fileExport() 
+    {
+        return Excel::download(new TeamMemberExport, 'team-pairings-2021.xlsx');
+    }    
+
     public function index(Request $request)
     {
         $start   = $request->from;

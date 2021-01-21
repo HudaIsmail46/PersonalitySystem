@@ -24,6 +24,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="mb-0">Team Pairings Details</h3>
+
+                            <div class="float-right mt-5">
+                                Download File<a class="btn btn-success btn-md ml-2 mb-2"
+                                    href="{{ route('team_member.file-export') }}"><i class="fa fa-download"></i></a>
+                            </div>
                             <form action="{{ route('team_member.index') }}" method="get">
                                 @csrf
                                 <div class="row ml-0 mt-2">
