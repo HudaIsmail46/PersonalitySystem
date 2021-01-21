@@ -16,7 +16,6 @@ class CreateInvoiceItemsTable extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->softDeletes();
             $table->integer('invoice_id');
             $table->integer('booking_product_id')->nullable();
             $table->integer('quantity');
