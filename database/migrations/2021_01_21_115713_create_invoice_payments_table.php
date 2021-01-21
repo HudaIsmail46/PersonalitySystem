@@ -17,6 +17,7 @@ class CreateInvoicePaymentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('booking_id')->nullable();
+            $table->integer('invoice_id')->nullable();
             $table->string('receipt_number');
             $table->string('payment_method');
             $table->string('created_by');

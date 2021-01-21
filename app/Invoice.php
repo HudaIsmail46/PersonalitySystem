@@ -32,39 +32,3 @@ class Invoice extends Model
     }
 
 }
-
-
-// {
-//     "SalesInvoiceId":573,
-//     "JobId":783,
-//     "ReferenceNo":"INV00573",
-//     "InvoiceDate":"2021-01-19T00:00:00",
-//     "PayerName":"Puan Huda",
-//     "PayerEmail":null,
-//     "PayerPhoneNumber":"60126799540",
-//     "TotalAmount":1350,
-//     "SalesInvoiceItems":[
-//         {
-//             "SalesInvoiceItemId":1198,
-//             "Description":"Comprehensive (Misting+Wiping) - Bungalow",
-//             "Product":
-//                 {
-//                     "ProductId":122,"ProductName":"Comprehensive (Misting+Wiping) - Bungalow",
-//                     "ProductCode":"408",
-//                     "Category":"Microbial Control & Sanitization"
-//                 },
-//             "Quantity":1,
-//             "SellPrice":1500
-//         }
-//     ],
-//     "SalesInvoiceAddtionalCosts":
-//         [
-//             {
-//                 "SalesInvoiceAddtionalCostId":881,
-//                 "Description":"Discount 10%",
-//                 "Amount":-150
-//             }
-//         ],
-//     "Status":"Paid",
-//     "CreationUser":"HQ Hijau"
-// }
