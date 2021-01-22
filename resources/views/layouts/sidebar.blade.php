@@ -26,6 +26,34 @@
                     </li>
                 </ul>
             @endif
+            @can('create roles')
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-{{ request()->is('role*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('role*') ? 'active' : '' }}">
+                            <i class="fas fa-user-circle nav-icon"></i>
+                            <p>
+                                Roles
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
+                                <a href={{ route('role.index') }}
+                                    class="nav-link {{ request()->is('role/index') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All Roles</p>
+                                </a>
+                                <a href={{ route('role.create') }}
+                                    class="nav-link {{ request()->is('role/create') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+
+                                    <p>Create Roles</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
             @can('list bookings')
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ request()->is('booking*') ? 'open' : '' }}">

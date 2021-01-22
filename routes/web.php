@@ -206,4 +206,15 @@ Route::prefix('/vehicle')->name('vehicle.')->group(function () {
 
 ##payment
 Route::get('/pay/{order}', 'External\SenangPaymentController@pay')->name('pay');
-Route::get('/senang/return', 'External\SenangPaymentController@senangReturn');
+Route::get('/senang/return', 'External\SenangPaymentController@senangReturn');#
+
+##role
+Route::prefix('/role')->name('role.')->group(function () {
+    Route::get('/index', 'RoleController@index')->name('index');
+    Route::get('/create', 'RoleController@create')->name('create');
+    Route::post('/', 'RoleController@store')->name('store');
+    Route::get('/{role}', 'RoleController@show')->name('show');
+    Route::get('/{role}/edit', 'RoleController@edit')->name('edit');
+    Route::delete('/{role}', 'RoleController@destroy')->name('destroy');
+    Route::put('/{role}', 'RoleController@update')->name('update');
+});
