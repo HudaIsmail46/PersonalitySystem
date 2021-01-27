@@ -21,7 +21,7 @@ class Booking extends Model
     const TYPE = ['RES', 'COM', 'HQ', 'P&D'];
     const STATUS = ['APPROVED', 'NOT APPROVED', 'POSTPONED','IN PROGRESS', 'HUTANG', 'RECUCI', 'APPROVED', 'PENDING', 'NOT VALID',];
 
-    protected $dates = ['deleted_at', 'event_ends', 'event_begins'];
+    protected $dates = ['deleted_at', 'event_ends', 'event_begins', 'gc_event_begins', 'gc_event_ends'];
     protected $casts = [
         'aafinance_webhook' => 'array',
         'aafinance_payment' => 'array',
@@ -63,6 +63,10 @@ class Booking extends Model
         return $this->morphMany('App\Comment', 'commentable');
     }
 
+    public function followUps()
+    {
+        return $this->hasOne(FollowUp::class);
+    }
     public function fullAddress()
     {
         $addressString = $this->address_1 . "," . $this->address_2 . ","
@@ -90,7 +94,7 @@ class Booking extends Model
                 array_push($additions, $additionstring);
             }
         }
-        
+
         return $additions;
     }
 
@@ -110,7 +114,7 @@ class Booking extends Model
                 array_push($deductions, $deductionString);
             }
         }
-        
+
         return $deductions;
     }
 

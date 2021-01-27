@@ -82,7 +82,7 @@
                                 @endif
                                 <tr>
                                     <td>Team</td>
-                                    <td>{{ $booking->gc_team ?? $booking->team }}</td>
+                                    <td>{{ $booking->team }}</td>
                                 </tr>
                                 <tr>
                                     <td>Handled By</td>

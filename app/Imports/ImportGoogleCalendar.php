@@ -61,7 +61,7 @@ class ImportGoogleCalendar
                 $booking->gc_event_begins = static::getDateTime($event->start ? $event->start->dateTime : null);
                 $booking->gc_event_ends = static::getDateTime(($event->end ? $event->end->dateTime : null));
                 $booking->gc_description = strip_tags($event->description);
-                $booking->gc_team = $team;
+                $booking->team = $team;
                 $booking->gc_address = $event->location;
             }
             else {
@@ -70,7 +70,7 @@ class ImportGoogleCalendar
                 $booking->gc_event_begins = static::getDateTime($event->start ? $event->start->dateTime : null);
                 $booking->gc_event_ends = static::getDateTime($event->end ? $event->end->dateTime : null);
                 $booking->gc_description = strip_tags($event->description);
-                $booking->gc_team = $team;
+                $booking->team = $team;
                 $booking->gc_address = $event->location;
                 $booking->deleted_at = $event->status == 'cancelled' ? (new DateTime)->format('Y-m-d H:i:s'): null;
             }

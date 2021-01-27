@@ -33,16 +33,16 @@ class BookingController extends AuthenticatedController
                 return $q->whereBetween('gc_event_begins', [$start, $end]);
             })
             ->when($team, function ($q) use ($team) {
-                return $q->where('gc_team', $team);
+                return $q->where('team', $team);
             })
             ->when($address, function ($q) use ($address) {
                 return $q->where('gc_address',  'ILIKE', '%' . $address . '%');
             })
             ->orderBy('gc_event_begins', 'DESC')->paginate(10);
 
-        $booking_teams = DB::select('select distinct gc_team from bookings');
+        $booking_teams = DB::select('select distinct team from bookings');
         $teams = array_map(function ($booking) {
-            return $booking->gc_team;
+            return $booking->team;
         }, $booking_teams);
 
         return view('booking.index', compact('bookings', 'teams'))
