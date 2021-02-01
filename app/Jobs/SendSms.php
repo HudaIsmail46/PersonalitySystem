@@ -44,6 +44,5 @@ class SendSms implements ShouldQueue
         ]);
 
         Http::post('http://gateway.onewaysms.com.my:10001/api.aspx?' . $query);
-        return 0;
     }
 }

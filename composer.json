@@ -18,6 +18,7 @@
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^7.24",
+        "laravel/horizon": "4.3.5",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
         "maatwebsite/excel": "^3.1",

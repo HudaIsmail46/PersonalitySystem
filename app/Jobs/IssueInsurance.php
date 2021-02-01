@@ -60,7 +60,6 @@ class IssueInsurance implements ShouldQueue
             } else {
                 Log::error("booking: " . $this->booking->id . " " . $response["data"]["error_msg"]);
             }
-
         }
     }
 
