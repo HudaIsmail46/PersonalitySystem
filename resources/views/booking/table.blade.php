@@ -28,8 +28,8 @@
             </td>
             <td>{!! bookingAddress($booking) !!}</td>
             <td>
-                Start: {{ myLongDateTime(new Carbon\Carbon($booking->gc_event_begins)) }}<br>
-                End: {{ myLongDateTime(new Carbon\Carbon($booking->gc_event_ends)) }}
+                Start: {{ myLongDateTime(new Carbon\Carbon($booking->event_begins)) }}<br>
+                End: {{ myLongDateTime(new Carbon\Carbon($booking->event_ends)) }}
             </td>
             <td>{{ $booking->team }}</td>
             <td>
