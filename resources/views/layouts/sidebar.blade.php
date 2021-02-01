@@ -396,6 +396,15 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
+                                <a href={{ route('vehicle_schedule.index') }}
+                                    class="nav-link {{ request()->is('vehicle_schedule/index') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>  Vehicles</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             @endcan
