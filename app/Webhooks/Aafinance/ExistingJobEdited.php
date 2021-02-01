@@ -7,6 +7,7 @@ use App\BookingItem;
 use Carbon\Carbon;
 use App\Webhooks\Aafinance\AafinanceWeebhook;
 use App\Jobs\ReportBooking;
+use App\Jobs\FollowUpCustomer;
 
 class ExistingJobEdited extends AafinanceWebhook
 {
@@ -36,7 +37,10 @@ class ExistingJobEdited extends AafinanceWebhook
         $booking->save();
 
         $bookingItems = static::createOrUpdateBookingItems($booking, $data['JobItems']);
-
+        
+        if ($data['Status'] == 'Completed') {
+            FollowUpCustomer::dispatch($booking);
+        }
         ReportBooking::dispatch($booking);
     }
 }

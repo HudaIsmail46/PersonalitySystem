@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 class Customer extends Model
 {
     protected $fillable = [ 'name', 'phone_no', 'address_1', 'address_2', 'address_3', 'postcode', 'city', 'location_state', 'gender', 'nric', 'email'];
@@ -30,9 +31,24 @@ class Customer extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function followUps()
+    {
+        return $this->hasMany(FollowUp::class);
+    }
+
     public function comments()
     {
         return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    public function currentFollowUp()
+    {
+        return $this->followUps()
+            ->where('follow_up_status', '!=', 'DONE')
+            ->where('lead_status', '=', '')
+            ->whereDate('expire_at', '>=', Carbon::now())
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
 
     public static function findOrCreate($name, $phone_no)

@@ -74,7 +74,7 @@
                                 </tr>
                                 <tr>
                                     <td>Team</td>
-                                    <td align="left">{{$booking->gc_team}}</td>
+                                    <td align="left">{{$booking->team}}</td>
                                 </tr>
                                 <tr>
                                     <td>Estimated Price</td>

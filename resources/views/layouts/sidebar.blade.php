@@ -87,6 +87,13 @@
                                         <p>Import Booking Products</p>
                                     </a>
                                 @endcan
+                                @can('follow up')
+                                <a href={{route('follow_up.index')}} class="nav-link {{ (request()->is('follow_up/index')) ? 'active' : '' }}">
+                                    <i class="fas fa-pen nav-icon"></i>
+
+                                    <p>Follow Up</p>
+                                </a>
+                            @endcan
                             </li>
                         </ul>
                     </li>

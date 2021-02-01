@@ -23,19 +23,17 @@ class Kernel extends ConsoleKernel
      * @return void
      */
 
-     
-    // protected function schedule(Schedule $schedule)
-    // {
-    //     $schedule->command('google_calendar:import')
-    //         ->everyFifteenMinutes()
-    //         ->timezone('Asia/Kuala_Lumpur')
-    //         ->between('8:00', '22:00');
-    // }
-
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('issue_insurance:import')
-                    ->daily();
+            ->daily();
+
+        $schedule->command('expired_follow_up:update')
+            ->dailyAt('01:00');
+
+        //kasi test dulu
+        // $schedule->command('follow_up_sms:send')
+        //     ->dailyAt('11:00');
     }
     /**
      * Register the commands for the application.
