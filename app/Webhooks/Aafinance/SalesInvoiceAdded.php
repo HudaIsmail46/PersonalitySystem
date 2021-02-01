@@ -38,7 +38,7 @@ class SalesInvoiceAdded extends AafinanceWebhook
 
             $invoice->save();
 
-            $invoice->invoiceItems->delete();
+            $invoice->invoiceItems()->delete();
             foreach($data['SalesInvoiceItems'] as $item){
                 
                 $invoiceItem = new InvoiceItem;
