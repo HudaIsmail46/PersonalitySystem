@@ -55,11 +55,12 @@ class Customer extends Model
     {
         $customer = null;
         if ($phone_no){
-            $customer = static::firstWhere('phone_no', '=', $phone_no);
+            $formatted_phone_no =  formatPhoneNo($phone_no);
+            $customer = static::firstWhere('phone_no', '=', $formatted_phone_no);
             if (is_null($customer)) {
                 $customer = new static;
-                $customer->name = $name ? $name : $phone_no;
-                $customer->phone_no = $phone_no;
+                $customer->name = $name ? $name : $formatted_phone_no;
+                $customer->phone_no = $formatted_phone_no;
                 $customer->save();
             }
         }

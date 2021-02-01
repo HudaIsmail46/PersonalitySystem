@@ -19,7 +19,7 @@ class AafinanceWebhook
         $customer = null;
         $customerData = $data['Customer'];
         if($customerData){
-            $phone_no =  $customerData['PhoneNumber'];
+            $phone_no = $customerData['PhoneNumber'];
             $name = $customerData['Fullname'];
             $address_1 = $data['StreetAddress1'];
             $address_2 =  $data['StreetAddress2'];
