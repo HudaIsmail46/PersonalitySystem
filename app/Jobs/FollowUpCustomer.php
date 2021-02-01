@@ -44,8 +44,10 @@ class FollowUpCustomer implements ShouldQueue
             $followUp->fill([
                 'booking_id' => $booking->id,
                 'customer_id' => $booking->customer_id,
-                'expire_at' => $booking->event_begins->addMonths(6)
+                'expire_at' => $booking->event_begins->addMonths(6),
+                'voucher_percent' => 20
             ]);
+
             $followUp->save();
         }
     }

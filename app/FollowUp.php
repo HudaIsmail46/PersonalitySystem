@@ -13,7 +13,8 @@ class FollowUp extends Model
         'follow_up_status','sales_person','sms_1','sms_2','sms_3',
         'voucher_percent', 'expire_at'];
 
-    const SALES_PERSON = ['CS1', 'CS2', 'CS3', 'CS4', 'CS5', 'CS6', 'CS7', 'CS8'];
+    const SALES_PERSON = ['CS1', 'CS2', 'CS3', 'CS4', 'CS5', 'CS6', 'CS7', 'CS8', 'CS9', 'CS10'];
+    const SALES_PERSON_ROTATION = ['CS3', 'CS4', 'CS5', 'CS6', 'CS7', 'CS8', 'CS9', 'CS10'];
     const STATUS = ['NO RESPONSE', 'IN PROGRESS', 'DONE'];//this is follow up status
     // lead status = open or closed, default is closed
     protected $dates = ['expire_at'];

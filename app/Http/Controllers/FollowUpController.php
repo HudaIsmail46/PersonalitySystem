@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
-class FollowUpController extends Controller
+class FollowUpController extends AuthenticatedController
 {
     /**
      * Display a listing of the resource.
