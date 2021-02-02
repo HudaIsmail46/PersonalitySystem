@@ -86,6 +86,9 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-5 mx-1 ">
+                @include('comment.index', ['model' => $followUp, 'appName' => App\FollowUp::class])
+            </div>
         </div>
     </div>
 </div>

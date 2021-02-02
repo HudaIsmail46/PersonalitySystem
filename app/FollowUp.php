@@ -29,6 +29,11 @@ class FollowUp extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
     public function scopeActive($query)
     {
         return $query->whereDate('expire_at', '>=', Carbon::now());
