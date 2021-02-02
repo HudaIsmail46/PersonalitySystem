@@ -67,6 +67,7 @@ class Booking extends Model
     {
         return $this->hasOne(FollowUp::class);
     }
+    
     public function fullAddress()
     {
         $addressString = $this->address_1 . "," . $this->address_2 . ","

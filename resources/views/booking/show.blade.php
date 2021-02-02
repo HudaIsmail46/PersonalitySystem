@@ -22,7 +22,7 @@
     </div>
     <div class="content">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row mx-1">
                 <div class="col-md-6  card">
                     <div class="card-header">
                         <h3 class="mb-0">Booking Detail</h3>
@@ -132,40 +132,47 @@
                                 </tr>
                             </table>
                         </div>
-                        <h2>Booking Items</h2>
-                        <div class='mt-3 mb-5'>
-                            @foreach ($booking->bookingItems as $bookingItem)
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
+
+                        @if ($booking->bookingItems->isEmpty())
+                        @else
+                            <h3 class="mb-0">Booking Items</h3>
+                            <div class='mt-3 mb-5'>
+                                @foreach ($booking->bookingItems as $bookingItem)
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
                                             <tr>
                                                 <td>Product Name</td>
-                                                <td> {{ $bookingItem->aafinance_webhook['Product']['ProductName'] ?? ''}}</td>
+                                                <td> {{ $bookingItem->aafinance_webhook['Product']['ProductName'] ?? '' }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td> Product Code</td>
-                                                <td>{{ $bookingItem->aafinance_webhook['Product']['ProductCode'] ?? ''}}</td>
+                                                <td>{{ $bookingItem->aafinance_webhook['Product']['ProductCode'] ?? '' }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td> Category </td>
-                                                <td>{{ $bookingItem->aafinance_webhook['Product']['Category'] ?? ''}}</td>
+                                                <td>{{ $bookingItem->aafinance_webhook['Product']['Category'] ?? '' }}</td>
                                             </tr>
                                             <tr>
                                                 <td> Remark </td>
-                                                <td>{{ $bookingItem->remark ?? ''}}</td>
+                                                <td>{{ $bookingItem->remark ?? '' }}</td>
                                             </tr>
-                                        <tr>
-                                            <td> Quantity</td>
-                                            <td>{{ $bookingItem->quantity }}</td>
+                                            <tr>
+                                                <td> Quantity</td>
+                                                <td>{{ $bookingItem->quantity }}</td>
 
-                                        </tr>
-                                        <tr>
-                                            <td> Price </td>
-                                            <td>{{ money($bookingItem->price) }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            @endforeach
-                        </div>
+                                            </tr>
+                                            <tr>
+                                                <td> Price </td>
+                                                <td>{{ money($bookingItem->price) }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
                         @can('edit bookings')
                             <div class="row mt-5 ml-0">
                                 <a href="{{ route('booking.edit', $booking->id) }}" class="btn btn-primary mr-2">Edit</a>
@@ -181,10 +188,60 @@
                         @endcan
                     </div>
                 </div>
-                <div class="col-md-5 mx-1 ">
+
+                <div class="col-md-5 mx-3">
                     @include('comment.index', ['model' => $booking, 'appName' => App\Booking::class])
                 </div>
+
             </div>
+
+            @if ($invoice_payments->isEmpty())
+            @else
+                <div class="col-md-6 card">
+                    <div class="card-header">
+                        <h3 class="mb-0">Payment</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class='mt-3 mb-5'>
+                            @foreach ($invoice_payments as $invoice_payment)
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td>Invoice Id</td>
+                                            <td> {{ $invoice_payment->invoice_id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Receipt Number</td>
+                                            <td>{{ $invoice_payment->receipt_number }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Amount</td>
+                                            <td>{{ money($invoice_payment->amount) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Payment Details</td>
+                                            <td>
+                                                @if ($invoice_payment->paid_at != null)
+                                                    Paid at
+                                                    {{ $invoice_payment->paid_at ? myLongDateTime(new Carbon\Carbon($invoice_payment->paid_at)) : null }}
+                                                    via {{ $invoice_payment->payment_method }}
+                                                @else
+                                                    Not yet paid.
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Created by</td>
+                                            <td>{{ $invoice_payment->created_by }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
 
