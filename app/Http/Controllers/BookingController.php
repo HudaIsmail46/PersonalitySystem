@@ -7,6 +7,8 @@ use App\Booking;
 use App\Customer;
 use App\InvoicePayment;
 use App\Exports\BookingsExport;
+use App\Invoice;
+use App\InvoiceItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
@@ -96,10 +98,10 @@ class BookingController extends AuthenticatedController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Booking $booking)
+    public function show(Booking $booking,Invoice $invoice)
     {
         $invoice_payments = InvoicePayment::where('booking_id' , $booking->id)->get();
-        return view('booking.show', compact('booking', 'invoice_payments'));
+        return view('booking.show', compact('booking', 'invoice','invoice_payments'));
     }
 
     /**
