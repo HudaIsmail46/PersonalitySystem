@@ -43,6 +43,11 @@ class SendSms implements ShouldQueue
             'message'=> $this->message
         ]);
 
-        Http::post('http://gateway.onewaysms.com.my:10001/api.aspx?' . $query);
+        if (env('SMS_SEND')) {
+            Http::post('http://gateway.onewaysms.com.my:10001/api.aspx?' . $query);
+        } else {
+            logger('sending sms to' . $this->phone_number . '. msg: ' . $this->message);
+        }
+        
     }
 }

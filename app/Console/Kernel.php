@@ -31,9 +31,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('expired_follow_up:update')
             ->dailyAt('01:00');
 
-        //kasi test dulu
-        // $schedule->command('follow_up_sms:send')
-        //     ->dailyAt('11:00');
+        $schedule->command('follow_up_sms:send')
+            ->dailyAt('11:00');
     }
     /**
      * Register the commands for the application.
