@@ -31,7 +31,7 @@
                 Start: {{ myLongDateTime(new Carbon\Carbon($booking->event_begins)) }}<br>
                 End: {{ myLongDateTime(new Carbon\Carbon($booking->event_ends)) }}
             </td>
-            <td>{{ $booking->team }}</td>
+            <td>{{ $booking->team ?? $booking->gc_team }}</td>
             <td>
                 <div class="d-flex">
                     <div>

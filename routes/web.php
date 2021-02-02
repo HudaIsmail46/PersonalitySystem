@@ -40,6 +40,7 @@ Route::post('/booking_products/import-excel', 'ImportExcel\ImportExcelController
 
 ## Booking CRUD
 Route::prefix('/booking')->name('booking.')->group(function () {
+    Route::get('/export', 'BookingController@fileExport')->name('file-export');
     Route::get('/index', 'BookingController@index')->name('index');
     Route::get('/create', 'BookingController@create')->name('create');
     Route::post('/', 'BookingController@store')->name('store');
