@@ -24,6 +24,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="mb-0">Booking Detail</h3>
+
+                            <form action="{{ route('booking.file-export', [$bookings->withQueryString()])}}" method="get">
+                                @csrf
+                            <button class="btn btn-success btn-md ml-2 float-right" type="submit" name ="submit" value ="Download">
+                              Download File  <i class="fa fa-download"></i></button>
+                            </form>
+
                         </div>
                         <div class="card-body">
                             <form action="{{ route('booking.index')}}" method="get">

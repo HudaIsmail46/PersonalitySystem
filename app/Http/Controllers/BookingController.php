@@ -6,10 +6,50 @@ use Illuminate\Http\Request;
 use App\Booking;
 use App\Customer;
 use App\InvoicePayment;
+use App\Exports\BookingsExport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookingController extends AuthenticatedController
 {
+    public function fileExport()
+    {
+        $parsedUrl = parse_url(URL::previous());
+        $query = $parsedUrl['query'] ?? '';
+
+        if ($query == '') {
+            $bookings = Booking::all();
+        } else {
+            parse_str($query, $output);
+
+            $name    = $output['name'];
+            $phone   = $output['phone_no'];
+            $start   = $output['from'];
+            $end     = $output['to'];
+            $team    = $output['team'];
+            $address = $output['address'];
+
+            $bookings = Booking::when($name, function ($q) use ($name) {
+                return $q->where('name', 'ILIKE', '%' . $name . '%');
+            })
+                ->when($phone, function ($q) use ($phone) {
+                    return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
+                })
+                ->when($start, function ($q) use ($start, $end) {
+                    return $q->whereBetween('gc_event_begins', [$start, $end]);
+                })
+                ->when($team, function ($q) use ($team) {
+                    return $q->where('gc_team', $team);
+                })
+                ->when($address, function ($q) use ($address) {
+                    return $q->where('gc_address',  'ILIKE', '%' . $address . '%');
+                })
+                ->orderBy('gc_event_begins', 'DESC')->get();
+        }
+        return Excel::download(new BookingsExport($bookings), 'bookings-CleanHero.csv');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +65,8 @@ class BookingController extends AuthenticatedController
         $address = $request->address;
 
         $bookings = Booking::when($name, function ($q) use ($name) {
-                return $q->where('name', 'ILIKE', '%' . $name . '%');
-            })
+            return $q->where('name', 'ILIKE', '%' . $name . '%');
+        })
             ->when($phone, function ($q) use ($phone) {
                 return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
             })
