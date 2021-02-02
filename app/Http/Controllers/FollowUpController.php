@@ -65,7 +65,7 @@ class FollowUpController extends AuthenticatedController
     public function update(Request $request,FollowUp $followUp)
     {
         $followUp->fill([
-            'follow_up_status' => $request->follow_up_status,
+            'follow_up_status' => $request->follow_up_status ? $request->follow_up_status : '' ,
             'sales_person' => $request->sales_person
         ]);
           $followUp->save();
