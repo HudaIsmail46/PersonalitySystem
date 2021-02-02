@@ -4,14 +4,62 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Customer;
+use App\Exports\OrdersExport;
 use App\OrderItem;
 use App\State\Order\Draft;
 use App\State\Order\PendingPickupSchedule;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends AuthenticatedController
 {
+    public function fileExport()
+    {
+        $parsedUrl = parse_url(URL::previous());
+        $query = $parsedUrl['query'] ?? '';
+
+        if ($query == '') {
+            $orders = Order::all();
+        } else {
+            parse_str($query, $output);
+
+            $state    = $output['state'];
+            $start = $output['from'];
+            $end  = $output['to'];               
+            $name   = $output['name'];
+            $id     = $output['id'];
+            $phone_no    = $output['phone_no'];
+            $notice_ambilan_ref = $output['notice_ambilan_ref'];
+
+            $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
+                ->with('customer', 'creator' , 'orderItems' )
+                ->select('orders.*', 'customers.name', 'customers.phone_no')
+                ->when($state, function ($q) use ($state) {
+                    return $q->where('state', $state);
+                })
+                ->when($id, function ($q) use ($id) {
+                    return $q->where('orders.id', $id);
+                })
+                ->when($start, function ($q) use ($start, $end) {
+                    return $q->whereBetween('prefered_pickup_datetime', [$start, $end]);
+                })
+                ->when($name, function ($q) use ($name) {
+                    return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
+                })
+                ->when($phone_no, function ($q) use ($phone_no) {
+                    return $q->where('customers.phone_no', 'LIKE', '%' . $phone_no . '%');
+                })
+                ->when($notice_ambilan_ref, function ($q) use ($notice_ambilan_ref) {
+                    return $q->where('orders.notice_ambilan_ref', 'ILIKE', '%' . $notice_ambilan_ref . '%');
+                })
+                ->get();
+        }
+        return Excel::download(new OrdersExport($orders), 'P&D-CH.csv');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +68,8 @@ class OrderController extends AuthenticatedController
     public function index(Request $request)
     {
         $state = $request->state;
-        $date = $request->date;
+        $start = $request->from;
+        $end  = $request->to;        
         $name = $request->name;
         $id = $request->id;
         $phone_no = $request->phone_no;
@@ -38,8 +87,8 @@ class OrderController extends AuthenticatedController
             ->when($id, function ($q) use ($id) {
                 return $q->where('orders.id', $id);
             })
-            ->when($date, function ($q) use ($date) {
-                return $q->whereDate('prefered_pickup_datetime', $date);
+            ->when($start, function ($q) use ($start, $end) {
+                return $q->whereBetween('prefered_pickup_datetime', [$start, $end]);
             })
             ->when($name, function ($q) use ($name) {
                 return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
@@ -196,7 +245,7 @@ class OrderController extends AuthenticatedController
                         'quantity' => $request->quantity_item[$i],
                         'price' =>  priceCents($request->price_item[$i])
                     ]);
-                    
+
             } else {
                 if ($request->material[$i] != null) {
                     $order_item = new OrderItem;

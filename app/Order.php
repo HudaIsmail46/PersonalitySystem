@@ -158,6 +158,20 @@ class Order extends Model
         return $productList;
     }
 
+    public function paymentStatus()
+    {
+        $balance = $this->price - $this->deposit_amount;
+
+        if ($this->price == $balance) {
+            $status =  "Unpaid";
+        } elseif ($this->price > $balance) {
+            $status =  "Partially Paid";
+        } else {
+            $status =  "Paid";
+        }
+        return $status;
+    }
+
     protected static function boot()
     {
         parent::boot();

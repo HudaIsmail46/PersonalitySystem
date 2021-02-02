@@ -24,6 +24,13 @@
                     <div class="card">
                         <div class="card-header">
                            <h3 class="mb-0">Order Details</h3>
+
+                           <form action="{{ route('order.file-export', [$orders->withQueryString()])}}" method="get">
+                                @csrf
+                                <button class="btn btn-success btn-md ml-2 float-right" type="submit" name ="submit" value ="Download">
+                                    Download File  <i class="fa fa-download"></i></button>
+                            </form>
+
                         </div>
                         <div class='card-body'>
                             <form action="{{ route('order.index')}}" method="get">
@@ -33,16 +40,19 @@
                                         <div class="col-sm-1">
                                             Id: <input class="form-control form-control-sm" type="search" name="id" placeholder="id" value="{{request()->id}}">
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-sm-1">
                                             Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-sm-2">
                                             Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone number" value="{{request()->phone_no}}">
                                         </div>
-                                        <div class="col-md-2">
-                                            Prefered Date Time: <input class="form-control form-control-sm" type="date" name="date" value="{{request()->date}}">
+                                        <div class="col-sm-2">
+                                            From: <input class="form-control form-control-sm" type="date" name="from" value="{{request()->from}}">
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-sm-2">
+                                            To: <input class="form-control form-control-sm" type="date" name="to" value="{{request()->to}}">
+                                        </div>
+                                        <div class="col-sm-1">
                                             Status:
                                             <select id="state" class="form-control form-control-sm" name="state">
                                                 <option></option>
@@ -51,7 +61,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-sm-2">
                                             Notis Ambilan: <input class="form-control form-control-sm" type="search" name="notice_ambilan_ref" placeholder="notis ambilan" value="{{request()->notice_ambilan_ref}}">
                                         </div>
                                         <button class="btn btn-primary mt-auto" type="submit">Search <i class="fa fa-search"></i></button>
