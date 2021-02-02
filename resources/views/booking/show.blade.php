@@ -200,9 +200,9 @@
                                         Name : {{$booking->invoice->payer_name }}</a>
                                         <br>
                                             Phone No : {{ $booking->invoice->payer_phone_no }}
-                                            <a href="https://api.whatsapp.com/send?phone={{ ($booking->invoice->payer_phone_no }}"
+                                            <a href="https://api.whatsapp.com/send?phone={{ $booking->invoice->payer_phone_no }}"
                                                 target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
-                                            <a href="tel:{{ ($booking->invoice->payer_phone_no }}"><i class="fas fa-phone"></i></a>
+                                            <a href="tel:{{ $booking->invoice->payer_phone_no }}"><i class="fas fa-phone"></i></a>
                                             @if ($booking->invoice->payer_email != null)
                                             <br>
                                                 Email: {{ $booking->invoice->payer_email }}
