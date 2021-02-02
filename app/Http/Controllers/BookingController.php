@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Booking;
 use App\Customer;
+use App\InvoicePayment;
 use Illuminate\Support\Facades\DB;
 
 class BookingController extends AuthenticatedController
@@ -57,7 +58,8 @@ class BookingController extends AuthenticatedController
      */
     public function show(Booking $booking)
     {
-        return view('booking.show', compact('booking'));
+        $invoice_payments = InvoicePayment::where('booking_id' , $booking->id)->get();
+        return view('booking.show', compact('booking', 'invoice_payments'));
     }
 
     /**
