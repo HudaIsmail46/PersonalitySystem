@@ -133,8 +133,7 @@
                             </table>
                         </div>
 
-                        @if ($booking->bookingItems->isEmpty())
-                        @else
+                        @if (!$booking->bookingItems->isEmpty())
                             <h3 class="mb-0">Booking Items</h3>
                             <div class='mt-3 mb-5'>
                                 @foreach ($booking->bookingItems as $bookingItem)
@@ -191,111 +190,110 @@
 
                 <div class="col-md-5 mx-3">
                     @include('comment.index', ['model' => $booking, 'appName' => App\Booking::class])
-                    @if($booking->invoice_number != null)
-                    <div class=" card">
-                        <div class="card-header">
-                            <h3 class="mb-0"> Invoice Detail</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class='mt-3 mb-5'>
-                                    Name : {{$booking->invoice->payer_name }}</a>
-                                    <br>
-                                        Phone No : {{ $booking->invoice->payer_phone_no }}
-                                        <a href="https://api.whatsapp.com/send?phone={{ $invoice->payer_phone_no }}"
-                                            target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
-                                        <a href="tel:{{ $invoice->payer_phone_no }}"><i class="fas fa-phone"></i></a>
-                                        @if ($booking->invoice->payer_email != null)
+                    @if($booking->invoice)
+                        <div class=" card">
+                            <div class="card-header">
+                                <h3 class="mb-0"> Invoice Detail</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class='mt-3 mb-5'>
+                                        Name : {{$booking->invoice->payer_name }}</a>
                                         <br>
-                                            Email: {{ $booking->invoice->payer_email }}
-                                        @endif
-                            </div>
-                            <h2>Invoice</h2>
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <td>Id</td>
-                                        <td>{{ $booking->invoice->id }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Invoice Date</td>
-                                        <td>{{myLongDateTime(Carbon\Carbon::parse($booking->invoice->invoice_date))}}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Amount</td>
-                                        <td>{{ money($booking->invoice->total_amount) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Status</td>
-                                        <td>{{ $booking->invoice->status }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Additions</td>
-                                        <td>
-                                        @foreach($booking->invoice['additions'] as $booking_invoice)
-
-                                            @if ($booking_invoice['SalesInvoiceAddtionalCostId'] !=null)
-                                                ID:  {{ $booking_invoice['SalesInvoiceAddtionalCostId']}}
-                                            @endif
+                                            Phone No : {{ $booking->invoice->payer_phone_no }}
+                                            <a href="https://api.whatsapp.com/send?phone={{ $invoice->payer_phone_no }}"
+                                                target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                            <a href="tel:{{ $invoice->payer_phone_no }}"><i class="fas fa-phone"></i></a>
+                                            @if ($booking->invoice->payer_email != null)
                                             <br>
-                                            @if ($booking_invoice['Description'] !=null)
-                                                Description: {{ $booking_invoice['Description']}}
+                                                Email: {{ $booking->invoice->payer_email }}
                                             @endif
-                                            <br>
-                                            @if ($booking_invoice['Amount'] !=null)
-                                                Amount: {{ $booking_invoice['Amount']}}
-                                            @endif
-                                            <br><br>
-
-                                        @endforeach
-                                    </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <h2>Invoice Items</h2>
-                            <div class='mt-3 mb-5'>
-                                @foreach ($booking->invoice->invoiceItems as $invoiceItem)
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <tr>
-                                                <td>Invoice ID</td>
-                                                <td> {{ $invoiceItem->id}}
+                                </div>
+                                <h2>Invoice</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <td>Id</td>
+                                            <td>{{ $booking->invoice->id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Invoice Date</td>
+                                            <td>{{myLongDateTime(Carbon\Carbon::parse($booking->invoice->invoice_date))}}
                                             </td>
-                                            </tr>
-                                            <tr>
-                                                <td> Product Code</td>
-                                                <td>{{ $invoiceItem->bookingProduct->product_code}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td> Category </td>
-                                                <td>{{ $invoiceItem->bookingProduct->category}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td> Quantity</td>
-                                                <td>{{ $invoiceItem->quantity }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Amount</td>
+                                            <td>{{ money($booking->invoice->total_amount) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status</td>
+                                            <td>{{ $booking->invoice->status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Additions</td>
+                                            <td>
+                                            @foreach($booking->invoice['additions'] as $booking_invoice)
 
-                                            </tr>
-                                            <tr>
-                                                <td> Price </td>
-                                                <td>{{ money($invoiceItem->price) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td> Description </td>
-                                                <td>{{ $invoiceItem->description }}</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                @endforeach
+                                                @if ($booking_invoice['SalesInvoiceAddtionalCostId'] !=null)
+                                                    ID:  {{ $booking_invoice['SalesInvoiceAddtionalCostId']}}
+                                                @endif
+                                                <br>
+                                                @if ($booking_invoice['Description'] !=null)
+                                                    Description: {{ $booking_invoice['Description']}}
+                                                @endif
+                                                <br>
+                                                @if ($booking_invoice['Amount'] !=null)
+                                                    Amount: {{ $booking_invoice['Amount']}}
+                                                @endif
+                                                <br><br>
+
+                                            @endforeach
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <h2>Invoice Items</h2>
+                                <div class='mt-3 mb-5'>
+                                    @foreach ($booking->invoice->invoiceItems as $invoiceItem)
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <tr>
+                                                    <td>Invoice ID</td>
+                                                    <td> {{ $invoiceItem->id}}
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Product Code</td>
+                                                    <td>{{ $invoiceItem->bookingProduct->product_code}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Category </td>
+                                                    <td>{{ $invoiceItem->bookingProduct->category}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Quantity</td>
+                                                    <td>{{ $invoiceItem->quantity }}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td> Price </td>
+                                                    <td>{{ money($invoiceItem->price) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Description </td>
+                                                    <td>{{ $invoiceItem->description }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
                 </div>
 
             </div>
 
-            @if ($invoice_payments->isEmpty())
-            @else
+            @if (!$invoice_payments->isEmpty())
                 <div class="col-md-6 card">
                     <div class="card-header">
                         <h3 class="mb-0">Payment</h3>
