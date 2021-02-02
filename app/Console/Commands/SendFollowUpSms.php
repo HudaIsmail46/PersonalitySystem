@@ -42,6 +42,7 @@ class SendFollowUpSms extends Command
         $firstSms = FollowUp::dueFirstSms()->with('customer')->get();
         $secondSms = FollowUp::dueSecondSms()->with('customer')->get();
         $thirdSms = FollowUp::dueThirdSms()->with('customer')->get();
+        $sales_person_rotation = $this->sales_person_rotation($thirdSms->count());
 
         foreach($firstSms as $follow_up){
             if ($follow_up->voucher_percent == 20) {
@@ -68,7 +69,22 @@ class SendFollowUpSms extends Command
                 $msg = config('follow_up_sms.secondVoucher.sms3');
             }
             SendSms::dispatch($follow_up->customer->phone_no, $msg);
+            $follow_up->update(['sales_person' => array_shift($sales_person_rotation)]);
         }
-        return 0;
+    }
+
+    private function sales_person_rotation(Int $lead_count)
+    {
+        $sales_person = FollowUp::SALES_PERSON_ROTATION;
+        shuffle($sales_person);
+        $count = (int)($lead_count / count($sales_person)) + 1;
+        $rotation = [];
+        for ($i = 0 ; $i < $count; $i++){ 
+            foreach ($sales_person as $sale_person) {
+                array_push($rotation, $sale_person);
+            }
+        }
+
+        return $rotation;
     }
 }
