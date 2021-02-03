@@ -43,7 +43,8 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
             'Vendor Collected At ',
             'Vendor Returned At',
             'Runner PickUp At',
-            'Customer Received At'
+            'Customer Received At',
+            'Status'
         ];
     }
 
@@ -69,6 +70,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
             $order->vendor_returned_at,
             $order->runner_pickup_at,
             $order->customer_received_at,
+            humaniseOrderState($order->state)
         ];
     }
 }

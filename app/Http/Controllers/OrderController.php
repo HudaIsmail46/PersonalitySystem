@@ -54,7 +54,7 @@ class OrderController extends AuthenticatedController
                 ->when($notice_ambilan_ref, function ($q) use ($notice_ambilan_ref) {
                     return $q->where('orders.notice_ambilan_ref', 'ILIKE', '%' . $notice_ambilan_ref . '%');
                 })
-                ->get();
+                ->orderBy('id', 'ASC')->get();
         }
         return Excel::download(new OrdersExport($orders), 'P&D-CH.csv');
     }
