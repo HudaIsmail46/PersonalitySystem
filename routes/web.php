@@ -52,6 +52,7 @@ Route::prefix('/booking')->name('booking.')->group(function () {
 
 ## Customer CRUD
 Route::prefix('/customer')->name('customer.')->group(function () {
+    Route::get('/export', 'CustomerController@fileExport')->name('file-export');
     Route::get('/index', 'CustomerController@index')->name('index');
     Route::get('/create', 'CustomerController@create')->name('create');
     Route::post('/', 'CustomerController@store')->name('store');

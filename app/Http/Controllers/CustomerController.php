@@ -4,10 +4,41 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
-
+use App\Exports\CustomersExport;
+use Illuminate\Support\Facades\URL;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends AuthenticatedController
 {
+    public function fileExport()
+    {
+        $parsedUrl = parse_url(URL::previous());
+        $query = $parsedUrl['query'] ?? '';
+
+        if ($query == '') {
+            $customers = Customer::all();
+        } else {
+            parse_str($query, $output);
+
+            $name    = $output['name'];
+            $phone_no   = $output['phone_no'];
+            $address = $output['address'];
+
+            $customers = Customer::when($name, function ($q) use ($name) {
+                return $q->where('name', 'ILIKE', '%' . $name . '%');
+            })
+                ->when($address, function ($q) use ($address) {
+                    return $q->where('address_1', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
+                })
+                ->when($phone_no, function ($q) use ($phone_no) {
+                    return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
+                })
+                ->orderBy('id', 'ASC')->get();
+        }
+        return Excel::download(new CustomersExport($customers), 'Customers-CleanHero.csv');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +55,8 @@ class CustomerController extends AuthenticatedController
         })
             ->when($address, function ($q) use ($address) {
                 return $q->where('address_1', 'ILIKE', '%' . $address . '%')
-                         ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
-                         ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
+                    ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
             })
             ->when($phone_no, function ($q) use ($phone_no) {
                 return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
@@ -80,7 +111,6 @@ class CustomerController extends AuthenticatedController
         ]);
         $customer->save();
         return redirect()->route('customer.show', $customer->id)->with('success', 'Customers created successfully.');
-
     }
 
     /**
@@ -104,7 +134,7 @@ class CustomerController extends AuthenticatedController
     public function update(Request $request, Customer $customer)
     {
         $this->validateCustomers();
-        
+
         $customer->fill([
             'name' => $request->name,
             'address_1' => $request->address_1,
@@ -130,7 +160,6 @@ class CustomerController extends AuthenticatedController
     {
         $customer->delete();
         return redirect()->route('customer.index')->with('Customer succesfully deleted.');
-
     }
 
     protected function validateCustomers()

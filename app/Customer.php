@@ -67,6 +67,18 @@ class Customer extends Model
 
         return $customer;
     }
+
+    public function fullAddress()
+    {
+        $addressString = $this->address_1 . "," . $this->address_2 . ","
+            .  $this->address_3 . " "  . $this->postcode . ","  . $this->city . ", "
+            . $this->location_state;
+
+        $addressString = str_replace(",,", "",$addressString);
+
+        return $addressString;
+    }
+    
     protected static function boot()
     {
         parent::boot();
