@@ -53,12 +53,13 @@
                                         <select id="team" class="form-control form-control-sm" name="team">
                                             <option value="">--Select Team--</option>
                                             @foreach($teams as $team)
-                                                <option value="{{$team}}" class='text-capitalize'>{{$team}}</option>
+                                                <option value="{{$team}}" {{(request()->team == $team) ? 'selected' : '' }} class='text-capitalize' >{{$team}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        Address: <input class="form-control form-control-sm" type="search" name="address" placeholder="address">
+                                        Address:
+                                        <input class="form-control form-control-sm" type="search" name="address" placeholder="address" value="{{request()->address}}">
                                     </div>
                                 </div>
                                     <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
