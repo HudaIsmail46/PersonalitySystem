@@ -98,6 +98,8 @@ class BookingController extends AuthenticatedController
             return $booking->team;
         }, $booking_teams);
 
+        asort($teams);
+
         return view('booking.index', compact('bookings', 'teams'))
             ->with('i', ($bookings->get('page', 1) - 1) * 5);
     }
