@@ -42,15 +42,17 @@ class BookingController extends AuthenticatedController
                     return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
                 })
                 ->when($start, function ($q) use ($start, $end) {
-                    return $q->whereBetween('gc_event_begins', [$start, $end]);
+                    return $q->whereBetween('event_begins', [$start, $end]);
                 })
                 ->when($team, function ($q) use ($team) {
                     return $q->where('team', $team);
                 })
                 ->when($address, function ($q) use ($address) {
-                    return $q->where('gc_address',  'ILIKE', '%' . $address . '%');
+                    return $q->where('address_1', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
                 })
-                ->orderBy('gc_event_begins', 'DESC')->get();
+                ->orderBy('event_begins', 'DESC')->get();
         }
         return Excel::download(new BookingsExport($bookings), 'bookings-CleanHero.csv');
     }
@@ -79,15 +81,17 @@ class BookingController extends AuthenticatedController
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
             })
             ->when($start, function ($q) use ($start, $end) {
-                return $q->whereBetween('gc_event_begins', [$start, $end]);
+                return $q->whereBetween('event_begins', [$start, $end]);
             })
             ->when($team, function ($q) use ($team) {
                 return $q->where('team', $team);
             })
             ->when($address, function ($q) use ($address) {
-                return $q->where('gc_address',  'ILIKE', '%' . $address . '%');
+                return $q->where('address_1', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
             })
-            ->orderBy('gc_event_begins', 'DESC')->paginate(10);
+            ->orderBy('event_begins', 'DESC')->paginate(10);
 
         $booking_teams = DB::select('select distinct team from bookings');
         $teams = array_map(function ($booking) {
