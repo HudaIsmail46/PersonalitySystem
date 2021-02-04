@@ -32,17 +32,20 @@ class BookingController extends AuthenticatedController
             $team    = $output['team'];
             $address = $output['address'];
 
-            $bookings = Booking::when($name, function ($q) use ($name) {
-                return $q->where('name', 'ILIKE', '%' . $name . '%');
-            })
+            $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
+                ->with('customer')
+                ->select('bookings.*', 'customers.name', 'customers.phone_no')
+                ->when($name, function ($q) use ($name) {
+                    return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
+                })
                 ->when($phone, function ($q) use ($phone) {
-                    return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
+                    return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
                 })
                 ->when($start, function ($q) use ($start, $end) {
                     return $q->whereBetween('gc_event_begins', [$start, $end]);
                 })
                 ->when($team, function ($q) use ($team) {
-                    return $q->where('gc_team', $team);
+                    return $q->where('team', $team);
                 })
                 ->when($address, function ($q) use ($address) {
                     return $q->where('gc_address',  'ILIKE', '%' . $address . '%');
@@ -66,11 +69,14 @@ class BookingController extends AuthenticatedController
         $team    = $request->team;
         $address = $request->address;
 
-        $bookings = Booking::when($name, function ($q) use ($name) {
-            return $q->where('name', 'ILIKE', '%' . $name . '%');
-        })
+        $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
+            ->with('customer')
+            ->select('bookings.*', 'customers.name', 'customers.phone_no')
+            ->when($name, function ($q) use ($name) {
+                return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
+            })
             ->when($phone, function ($q) use ($phone) {
-                return $q->where('phone_no', 'LIKE', '%' . $phone . '%');
+                return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
             })
             ->when($start, function ($q) use ($start, $end) {
                 return $q->whereBetween('gc_event_begins', [$start, $end]);
@@ -101,7 +107,7 @@ class BookingController extends AuthenticatedController
     public function show(Booking $booking)
     {
         $invoice_payments = $booking->payments;
-        return view('booking.show', compact('booking','invoice_payments'));
+        return view('booking.show', compact('booking', 'invoice_payments'));
     }
 
     /**
