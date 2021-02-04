@@ -13,14 +13,13 @@ class JobAssignmentCreated extends AafinanceWebhook
 {
     public static function handle($data)
     {
-        if ($data['Status'] == "Accepted") {
-            $booking = Booking::firstWhere('af_reference',  $data['Job']['JobId']);
-
+        $booking = Booking::firstWhere('af_reference',  $data['Job']['JobId']);
+        if ($booking) {
             $booking->fill([
                 "team" => $data['Agent']['Fullname']
             ]);
             $booking->save();
-
+    
             ReportBooking::dispatch($booking);
         }
     }
