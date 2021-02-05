@@ -68,8 +68,8 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
             $order->arrived_warehouse_at,
             $order->vendor_collected_at,
             $order->vendor_returned_at,
-            $order->runner_pickup_at,
-            $order->customer_received_at,
+            $order->leave_warehouse_at,
+            $order->returned_at,
             humaniseOrderState($order->state)
         ];
     }
