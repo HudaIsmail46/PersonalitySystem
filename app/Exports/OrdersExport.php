@@ -27,6 +27,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
         return [
             '#',
             'WooCommerce Order Ref',
+            'Notice Ambilan Ref',
             'Name',
             'Phone No',
             'Prefered Date Time',
@@ -53,6 +54,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping
         return [
             $order->id,
             $order->woocommerce_order_id,
+            $order->notice_ambilan_ref,
             $order->customer ? $order->customer->name : '',
             $order->customer ? (string)$order->customer->phone_no : '',
             $order->prefered_pickup_datetime,
