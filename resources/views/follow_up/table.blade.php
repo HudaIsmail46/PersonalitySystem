@@ -20,7 +20,7 @@
                     {{myDate($follow_up->expire_at) }}
                 </td>
                 <td>
-                    {{$follow_up->customer->bookings()->orderBy('created_at', 'asc')->first() ? myDate($follow_up->customer->bookings()->orderBy('created_at', 'asc')->first()->event_begins) :: ''}}
+                    {{$follow_up->customer->bookings()->orderBy('created_at', 'asc')->first() ? myDate($follow_up->customer->bookings()->orderBy('created_at', 'asc')->first()->event_begins) : ''}}
                 </td>
                 <td>
                     @if ($follow_up->customer)
