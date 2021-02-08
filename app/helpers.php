@@ -110,3 +110,17 @@ if (!function_exists('priceCents')) {
         return $price ? $price * 100 : 0;
     }
 }
+
+if (!function_exists('employeeStatus')) {
+    function employeeStatus(String $employment_status)
+    {
+        if ($employment_status == 'part time') {
+            $employment_status = "PT";
+        } elseif ($employment_status == 'CFS') {
+            $employment_status = "CFS";
+        } else {
+            $employment_status = null;
+        }
+        return $employment_status;
+    }
+}

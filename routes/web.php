@@ -181,6 +181,15 @@ Route::prefix('/member')->name('member.')->group(function () {
     Route::put('/{member}', 'MemberController@update')->name('update');
 });
 
+##memberSchedules CRUD
+Route::prefix('/member_schedule')->name('member_schedule.')->group(function () {
+    Route::get('/index', 'MemberScheduleController@index')->name('index');
+    Route::get('/create', 'MemberScheduleController@create')->name('create');
+    Route::post('/store', 'MemberScheduleController@store')->name('store');
+    Route::get('/{member}/{memberSchedule}/edit', 'MemberScheduleController@edit')->name('edit');
+    Route::put('/{member}', 'MemberScheduleController@update')->name('update');
+});
+
 ##team CRUD
 Route::prefix('/team')->name('team.')->group(function () {
     Route::get('/index', 'TeamController@index')->name('index');

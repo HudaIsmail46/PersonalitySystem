@@ -166,7 +166,9 @@ return [
                 'list teamMembers',
                 'create teamMembers',
                 'list vehicles',
-                'create vehicles'
+                'create vehicles', 
+                'schedule members',
+                'schedule vehicles'
             ],
             'Account' => [
                 'list bookings',
@@ -196,14 +198,6 @@ return [
                 'list runnerSchedules',
                 'create runnerSchedules',
                 'reOpen order',
-                'list members',
-                'create members',
-                'list teams',
-                'create teams',
-                'list teamMembers',
-                'create teamMembers',
-                'list vehicles',
-                'create vehicles'
             ],
             'Operation' => [
                 'list bookings',
@@ -226,6 +220,22 @@ return [
                 'list orders',
                 'list runnerSchedules',
                 'reOpen order'
+            ],
+            'OperationSupervisor'=>[
+                'list bookings',
+                'list customers',
+                'list orders',
+                'list assignedRunnerSchedule',
+                'list inhouseCleaning orders',
+                'list members',
+                'create members',
+                'list teams',
+                'create teams',
+                'list teamMembers',
+                'create teamMembers',
+                'list vehicles',
+                'schedule members',
+                'schedule vehicles'
             ],
         ],
         'permissions' => [
@@ -257,7 +267,9 @@ return [
             'list teamMembers',
             'create teamMembers',
             'list vehicles',
-            'create vehicles'
+            'create vehicles',
+            'schedule members',
+            'schedule vehicles'
         ]
     ],
 ];
