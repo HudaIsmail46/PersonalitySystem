@@ -33,6 +33,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('follow_up_sms:send')
             ->dailyAt('11:00');
+
+        $schedule->command('job_reminder:send')
+            ->dailyAt('20:00');
     }
     /**
      * Register the commands for the application.
