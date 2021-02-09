@@ -21,6 +21,7 @@ class MemberController extends Controller
                 return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
             })
             ->where('employment_status', 'full time')
+            ->where('location', 'HQ')
             ->orderBy('id', 'ASC')->paginate(10);
 
         $partTimeMembers = Member::when($name, function ($q) use ($name) {
@@ -30,6 +31,7 @@ class MemberController extends Controller
                 return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
             })
             ->where('employment_status', 'part time')
+            ->where('location', 'HQ')
             ->orderBy('id', 'ASC')->paginate(10);
 
         $cfsMembers = Member::when($name, function ($q) use ($name) {
@@ -39,6 +41,45 @@ class MemberController extends Controller
                 return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
             })
             ->where('employment_status', 'CFS')
+            ->where('location', 'HQ')
+            ->orderBy('id', 'ASC')->paginate(10);
+
+        return view('member.index', compact('fullTimeMembers', 'partTimeMembers', 'cfsMembers'));
+    }
+
+    public function indexJb(Request $request)
+    {
+        $name = $request->name;
+        $phone_no = $request->phone_no;
+
+        $fullTimeMembers = Member::when($name, function ($q) use ($name) {
+            return $q->where('name', 'ILIKE', '%' . $name . '%');
+        })
+            ->when($phone_no, function ($q) use ($phone_no) {
+                return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
+            })
+            ->where('employment_status', 'full time')
+            ->where('location', 'JB')
+            ->orderBy('id', 'ASC')->paginate(10);
+
+        $partTimeMembers = Member::when($name, function ($q) use ($name) {
+            return $q->where('name', 'ILIKE', '%' . $name . '%');
+        })
+            ->when($phone_no, function ($q) use ($phone_no) {
+                return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
+            })
+            ->where('employment_status', 'part time')
+            ->where('location', 'JB')
+            ->orderBy('id', 'ASC')->paginate(10);
+
+        $cfsMembers = Member::when($name, function ($q) use ($name) {
+            return $q->where('name', 'ILIKE', '%' . $name . '%');
+        })
+            ->when($phone_no, function ($q) use ($phone_no) {
+                return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
+            })
+            ->where('employment_status', 'CFS')
+            ->where('location', 'JB')
             ->orderBy('id', 'ASC')->paginate(10);
 
         return view('member.index', compact('fullTimeMembers', 'partTimeMembers', 'cfsMembers'));
@@ -58,15 +99,20 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $this->validateMembers();
+        foreach ($request->location as $locations) {
+            $location = $locations == "HQ" ? "HQ" : "JB";
+        }
         $member = new Member;
         $member->fill([
             'name' => $request->name,
             'phone_no' => formatPhoneNo($request->phone_no),
             'employment_status' => $request->employment_status,
+            'location' => $location
         ]);
         $member->save();
 
-        $this->updateMemberSchedule($member);
+        $memberSchedule = MemberSchedule::where('location', $location)->get();
+        $memberSchedule->isEmpty() ? '' : $this->updateMemberSchedule($member, $location);
 
         return redirect()->route('member.show', $member->id)->with('success', 'Members created successfully.');
     }
@@ -92,42 +138,70 @@ class MemberController extends Controller
 
     public function destroy(Member $member)
     {
-        $member->delete();
-        return redirect()->route('member.index')->with('Member succesfully deleted.');
-    }
-
-    public function updateMemberSchedule($member)
-    {
-
-        if ($member->employment_status == "full time" || $member->employment_status == "CFS") {
-            $member_availability = "1";
-        } else {
-            $member_availability = "0";
-        }
-
-        $memberSchedules = MemberSchedule::whereMonth('date','>=', $member->created_at->format('m'))->get();
-        $newMember = [['member_id' => $member->id, 'member_name' => $member->name, 'remarks' => '', 'availability' =>  $member_availability]];
+        $memberSchedules = MemberSchedule::where('location', $member->location)->whereJsonContains('members', [["member_id" => $member->id]])->get();
 
         foreach ($memberSchedules as $memberSchedule) {
 
-            $newMembers = array_merge($newMember, $memberSchedule->members);
-            $memberSchedule->update(['members' => $newMembers]);
+            foreach ($memberSchedule->members as $members) {
+                if ($members['member_id'] == $member->id) {
+                    $deleted_member[] = $members;
+                }
+            }
+            $updated_members = array_diff(array_map('json_encode', array_values($memberSchedule->members)), array_map('json_encode', array_values($deleted_member)));
+            $new_array = array_map('json_decode', $updated_members);
+
+            $memberSchedule->update(['members' => $new_array]);
+            $memberSchedule->update(['total_manpower' => $memberSchedule->getTotalAvailabilities($memberSchedule)]);
         }
 
-        foreach ($memberSchedule->members as $member) {
-            $member_availabilities[] = $member['availability'];
+        $member->delete();
+
+        return redirect()->route('member.index')->with('Member succesfully deleted.');
+    }
+
+    public function updateMemberSchedule($member, $location)
+    {
+        $memberArray = $this->getMemberArray($member, false, $location);
+        $friMemberArray = $this->getMemberArray($member, true, $location);
+
+        $memberSchedules = MemberSchedule::where('location', $location)->whereMonth('date', '>=', $member->created_at->format('m'))->get();
+
+        foreach ($memberSchedules as $memberSchedule) {
+            if (date('D', strtotime($memberSchedule->date)) == 'Fri') {
+                $fridays[] = date($memberSchedule->date);
+
+                $fridayMember = array_merge($friMemberArray, $memberSchedule->members);
+                $memberSchedule->update(['members' => $fridayMember]);
+            } else {
+                $allDate[] = date($memberSchedule->date);
+                $newMember = array_merge($memberArray, $memberSchedule->members);
+                $memberSchedule->update(['members' => $newMember]);
+            }
+            $memberSchedule->update(['total_manpower' => $memberSchedule->getTotalAvailabilities($memberSchedule)]);
+        }
+    }
+
+    public function getMemberArray($member, $friday, $location)
+    {
+        if ($friday == false && $member->location == $location) {
+            if ($member->employment_status == "full time" || $member->employment_status == "CFS") {
+                $availability = "1";
+            } else {
+                $availability = "0";
+            }
+        } else {
+            $availability = "0";
         }
 
-        $memberSchedule->fill([
-            'total_manpower' => array_sum($member_availabilities),
-        ]);
-        $memberSchedule->save();
+        $newMember[] = (['member_id' => $member->id, 'member_name' => $member->name, 'remarks' => '', 'availability' => $availability]);
+        return $newMember;
     }
 
     protected function validateMembers()
     {
         return request()->validate([
             'name' => 'required',
+            'location' => 'required',
             'phone_no' => 'required',
             'employment_status' => 'required',
         ]);

@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Jadual Operasi HQ</h1>
+                    <h1 class="m-0 text-dark">Jadual Operasi JB</h1>
                 </div>
 
                 <div class="col-sm-6">
@@ -61,7 +61,7 @@
                                     <form method="post" action="{{ route('member_schedule.store') }}">
                                         @csrf
                                         <div class="input-group">
-                                            <input type="hidden" name="location" value="HQ">
+                                            <input type="hidden" name="location" value="JB">
                                             <select id="month" name="month"
                                                 class="custom-select @error('month') is-invalid @enderror">
                                                 <option value={{ Carbon\Carbon::now()->subMonths(1)->month }}>

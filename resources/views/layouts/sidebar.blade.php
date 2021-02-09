@@ -272,7 +272,12 @@
                                 <a href={{ route('member.index') }}
                                     class="nav-link {{ request()->is('member/index') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>All members</p>
+                                    <p>All HQ Members</p>
+                                </a>
+                                <a href={{ route('member.jb_index') }}
+                                    class="nav-link {{ request()->is('member/index/jb') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>All JB Members</p>
                                 </a>
                                 @can('create members')
                                     <a href={{ route('member.create') }}
@@ -393,6 +398,11 @@
                                     class="nav-link {{ request()->is('member_schedule/index') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Jadual Operasi HQ</p>
+                                </a>
+                                <a href={{ route('member_schedule.jb_index') }}
+                                    class="nav-link {{ request()->is('member_schedule/index/jb') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Jadual Operasi JB</p>
                                 </a>
                             </li>
                         </ul>

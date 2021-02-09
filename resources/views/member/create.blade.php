@@ -19,6 +19,15 @@
                             <strong>{{ $message }}</strong>
                         </div>
                     @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="inner">
                         <div class="card-body">
                             <form method="post" action="{{ route('member.store') }}">
@@ -37,13 +46,23 @@
                                     </div>
 
                                     <div class="field">
+                                        <label class="label" for="location">Location <span class="text-danger">*
+                                            </span></label>
+                                        <div class="form-group">
+                                            <input type="radio" name="location" id="HQ" value="HQ">
+                                            <label for="hq">HQ</label>
+                                            <input type="radio" name="location" id="JB" value="JB">
+                                            <label for="jb">JB</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
                                         <label class="label" for="phone_no">Phone No <span
                                                 class="text-danger">*</span></label>
                                         <div class="form-group row mx-0">
                                             <div class="col-xs-4"> <input
                                                     class="form-control @error('phone_no') is-invalid @enderror" type="text"
-                                                    name="phone_no" id="phone_no"
-                                                    value="{{ old('phone_no') ??  '' }}"
+                                                    name="phone_no" id="phone_no" value="{{ old('phone_no') ?? '' }}"
                                                     placeholder="Phone Number">
                                                 <div class="invalid-feedback">{{ $errors->first('phone_no') }}</div>
                                             </div>
@@ -51,14 +70,17 @@
                                     </div>
 
                                     <div class="field">
-                                        <label class="label" for="employment_status">Status <span class="text-danger">*</span></label>
+                                        <label class="label" for="employment_status">Status <span
+                                                class="text-danger">*</span></label>
                                         <div class="form-group row mx-0">
                                             <div class="col-xs-4">
-                                                <select id="employment_status" name="employment_status" class="form-control">
+                                                <select id="employment_status" name="employment_status"
+                                                    class="form-control">
                                                     <option value="">--SELECT STATUS--</option>
                                                     @foreach (App\Member::STATUSES as $employment_status)
                                                         <option value="{{ $employment_status }}"
-                                                            {{ old('employment_status') == $employment_status ? 'selected' : '' }}>{{ $employment_status }}
+                                                            {{ old('employment_status') == $employment_status ? 'selected' : '' }}>
+                                                            {{ $employment_status }}
                                                         </option>
                                                     @endforeach
                                                 </select>

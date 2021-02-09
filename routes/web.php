@@ -173,6 +173,7 @@ Route::prefix('/admin')->name('admin')->group(function () {
 ##member CRUD
 Route::prefix('/member')->name('member.')->group(function () {
     Route::get('/index', 'MemberController@index')->name('index');
+    Route::get('/index/jb', 'MemberController@indexJb')->name('jb_index');
     Route::get('/create', 'MemberController@create')->name('create');
     Route::post('/', 'MemberController@store')->name('store');
     Route::get('/{member}', 'MemberController@show')->name('show');
@@ -184,6 +185,7 @@ Route::prefix('/member')->name('member.')->group(function () {
 ##memberSchedules CRUD
 Route::prefix('/member_schedule')->name('member_schedule.')->group(function () {
     Route::get('/index', 'MemberScheduleController@index')->name('index');
+    Route::get('/index/jb', 'MemberScheduleController@indexJb')->name('jb_index');
     Route::get('/create', 'MemberScheduleController@create')->name('create');
     Route::post('/store', 'MemberScheduleController@store')->name('store');
     Route::get('/{member}/{memberSchedule}/edit', 'MemberScheduleController@edit')->name('edit');
