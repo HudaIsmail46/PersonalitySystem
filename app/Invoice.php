@@ -13,7 +13,7 @@ class Invoice extends Model
     use SoftDeletes;
     protected $fillable = ['booking_id', 'afinance_reference', 'invoice_date', 'payer_name',
         'payer_email', 'payer_phone_no', 'total_amount', 'status', 'additions'];
-    protected $dates = [ 'invoice_date'];
+    protected $dates = ['invoice_date'];
     protected $casts = ['additions' => 'array'];
 
     public function invoiceItems()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Chart\MonthlyBooking;
+use App\Chart\TodayTeamSales;
 
 class HomeController extends AuthenticatedController
 {
@@ -16,6 +17,8 @@ class HomeController extends AuthenticatedController
     {
         $monthlyBookingChart = MonthlyBooking::config();
 
-        return view('home', compact('monthlyBookingChart'));
+        $todayTeamSalesChart = TodayTeamSales::config();
+
+        return view('home', compact('monthlyBookingChart', 'todayTeamSalesChart'));
     }
 }

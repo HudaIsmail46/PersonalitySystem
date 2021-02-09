@@ -44,10 +44,8 @@ class SendIssueInsurance extends Command
         foreach($bookings as $booking){
             if($booking->team) {
 
-                $issueInsurance = new IssueInsurance($booking);
-                $issueInsurance ->handle();
+                $issueInsurance = IssueInsurance::dispatch($booking);
                 $this->info("Done");
-
             }
 
         }
