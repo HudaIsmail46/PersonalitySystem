@@ -86,5 +86,15 @@
             </div>
         </div>
     </div>
+
+    <div class="field">
+        <label class="label" for="phone_no_2">Phone No 2</label>
+        <div class="form-group row mx-0">
+            <div class="col-xs-4"> <input class="form-control @error('phone_no_2') is-invalid @enderror" type="text"
+                    name="phone_no_2" id="phone_no_2" value="{{ old('phone_no_2') ?? ($customer->phone_no_2 ?? '') }}" placeholder="Second Phone Number">
+                <div class="invalid-feedback">{{ $errors->first('phone_no_2') }}</div>
+            </div>
+        </div>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </div>

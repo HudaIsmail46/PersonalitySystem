@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 class Customer extends Model
 {
-    protected $fillable = [ 'name', 'phone_no', 'address_1', 'address_2', 'address_3', 'postcode', 'city', 'location_state', 'gender', 'nric', 'email'];
+    protected $fillable = [ 'name', 'phone_no', 'phone_no_2', 'address_1', 'address_2', 'address_3', 'postcode', 'city', 'location_state', 'gender', 'nric', 'email'];
 
     use SoftDeletes;
 

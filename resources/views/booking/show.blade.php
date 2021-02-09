@@ -41,6 +41,12 @@
                                         target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
                                     <a href="tel:{{ $booking->customer->phone_no }}"><i class="fas fa-phone"></i></a>
                                 @endif
+                                @if ($booking->customer->phone_no_2 != null)
+                                    <br>Phone No. 2 : {{ $booking->customer->phone_no_2 }}
+                                    <a href="https://api.whatsapp.com/send?phone={{ $booking->customer->phone_no_2 }}"
+                                        target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                    <a href="tel:{{ $booking->customer->phone_no_2 }}"><i class="fas fa-phone"></i></a>
+                                @endif
                             @else
                                 Name : -
                                 <br>

@@ -32,9 +32,15 @@
                         Name: {{$customer->name}}
                         <br>
                             @if ($customer->phone_no !=null)
-                                Phone: {{$customer->phone_no}}
+                                Phone 1: {{$customer->phone_no}}
                                 <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
                                 <a href="tel:{{$customer->phone_no }}"><i class="fas fa-phone"></i></a>
+                            @endif
+                            @if ($customer->phone_no_2 !=null)
+                              <br>
+                                Phone 2: {{$customer->phone_no_2}}
+                                <a href="https://api.whatsapp.com/send?phone={{ $customer->phone_no_2 }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                <a href="tel:{{$customer->phone_no_2 }}"><i class="fas fa-phone"></i></a>
                             @endif
                         <br>
                         Address: {!! customerAddress($customer) !!}
