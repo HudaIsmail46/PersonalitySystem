@@ -16,7 +16,9 @@ class TeamMemberExport implements FromCollection, WithMapping, WithHeadings, Sho
         return [
             '#',
             'Team',
-            'On Duty',
+            'Member 1',
+            'Member 2',
+            'Member 3',
             'Date',
         ];
     }
@@ -75,9 +77,9 @@ class TeamMemberExport implements FromCollection, WithMapping, WithHeadings, Sho
         return [
             $teamMember->id,
             $teamMember->team->name,
-            $this->memberExist($teamMember->member1)  ? '' : ($teamMember->member1->name . $this->employeeStatus($teamMember->member1->employment_status)) .
-                ($this->memberExist($teamMember->member2) ? '' : ", " . $teamMember->member2->name . $this->employeeStatus($teamMember->member2->employment_status)) .
-                ($this->memberExist($teamMember->member3) ? '' : ", " . $teamMember->member3->name . $this->employeeStatus($teamMember->member3->employment_status)),
+            $this->memberExist($teamMember->member1)  ? '' : $teamMember->member1->name. "" . $this->employeeStatus($teamMember->member1->employment_status),
+            $this->memberExist($teamMember->member2)  ? '' : $teamMember->member2->name. "" . $this->employeeStatus($teamMember->member2->employment_status),
+            $this->memberExist($teamMember->member3)  ? '' : $teamMember->member3->name. "" . $this->employeeStatus($teamMember->member3->employment_status),
             $teamMember->date,
         ];
     }

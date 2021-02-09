@@ -13,17 +13,21 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TeamMemberController extends Controller
 {
-    public function fileExport() 
+    public function fileExport()
     {
         return Excel::download(new TeamMemberExport, 'team-pairings-2021.xlsx');
-    }    
+    }
 
     public function index(Request $request)
     {
         $start   = $request->from;
         $end     = $request->to;
 
-        $janTeamMembers = TeamMember::whereMonth('date', '=', '01')
+        $previousMonth = Carbon::now()->subMonths(1)->month;
+        $currentMonth = Carbon::now()->month;
+        $nextMonth = Carbon::now()->addMonths(1)->month;
+
+        $prevTeamMembers = TeamMember::whereMonth('date', $previousMonth)
             ->when($start, function ($q) use ($start, $end) {
                 return $q->whereBetween('date', [$start, $end]);
             })
@@ -35,7 +39,7 @@ class TeamMemberController extends Controller
                 return Carbon::parse($date->date)->format('d/m/Y , l');
             });
 
-        $febTeamMembers = TeamMember::whereMonth('date', '=', '02')
+        $currTeamMembers = TeamMember::whereMonth('date', $currentMonth)
             ->when($start, function ($q) use ($start, $end) {
                 return $q->whereBetween('date', [$start, $end]);
             })
@@ -47,7 +51,7 @@ class TeamMemberController extends Controller
                 return Carbon::parse($date->date)->format('d/m/Y , l');
             });
 
-        $marchTeamMembers = TeamMember::whereMonth('date', '=', '03')
+        $nextTeamMembers = TeamMember::whereMonth('date', $nextMonth)
             ->when($start, function ($q) use ($start, $end) {
                 return $q->whereBetween('date', [$start, $end]);
             })
@@ -60,13 +64,13 @@ class TeamMemberController extends Controller
             });
 
         $teams = Team::orderBy('id', 'ASC')->get();
-        
+
         foreach ($teams as $team) {
             if (($team->teamMembers)->isEmpty())
                 $team->name = null;
         }
 
-        return view('team_member.index', compact('janTeamMembers', 'febTeamMembers', 'marchTeamMembers', 'teams'));
+        return view('team_member.index', compact('prevTeamMembers', 'currTeamMembers', 'nextTeamMembers', 'teams'));
     }
 
     public function create()
@@ -77,7 +81,7 @@ class TeamMemberController extends Controller
     }
 
     public function store(Request $request)
-    { 
+    {
         $this->validateCreateTeamMembers();
         $period = CarbonPeriod::create($request->from, $request->to);
 

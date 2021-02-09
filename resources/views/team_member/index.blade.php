@@ -50,28 +50,34 @@
                                 <div class="tabbable">
 
                                     <ul class="nav nav-tabs">
-                                        <li class="nav-item active"><span class="nav-link" data-target="#tab1"
-                                                aria-current="page" data-toggle="tab">January</span></li>
-                                        <li class="nav-item"><span class="nav-link" data-target="#tab2" aria-current="page"
-                                                data-toggle="tab">February</span></li>
-                                        <li class="nav-item"><span class="nav-link" data-target="#tab3" aria-current="page"
-                                                data-toggle="tab">March</span></li>
+                                        <li class="nav-item"><span class="nav-link" data-target="#tab1" aria-current="page"
+                                                role="tab"
+                                                data-toggle="tab">{{ Carbon\Carbon::now()->subMonths(1)->format('F') }}</span>
+                                        </li>
+                                        <li class="nav-item"><span class="nav-link active" data-target="#tab2"
+                                                aria-current="page" role="tab"
+                                                data-toggle="tab">{{ Carbon\Carbon::now()->format('F') }}</span>
+                                        </li>
+                                        <li class="nav-item"><span class="nav-link " data-target="#tab3" aria-current="page"
+                                                role="tab"
+                                                data-toggle="tab">{{ Carbon\Carbon::now()->addMonths(1)->format('F') }}</span>
+                                        </li>
                                     </ul>
 
                                     <div class="tab-content">
-                                        <div class="tab-pane active" id="tab1">
+                                        <div class="tab-pane" id="tab1">
                                             <div class='card-body'>
-                                                @include('team_member.table', ['teamMembers' => $janTeamMembers])
+                                                @include('team_member.table', ['teamMembers' => $prevTeamMembers])
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="tab2">
+                                        <div class="tab-pane active" id="tab2">
                                             <div class='card-body'>
-                                                @include('team_member.table', ['teamMembers' => $febTeamMembers])
+                                                @include('team_member.table', ['teamMembers' => $currTeamMembers])
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="tab3">
                                             <div class='card-body'>
-                                                @include('team_member.table', ['teamMembers' => $marchTeamMembers])
+                                                @include('team_member.table', ['teamMembers' => $nextTeamMembers])
                                             </div>
                                         </div>
                                     </div>
