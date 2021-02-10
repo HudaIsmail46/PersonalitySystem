@@ -21,8 +21,8 @@ class MonthlyBooking
             'rgb(150, 249, 51)'
         ];
 
-        $bookings =  DB::select("select date_part('month',gc_event_begins) as month, 
-            date_part('year',gc_event_begins) as year, 
+        $bookings =  DB::select("select date_part('month', event_begins) as month, 
+            date_part('year', event_begins) as year, 
             count(id) as count
             from bookings
             where deleted_at is null
