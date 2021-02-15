@@ -12,7 +12,7 @@ class Member extends Model
     const STATUSES = ['full time', 'part time', 'CFS'];
 
     protected $fillable = [
-        'name', 'phone_no', 'employment_status'
+        'name', 'phone_no', 'employment_status', 'location'
     ];
 
     public function teamMember()

@@ -55,11 +55,20 @@
                                         <div class="form-group row mx-0">
                                             <div class="col-xs-4">
                                                 <input class="form-control @error('name') is-invalid @enderror" type="text"
-                                                    name="name" id="name" value="{{ old('name') ?? ($member->name ?? '') }}"
-                                                    placeholder="Name">
+                                                    name="name" id="name"
+                                                    value="{{ old('name') ?? ($member->name ?? '') }}" placeholder="Name">
                                                 <div class="invalid-feedback">{{ $errors->first('name') }}</div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <input type="radio" name="location[]" value="0"
+                                            {{ old('location', $member->location == 'HQ') ? 'checked="checked"' : null }}>
+                                        <label for="hq">HQ</label>
+                                        <input type="radio" name="location[]" value="1"
+                                            {{ old('location', $member->location == 'JB') ? 'checked="checked"' : null }}>
+                                        <label for="jb">JB</label>
                                     </div>
 
                                     <div class="field">
@@ -77,14 +86,17 @@
                                     </div>
 
                                     <div class="field">
-                                        <label class="label" for="employment_status">Status <span class="text-danger">*</span></label>
+                                        <label class="label" for="employment_status">Status <span
+                                                class="text-danger">*</span></label>
                                         <div class="form-group row mx-0">
                                             <div class="col-xs-4">
-                                                <select id="employment_status" name="employment_status" class="form-control">
+                                                <select id="employment_status" name="employment_status"
+                                                    class="form-control">
                                                     <option value="">--SELECT STATUS--</option>
                                                     @foreach (App\Member::STATUSES as $employment_status)
                                                         <option value="{{ $employment_status }}"
-                                                            {{ $member->employment_status == $employment_status ? 'selected' : '' }}>{{ $employment_status }}
+                                                            {{ $member->employment_status == $employment_status ? 'selected' : '' }}>
+                                                            {{ $employment_status }}
                                                         </option>
                                                     @endforeach
                                                 </select>
