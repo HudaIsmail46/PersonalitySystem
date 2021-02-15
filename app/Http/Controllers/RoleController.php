@@ -93,7 +93,6 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $this->validateRoleUpdate();
         $role = Role::find($id);
         $role->name = $request->input('name');

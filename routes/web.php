@@ -226,6 +226,16 @@ Route::prefix('/vehicle')->name('vehicle.')->group(function () {
     Route::put('/{vehicle}', 'VehicleController@update')->name('update');
 });
 
+##vehicle_schedule
+Route::prefix('/vehicle_schedule')->name('vehicle_schedule.')->group(function () {
+    Route::get('/index', 'VehicleScheduleController@index')->name('index');
+    Route::get('/create', 'VehicleScheduleController@create')->name('create');
+    Route::post('/store', 'VehicleScheduleController@store')->name('store');
+    Route::get('/{vehicle}/{vehicleSchedule}/edit', 'VehicleScheduleController@edit')->name('edit');
+    Route::put('/{vehicle}', 'VehicleScheduleController@update')->name('update');
+});
+
+
 ##payment
 Route::get('/pay/{order}', 'External\SenangPaymentController@pay')->name('pay');
 Route::get('/senang/return', 'External\SenangPaymentController@senangReturn');#

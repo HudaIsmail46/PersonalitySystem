@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Vehicle;
+use App\VehicleSchedule;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -34,6 +35,8 @@ class VehicleController extends Controller
         $this->validatevehicles();
         $vehicle = Vehicle::create($request->all());
 
+        $this->updateVehicleSchedule($vehicle);
+
         return redirect()->route('vehicle.show', $vehicle->id)->with('success', 'Vehicles created successfully.');
     }
 
@@ -57,6 +60,29 @@ class VehicleController extends Controller
         return redirect()->route('vehicle.index')->with('Vehicle succesfully deleted.');
     }
 
+
+
+    public function updateVehicleSchedule($vehicle)
+    {
+        
+        $vehicleSchedules = VehicleSchedule::whereMonth('date','>=', $vehicle->created_at->format('m'))->get();
+        $newVehicle = [['vehicle_id' => $vehicle->id, 'vehicle_plat_no' => $vehicle->plat_no, 'remarks' => '', 'availability' =>'1']];
+
+        foreach ($vehicleSchedules as $vehicleSchedule) {
+
+            $newVehicles = array_merge($newVehicle, $vehicleSchedule->vehicles);
+            $vehicleSchedule->update(['vehicles' => $newVehicles]);
+        }
+
+        foreach ($vehicleSchedule->vehicles as $vehicle) {
+            $vehicle_availabilities[] = $vehicle['availability'];
+        }
+
+        $vehicleSchedule->fill([
+            'total_vehicle' => array_sum($vehicle_availabilities),
+        ]);
+        $vehicleSchedule->save();
+    }
     protected function validateVehicles()
     {
         return request()->validate([
