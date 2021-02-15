@@ -38,7 +38,7 @@
                             <div class="col-12 card text-body">
                                 <div class="card-header">
                                     <h3 class="mb-0">
-                                        Order Detail 
+                                        Order Detail
                                         @if($order->paid_at)
                                             <span class='float-right text-danger'><strong>Paid</strong></span>
                                         @endif
@@ -106,32 +106,34 @@
                                                 <th>Subtotal</th>
                                                 <td>
                                                 {{ money($order->price) }}
-                                                </td>    
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>Discount {{$order->discount_rate ? $order->discount_rate . '%' : ''}}</th>
                                                 <td>
                                                 - {{ money($order->discount()) }}
-                                                </td>    
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>TOTAL </th>
                                                 <td>
                                                 {{ money($order->totalPrice()) }}
-                                                </td>     
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>Deposit Amount</th>
                                                 <td>
                                                 {{ money($order->deposit_amount) }}
-                                                </td>    
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <th>TOTAL DUE</th>
-                                                <td>
-                                                {{ money($order->balance_to_pay()) }}
-                                                </td>     
-                                            </tr>     
+                                            @if(!$order->paid_at)
+                                                <tr>
+                                                    <th>TOTAL DUE</th>
+                                                    <td>
+                                                    {{ money($order->balance_to_pay()) }}
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         </table>
                                     </div>
                                     <div class="ml-3 p-2">
