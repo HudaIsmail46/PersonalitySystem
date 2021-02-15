@@ -9,7 +9,15 @@
     </tr>
     @foreach ($bookings as $booking)
         <tr>
-            <td><a href="{{ $booking->path() }}">{{ $booking->id }}</td>
+            <td><a href="{{ $booking->path() }}">{{ $booking->id }}
+                @if($booking->booking_type == "HQ")
+                    <span class="badge badge-primary float-right">HQ</span>    
+                @elseif($booking->booking_type == "CORP" ||$booking->booking_type == "COM" )
+                    <span class="badge badge-warning float-right">commercial</span>       
+                @elseif($booking->booking_type == "RES")
+                    <span class="badge badge-success float-right">residential</span>   
+                @endif
+            </td>
             <td>
                 @if ($booking->customer)
                     Name : <a href="{{ route('customer.show', $booking->customer) }}">{{ $booking->customer->name }}</a>
