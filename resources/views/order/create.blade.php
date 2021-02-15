@@ -36,7 +36,7 @@
                                         <div class="col-xs-4">
                                             <input class="form-control @error('customer_phone_no') is-invalid @enderror"
                                                 type="text" name="customer_phone_no" id="customer_phone_no"
-                                                value="{{ old('customer_phone_no') }}" placeholder="Customer Name">
+                                                value="{{ old('customer_phone_no') }}" placeholder="Customer Phone Number">
                                             <div class="invalid-feedback">{{ $errors->first('customer_phone_no') }}
                                             </div>
                                         </div>

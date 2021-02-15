@@ -107,7 +107,8 @@ class CustomerController extends AuthenticatedController
             'postcode' => $request->postcode,
             'city' => $request->city,
             'location_state' => $request->location_state,
-            'phone_no' => formatPhoneNo($request->phone_no)
+            'phone_no' => formatPhoneNo($request->phone_no),
+            'phone_no_2' => formatPhoneNo($request->phone_no_2)
         ]);
         $customer->save();
         return redirect()->route('customer.show', $customer->id)->with('success', 'Customers created successfully.');
