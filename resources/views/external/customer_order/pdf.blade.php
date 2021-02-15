@@ -222,7 +222,7 @@
                 </tr>
                 <tr class="item">
                     <td style="border-bottom: none">
-                        CIMB: 8603 558 004</td>                    
+                        CIMB: 8603 558 004</td>
                     <td>
                         Deposit Amount
                     </td>
@@ -234,12 +234,14 @@
                     <td style="border-bottom: none">
                        SST Reg No : W24-1905-32100002
                     </td>
-                    <td>
-                        <b>TOTAL DUE</b>
-                    </td>
-                    <td style="text-align:right">
-                        {{ money($order->balance_to_pay()) }}
-                    </td>
+                    @if(!$order->paid_at)
+                        <td>
+                            <b>TOTAL DUE</b>
+                        </td>
+                        <td style="text-align:right">
+                            {{ money($order->balance_to_pay()) }}
+                        </td>
+                    @endif
                 </tr>
             </table>
 
