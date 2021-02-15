@@ -99,9 +99,7 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $this->validateMembers();
-        foreach ($request->location as $locations) {
-            $location = $locations == "HQ" ? "HQ" : "JB";
-        }
+        $location = $request->location;
         $member = new Member;
         $member->fill([
             'name' => $request->name,
