@@ -160,19 +160,19 @@
         </div>
 
         <div class="field">
-            <label class="label" for="booking_type">Booking Type <span class="text-danger">*</span></label>
+            <label class="label" for="service_type">Service Type <span class="text-danger">*</span></label>
             <div class="form-group row">
                 <div class="col-sm-4">
-                    <select id="booking_type" name="booking_type"
-                        class="custom-select @error('booking_type') is-invalid @enderror">
-                        <option value="">--SELECT BOOKING TYPE--</option>
-                        @foreach (App\Booking::TYPE as $booking_type)
-                            <option value="{{ $booking_type }}"
-                                {{ old('booking_type') == $booking_type ? 'selected' : '' }}>{{ $booking_type }}
+                    <select id="service_type" name="service_type"
+                        class="custom-select @error('service_type') is-invalid @enderror">
+                        <option value="">--SELECT SERVICE TYPE--</option>
+                        @foreach (App\Booking::TYPE as $service_type)
+                            <option value="{{ $service_type }}"
+                                {{ old('service_type') == $service_type ? 'selected' : '' }}>{{ $service_type }}
                             </option>
                         @endforeach
                     </select>
-                    <div class="invalid-feedback">{{ $errors->first('booking_type') }}</div>
+                    <div class="invalid-feedback">{{ $errors->first('service_type') }}</div>
                 </div>
             </div>
         </div>

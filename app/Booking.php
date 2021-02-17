@@ -12,7 +12,7 @@ class Booking extends Model
         'receipt_number', 'invoice_number', 'gc_price', 'price', 'service_type',
         'customer_id','deleted_at', 'event_begins', 'event_ends', 'deposit', 'pic',
         'address_1','address_2','address_3','postcode','city','location_state',
-        'af_reference', 'remarks', 'team', 'booking_type', 'covernote_id', 'aafinance_webhook',
+        'af_reference', 'remarks', 'team', 'covernote_id', 'aafinance_webhook',
         'aafinance_payment','insured_at', 'aafinance_invoice'];
 
     use SoftDeletes;

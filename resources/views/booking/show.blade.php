@@ -66,12 +66,12 @@
                                 </tr>
                                 <tr>
                                     <td>Event Begins</td>
-                                    <td>{{ $booking->gc_event_begins ?? myLongDateTime(Carbon\Carbon::parse($booking->event_begins)) }}
+                                    <td>{{ myLongDateTime(Carbon\Carbon::parse($booking->event_begins)) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Event Ends</td>
-                                    <td>{{ $booking->gc_event_ends ?? myLongDateTime(Carbon\Carbon::parse($booking->event_ends)) }}
+                                    <td>{{ myLongDateTime(Carbon\Carbon::parse($booking->event_ends)) }}
                                     </td>
                                 </tr>
                                 @if ($booking->gc_description != null)

@@ -66,11 +66,11 @@
                                 </tr>
                                 <tr>
                                     <td>Event Begins</td>
-                                    <td align="left">{{ myLongDateTime(new Carbon\Carbon($booking->gc_event_begins))}}</td>
+                                    <td align="left">{{ myLongDateTime(new Carbon\Carbon($booking->event_begins))}}</td>
                                 </tr>
                                 <tr>
                                     <td>Event Ends</td>
-                                    <td align="left">{{ myLongDateTime(new Carbon\Carbon($booking->gc_event_ends)) }}</td>
+                                    <td align="left">{{ myLongDateTime(new Carbon\Carbon($booking->event_ends)) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Team</td>
