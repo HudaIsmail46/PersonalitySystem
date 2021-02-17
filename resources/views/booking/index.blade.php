@@ -36,10 +36,13 @@
                             <form action="{{ route('booking.index')}}" method="get">
                                 @csrf
                                 <div class="row">
+                                    <div class="col-1">
+                                        Id: <input class="form-control form-control-sm" type="search" name="id" placeholder="id" value="{{request()->id}}">
+                                    </div>
                                     <div class="col-md-2">
                                         Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-1">
                                         Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone number" value="{{request()->phone_no}}">
                                     </div>
                                     <div class="col-md-2">
@@ -48,12 +51,21 @@
                                     <div class="col-md-2">
                                         To: <input class="form-control form-control-sm" type="date" name="to" value="{{request()->to}}">
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-1">
                                         Team:
                                         <select id="team" class="form-control form-control-sm" name="team">
                                             <option value="">--Select Team--</option>
                                             @foreach($teams as $team)
                                                 <option value="{{$team}}" {{(request()->team == $team) ? 'selected' : '' }} class='text-capitalize' >{{$team}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-1">
+                                        Booking Type:
+                                        <select id="booking_type" class="form-control form-control-sm" name="booking_type">
+                                            <option value="">--Select Booking Type--</option>
+                                            @foreach(App\Booking::TYPE as $booking_type)
+                                                <option value="{{$booking_type}}" {{(request()->booking_type == $booking_type) ? 'selected' : '' }}>{{$booking_type}}</option>
                                             @endforeach
                                         </select>
                                     </div>

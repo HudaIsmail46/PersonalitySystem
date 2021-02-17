@@ -31,6 +31,8 @@ class BookingController extends AuthenticatedController
             $end     = $output['to'];
             $team    = $output['team'];
             $address = $output['address'];
+            $booking_type = $output['booking_type'];
+            $corporate = $output['booking_type'] == "COM" ? "CORP": "COM";
 
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
                 ->with('customer')
@@ -46,6 +48,9 @@ class BookingController extends AuthenticatedController
                 })
                 ->when($team, function ($q) use ($team) {
                     return $q->where('team', $team);
+                })
+                ->when($booking_type, function ($q) use ($booking_type, $corporate) {
+                    return $q->where('booking_type', $booking_type)->where('booking_type', $corporate);
                 })
                 ->when($address, function ($q) use ($address) {
                     return $q->where('address_1', 'ILIKE', '%' . $address . '%')
@@ -70,6 +75,8 @@ class BookingController extends AuthenticatedController
         $end     = $request->to;
         $team    = $request->team;
         $address = $request->address;
+        $booking_type = $request->booking_type;
+        $corporate = $request->booking_type == "COM" ? "CORP": "COM";
 
         $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
             ->with('customer')
@@ -85,6 +92,9 @@ class BookingController extends AuthenticatedController
             })
             ->when($team, function ($q) use ($team) {
                 return $q->where('team', $team);
+            })
+            ->when($booking_type, function ($q) use ($booking_type, $corporate) {
+                return $q->where('booking_type', $booking_type)->orWhere('booking_type', $corporate);
             })
             ->when($address, function ($q) use ($address) {
                 return $q->where('address_1', 'ILIKE', '%' . $address . '%')
