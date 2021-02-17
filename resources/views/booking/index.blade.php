@@ -61,11 +61,11 @@
                                         </select>
                                     </div>
                                     <div class="col-1">
-                                        Booking Type:
-                                        <select id="booking_type" class="form-control form-control-sm" name="booking_type">
-                                            <option value="">--Select Booking Type--</option>
-                                            @foreach(App\Booking::TYPE as $booking_type)
-                                                <option value="{{$booking_type}}" {{(request()->booking_type == $booking_type) ? 'selected' : '' }}>{{$booking_type}}</option>
+                                        Service Type:
+                                        <select id="service_type" class="form-control form-control-sm" name="service_type">
+                                            <option value="">--Select Service Type--</option>
+                                            @foreach(App\Booking::TYPE as $service_type)
+                                                <option value="{{$service_type}}" {{(request()->service_type == $service_type) ? 'selected' : '' }}>{{$service_type}}</option>
                                             @endforeach
                                         </select>
                                     </div>

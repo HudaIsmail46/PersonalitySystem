@@ -10,11 +10,11 @@
     @foreach ($bookings as $booking)
         <tr>
             <td><a href="{{ $booking->path() }}">{{ $booking->id }}
-                @if($booking->booking_type == "HQ")
+                @if($booking->service_type == "HQ")
                     <span class="badge badge-primary float-right">HQ</span>    
-                @elseif($booking->booking_type == "CORP" ||$booking->booking_type == "COM" )
+                @elseif($booking->service_type == "CORP" ||$booking->service_type == "COM" )
                     <span class="badge badge-warning float-right">commercial</span>       
-                @elseif($booking->booking_type == "RES")
+                @elseif($booking->service_type == "RES")
                     <span class="badge badge-success float-right">residential</span>   
                 @endif
             </td>
