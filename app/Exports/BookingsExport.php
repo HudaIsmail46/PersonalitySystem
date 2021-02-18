@@ -37,10 +37,10 @@ class BookingsExport implements FromCollection , WithHeadings, WithMapping
             $booking->id,
             $booking->customer->name ?? '',
             $booking->customer ? (String)$booking->customer->phone_no : '',
-            $booking->gc_address,
-            $booking->gc_event_begins ??  $booking->event_begins,
-            $booking->gc_event_ends ?? $booking->event_ends,
-            $booking->gc_team ?? $booking->team ,
+            $booking->gc_address ?? $booking->fullAddress() ,
+            $booking->event_begins,
+            $booking->event_ends,
+            $booking->team ,
         ];
     }
 }

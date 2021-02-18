@@ -25,6 +25,7 @@ class BookingController extends AuthenticatedController
         } else {
             parse_str($query, $output);
 
+            $id      = $output['id'];
             $name    = $output['name'];
             $phone   = $output['phone_no'];
             $start   = $output['from'];
@@ -33,7 +34,7 @@ class BookingController extends AuthenticatedController
             $address = $output['address'];
             $service_type = $output['service_type'];
             $corporate = $output['service_type'] == "COM" ? "CORP": "COM";
-            $insured = $output['insured'];
+            $insured = $output['insured'] ?? '';
 
 
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
@@ -45,6 +46,9 @@ class BookingController extends AuthenticatedController
                 ->when($phone, function ($q) use ($phone) {
                     return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
                 })
+                ->when($id, function ($q) use ($id) {
+                    return $q->where('bookings.id',$id);
+                })
                 ->when($start, function ($q) use ($start, $end) {
                     return $q->whereBetween('event_begins', [$start, $end]);
                 })
@@ -52,15 +56,18 @@ class BookingController extends AuthenticatedController
                     return $q->where('team', $team);
                 })
                 ->when($service_type, function ($q) use ($service_type, $corporate) {
-                    return $q->where('service_type', $service_type)->where('service_type', $corporate);
+                    return $q->where('service_type', $service_type)->orWhere('service_type', $corporate);
                 })
                 ->when($insured, function ($q) use ($insured) {
                     return $q->whereNotNull('covernote_id');
                 })
                 ->when($address, function ($q) use ($address) {
-                    return $q->where('address_1', 'ILIKE', '%' . $address . '%')
-                        ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
-                        ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
+                    return $q->where('bookings.address_1', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('bookings.address_2', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('bookings.address_3', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('bookings.postcode', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('bookings.city', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('bookings.location_state', 'ILIKE', '%' . $address . '%');
                 })
                 ->orderBy('event_begins', 'DESC')->get();
         }
@@ -74,6 +81,7 @@ class BookingController extends AuthenticatedController
      */
     public function index(Request $request)
     {
+        $id      = $request->id;
         $name    = $request->name;
         $phone   = $request->phone_no;
         $start   = $request->from;
@@ -93,6 +101,9 @@ class BookingController extends AuthenticatedController
             ->when($phone, function ($q) use ($phone) {
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
             })
+            ->when($id, function ($q) use ($id) {
+                return $q->where('bookings.id',$id);
+            })
             ->when($start, function ($q) use ($start, $end) {
                 return $q->whereBetween('event_begins', [$start, $end]);
             })
@@ -106,9 +117,12 @@ class BookingController extends AuthenticatedController
                 return $q->whereNotNull('covernote_id');
             })
             ->when($address, function ($q) use ($address) {
-                return $q->where('address_1', 'ILIKE', '%' . $address . '%')
-                    ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
-                    ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
+                return $q->where('bookings.address_1', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('bookings.address_2', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('bookings.address_3', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('bookings.postcode', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('bookings.city', 'ILIKE', '%' . $address . '%')
+                    ->orWhere('bookings.location_state', 'ILIKE', '%' . $address . '%');
             })
             ->orderBy('event_begins', 'DESC')->paginate(10);
 
