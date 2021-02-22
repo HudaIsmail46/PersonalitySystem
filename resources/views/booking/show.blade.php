@@ -116,26 +116,28 @@
                                         <td>{{ money($booking->price) }}</td>
                                     </tr>
                                 @endif
-                                <tr>
-                                    <td>Additions</td>
-                                    <td>{{implode('.\n',$booking->additions())}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Deductions</td>
-                                    <td>{{implode('.\n',$booking->deductions())}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Estimated Discount Percents</td>
-                                    <td>{{$booking->estimatedDeductionPercentage()}}%</td>
-                                </tr>
-                                <tr>
-                                    <td>CKU after discount</td>
-                                    <td>{{$booking->afterDeductionCkuEstimates()}}</td>
-                                </tr>
-                                <tr>
-                                    <td>MCS after discount</td>
-                                    <td>{{$booking->afterDeductionMcsEstimates()}}</td>
-                                </tr>
+                                @if ($booking->aafinance_webhook)
+                                    <tr>
+                                        <td>Additions</td>
+                                        <td>{{implode('.\n',$booking->additions())}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deductions</td>
+                                        <td>{{implode('.\n',$booking->deductions())}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Estimated Discount Percents</td>
+                                        <td>{{$booking->estimatedDeductionPercentage()}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CKU after discount</td>
+                                        <td>{{$booking->afterDeductionCkuEstimates()}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MCS after discount</td>
+                                        <td>{{$booking->afterDeductionMcsEstimates()}}</td>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <td>Status</td>
                                     <td>{{ $booking->status }}</td>

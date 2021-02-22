@@ -325,12 +325,7 @@ class Booking extends Model
             }
 
             $sumActualPrice = $this->sumActualPrice("/\d*/");
-            if($sumActualPrice !=0){
-                $deductionPercent = (-$deductions/$sumActualPrice)*100;
-            } else {
-                $deductionPercent = 0;
-            }
-           
+            $deductionPercent = (-$deductions/$sumActualPrice)*100;
 
             return $deductionPercent;
         } else {
