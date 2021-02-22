@@ -33,6 +33,8 @@ class BookingController extends AuthenticatedController
             $address = $output['address'];
             $service_type = $output['service_type'];
             $corporate = $output['service_type'] == "COM" ? "CORP": "COM";
+            $insured = $output['insured'];
+
 
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
                 ->with('customer')
@@ -51,6 +53,9 @@ class BookingController extends AuthenticatedController
                 })
                 ->when($service_type, function ($q) use ($service_type, $corporate) {
                     return $q->where('service_type', $service_type)->where('service_type', $corporate);
+                })
+                ->when($insured, function ($q) use ($insured) {
+                    return $q->whereNotNull('covernote_id');
                 })
                 ->when($address, function ($q) use ($address) {
                     return $q->where('address_1', 'ILIKE', '%' . $address . '%')
@@ -77,6 +82,7 @@ class BookingController extends AuthenticatedController
         $address = $request->address;
         $service_type = $request->service_type;
         $corporate = $request->service_type == "COM" ? "CORP": "COM";
+        $insured = $request->insured;
 
         $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
             ->with('customer')
@@ -95,6 +101,9 @@ class BookingController extends AuthenticatedController
             })
             ->when($service_type, function ($q) use ($service_type, $corporate) {
                 return $q->where('service_type', $service_type)->orWhere('service_type', $corporate);
+            })
+            ->when($insured, function ($q) use ($insured) {
+                return $q->whereNotNull('covernote_id');
             })
             ->when($address, function ($q) use ($address) {
                 return $q->where('address_1', 'ILIKE', '%' . $address . '%')

@@ -17,6 +17,10 @@
                 @elseif($booking->service_type == "RES")
                     <span class="badge badge-success float-right">residential</span>   
                 @endif
+
+                @if($booking->covernote_id)
+                    <span class="badge badge-success float-right">Insured</span>
+                @endif
             </td>
             <td>
                 @if ($booking->customer)

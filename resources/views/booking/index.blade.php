@@ -23,14 +23,15 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
+                            <div class="row">
                             <h3 class="mb-0">Booking Detail</h3>
 
-                            <form action="{{ route('booking.file-export', [$bookings->withQueryString()])}}" method="get">
-                                @csrf
-                            <button class="btn btn-success btn-md ml-2 float-right" type="submit" name ="submit" value ="Download">
-                              Download File  <i class="fa fa-download"></i></button>
-                            </form>
-
+                                <form class='mb-0 ml-auto' action="{{ route('booking.file-export', [$bookings->withQueryString()])}}" method="get">
+                                    @csrf
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name ="submit" value ="Download">
+                                    Download File  <i class="fa fa-download"></i></button>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('booking.index')}}" method="get">
@@ -42,16 +43,24 @@
                                     <div class="col-md-2">
                                         Name: <input class="form-control form-control-sm" type="search" name="name" placeholder="name" value="{{request()->name}}">
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-2">
                                         Phone No.: <input class="form-control form-control-sm" type="search" name="phone_no" placeholder="phone number" value="{{request()->phone_no}}">
                                     </div>
+                                    <div class="col-md-4">
+                                        Address:
+                                        <input class="form-control form-control-sm" type="search" name="address" placeholder="address" value="{{request()->address}}">
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2">
                                         From: <input class="form-control form-control-sm" type="date" name="from" value="{{request()->from}}">
                                     </div>
                                     <div class="col-md-2">
                                         To: <input class="form-control form-control-sm" type="date" name="to" value="{{request()->to}}">
                                     </div>
-                                    <div class="col-1">
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
                                         Team:
                                         <select id="team" class="form-control form-control-sm" name="team">
                                             <option value="">--Select Team--</option>
@@ -60,7 +69,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-1">
+                                    <div class="col-3">
                                         Service Type:
                                         <select id="service_type" class="form-control form-control-sm" name="service_type">
                                             <option value="">--Select Service Type--</option>
@@ -69,10 +78,12 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
-                                        Address:
-                                        <input class="form-control form-control-sm" type="search" name="address" placeholder="address" value="{{request()->address}}">
+
+                                    <div class="col-2 form-group form-check mt-4">
+                                        <input type="checkbox" name="insured" class="form-check-input" id="insured" {{ request()->insured ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="insured">Insured</label>
                                     </div>
+                          
                                 </div>
                                     <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
                             </form>
