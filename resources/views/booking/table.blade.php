@@ -11,11 +11,11 @@
         <tr>
             <td><a href="{{ $booking->path() }}">{{ $booking->id }}
                 @if($booking->service_type == "HQ")
-                    <span class="badge badge-primary float-right">HQ</span>    
+                    <span class="badge badge-primary float-right">HQ</span>
                 @elseif($booking->service_type == "CORP" ||$booking->service_type == "COM" )
-                    <span class="badge badge-warning float-right">commercial</span>       
+                    <span class="badge badge-warning float-right">commercial</span>
                 @elseif($booking->service_type == "RES")
-                    <span class="badge badge-success float-right">residential</span>   
+                    <span class="badge badge-success float-right">residential</span>
                 @endif
 
                 @if($booking->covernote_id)
@@ -36,6 +36,13 @@
                     Name : -
                     <br>
                     Phone No. : -
+                @endif
+                @if($booking->comments)
+                    @foreach($booking->comments as $commentBooking )
+                        @if($loop->last)
+                            <i class="far fa-comment-alt icon-green" data-container="body" data-toggle="popover" data-placement="left" data-content="{{$commentBooking->comment}}" ></i>
+                        @endif
+                    @endforeach
                 @endif
             </td>
             <td>{!! bookingAddress($booking) !!}</td>

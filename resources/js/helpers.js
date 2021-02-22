@@ -25,4 +25,7 @@ export const orderAddress =(order) => {
     }
 }
 
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
 
