@@ -250,3 +250,9 @@ Route::prefix('/role')->name('role.')->group(function () {
     Route::delete('/{role}', 'RoleController@destroy')->name('destroy');
     Route::put('/{role}', 'RoleController@update')->name('update');
 });
+
+##daily_report
+Route::prefix('/daily_report')->name('daily_report.')->group(function(){
+    Route::get('/index', 'DailyReportsController@index')->name('index');
+    Route::get('/{daily_report}', 'DailyReportsController@show')->name('show');
+});

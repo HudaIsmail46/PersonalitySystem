@@ -67,7 +67,7 @@ class Booking extends Model
     {
         return $this->hasOne(FollowUp::class);
     }
-    
+
     public function fullAddress()
     {
         $addressString = $this->address_1 . "," . $this->address_2 . ","
@@ -87,7 +87,7 @@ class Booking extends Model
         } else {
             $additionsData = $this->aafinance_webhook['JobAddtionalCost'];
         }
-        
+
         foreach($additionsData as $addition)
         {
             if ($addition['Amount'] > 0) {
@@ -168,7 +168,10 @@ class Booking extends Model
         foreach($this->aafinance_webhook['JobItems'] as $item)
         {
             if (preg_match($regex, $item["Product"]["ProductCode"])) {
-                $price += $item["UnitPrice"];
+                $itemPrice = $item["UnitPrice"];
+                $itemQuantity = $item["Quantity"];
+
+                $price += ($itemPrice * $itemQuantity);
             };
         }
 
@@ -205,6 +208,24 @@ class Booking extends Model
         return $this->sumEstimatedPrice($regex);
     }
 
+    public function estimatedHardFloorResidentialPrice()
+    {
+        $regex = "/^7\d{2}$/";
+        return $this->sumEstimatedPrice($regex);
+    }
+
+    public function estimatedHardFloorCommercialPrice()
+    {
+        $regex = "/^8\d{2}$/";
+        return $this->sumEstimatedPrice($regex);
+    }
+
+    public function estimatedPndPrice()
+    {
+        $regex = "/^6\d{2}$/";
+        return $this->sumEstimatedPrice($regex);
+    }
+
     private function sumActualPrice($regex)
     {
         $price = 0;
@@ -212,7 +233,10 @@ class Booking extends Model
             foreach($this->aafinance_invoice['SalesInvoiceItems'] as $item)
             {
                 if (preg_match($regex, $item["Product"]["ProductCode"])) {
-                    $price += $item["SellPrice"];
+                    $itemPrice = $item["SellPrice"];
+                    $itemQuantity = $item["Quantity"];
+
+                    $price += ($itemPrice * $itemQuantity);
                 };
             }
         }
@@ -248,5 +272,107 @@ class Booking extends Model
     {
         $regex = "/^2\d{2}$/";
         return $this->sumActualPrice($regex);
+    }
+
+    public function actualHardFloorResidentialPrice()
+    {
+        $regex = "/^7\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function actualHardFloorCommercialPrice()
+    {
+        $regex = "/^8\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function actualPndPrice()
+    {
+        $regex = "/^6\d{2}$/";
+        return $this->sumActualPrice($regex);
+    }
+
+    public function estimatedDeductionPercentage()
+    {
+        $deductions = 0;
+        $deductionsData = $this->aafinance_webhook['JobAddtionalCost'];
+        foreach($deductionsData as $deduction)
+        {
+            if ($deduction['Amount'] < 0) {
+                $deductions =  $deductions + (float)$deduction['Amount'];
+            }
+        }
+
+        $sumEstimatedPrice = $this->sumEstimatedPrice("/\d*/");
+        $deductionPercent = 0;
+        if ($sumEstimatedPrice > 0) {
+            $deductionPercent = (-$deductions/$sumEstimatedPrice)*100;
+        }
+
+        return $deductionPercent;
+    }
+
+    public function actualDeductionPercentage()
+    {
+        if ($this->aafinance_invoice) {
+            $deductions = 0;
+            $deductionsData = $this->aafinance_invoice['SalesInvoiceAddtionalCosts'];
+            foreach($deductionsData as $deduction)
+            {
+                if ($deduction['Amount'] < 0) {
+                    $deductions =  $deductions + (float)$deduction['Amount'];
+                }
+            }
+
+            $sumActualPrice = $this->sumActualPrice("/\d*/");
+            $deductionPercent = (-$deductions/$sumActualPrice)*100;
+
+            return $deductionPercent;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public function afterDeductionCkuEstimates()
+    {
+        $sumOfCku = $this->estimatedCkuResidentialPrice()
+                        + $this->estimatedCkuCommercialPrice()
+                        + $this->estimatedHqPrice()
+                        + $this->estimatedHardFloorResidentialPrice()
+                        + $this->estimatedHardFloorCommercialPrice()
+                        + $this->estimatedPndPrice();
+        $discount = $this->estimatedDeductionPercentage();
+
+        return $sumOfCku * (100 - $discount) /100;
+    }
+
+    public function afterDeductionMcsEstimates()
+    {
+        $sumOfMcs = $this->estimatedMcsResidentialPrice() + $this->estimatedMcsCommercialPrice();
+        $discount = $this->estimatedDeductionPercentage();
+
+        return $sumOfMcs * (100 - $discount) /100;
+    }
+
+    public function afterDeductionCkuActual()
+    {
+        $sumOfCku = $this->actualCkuResidentialPrice()
+                        + $this->actualCkuCommercialPrice()
+                        + $this->actualHqPrice()
+                        + $this->actualHardFloorResidentialPrice()
+                        + $this->actualHardFloorCommercialPrice()
+                        + $this->actualPndPrice();
+        $discount = $this->actualDeductionPercentage();
+
+        return $sumOfCku * (100 - $discount) /100;
+    }
+
+    public function afterDeductionMcsActual()
+    {
+        $sumOfMcs = $this->actualMcsResidentialPrice() + $this->actualMcsCommercialPrice();
+        $discount = $this->actualDeductionPercentage();
+
+        return $sumOfMcs * (100 - $discount) /100;
     }
 }

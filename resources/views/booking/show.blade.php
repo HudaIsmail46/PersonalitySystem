@@ -117,6 +117,25 @@
                                     </tr>
                                 @endif
                                 <tr>
+                                    <td>Additions</td>
+                                    <td>{{implode('.\n',$booking->additions())}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Deductions</td>
+                                    <td>{{implode('.\n',$booking->deductions())}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Estimated Discount Percents</td>
+                                    <td>{{$booking->estimatedDeductionPercentage()}}%</td>
+                                </tr>
+                                <tr>
+                                    <td>CKU after discount</td>
+                                    <td>{{$booking->afterDeductionCkuEstimates()}}</td>
+                                </tr>
+                                <tr>
+                                    <td>MCS after discount</td>
+                                    <td>{{$booking->afterDeductionMcsEstimates()}}</td>
+                                </tr>
                                 <tr>
                                     <td>Status</td>
                                     <td>{{ $booking->status }}</td>
@@ -203,16 +222,16 @@
                             </div>
                             <div class="card-body">
                                 <div class='mt-3 mb-5'>
-                                        Name : {{$booking->invoice->payer_name }}</a>
-                                        <br>
-                                            Phone No : {{ $booking->invoice->payer_phone_no }}
-                                            <a href="https://api.whatsapp.com/send?phone={{ $booking->invoice->payer_phone_no }}"
-                                                target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
-                                            <a href="tel:{{ $booking->invoice->payer_phone_no }}"><i class="fas fa-phone"></i></a>
-                                            @if ($booking->invoice->payer_email != null)
-                                            <br>
-                                                Email: {{ $booking->invoice->payer_email }}
-                                            @endif
+                                    Name : {{$booking->invoice->payer_name }}</a>
+                                    <br>
+                                    Phone No : {{ $booking->invoice->payer_phone_no }}
+                                    <a href="https://api.whatsapp.com/send?phone={{ $booking->invoice->payer_phone_no }}"
+                                        target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
+                                    <a href="tel:{{ $booking->invoice->payer_phone_no }}"><i class="fas fa-phone"></i></a>
+                                    @if ($booking->invoice->payer_email != null)
+                                    <br>
+                                        Email: {{ $booking->invoice->payer_email }}
+                                    @endif
                                 </div>
                                 <h2>Invoice</h2>
                                 <div class="table-responsive">
@@ -231,29 +250,41 @@
                                             <td>{{ money($booking->invoice->total_amount) }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Discount</td>
+                                            <td>{{ $booking->actualDeductionPercentage() }}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CKU after discount</td>
+                                            <td>{{$booking->afterDeductionCkuActual()}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MCS after discount</td>
+                                            <td>{{$booking->afterDeductionMcsActual()}}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Status</td>
                                             <td>{{ $booking->invoice->status }}</td>
                                         </tr>
                                         <tr>
                                             <td>Additions</td>
                                             <td>
-                                            @foreach($booking->invoice['additions'] as $booking_invoice)
+                                                @foreach($booking->invoice['additions'] as $booking_invoice)
 
-                                                @if ($booking_invoice['SalesInvoiceAddtionalCostId'] !=null)
-                                                    ID:  {{ $booking_invoice['SalesInvoiceAddtionalCostId']}}
-                                                @endif
-                                                <br>
-                                                @if ($booking_invoice['Description'] !=null)
-                                                    Description: {{ $booking_invoice['Description']}}
-                                                @endif
-                                                <br>
-                                                @if ($booking_invoice['Amount'] !=null)
-                                                    Amount: {{ $booking_invoice['Amount']}}
-                                                @endif
-                                                <br><br>
+                                                    @if ($booking_invoice['SalesInvoiceAddtionalCostId'] !=null)
+                                                        ID:  {{ $booking_invoice['SalesInvoiceAddtionalCostId']}}
+                                                    @endif
+                                                    <br>
+                                                    @if ($booking_invoice['Description'] !=null)
+                                                        Description: {{ $booking_invoice['Description']}}
+                                                    @endif
+                                                    <br>
+                                                    @if ($booking_invoice['Amount'] !=null)
+                                                        Amount: {{ $booking_invoice['Amount']}}
+                                                    @endif
+                                                    <br>
 
-                                            @endforeach
-                                        </td>
+                                                @endforeach
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

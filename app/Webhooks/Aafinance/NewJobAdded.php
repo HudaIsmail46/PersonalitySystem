@@ -20,7 +20,7 @@ class NewJobAdded extends AafinanceWebhook
             'event_begins' => static::dateFromFormat($data['AppointmentDateTime']),
             'event_ends' => static::dateFromFormat($data['AppointmentDateTime'])->addMinutes(60*$data['EstimateDuration']),
             'af_reference' => $data['JobId'],
-            'remarks' => $data['Remark'] . "\n" . json_encode($data['JobAddtionalCost']),
+            'remarks' => $data['Remark'],
             'status' => $data['Status'],
             'price' => $data['TotalAmount'] ? $data['TotalAmount'] * 100 : 0,
             'address_1' => $data['StreetAddress1'],
