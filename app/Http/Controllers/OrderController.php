@@ -27,7 +27,7 @@ class OrderController extends AuthenticatedController
 
             $state    = $output['state'];
             $start = $output['from'];
-            $end  = $output['to'];               
+            $end  = $output['to'];
             $name   = $output['name'];
             $id     = $output['id'];
             $phone_no    = $output['phone_no'];
@@ -69,7 +69,7 @@ class OrderController extends AuthenticatedController
     {
         $state = $request->state;
         $start = $request->from;
-        $end  = $request->to;        
+        $end  = $request->to;
         $name = $request->name;
         $id = $request->id;
         $phone_no = $request->phone_no;
@@ -79,7 +79,7 @@ class OrderController extends AuthenticatedController
         $customerService = Auth()->user()->hasRole('CustomerService');
 
         $orders = Order::join('customers', 'customers.id', '=', 'orders.customer_id')
-            ->with('customer')
+            ->with('customer','comments')
             ->select('orders.*', 'customers.name', 'customers.phone_no')
             ->when($state, function ($q) use ($state) {
                 return $q->where('state', $state);

@@ -53,8 +53,11 @@ function OrderTable(props) {
                         </td>
                         <td>{ order.woocommerce_order_id }</td>
                         <td>
+                            <div className="row">
                             { order.customer.name }
-                            <br/>
+                            </div>
+
+                           <div className="row">
                             {
                                 (() => {
                                     if (order.customer.phone_no !== null) {
@@ -65,6 +68,11 @@ function OrderTable(props) {
                                     }
                                 })()
                             }
+                            {order.comments.map((orderComment,i)=>(
+                                i ==(order.comments.length -1)?
+                                <i className="far fa-comment-alt icon-green" data-container="body" data-toggle="popover" data-placement="left" data-content={orderComment.comment}></i> : ''
+                            ))}
+                            </div>
                         </td>
                         <td>
                             {

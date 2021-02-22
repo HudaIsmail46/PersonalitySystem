@@ -71,6 +71,13 @@
                                                 <a href="https://api.whatsapp.com/send?phone= {{ $customer->phone_no  }}" target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
                                                 <a href="tel:{{$customer->phone_no }}"><i class="fas fa-phone"></i></a>
                                             @endif
+                                            @if($customer->comments)
+                                            @foreach($customer->comments as $commentCustomer )
+                                                @if($loop->last)
+                                                    <i class="far fa-comment-alt icon-green" data-container="body" data-toggle="popover" data-placement="left" data-content="{{$commentCustomer->comment}}" ></i>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                         </td>
                                         <td>
                                             Total Bookings = {{ $customer->bookings()->count()}}
