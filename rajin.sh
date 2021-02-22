@@ -1,10 +1,6 @@
-php artisan daily_report:calculate --date='04/02/2021'
-php artisan daily_report:calculate --date='05/02/2021'
-php artisan daily_report:calculate --date='06/02/2021'
-php artisan daily_report:calculate --date='07/02/2021'
-php artisan daily_report:calculate --date='08/02/2021'
-php artisan daily_report:calculate --date='09/02/2021'
-php artisan daily_report:calculate --date='10/02/2021'
-php artisan daily_report:calculate --date='11/02/2021'
-php artisan daily_report:calculate --date='12/02/2021'
-php artisan daily_report:calculate --date='13/02/2021'
+
+for date in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+do
+  echo "${date}/01/2021"
+  php artisan daily_report:calculate --date="${date}/01/2021"
+done
