@@ -43,8 +43,8 @@ function OrderTable(props) {
                     <th>Notis Ambilan </th>
                     <th>Action</th>
                 </tr>
-                {orders.map((order,index) => {return (
-                <tr key={order.id}>
+                {orders.map((order,index) => (
+                    <tr key={order.id}>
                         <td>
                             {index+1 }
                         </td>
@@ -54,52 +54,38 @@ function OrderTable(props) {
                         <td>{ order.woocommerce_order_id }</td>
                         <td>
                             <div className="row">
-                            { order.customer.name }
+                                { order.customer.name }
                             </div>
-
                            <div className="row">
-                            {
-                                (() => {
-                                    if (order.customer.phone_no !== null) {
-                                        return (
-                                            <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a>
-                                            <a href={'tel:'+ order.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></div>
-                                        )
-                                    }
-                                })()
-                            }
-                            {order.comments.map((orderComment,i)=>(
-                                i ==(order.comments.length -1)?
-                                <i className="far fa-comment-alt icon-green" data-container="body" data-toggle="popover" data-placement="left" data-content={orderComment.comment}></i> : ''
-                            ))}
+                                {order.customer.phone_no && (
+                                    <React.Fragment>
+                                        <div>Phone No : {order.customer.phone_no}<a href={`https://api.whatsapp.com/send?phone=${order.customer.phone_no}`} target='blank'><i className="fab fa-whatsapp icon-green"></i></a>
+                                        <a href={'tel:'+ order.customer.phone_no} target='blank'><i className="fas fa-phone icon-phone"></i></a></div>
+                                    </React.Fragment>
+                                )}
+                                {order.comments.map((orderComment,i)=>(
+                                    i ==(order.comments.length -1)?
+                                    <i key={orderComment.id} className="far fa-comment-alt icon-green" data-container="body" data-toggle="popover" data-placement="left" data-content={orderComment.comment}></i> : ''
+                                ))}
                             </div>
                         </td>
                         <td>
-                            {
-                                (() => {
-                                    if (orderAddress(order) !== null) {
-                                        return (
-                                            <div>
-                                                {(orderAddress(order))}
-                                                <a href={`http://maps.google.com/maps?q=${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
-                                            </div>
-
-                                        )
-                                    }
-                                })()
-                            }
-
+                            { orderAddress(order) !== null && (
+                                <React.Fragment>
+                                    {(orderAddress(order))}
+                                    <a href={`http://maps.google.com/maps?q=${encodeURI(orderAddress(order))}`} target='blank'><i className="fas fa-map-marked-alt icon-blue"></i></a>
+                                </React.Fragment>
+                            )}
                         </td>
                         <td>{dateFormatter(order.prefered_pickup_datetime)}</td>
                         <td>{ humaniseOrderState(order.state) }</td>
                         <td>{ order.notice_ambilan_ref}</td>
                         <td>{ internal ? null : cancreateorder == true ? <NextOrderStates order={order} canReopenOrder={canreopenorder} onClick={changeRunnerJobstate}/>  : customerservice == true ? <NextOrderStates order={order} canReopenOrder={canreopenorder} customerService={customerservice} onClick={changeRunnerJobstate}/> :null }
                             { internal ? <a href={`/external/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a> :
-                             <a href={`/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a>}
+                            <a href={`/order/${order.id}`}><button className='btn btn-s btn-primary mr-2'>View </button></a>}
                         </td>
-
                     </tr>
-                )})}
+                ))}
             </tbody>
         </table>
     );

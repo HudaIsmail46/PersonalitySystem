@@ -14,7 +14,7 @@ class OrderController extends AuthenticatedController
      */
     public function index()
     {
-        $orders = Order::with('customer')
+        $orders = Order::with('customer', 'comments')
             ->orderBy('id', 'ASC')
             ->where('state', '=', 'App\State\Order\VendorCollected')
             ->paginate(10);

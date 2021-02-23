@@ -27,7 +27,7 @@
                         </div>
                         <div class='card-body'>
                             <div class="table-responsive">
-                            <div id="OrderTable" data-proporders="{{ json_encode($orders)}}" data-internal="{{ json_encode("vendor")}}"></div>
+                            <div id="OrderTable" data-proporders="{{ json_encode($orders)}}" data-internal="{{ json_encode('vendor')}}"></div>
                                 {{ $orders ?? ''->links() }}
                             </div>
                         </div>
