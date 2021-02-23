@@ -31,7 +31,6 @@
     left: 0px;
 }
 
-
 .icon-green {
     margin-left: 2px;
     color: rgb(79, 206, 93);
@@ -41,4 +40,9 @@
     margin-left: 2px;
     color:rgb(63, 130, 249);
 
+}
+
+.table.table-center ,td,th{
+    text-align: center;
+    vertical-align: middle !important;
 }

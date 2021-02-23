@@ -26,59 +26,79 @@
                             <h3 class="mb-0">Daily Report</h3>
                         </div>
                         <div class='card-body'>
-                            <form action="{{route('customer.index')}}" method="get">
-                                @csrf
+                            <form action="{{route('daily_report.index')}}" method="get">
                                 <div class="row">
                                     <div class="col-md-2">
                                         Month: <input class="form-control form-control-sm" type="month" name="month" placeholder="name" value="{{request()->month}}">
                                     </div>
-                                    <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
+                                    <button class="btn btn-primary mb-2 mt-3" type="submit">Filter <i class="fa fa-search"></i></button>
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>y_factor</th>
-                                        <th>x_factor</th>
-                                        <th>invoice ch <br>total cku</th>
-                                        <th>invoice ch <br>total mcs</th>
-                                        <th>invoice robin <br>total cku</th>
-                                        <th>invoice robin <br>total mcs</th>
-                                        <th>quotation ch <br>total cku</th>
-                                        <th>quotation ch <br>total mcs</th>
-                                        <th>quotation robin <br>total cku</th>
-                                        <th>quotation robin <br>total mcs</th>
-                                        <th>ch count</th>
-                                        <th>robin count</th>
-                                        <th>quotation ch <br>prods</th>
-                                        <th>invoice ch <br>prods</th>
-                                        <th>quotation robin <br>prods</th>
-                                        <th>invoice robin <br>prods</th>
-                                    </tr>
-                                    @foreach($daily_reports as $daily_report)
+                                <table class="table table-bordered table-striped table-center">
+                                    <thead>
                                         <tr>
-                                            <td>{{myDate($daily_report->date)}}</td>
-                                            <td>{{$daily_report->y_factor}}</td>
-                                            <td>{{$daily_report->x_factor}}</td>
-                                            <td>{{$daily_report->invoice_ch_total_cku}}</td>
-                                            <td>{{$daily_report->invoice_ch_total_mcs}}</td>
-                                            <td>{{$daily_report->invoice_robin_total_cku}}</td>
-                                            <td>{{$daily_report->invoice_robin_total_mcs}}</td>
-                                            <td>{{$daily_report->quotation_ch_total_cku}}</td>
-                                            <td>{{$daily_report->quotation_ch_total_mcs}}</td>
-                                            <td>{{$daily_report->quotation_robin_total_cku}}</td>
-                                            <td>{{$daily_report->quotation_robin_total_mcs}}</td>
-                                            <td>{{$daily_report->ch_count}}</td>
-                                            <td>{{$daily_report->robin_count}}</td>
-                                            <td>{{$daily_report->quotation_ch_prods}}</td>
-                                            <td>{{$daily_report->invoice_ch_prods}}</td>
-                                            <td>{{$daily_report->quotation_robin_prods}}</td>
-                                            <td>{{$daily_report->invoice_robin_prods}}</td>
+                                            <th rowspan="3">Date</th>
+                                            <th colspan='2'>Team Count</th>
+                                            <th rowspan="3">Y factor</th>
+                                            <th rowspan="3">X factor</th>
+                                            <th colspan='4'>Estimation</th>
+                                            <th colspan='4'>Actual</th>
+                                            <th colspan='6'>Productivity</th>
                                         </tr>
-                                    @endforeach
+                                        <tr>
+                                            <th rowspan='2'>CH</th>
+                                            <th rowspan='2'>ROBIN</th>
+                                            <th colspan="2">CH</th>
+                                            <th colspan="2">ROBIN</th>
+                                            <th colspan="2">CH</th>
+                                            <th colspan="2">ROBIN</th>
+                                            <th colspan="3">Estimation</th>
+                                            <th colspan="3">Actual</th>
+                                        </tr>
+                                        <tr>
+                                            <th>CKU</th>
+                                            <th>MCS</th>
+                                            <th>CKU</th>
+                                            <th>MCS</th>
+                                            <th>CKU</th>
+                                            <th>MCS</th>
+                                            <th>CKU</th>
+                                            <th>MCS</th>
+                                            <th>CH</th>
+                                            <th>ROBIN</th>
+                                            <th>Total</th>
+                                            <th>CH</th>
+                                            <th>ROBIN</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($daily_reports as $daily_report)
+                                            <tr>
+                                                <td>{{myDate($daily_report->date)}}</td>
+                                                <td>{{$daily_report->ch_count}}</td>
+                                                <td>{{$daily_report->robin_count}}</td>
+                                                <td>{{$daily_report->y_factor}}</td>
+                                                <td>{{$daily_report->x_factor}}</td>
+                                                <td>{{number_format($daily_report->quotation_ch_total_cku)}}</td>
+                                                <td>{{number_format($daily_report->quotation_ch_total_mcs)}}</td>
+                                                <td>{{number_format($daily_report->quotation_robin_total_cku)}}</td>
+                                                <td>{{number_format($daily_report->quotation_robin_total_mcs)}}</td>
+                                                <td>{{number_format($daily_report->invoice_ch_total_cku)}}</td>
+                                                <td>{{number_format($daily_report->invoice_ch_total_mcs)}}</td>
+                                                <td>{{number_format($daily_report->invoice_robin_total_cku)}}</td>
+                                                <td>{{number_format($daily_report->invoice_robin_total_mcs)}}</td>
+                                                <td>{{number_format($daily_report->quotation_ch_prods)}}</td>
+                                                <td>{{number_format($daily_report->quotation_robin_prods)}}</td>
+                                                <td>{{number_format($daily_report->quotation_total_prods())}}</td>
+                                                <td>{{number_format($daily_report->invoice_ch_prods)}}</td>
+                                                <td>{{number_format($daily_report->invoice_robin_prods)}}</td>
+                                                <td>{{number_format($daily_report->invoice_total_prods())}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
-                                {{ $daily_reports->withQueryString()->links() }}
                             </div>
                         </div>
                     </div>

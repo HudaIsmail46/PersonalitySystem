@@ -33,4 +33,14 @@ class DailyReport extends Model
         $this->save();
     }
 
+    public function quotation_total_prods()
+    {
+        return ($this->quotation_robin_prods + $this->quotation_ch_prods)/2;
+    }
+
+    public function invoice_total_prods()
+    {
+        return ($this->invoice_robin_prods + $this->invoice_ch_prods)/2;
+    }
+
 }

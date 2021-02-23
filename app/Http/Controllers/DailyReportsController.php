@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DailyReport;
+use Carbon\Carbon;
 
 class DailyReportsController extends Controller
 {
@@ -14,10 +15,15 @@ class DailyReportsController extends Controller
      */
     public function index(Request $request)
     {
-        $daily_reports = DailyReport::orderBy('date', 'ASC')->paginate(20);
+        if($request->month){
+            $month = Carbon::parse($request->month);
+        } else {
+            $month = Carbon::now();
+        }
 
-        return view('daily_report.index', ['daily_reports' => $daily_reports])
-            ->with('i', ($daily_reports->get('page', 1) - 1) * 50);
+        $daily_reports = DailyReport::whereMonth('date', $month)->orderBy('date', 'ASC')->get();
+
+        return view('daily_report.index', ['daily_reports' => $daily_reports]);
     }
 
 }

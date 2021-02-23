@@ -51,7 +51,7 @@ class IssueInsurance implements ShouldQueue
 
             $response = Http::withToken(env('SENANGPKS'))
                 ->post('https://senangpks.com.my/api/public/api/cleanHero', $body);
-
+ 
             if ($response["message"] == "success" && $response["data"]["covernote_id"]) {
                 $this->booking->update([
                     'covernote_id'=> $response["data"]["covernote_id"],
