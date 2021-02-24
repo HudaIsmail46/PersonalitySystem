@@ -26,4 +26,32 @@ class DailyReportsController extends Controller
         return view('daily_report.index', ['daily_reports' => $daily_reports]);
     }
 
+    public function show(DailyReport $daily_report)
+    {
+        return view('daily_report.show', compact('daily_report'));
+    }
+
+    public function edit(DailyReport $daily_report)
+    {
+        return view('daily_report.edit', compact('daily_report'));
+    }
+
+    public function update(DailyReport $daily_report)
+    {
+        $daily_report->update($this->validateUpdateDailyReport());
+        $daily_report->calculateProductivity();
+
+        return redirect()->route('daily_report.show', $daily_report->id)->with('Booking updated successfully.');
+    }
+
+    protected function validateUpdateDailyReport()
+    {
+        return request()->validate([
+            'x_factor' => 'required|numeric',
+            'y_factor' => 'required|numeric',
+            'ch_count' => 'required|numeric',
+            'robin_count' => 'required|numeric'
+        ]);
+    }
+
 }

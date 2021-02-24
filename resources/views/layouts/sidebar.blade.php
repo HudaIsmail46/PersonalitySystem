@@ -221,7 +221,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
                     <li class="nav-item">
                         <a href={{ route('external.runner.index') }}
-                            class="nav-link {{ request()->is('runner/index') ? 'active' : '' }}">
+                            class="nav-link {{ request()->is('external/runner/*') ? 'active' : '' }}">
                             <i class=" fas fa-running nav-icon"></i>
                             <p>
                                 Runner Schedule
@@ -418,6 +418,21 @@
                     </li>
                 </ul>
             @endcan
+            {{-- @can('list daily reports') --}}
+
+                <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href={{ route('daily_report.index') }}
+                            class="nav-link {{ request()->is('daily_report/*') ? 'active' : '' }}">
+                            <i class=" fas fa-file nav-icon"></i>
+                            <p>
+                                Daily Reports
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+
+            {{-- @endcan --}}
         </nav>
     </div>
 </aside>
