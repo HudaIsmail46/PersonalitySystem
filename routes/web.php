@@ -255,4 +255,6 @@ Route::prefix('/role')->name('role.')->group(function () {
 Route::prefix('/daily_report')->name('daily_report.')->group(function(){
     Route::get('/index', 'DailyReportsController@index')->name('index');
     Route::get('/{daily_report}', 'DailyReportsController@show')->name('show');
+    Route::get('/{daily_report}/edit', 'DailyReportsController@edit')->name('edit');
+    Route::put('/{daily_report}', 'DailyReportsController@update')->name('update');
 });
