@@ -124,7 +124,7 @@ class BookingController extends AuthenticatedController
                     ->orWhere('bookings.city', 'ILIKE', '%' . $address . '%')
                     ->orWhere('bookings.location_state', 'ILIKE', '%' . $address . '%');
             })
-            ->orderBy('event_begins', 'DESC')->paginate(10);
+            ->orderBy('event_begins', 'DESC')->paginate(20);
 
         $booking_teams = DB::select('select distinct team from bookings');
         $teams = array_map(function ($booking) {
