@@ -12,6 +12,7 @@ use App\InvoiceItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Jobs\IssueInsurance;
 
 class BookingController extends AuthenticatedController
 {
@@ -228,6 +229,16 @@ class BookingController extends AuthenticatedController
     {
         $booking->delete();
         return redirect()->route('booking.index')->with('Booking is deleted.');
+    }
+
+
+    public function purchase_insurance(Booking $booking)
+    {
+        if (!$booking->insured_at) {
+            IssueInsurance::dispatchNow($booking);
+        }
+
+        return redirect()->route('booking.show', $booking->id);
     }
 
     protected function priceCents($price)
