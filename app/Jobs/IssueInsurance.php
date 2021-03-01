@@ -35,44 +35,30 @@ class IssueInsurance implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->eligibleForInsurance() ) {
+        $body = [
+            'client_mobile' => formatPhoneNo($this->booking->customer->phone_no),
+            'client_email' => 'insurance.cleanhero@gmail.com',
+            'project_date' => Carbon::parse($this->booking->event_begins)->format('Y-m-d'),
+            'project_day' => '1',
+            'project_value' => $this->toInt($this->booking->price /100),
+            'name_of_contractor' => 'CleanHero Sdn Bhd',
+            'name_of_client' => $this->alphabetOnly($this->booking->customer->name),
+            'scope_of_work' => 'Carpet And Upholstery Cleaning',
+            'project_location' => $this->address($this->booking)
+        ];
 
-            $body = [
-                'client_mobile' => formatPhoneNo($this->booking->customer->phone_no),
-                'client_email' => 'insurance.cleanhero@gmail.com',
-                'project_date' => Carbon::parse($this->booking->event_begins)->format('Y-m-d'),
-                'project_day' => '1',
-                'project_value' => $this->toInt($this->booking->price /100),
-                'name_of_contractor' => 'CleanHero Sdn Bhd',
-                'name_of_client' => $this->alphabetOnly($this->booking->customer->name),
-                'scope_of_work' => 'Carpet And Upholstery Cleaning',
-                'project_location' => $this->address($this->booking)
-            ];
+        $response = Http::withToken(env('SENANGPKS'))
+            ->post('https://senangpks.com.my/api/public/api/cleanHero', $body);
 
-            $response = Http::withToken(env('SENANGPKS'))
-                ->post('https://senangpks.com.my/api/public/api/cleanHero', $body);
- 
-            if ($response["message"] == "success" && $response["data"]["covernote_id"]) {
-                $this->booking->update([
-                    'covernote_id'=> $response["data"]["covernote_id"],
-                    'insured_at'=> Carbon::now()
-                    ]);
-            } else {
-                Log::error("booking: " . $this->booking->id . " " . $response["data"]["error_msg"]);
-            }
+        if ($response["message"] == "success" && $response["data"]["covernote_id"]) {
+            $this->booking->update([
+                'covernote_id'=> $response["data"]["covernote_id"],
+                'insured_at'=> Carbon::now()
+                ]);
+        } else {
+            Log::error("booking: " . $this->booking->id . " " . $response["data"]["error_msg"]);
         }
-    }
-
-    private function eligibleForInsurance()
-    {
-        return !$this->booking->covernote_id &&
-            ( 
-                $this->booking->estimatedCkuResidentialPrice() > 0 ||
-                $this->booking->estimatedCkuCommercialPrice() > 0 ||
-                $this->booking->estimatedHqPrice() > 0
-            ) &&
-            $this->booking->customer;
-    }
+    } 
 
     private function address($booking)
     {

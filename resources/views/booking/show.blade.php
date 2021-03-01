@@ -143,8 +143,23 @@
                                     <td>{{ $booking->status }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Covernote Id</td>
-                                    <td>{{ $booking->covernote_id }}</td>
+                                    <td>
+                                        Covernote Id
+                                        @if($booking->covernote_id)
+                                            <span class="badge badge-success">Insured</span>
+                                        @elseif($booking->eligibleForInsurance())
+                                            <span class="badge badge-warning">Not Insured</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $booking->covernote_id }}
+                                        @if(!$booking->covernote_id)
+                                            <form action="{{route('booking.purchase_insurance', $booking->id)}}" method='post'>
+                                                @csrf
+                                                <button class="btn btn-primary" type='submit'>Buy Insurance Policy</button>
+                                            </form>
+                                        @endif
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Log</td>

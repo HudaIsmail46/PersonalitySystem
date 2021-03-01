@@ -48,6 +48,7 @@ Route::prefix('/booking')->name('booking.')->group(function () {
     Route::get('/{booking}/edit', 'BookingController@edit')->name('edit');
     Route::delete('/{booking}', 'BookingController@destroy')->name('destroy');
     Route::put('/{booking}', 'BookingController@update')->name('update');
+    Route::post('/{booking}/purchase_insurance', 'BookingController@purchase_insurance')->name('purchase_insurance');
 });
 
 ## Customer CRUD

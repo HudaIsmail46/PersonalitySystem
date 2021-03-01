@@ -375,4 +375,15 @@ class Booking extends Model
 
         return $sumOfMcs * (100 - $discount) /100;
     }
+
+    public function eligibleForInsurance()
+    {
+        return !$this->covernote_id &&
+            ( 
+                $this->estimatedCkuResidentialPrice() > 0 ||
+                $this->estimatedCkuCommercialPrice() > 0 ||
+                $this->estimatedHqPrice() > 0
+            ) &&
+            $this->customer;
+    }
 }
