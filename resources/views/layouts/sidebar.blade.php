@@ -87,13 +87,28 @@
                                         <p>Import Booking Products</p>
                                     </a>
                                 @endcan
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-{{ request()->is('follow_up*') ? 'open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('booking*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-people-arrows"></i>
+                            <p>
+                                Follow Up
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview bg-secondary rounded-lg">
+                            <li class="nav-item">
                                 @can('follow up')
-                                <a href={{route('follow_up.index')}} class="nav-link {{ (request()->is('follow_up/index')) ? 'active' : '' }}">
-                                    <i class="fas fa-pen nav-icon"></i>
+                                    <a href="{{route('follow_up.index')}}" class="nav-link {{ (request()->is('follow_up/index')) ? 'active' : '' }}">
+                                        <i class="fas fa-people-arrows nav-icon"></i>
 
-                                    <p>Follow Up</p>
-                                </a>
-                            @endcan
+                                        <p>All Follow Up</p>
+                                    </a>
+                                @endcan
                             </li>
                         </ul>
                     </li>

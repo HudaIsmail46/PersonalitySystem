@@ -26,16 +26,25 @@
                             <form action="{{route('follow_up.index')}}" method="get">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        Status:
-                                        <select id="days" class="form-control form-control-sm" name="status">
-                                            <option value="">--Status--</option>
-                                            @foreach(App\FollowUp::STATUS as $status)
-                                                <option value="{{$status}}" {{(request()->status == $status) ? 'selected' : '' }} class='text-capitalize'>{{$status}}</option>
+                                    <div class="col-md-3">
+                                        Lead Status:
+                                        <select id="days" class="form-control form-control-sm" name="lead_status">
+                                            <option value="">--Lead Status--</option>
+                                            @foreach(App\FollowUp::LEAD_STATUS as $lead_status)
+                                                <option value="{{$lead_status}}" {{(request()->lead_status == $lead_status) ? 'selected' : '' }} class='text-capitalize'>{{$lead_status}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
+                                        Follow Up Status:
+                                        <select id="days" class="form-control form-control-sm" name="follow_up_status">
+                                            <option value="">--Follow Up Status--</option>
+                                            @foreach(App\FollowUp::STATUS as $follow_up_status)
+                                                <option value="{{$follow_up_status}}" {{(request()->follow_up_status == $follow_up_status) ? 'selected' : '' }} class='text-capitalize'>{{$follow_up_status}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
                                         Sales Person: 
                                         <select id="days" class="form-control form-control-sm" name="sales_person">
                                             <option value="">--Sales Person--</option>
@@ -44,20 +53,29 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
-                                        Days before expiry:
-                                        <select id="days" class="form-control form-control-sm" name="days">
-                                            <option value="">--Number of days--</option>
-                                            @foreach(range(1,7) as $day)
-                                                <option value="{{(string)$day}}" {{(request()->days == (string)$day) ? 'selected' : '' }} class='text-capitalize'>{{$day}}</option>
-                                            @endforeach
-                                        </select>
+                                </div>
+                                <div class="col-md-9 mt-2">
+                                    Expire At:
+                                    <div class="row">
+                                        <div class="form-group row col-6">
+                                            <label for="from" class="col-sm-2 col-form-label">From</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control" id="from" name="from" value="{{request()->from ?? Carbon\Carbon::now()->format('Y-m-d') }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row col-6">
+                                            <label for="to" class="col-sm-2 col-form-label">To</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control" id="to" name="to" value="{{request()->to ?? Carbon\Carbon::now()->addDays(7)->format('Y-m-d')}}">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
+                                <button class="btn btn-primary mb-2 mt-2" type="submit"><i class="fa fa-search mr-1"></i>Filter</button>
                             </form>
                             @include('follow_up.table', ['follow_ups' => $followUps])
+                            {{ $followUps->withQueryString()->links() }}
                         </div>
                     </div>
                 </div>
