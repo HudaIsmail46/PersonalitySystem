@@ -22,26 +22,32 @@ class FollowUpController extends AuthenticatedController
 
     public function index(Request $request)
     {
-        $status = $request->status;
+        $lead_status = $request->lead_status;
+        $follow_up_status = $request->follow_up_status;
         $sales_person = $request->sales_person;
-        $days = $request->days;
+        $to = $request->to ?? Carbon::now()->addDays(7)->toDateTimeString();
+        $from = $request->from ?? Carbon::now()->toDateTimeString();
 
-        $followUps = FollowUp::active()
-            ->where('expire_at', '<=', Carbon::now()->addDays(7))
-            ->when($status, function ($q) use ($status) {
-                return $q->where('follow_up_status', '=', $status);
+        $followUps = FollowUp::when($follow_up_status, function ($q) use ($follow_up_status) {
+                return $q->where('follow_up_status', '=', $follow_up_status);
+            })
+            ->when($lead_status, function ($q) use ($lead_status) {
+                return $q->where('lead_status', '=', $lead_status);
             })
             ->when($sales_person, function ($q) use ($sales_person) {
                 return $q->where('sales_person', '=', $sales_person);
             })
-            ->when($days, function ($q) use ($days) {
-                return $q->whereDate('expire_at', '=', Carbon::now()->addDays((int)$days + 1));
+            ->when($to, function ($q) use ($to) {
+                return $q->whereDate('expire_at', '<=', $to);
+            })
+            ->when($from, function ($q) use ($from) {
+                return $q->whereDate('expire_at', '>=', $from);
             })
             ->orderBy('expire_at', 'asc')
             ->with('booking', 'customer.bookings')
-            ->get();
+            ->paginate(20);
 
-        return view('follow_up.index', compact('followUps'));
+        return view('follow_up.index', compact('followUps')) ->with('i', ($followUps->get('page', 1) - 1) * 5);
     }
 
     /**
