@@ -100,6 +100,40 @@ class Booking extends Model
         return $additions;
     }
 
+    public function estimateAdditionsSum()
+    {
+        $additions = 0;
+        if ($this->aafinance_webhook) {
+            $additionsData = $this->aafinance_webhook['JobAddtionalCost'];
+
+            foreach($additionsData as $addition)
+            {
+                if ($addition['Amount'] > 0) {
+                    $additions += (float)$addition['Amount'];
+                }
+            }
+        }
+
+        return $additions;
+    }
+
+    public function actualAdditionsSum()
+    {
+        $additions = 0;
+        if ($this->aafinance_invoice) {
+            $additionsData = $this->aafinance_invoice['SalesInvoiceAddtionalCosts'];
+
+            foreach($additionsData as $addition)
+            {
+                if ($addition['Amount'] > 0) {
+                    $additions += (float)$addition['Amount'];
+                }
+            }
+        }
+
+        return $additions;
+    }
+
     public function deductions()
     {
         $deductions = [];

@@ -15,13 +15,14 @@ class DailyReport extends Model
     protected $dates = ['date'];
     protected $casts = ['jobs' => 'array'];
 
+    const SST = 1.06;
 
     public function calculateProductivity()
     {
         $invoice_ch_prods =  ($this->invoice_ch_total_cku + ($this->invoice_ch_total_mcs/2))/$this->ch_count;
         $quotation_ch_prods = ($this->quotation_ch_total_cku + ($this->quotation_ch_total_mcs/2))/$this->ch_count;
-        $invoice_robin_prods= ($this->invoice_robin_total_cku + ($this->invoice_robin_total_mcs/2))/$this->robin_count;
-        $quotation_robin_prods = ($this->quotation_robin_total_cku + ($this->quotation_robin_total_mcs/2))/$this->robin_count;
+        $invoice_robin_prods= ($this->invoice_robin_total_cku + ($this->invoice_robin_total_mcs/2))/$this->y_factor;
+        $quotation_robin_prods = ($this->quotation_robin_total_cku + ($this->quotation_robin_total_mcs/2))/$this->y_factor;
 
         $this->fill([
             'invoice_ch_prods' => (int)$invoice_ch_prods,
@@ -31,6 +32,36 @@ class DailyReport extends Model
         ]);
 
         $this->save();
+    }
+
+    public function actual_total_sales()
+    {
+        return $this->actual_ch_sales() + $this->actual_robin_sales();
+    }
+
+    public function actual_ch_sales()
+    {
+        return $this->invoice_ch_total_cku + $this->invoice_ch_total_mcs;
+    }
+
+    public function actual_robin_sales()
+    {
+        return $this->invoice_robin_total_cku + $this->invoice_robin_total_mcs;
+    }
+
+    public function estimates_total_sales()
+    {
+        return $this->estimates_ch_sales() + $this->estimates_robin_sales();
+    }
+
+    public function estimates_ch_sales()
+    {
+        return $this->quotation_ch_total_cku + $this->quotation_ch_total_mcs;
+    }
+
+    public function estimates_robin_sales()
+    {
+        return $this->quotation_robin_total_cku + $this->invoice_robin_total_mcs;
     }
 
     public function quotation_total_prods()

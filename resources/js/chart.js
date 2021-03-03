@@ -14,3 +14,10 @@ if(todayTeamSales){
 
     new Chart(todayTeamSales, JSON.parse(config));
 }
+
+var dailyReport = document.getElementById('dailyReport');
+if(dailyReport){
+    var config = dailyReport.getAttribute('config');
+
+    new Chart(dailyReport, JSON.parse(config));
+}

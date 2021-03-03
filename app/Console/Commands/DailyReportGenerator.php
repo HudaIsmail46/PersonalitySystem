@@ -47,7 +47,7 @@ class DailyReportGenerator extends Command
         } else {
             $date = Carbon::createFromFormat('d/m/Y', $dateString);
         }
-
+        $sst = DailyReport::SST;
         $bookings = Booking::whereDate('event_begins', $date->toDateString())
             ->whereNotNull('team')
             ->whereIn('status', ['Pending', 'Completed', 'Comfirmed'])
@@ -85,24 +85,24 @@ class DailyReportGenerator extends Command
                     'team' => $booking->team,
                     'team_type' => 'robin',
                     'booking_id' => $booking->id,
-                    'invoice_robin_total_cku' => $booking->afterDeductionCkuActual(),
-                    'invoice_robin_total_mcs' => $booking->afterDeductionMcsActual(),
-                    'quotation_robin_total_cku' => $booking->afterDeductionCkuEstimates(),
-                    'quotation_robin_total_mcs' => $booking->afterDeductionMcsEstimates(),
+                    'invoice_robin_total_cku' => ($booking->afterDeductionCkuActual() + $booking->actualAdditionsSum())/$sst,
+                    'invoice_robin_total_mcs' => $booking->afterDeductionMcsActual()/$sst,
+                    'quotation_robin_total_cku' => ($booking->afterDeductionCkuEstimates() + $booking->estimateAdditionsSum())/$sst,
+                    'quotation_robin_total_mcs' => $booking->afterDeductionMcsEstimates()/$sst,
                     'invoice_ch_total_cku' => 0,
                     'invoice_ch_total_mcs'  => 0,
                     'quotation_ch_total_cku' => 0,
-                    'quotation_ch_total_mcs' => 0,
+                    'quotation_ch_total_mcs' => 0
                 ];
             } else {
                 $job = [
                     'team' => $booking->team,
                     'team_type' => 'ch',
                     'booking_id' => $booking->id,
-                    'invoice_ch_total_cku' => $booking->afterDeductionCkuActual(),
-                    'invoice_ch_total_mcs' => $booking->afterDeductionMcsActual(),
-                    'quotation_ch_total_cku' => $booking->afterDeductionCkuEstimates(),
-                    'quotation_ch_total_mcs' => $booking->afterDeductionMcsEstimates(),
+                    'invoice_ch_total_cku' => ($booking->afterDeductionCkuActual() + $booking->actualAdditionsSum())/$sst,
+                    'invoice_ch_total_mcs' => $booking->afterDeductionMcsActual()/$sst,
+                    'quotation_ch_total_cku' => ($booking->afterDeductionCkuEstimates() + $booking->estimateAdditionsSum())/$sst,
+                    'quotation_ch_total_mcs' => $booking->afterDeductionMcsEstimates()/$sst,
                     'invoice_robin_total_cku' => 0,
                     'invoice_robin_total_mcs'  => 0,
                     'quotation_robin_total_cku' => 0,

@@ -30,6 +30,13 @@ if (!function_exists('myDate')) {
     }
 }
 
+if (!function_exists('myShortDate')) {
+    function myShortDate(Carbon $dateTime)
+    {
+        return $dateTime->format('dS M Y');
+    }
+}
+
 if (!function_exists('humaniseOrderState')) {
     function humaniseOrderState(String $state)
     {

@@ -1,6 +1,5 @@
 @extends ('layouts.app')
 
-
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -19,6 +18,7 @@
     </div>
     <div class="content">
         <div class="container-fluid">
+            @include('daily_report.productivity_table')
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -26,16 +26,25 @@
                             <h3 class="mb-0">Daily Report</h3>
                         </div>
                         <div class='card-body'>
-                            <form action="{{ route('daily_report.index') }}" method="get">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        Month: <input class="form-control form-control-sm" type="month" name="month"
-                                            placeholder="name" value="{{ request()->month }}">
-                                    </div>
-                                    <button class="btn btn-primary mb-2 mt-3" type="submit">Filter <i
-                                            class="fa fa-search"></i></button>
+                            <div class="row">
+                                <div class="col-6">
+                                    <form action="{{ route('daily_report.index') }}" method="get">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Month: <input class="form-control form-control-sm" type="month" name="month"
+                                                    placeholder="name" value="{{ request()->month }}">
+                                            </div>
+                                            <button class="btn btn-primary mb-2 mt-3" type="submit">Filter <i
+                                                    class="fa fa-search"></i></button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                                <a class="ml-auto" href="{{route('daily_report.edit_params')}}">
+                                    <button class="btn btn-warning mb-2 mt-3 mr-2">Bulk Parameters Update</button>
+                                </a>
+                            </div>
+
+
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-center">
                                     <thead>
