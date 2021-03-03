@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Booking extends Model
 {
@@ -379,6 +380,7 @@ class Booking extends Model
     public function eligibleForInsurance()
     {
         return !$this->covernote_id &&
+            $this->event_begins > Carbon::now()->addDays(7) &&
             ( 
                 $this->estimatedCkuResidentialPrice() > 0 ||
                 $this->estimatedCkuCommercialPrice() > 0 ||
