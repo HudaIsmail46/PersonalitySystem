@@ -153,7 +153,7 @@
                                     </td>
                                     <td>
                                         {{ $booking->covernote_id }}
-                                        @if(!$booking->covernote_id)
+                                        @if(!$booking->covernote_id && $booking->event_begins > Carbon\Carbon::now()->addDays(7))
                                             <form action="{{route('booking.purchase_insurance', $booking->id)}}" method='post'>
                                                 @csrf
                                                 <button class="btn btn-primary" type='submit'>Buy Insurance Policy</button>
