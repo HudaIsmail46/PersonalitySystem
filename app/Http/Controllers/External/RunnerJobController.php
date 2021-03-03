@@ -48,7 +48,7 @@ class RunnerJobController extends AuthenticatedController
             $transitionTo = Returned::class;
         }
 
-        if($transitionTo){
+        if(isset($transitionTo)){
             $order->state->transitionTo($transitionTo);
         }
 
