@@ -39,9 +39,16 @@
                                         </div>
                                     </form>
                                 </div>
-                                <a class="ml-auto" href="{{route('daily_report.edit_params')}}">
-                                    <button class="btn btn-warning mb-2 mt-3 mr-2">Bulk Parameters Update</button>
-                                </a>
+                                <div class="ml-auto row">
+                                    <form action="{{ route('daily_report.refresh') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="month" value="{{ $month }}">
+                                        <button class="btn btn-primary mb-2 mt-3" type="submit">Recalculate {{$month->format('M, Y')}}</button>
+                                    </form>
+                                    <a class="ml-1" href="{{route('daily_report.edit_params')}}">
+                                        <button class="btn btn-warning mb-2 mt-3 mr-2">Bulk Parameters Update</button>
+                                    </a>
+                                </div>
                             </div>
 
 

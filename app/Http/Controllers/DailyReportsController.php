@@ -133,17 +133,12 @@ class DailyReportsController extends AuthenticatedController
 
     public function reCalculate(Request $request)
     {
-        if($request->month){
-            $month = Carbon::parse($request->month);
-            $days =  Carbon::parse($request->month)->daysInMonth();
-        } else {
-            $month = Carbon::now();
-            $days =  Carbon::parse($request->month)->daysInMonth();
-        }
+        $month = Carbon::parse($request->month);
+        $days =  Carbon::parse($request->month)->daysInMonth;
 
-        for ($day = 0; $day <= $days; $day++) {
-            echo "The number is: $x <br>";
-            GenerateDailyReport::dispatchNow();
+        for ($day = 0; $day < $days; $day++) {
+            GenerateDailyReport::dispatchNow($month->format('d/m/Y'));
+            $month->addDays(1);
         }
 
         return redirect()->route('daily_report.index')->with('Booking updated successfully.');
