@@ -35,27 +35,13 @@
                             <table class="table table-bordered table-striped">
                                 <th></th>
                                 <th>Clean Hero</th>
-                                <th>Robin</th>
-                                <tr>
-                                    <td>X Factor</td>
-                                    <td colspan="2">
-                                        <input class="form-control text-center" name="x_factor" type="integer"
-                                            value="{{ old('x_factor') ?? ($daily_report->x_factor ?? '') }}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Y Factor</td>
-                                    <td colspan="2">
-                                        <input class="form-control text-center" name="y_factor" type="integer"
-                                            value="{{ old('y_factor') ?? ($daily_report->y_factor ?? '') }}">
-                                    </td>
-                                </tr>
+                                <th>Robin(estimates)</th>
                                 <tr>
                                     <td>Team Count</td>
                                     <td> <input class="form-control text-center" name="ch_count" type="integer"
                                             value="{{ old('ch_count') ?? ($daily_report->ch_count ?? '') }}"></td>
-                                    <td> <input class="form-control text-center" name="robin_count" type="integer"
-                                            value="{{ old('robin_count') ?? ($daily_report->robin_count ?? '') }}">
+                                    <td> <input class="form-control text-center" name="y_factor" type="integer"
+                                            value="{{ old('y_factor') ?? ($daily_report->y_factor ?? '') }}">
                                     </td>
                                 </tr>
                                 <tr>

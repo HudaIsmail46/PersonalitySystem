@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\DailyReport;
 use Carbon\Carbon;
 use App\Chart\DailyReportChart;
+use App\Jobs\GenerateDailyReport;
 
 class DailyReportsController extends AuthenticatedController
 {
@@ -103,10 +104,8 @@ class DailyReportsController extends AuthenticatedController
         $request->validate([
             'from_date' => 'required',
             'to_date' => 'required',
-            'x_factor' => 'required|numeric',
             'y_factor' => 'required|numeric',
-            'ch_count' => 'required|numeric',
-            'robin_count' => 'required|numeric'
+            'ch_count' => 'required|numeric'
         ]);
 
         $from_date = $request->from_date;
@@ -123,12 +122,28 @@ class DailyReportsController extends AuthenticatedController
         foreach($dailyReports as $daily_report)
         {
             $daily_report->update([
-                'x_factor' => $x_factor,
                 'y_factor' => $y_factor,
-                'ch_count' => $ch_count,
-                'robin_count' => $robin_count,
+                'ch_count' => $ch_count
             ]);
             $daily_report->calculateProductivity();
+        }
+
+        return redirect()->route('daily_report.index')->with('Booking updated successfully.');
+    }
+
+    public function reCalculate(Request $request)
+    {
+        if($request->month){
+            $month = Carbon::parse($request->month);
+            $days =  Carbon::parse($request->month)->daysInMonth();
+        } else {
+            $month = Carbon::now();
+            $days =  Carbon::parse($request->month)->daysInMonth();
+        }
+
+        for ($day = 0; $day <= $days; $day++) {
+            echo "The number is: $x <br>";
+            GenerateDailyReport::dispatchNow();
         }
 
         return redirect()->route('daily_report.index')->with('Booking updated successfully.');
@@ -137,10 +152,8 @@ class DailyReportsController extends AuthenticatedController
     protected function validateUpdateDailyReport()
     {
         return request()->validate([
-            'x_factor' => 'required|numeric',
             'y_factor' => 'required|numeric',
-            'ch_count' => 'required|numeric',
-            'robin_count' => 'required|numeric'
+            'ch_count' => 'required|numeric'
         ]);
     }
 

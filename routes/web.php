@@ -260,4 +260,5 @@ Route::prefix('/daily_report')->name('daily_report.')->group(function(){
     Route::get('/{daily_report}', 'DailyReportsController@show')->name('show');
     Route::get('/{daily_report}/edit', 'DailyReportsController@edit')->name('edit');
     Route::put('/{daily_report}', 'DailyReportsController@update')->name('update');
+    Route::post('/refresh', 'DailyReportsController@reCalculate')->name('refresh');
 });
