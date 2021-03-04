@@ -33,17 +33,9 @@
                             <th>Clean Hero</th>
                             <th>Robin</th>
                             <tr>
-                                <td>X Factor</td>
-                                <td colspan="2">{{ $daily_report->x_factor }}</td>
-                            </tr>
-                            <tr>
-                                <td>Y Factor</td>
-                                <td colspan="2">{{ $daily_report->y_factor }}</td>
-                            </tr>
-                            <tr>
                                 <td>Team Count</td>
                                 <td>{{ $daily_report->ch_count }}</td>
-                                <td>{{ $daily_report->robin_count }}</td>
+                                <td>{{ $daily_report->y_factor }}</td>
                             </tr>
                             <tr>
                                 <td>Estimated Total CKU</td>

@@ -39,9 +39,16 @@
                                         </div>
                                     </form>
                                 </div>
-                                <a class="ml-auto" href="{{route('daily_report.edit_params')}}">
-                                    <button class="btn btn-warning mb-2 mt-3 mr-2">Bulk Parameters Update</button>
-                                </a>
+                                <div class="ml-auto row">
+                                    <form action="{{ route('daily_report.refresh') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="month" value="{{ $month }}">
+                                        <button class="btn btn-primary mb-2 mt-3" type="submit">Recalculate {{$month->format('M, Y')}}</button>
+                                    </form>
+                                    <a class="ml-1" href="{{route('daily_report.edit_params')}}">
+                                        <button class="btn btn-warning mb-2 mt-3 mr-2">Bulk Parameters Update</button>
+                                    </a>
+                                </div>
                             </div>
 
 
@@ -51,15 +58,13 @@
                                         <tr>
                                             <th rowspan="3">Date</th>
                                             <th colspan='2'>Team Count</th>
-                                            <th rowspan="3">Y factor</th>
-                                            <th rowspan="3">X factor</th>
-                                            <th colspan='4'>Estimation</th>
-                                            <th colspan='4'>Actual</th>
+                                            <th colspan='4'>Estimated Sales</th>
+                                            <th colspan='4'>Actual Sales</th>
                                             <th colspan='6'>Productivity</th>
                                         </tr>
                                         <tr>
                                             <th rowspan='2'>CH</th>
-                                            <th rowspan='2'>ROBIN</th>
+                                            <th rowspan='2'>ROBIN <br>(estimates)</th>
                                             <th colspan="2">CH</th>
                                             <th colspan="2">ROBIN</th>
                                             <th colspan="2">CH</th>
@@ -91,9 +96,7 @@
                                                         href={{ route('daily_report.show', $daily_report->id) }}>{{ myDate($daily_report->date) }}</a>
                                                 </td>
                                                 <td>{{ $daily_report->ch_count }}</td>
-                                                <td>{{ $daily_report->robin_count }}</td>
                                                 <td>{{ $daily_report->y_factor }}</td>
-                                                <td>{{ $daily_report->x_factor }}</td>
                                                 <td>{{ number_format($daily_report->quotation_ch_total_cku) }}</td>
                                                 <td>{{ number_format($daily_report->quotation_ch_total_mcs) }}</td>
                                                 <td>{{ number_format($daily_report->quotation_robin_total_cku) }}</td>

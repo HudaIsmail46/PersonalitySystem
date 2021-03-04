@@ -12,6 +12,7 @@
                             <th rowspan="2">Team</th>
                             <th rowspan="2">Team Type</th>
                             <th rowspan="2">Booking Id</th>
+                            <th rowspan="2">Customer Name</th>
                             <th colspan="2">Estimates</th>
                             <th colspan="2">Actual</th>
                         </tr>
@@ -32,6 +33,7 @@
                                     <a href={{ route('booking.show', $job['booking_id']) }}>
                                         {{ $job['booking_id'] }}</a>
                                 </td>
+                                <td>{{ $job['customer_name'] }}</td>
                                 <td>RM {{ $job['team_type'] == 'ch' ? number_format($job['quotation_ch_total_cku']) : number_format($job['quotation_robin_total_cku']) }}</td>
                                 <td>RM {{ $job['team_type'] == 'ch' ? number_format($job['quotation_ch_total_mcs']) : number_format($job['quotation_robin_total_mcs']) }}</td>
                                 <td>RM {{ $job['team_type'] == 'ch' ? number_format($job['invoice_ch_total_cku']) : number_format($job['invoice_robin_total_cku']) }}</td>

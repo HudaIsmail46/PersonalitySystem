@@ -41,15 +41,6 @@
                               <input type="date" class="form-control" name='to_date' required id="to" value="{{ old('to_date') ?? '' }}">
                             </div>
                           </div>
-                        <div class="form-group">
-                            <label for="x_factor">X Factor</label>
-                            <input class="form-control" name="x_factor" type="integer"
-                                required value="{{ old('x_factor') ?? '' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="y_factor">Y Factor</label>
-                            <input class="form-control" name="y_factor" type="integer"
-                                required value="{{ old('y_factor') ?? '' }}">
                         </div>
                         <div class="form-group">
                             <label for="ch_count">CH Team Count</label>
@@ -57,9 +48,9 @@
                                 required value="{{ old('ch_count') ?? '' }}">
                         </div>
                         <div class="form-group">
-                            <label for="robin_count">Robin Team Count</label>
-                            <input class="form-control" name="robin_count" type="integer"
-                                required value="{{ old('robin_count') ?? '' }}">
+                            <label for="y_factor">Robin Team Count(estimates)</label>
+                            <input class="form-control" name="y_factor" type="integer"
+                                required value="{{ old('y_factor') ?? '' }}">
                         </div>
 
 
