@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
             ->dailyAt('11:00');
 
         $schedule->command('job_reminder:send')
-            ->dailyAt('20:00');
+            ->dailyAt('17:00');
     }
     /**
      * Register the commands for the application.
