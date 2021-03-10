@@ -34,7 +34,7 @@ class ReportBooking implements ShouldQueue
      */
     public function handle()
     {
-        $report = new JobListSheet($this->booking);
-        $report->append();
+        // $report = new JobListSheet($this->booking);
+        // $report->append();
     }
 }

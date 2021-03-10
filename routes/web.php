@@ -169,6 +169,7 @@ Route::prefix('/admin')->name('admin')->group(function () {
 
     Route::get('/webhook/index', 'Admin\WebhookController@index')->name('.webhook.index');
     Route::get('/webhook/{webhook}', 'Admin\WebhookController@show')->name('.webhook.show');
+    Route::post('/webhook/{webhook}', 'Admin\WebhookController@reprocess')->name('.webhook.reprocess');
 });
 
 ##member CRUD

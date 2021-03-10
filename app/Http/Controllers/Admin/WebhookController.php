@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthenticatedController;
 use Spatie\WebhookClient\Models\WebhookCall;
 use Illuminate\Http\Request;
-
+use App\Webhooks\Aafinance\WebhookHandler;
 
 class WebhookController extends AuthenticatedController
 {
@@ -40,5 +40,12 @@ class WebhookController extends AuthenticatedController
     public function show(WebhookCall $webhook)
     {
         return view('admin.webhook.show', compact('webhook'));
+    }
+
+    public function reprocess(WebhookCall $webhook)
+    {
+        WebhookHandler::handle($webhook);
+
+        return redirect()->route('admin.webhook.show', $webhook)->with('Webhook reprocessed.');
     }
 }
