@@ -11,31 +11,37 @@ use App\Customer;
 class ImportBookings implements ToModel,WithStartRow
 {
     /**
-    * @param array $row
+    * @param array $col
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function model(array $col)
     {
-        $name = @$row[0];
-        $phone_no = @$row[13];
+        $name = @$col[0];
+        $phone_no = @$col[14];
+        $date = @$col[5];
         $customer = Customer::findOrCreate($name, $phone_no);
-        return new Booking([
-            'gc_event_title' => @$row[0],
-            'gc_address' => @$row[3],
-            'gc_event_begins' =>is_null($row[5]) ? null : Carbon::createFromFormat("yy-m-d", $row[5])->toDateTimeString(),
-            'gc_event_ends' =>is_null($row[5]) ? null : Carbon::createFromFormat("yy-m-d", $row[5])->toDateTimeString(),
-            'gc_description' => strip_tags(@$row[6]),
-            'pic' => @$row[7],
-            'name' => $name,
-            'phone_no' => $phone_no,
-            'status' => @$row[8],
-            'receipt_number' => @$row[9],
-            'invoice_number' => @$row[10],
-            'price' => (int)@$row[19],
-            'service_type' => @$row[12],
-            'customer_id' => $customer ? $customer->id : null
+        $existingBooking = Booking::where('customer_id', $customer->id)->whereDate('event_begins', $date)->count();
+        logger($existingBooking);
+        if($existingBooking > 0){
+           return null;
+        } else {
+            return new Booking([
+                'gc_address' => @$col[3],
+                'event_begins' => $date,
+                'event_ends' => $date,
+                'gc_description' => strip_tags(@$col[6]),
+                'pic' => @$col[7],
+                'name' => $name,
+                'phone_no' => $phone_no,
+                'status' => @$col[8],
+                'receipt_number' => @$col[9],
+                'invoice_number' => @$col[10],
+                'price' => (int)@$col[11],
+                'service_type' => @$col[12],
+                'customer_id' => $customer ? $customer->id : null
             ]);
+        }
     }
 
     public function startRow() :int
