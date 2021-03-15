@@ -20,13 +20,14 @@ class CustomerController extends AuthenticatedController
         } else {
             parse_str($query, $output);
 
-            $name    = $output['name'];
-            $phone_no   = $output['phone_no'];
+            $name = $output['name'];
+            $phone_no  = $output['phone_no'];
             $address = $output['address'];
 
-            $customers = Customer::when($name, function ($q) use ($name) {
-                return $q->where('name', 'ILIKE', '%' . $name . '%');
-            })
+            $customers = Customer::with('bookings', 'orders')
+                ->when($name, function ($q) use ($name) {
+                    return $q->where('name', 'ILIKE', '%' . $name . '%');
+                })
                 ->when($address, function ($q) use ($address) {
                     return $q->where('address_1', 'ILIKE', '%' . $address . '%')
                         ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
@@ -35,7 +36,8 @@ class CustomerController extends AuthenticatedController
                 ->when($phone_no, function ($q) use ($phone_no) {
                     return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
                 })
-                ->orderBy('id', 'ASC')->get();
+                ->orderBy('id', 'ASC')
+                ->get();
         }
         return Excel::download(new CustomersExport($customers), 'Customers-CleanHero.csv');
     }
@@ -50,9 +52,10 @@ class CustomerController extends AuthenticatedController
         $address = $request->address;
         $phone_no = $request->phone_no;
 
-        $customers = Customer::when($name, function ($q) use ($name) {
-            return $q->where('name', 'ILIKE', '%' . $name . '%');
-        })
+        $customers = Customer::with('bookings', 'orders')
+            ->when($name, function ($q) use ($name) {
+                return $q->where('name', 'ILIKE', '%' . $name . '%');
+            })
             ->when($address, function ($q) use ($address) {
                 return $q->where('address_1', 'ILIKE', '%' . $address . '%')
                     ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
