@@ -40,7 +40,7 @@ class JobAssignmentCreated extends AafinanceWebhook
                 'agent_id' =>$agent->id,
                 'raw_assignment' => $data,
                 'status' => $data['Status'],
-                'created_by' => $data['CreationUser']
+                'created_by' => array_key_exists('CreationUser', $data) ? $data['CreationUser'] : ''
             ]);
 
             $assignment->save();

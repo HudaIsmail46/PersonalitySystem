@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\IssueInsurance;
+use App\Agent;
 
 class BookingController extends AuthenticatedController
 {
@@ -31,16 +32,16 @@ class BookingController extends AuthenticatedController
             $phone   = $output['phone_no'];
             $start   = $output['from'];
             $end     = $output['to'];
-            $team    = $output['team'];
+            $agent   = $output['agent'];
             $address = $output['address'];
             $service_type = $output['service_type'];
             $corporate = $output['service_type'] == "COM" ? "CORP": "COM";
             $insured = $output['insured'] ?? '';
 
-
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
+                ->join('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
                 ->with('customer')
-                ->select('bookings.*', 'customers.name', 'customers.phone_no')
+                ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
                 ->when($name, function ($q) use ($name) {
                     return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
                 })
@@ -53,8 +54,8 @@ class BookingController extends AuthenticatedController
                 ->when($start, function ($q) use ($start, $end) {
                     return $q->whereBetween('event_begins', [$start, $end]);
                 })
-                ->when($team, function ($q) use ($team) {
-                    return $q->where('team', $team);
+                ->when($agent, function ($q) use ($agent) {
+                    return $q->where('agent_assignments.agent_id', $agent);
                 })
                 ->when($service_type, function ($q) use ($service_type, $corporate) {
                     return $q->where('service_type', $service_type)->orWhere('service_type', $corporate);
@@ -87,15 +88,16 @@ class BookingController extends AuthenticatedController
         $phone   = $request->phone_no;
         $start   = $request->from;
         $end     = $request->to;
-        $team    = $request->team;
+        $agent   = $request->agent;
         $address = $request->address;
         $service_type = $request->service_type;
         $corporate = $request->service_type == "COM" ? "CORP": "COM";
         $insured = $request->insured;
 
         $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
+            ->join('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
             ->with('customer')
-            ->select('bookings.*', 'customers.name', 'customers.phone_no')
+            ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
             ->when($name, function ($q) use ($name) {
                 return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
             })
@@ -108,8 +110,8 @@ class BookingController extends AuthenticatedController
             ->when($start, function ($q) use ($start, $end) {
                 return $q->whereBetween('event_begins', [$start, $end]);
             })
-            ->when($team, function ($q) use ($team) {
-                return $q->where('team', $team);
+            ->when($agent, function ($q) use ($agent) {
+                return $q->where('agent_assignments.agent_id', $agent);
             })
             ->when($service_type, function ($q) use ($service_type, $corporate) {
                 return $q->where('service_type', $service_type)->orWhere('service_type', $corporate);
@@ -127,14 +129,9 @@ class BookingController extends AuthenticatedController
             })
             ->orderBy('event_begins', 'DESC')->paginate(20);
 
-        $booking_teams = DB::select('select distinct team from bookings');
-        $teams = array_map(function ($booking) {
-            return $booking->team;
-        }, $booking_teams);
+        $agents = Agent::get();
 
-        asort($teams);
-
-        return view('booking.index', compact('bookings', 'teams'))
+        return view('booking.index', compact('bookings', 'agents'))
             ->with('i', ($bookings->get('page', 1) - 1) * 5);
     }
 
@@ -258,8 +255,7 @@ class BookingController extends AuthenticatedController
             'city' => 'required',
             'location_state' => 'required',
             'service_type' => 'required',
-            'pic' => 'required',
-            'team' => 'required'
+            'pic' => 'required'
         ]);
 
         return $validateData;

@@ -7,11 +7,13 @@ use Carbon\Carbon;
 class TodayTeamSales
 {
     public static function today_team_sales(){
-        $today_team_sales = DB::select('select count(id), team, sum(price/100) as sum
+        $today_team_sales = DB::select('select count(*), agents.fullname as team, sum(price/100) as sum
         from bookings
+        join agent_assignments on agent_assignments.booking_id = bookings.id
+        join agents on agents.id = agent_assignments.agent_id
         where event_begins::date = ? ::date
         and deleted_at is NULL
-        GROUP BY team', [Carbon::now()]);
+        GROUP BY agents.id', [Carbon::now()]);
 
         return $today_team_sales;
     }
@@ -88,7 +90,7 @@ class TodayTeamSales
                     ]
                 ]
             ]
-        
+
         ];
 
         return json_encode($data);
