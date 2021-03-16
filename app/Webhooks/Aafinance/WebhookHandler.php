@@ -7,7 +7,7 @@ use App\Webhooks\Aafinance\ExistingJobDeleted;
 use App\Webhooks\Aafinance\JobAssignmentCreated;
 use App\Webhooks\Aafinance\NewSalesInvoicePaymentAdded;
 use App\Webhooks\Aafinance\SalesInvoiceAdded;
-use App\Webhooks\Aafinance\JobAssignmentCancelled;
+use App\Webhooks\Aafinance\JobAssignmentStatusChange;
 
 class WebhookHandler
 {
@@ -31,10 +31,13 @@ class WebhookHandler
             JobAssignmentCreated::handle($eventMessage);
             break;
         case "ExistingJobAssignmentCancelled":
-            JobAssignmentCancelled::handle($eventMessage);
+            JobAssignmentStatusChange::handle($eventMessage);
             break;
         case "ExistingJobAssignmentDecline":
-            JobAssignmentCancelled::handle($eventMessage);
+            JobAssignmentStatusChange::handle($eventMessage);
+            break;
+        case "ExistingJobAssignmentAccepted":
+            JobAssignmentStatusChange::handle($eventMessage);
             break;
         case "NewSalesInvoicePaymentAdded":
             NewSalesInvoicePaymentAdded::handle($eventMessage);

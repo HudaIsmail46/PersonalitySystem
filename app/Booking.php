@@ -44,6 +44,11 @@ class Booking extends Model
         return $this->hasMany(BookingItem::class);
     }
 
+    public function agentAsignments()
+    {
+        return $this->hasMany(AgentAssignment::class);
+    }
+
     public function invoice()
     {
         return $this->hasOne(Invoice::class);
@@ -415,7 +420,7 @@ class Booking extends Model
     {
         return !$this->covernote_id &&
             $this->event_begins > Carbon::now()->addDays(7) &&
-            ( 
+            (
                 $this->estimatedCkuResidentialPrice() > 0 ||
                 $this->estimatedCkuCommercialPrice() > 0 ||
                 $this->estimatedHqPrice() > 0

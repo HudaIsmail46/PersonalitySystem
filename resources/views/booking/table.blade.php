@@ -2,9 +2,9 @@
     <tr>
         <th>Booking Id</th>
         <th>Customer</th>
-        <th>Address</th>
-        <th width='30%'>Event DateTime</th>
-        <th>Team</th>
+        <th class="text-wrap" width='20%'>Address</th>
+        <th>Event DateTime</th>
+        <th>Teams</th>
         <th></th>
     </tr>
     @foreach ($bookings as $booking)
@@ -24,10 +24,10 @@
             </td>
             <td>
                 @if ($booking->customer)
-                    Name : <a href="{{ route('customer.show', $booking->customer) }}">{{ $booking->customer->name }}</a>
+                    <a href="{{ route('customer.show', $booking->customer) }}">{{ $booking->customer->name }}</a>
                     <br>
                     @if ($booking->customer->phone_no != null)
-                        Phone No. : {{ $booking->customer->phone_no }}
+                        {{ $booking->customer->phone_no }}
                         <a href="https://api.whatsapp.com/send?phone={{ $booking->customer->phone_no }}"
                             target="blank"><i class="fab fa-whatsapp icon-green"></i></a>
                         <a href="tel:{{ $booking->customer->phone_no }}"><i class="fas fa-phone"></i></a>
@@ -50,7 +50,22 @@
                 Start: {{ myLongDateTime(new Carbon\Carbon($booking->event_begins)) }}<br>
                 End: {{ myLongDateTime(new Carbon\Carbon($booking->event_ends)) }}
             </td>
-            <td>{{ $booking->team }}</td>
+            <td>
+                @foreach ($booking->agentAsignments as $assignment)
+                    <li>
+                        {{ $assignment->agent->fullname }}
+                        @if ($assignment->status == 'Pending')
+                            <span class="badge bg-info text-dark">Pending</span>
+                        @elseif ($assignment->status == 'Accepted')
+                            <span class="badge bg-primary">Accepted</span>
+                        @elseif ($assignment->status == 'Declined')
+                            <span class="badge bg-danger">Declined</span>
+                        @elseif ($assignment->status == 'Cancelled')
+                            <span class="badge bg-warning">Cancelled</span>
+                        @endif
+                    </li>
+                @endforeach
+            </td>
             <td>
                 <div class="d-flex">
                     <div>

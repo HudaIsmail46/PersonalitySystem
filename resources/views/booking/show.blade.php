@@ -87,7 +87,26 @@
                                     </tr>
                                 @endif
                                 <tr>
-                                    <td>Team</td>
+                                    <td>Agents</td>
+                                    <td>
+                                        @foreach ($booking->agentAsignments as $assignment)
+                                            <li>
+                                                {{ $assignment->agent->fullname }}
+                                                @if ($assignment->status == 'Pending')
+                                                    <span class="badge bg-info text-dark">Pending</span>
+                                                @elseif ($assignment->status == 'Accepted')
+                                                    <span class="badge bg-primary">Accepted</span>
+                                                @elseif ($assignment->status == 'Declined')
+                                                    <span class="badge bg-danger">Declined</span>
+                                                @elseif ($assignment->status == 'Cancelled')
+                                                    <span class="badge bg-warning">Cancelled</span>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Team(legacy)</td>
                                     <td>{{ $booking->team }}</td>
                                 </tr>
                                 <tr>

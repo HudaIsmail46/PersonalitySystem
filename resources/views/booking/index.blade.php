@@ -61,11 +61,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        Team:
-                                        <select id="team" class="form-control form-control-sm" name="team">
-                                            <option value="">--Select Team--</option>
-                                            @foreach($teams as $team)
-                                                <option value="{{$team}}" {{(request()->team == $team) ? 'selected' : '' }} class='text-capitalize' >{{$team}}</option>
+                                        Agent:
+                                        <select id="agent" class="form-control form-control-sm" name="agent">
+                                            <option value="">--Select Agent--</option>
+                                            @foreach($agents as $agent)
+                                                <option value="{{$agent->id}}" {{(request()->agent == $agent->id) ? 'selected' : '' }} class='text-capitalize' >{{$agent->fullname}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -83,7 +83,7 @@
                                         <input type="checkbox" name="insured" class="form-check-input" id="insured" {{ request()->insured ? 'checked' : '' }}>
                                         <label class="form-check-label" for="insured">Insured</label>
                                     </div>
-                          
+
                                 </div>
                                     <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
                             </form>

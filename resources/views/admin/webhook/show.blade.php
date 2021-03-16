@@ -20,6 +20,10 @@
                             @else
                                 <span class="badge badge-success">Success</span>
                             @endif
+                            <form action="{{route('admin.webhook.reprocess', $webhook->id)}}" method='post'>
+                                @csrf
+                                <button type='submit' class='btn btn-warning'>Reprocess</button>
+                            </form>
                         </div>
                         <div class='mt-3 mb-5'>
                             Payload: 
