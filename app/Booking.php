@@ -17,7 +17,7 @@ class Booking extends Model
         'aafinance_payment','insured_at', 'aafinance_invoice'];
 
     use SoftDeletes;
-    const TEAM = ['HQ1', 'HQ2', 'HQ3', 'HQ4', 'HQ5', 'HQ6','HQ7', 'HQ8', 'AUX1', 'AUX3', 'AUX4'];
+    const TEAM = ['HQ1', 'HQ2', 'HQ3', 'HQ4', 'HQ5', 'HQ6','HQ7', 'HQ8', 'AUX1', 'AUX3', 'AUX4']; //legacy team
     const PIC = ['CS1', 'CS2', 'CS3', 'CS4', 'CS5', 'CS6', 'CS7', 'CS8'];
     const TYPE = ['RES', 'COM', 'HQ'];
     const STATUS = ['APPROVED', 'NOT APPROVED', 'POSTPONED','IN PROGRESS', 'HUTANG', 'RECUCI', 'APPROVED', 'PENDING', 'NOT VALID',];
@@ -426,5 +426,20 @@ class Booking extends Model
                 $this->estimatedHqPrice() > 0
             ) &&
             $this->customer;
+    }
+
+    public function teams()
+    {
+        $assignments = $this->agentAsignments()->whereIn('agent_assignments.status', ['Accepted', 'Pending'])->get();
+        $agents = [];
+
+        foreach($assignments as $assignment)
+        {
+            $agent = $assignment->agent->fullname . ': ' . $assignment->status;
+
+            array_push($agents, $agent);
+        }
+
+        return $agents;
     }
 }

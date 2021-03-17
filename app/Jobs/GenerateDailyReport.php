@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Carbon\Carbon;
 use App\Booking;
 use App\DailyReport;
+use Illuminate\Support\Facades\DB;
 
 class GenerateDailyReport implements ShouldQueue
 {
@@ -40,11 +41,18 @@ class GenerateDailyReport implements ShouldQueue
     public function handle()
     {
         $sst = DailyReport::SST;
-        $bookings = Booking::whereDate('event_begins', $this->date->toDateString())
-            ->whereNotNull('team')
-            ->whereIn('status', ['Pending', 'Completed', 'Comfirmed'])
-            ->with('customer')
-            ->get();
+        $idsRaw = DB::select("select distinct(bookings.id) from bookings
+            left join agent_assignments on agent_assignments.booking_id = bookings.id
+            where event_begins::date = '{$this->date->toDateString()}'::date
+            and agent_assignments.status in ('Pending', 'Accepted')");
+        $ids =[];
+        foreach($idsRaw as $rawId)
+        {
+            array_push($ids, $rawId->id);
+        }
+
+
+        $bookings = Booking::with('customer', 'agentAsignments.agent')->whereIn('id', $ids)->get();
 
         $dailyReport = DailyReport::whereDate('date', $this->date->toDateString())->first();
         if (!$dailyReport) {
@@ -74,9 +82,10 @@ class GenerateDailyReport implements ShouldQueue
 
         foreach($bookings as $booking){
             $job = [];
-            if (preg_match("/^robin/i", $booking->team)) {
+
+            if (preg_match("/^robin/i", implode("\n", $booking->teams()))) {
                 $job = [
-                    'team' => $booking->team,
+                    'team' => implode(",\n", $booking->teams()),
                     'team_type' => 'robin',
                     'booking_id' => $booking->id,
                     'customer_name' => $booking->customer->name,
@@ -91,7 +100,7 @@ class GenerateDailyReport implements ShouldQueue
                 ];
             } else {
                 $job = [
-                    'team' => $booking->team,
+                    'team' => implode(",\n", $booking->teams()),
                     'team_type' => 'ch',
                     'booking_id' => $booking->id,
                     'customer_name' => $booking->customer->name,
