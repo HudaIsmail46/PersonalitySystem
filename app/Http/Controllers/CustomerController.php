@@ -15,31 +15,7 @@ class CustomerController extends AuthenticatedController
         $parsedUrl = parse_url(URL::previous());
         $query = $parsedUrl['query'] ?? '';
 
-        if ($query == '') {
-            $customers = Customer::all();
-        } else {
-            parse_str($query, $output);
-
-            $name = $output['name'];
-            $phone_no  = $output['phone_no'];
-            $address = $output['address'];
-
-            $customers = Customer::with('bookings', 'orders')
-                ->when($name, function ($q) use ($name) {
-                    return $q->where('name', 'ILIKE', '%' . $name . '%');
-                })
-                ->when($address, function ($q) use ($address) {
-                    return $q->where('address_1', 'ILIKE', '%' . $address . '%')
-                        ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
-                        ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
-                })
-                ->when($phone_no, function ($q) use ($phone_no) {
-                    return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
-                })
-                ->orderBy('id', 'ASC')
-                ->get();
-        }
-        return Excel::download(new CustomersExport($customers), 'Customers-CleanHero.csv');
+        return Excel::download(new CustomersExport($query), 'Customers-CleanHero.csv');
     }
     /**
      * Display a listing of the resource.

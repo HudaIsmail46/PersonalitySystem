@@ -2,20 +2,46 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use App\Customer;
 
-class CustomersExport implements FromCollection , WithHeadings , WithMapping
+class CustomersExport implements FromQuery, WithHeadings, WithMapping
 {
-    public function __construct($customers)
+    public function __construct($params)
     {
-        $this->customers = $customers;
+        $this->params = $params;
     }
 
-    public function collection()
+    public function query()
     {
-        return $this->customers;
+        if ($this->params == '') {
+            $customers = Customer::query()->with('bookings', 'orders');
+        } else {
+            parse_str($this->params, $output);
+
+            $name = $output['name'];
+            $phone_no  = $output['phone_no'];
+            $address = $output['address'];
+
+            $customers = Customer::query()
+                ->with('bookings', 'orders')
+                ->when($name, function ($q) use ($name) {
+                    return $q->where('name', 'ILIKE', '%' . $name . '%');
+                })
+                ->when($address, function ($q) use ($address) {
+                    return $q->where('address_1', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('address_2', 'ILIKE', '%' . $address . '%')
+                        ->orWhere('address_3', 'ILIKE', '%' . $address . '%');
+                })
+                ->when($phone_no, function ($q) use ($phone_no) {
+                    return $q->where('phone_no', 'LIKE', '%' . $phone_no . '%');
+                })
+                ->orderBy('id', 'ASC');
+        }
+
+        return $customers;
     }
 
     public function headings(): array
@@ -24,12 +50,18 @@ class CustomersExport implements FromCollection , WithHeadings , WithMapping
             '#',
             'Name',
             'Phone No',
-            'Address',
+            'Address 1',
+            'Address 2',
+            'Address 3',
+            'Postcode',
+            'City',
+            'State',
+            'Full Address(legacy)',
             'Total Bookings',
-            'Total Pnd',
             'Booking LTV',
-            'Pnd LTV',
             'Latest Booking',
+            'Total Pnd',
+            'Pnd LTV',
             'Latest Pnd'
         ];
     }
@@ -40,19 +72,25 @@ class CustomersExport implements FromCollection , WithHeadings , WithMapping
             $customer->id,
             $customer->name,
             $customer->phone_no ,
+            $customer->address_1,
+            $customer->address_2,
+            $customer->address_3,
+            $customer->postcode,
+            $customer->city,
+            $customer->location_state,
             $this->customerAddress($customer),
-            $customer->bookings()->count(),
-            money($customer->bookings()->sum('price')),
-            $customer->orders()->count(),
-            money($customer->orders()->sum('price')),
-            $this->latestBooking($customer->bookings()),
-            $this->latestOrder($customer->orders()),
+            count($customer->bookings),
+            money($customer->bookings->sum('price')),
+            $customer->bookings->max('event_begins'),
+            count($customer->orders),
+            money($customer->orders->sum('price')),
+            $customer->orders->max('created_at'),
         ];
     }
 
     public function customerAddress($customer){
         if (!is_null($customer->address_1) || !is_null($customer->address_2) || !is_null($customer->address_3) || !is_null($customer->postcode) || !is_null($customer->city) || !is_null($customer->location_state)) {
-            $address = $customer->fullAddress();
+            $address = '';
         } else {
             $booking = $customer->bookings->first();
             if ($booking) {
