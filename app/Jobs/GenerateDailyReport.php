@@ -41,6 +41,8 @@ class GenerateDailyReport implements ShouldQueue
     public function handle()
     {
         $sst = DailyReport::SST;
+        $ch_count = DailyReport::CHCOUNT;
+        $y_factor = DailyReport::YFACTOR;
         $idsRaw = DB::select("select distinct(bookings.id) from bookings
             left join agent_assignments on agent_assignments.booking_id = bookings.id
             where event_begins::date = '{$this->date->toDateString()}'::date
@@ -59,7 +61,7 @@ class GenerateDailyReport implements ShouldQueue
             $dailyReport = new DailyReport;
             $dailyReport->fill([
                 'date' => $this->date,
-                'y_factor' =>3.5,
+                'y_factor' => $y_factor,
                 'x_factor' => 14.15,
                 'invoice_ch_total_cku' => 0,
                 'invoice_ch_total_mcs' => 0,
@@ -70,7 +72,7 @@ class GenerateDailyReport implements ShouldQueue
                 'quotation_robin_total_cku' => 0,
                 'quotation_robin_total_mcs' => 0,
                 'jobs' => [],
-                'ch_count' => 8,
+                'ch_count' => $ch_count,
                 'robin_count' => 5,
                 'invoice_ch_prods' => 0,
                 'quotation_robin_prods' => 0,
@@ -100,7 +102,7 @@ class GenerateDailyReport implements ShouldQueue
                 ];
             } else {
                 $job = [
-                    'team' => implode(",\n", $booking->teams()),
+                    'team' => implode(",  ", $booking->teams()),
                     'team_type' => 'ch',
                     'booking_id' => $booking->id,
                     'customer_name' => $booking->customer->name,

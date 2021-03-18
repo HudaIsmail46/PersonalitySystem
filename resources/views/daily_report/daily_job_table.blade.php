@@ -13,8 +13,8 @@
                             <th rowspan="2">Team Type</th>
                             <th rowspan="2">Booking Id</th>
                             <th rowspan="2">Customer Name</th>
-                            <th colspan="2">Estimates</th>
-                            <th colspan="2">Actual</th>
+                            <th colspan="2" width='20%'>Estimates</th>
+                            <th colspan="2" width='20%'>Actual</th>
                         </tr>
                         <tr>
                             <th>CKU</th>
@@ -26,7 +26,7 @@
                     <tbody>
                         @foreach ($daily_report->jobs as $key=>$job)
                             <tr>
-                                <td>{{$key}}</td>
+                                <td>{{$key + 1}}</td>
                                 <td>{{ $job['team'] }}</td>
                                 <td>{{ $job['team_type'] }}</td>
                                 <td>

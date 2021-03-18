@@ -16,6 +16,8 @@ class DailyReport extends Model
     protected $casts = ['jobs' => 'array'];
 
     const SST = 1.06;
+    const CHCOUNT = 9;
+    const YFACTOR = 3.5;
 
     public function calculateProductivity()
     {

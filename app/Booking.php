@@ -430,7 +430,8 @@ class Booking extends Model
 
     public function teams()
     {
-        $assignments = $this->agentAsignments()->whereIn('agent_assignments.status', ['Accepted', 'Pending'])->get();
+        $assignments = $this->agentAsignments()->whereIn('agent_assignments.status', ['Accepted', 'Pending'])
+            ->orderBy('agent_assignments.status', 'asc')->get();
         $agents = [];
 
         foreach($assignments as $assignment)
