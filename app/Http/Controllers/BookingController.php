@@ -23,7 +23,7 @@ class BookingController extends AuthenticatedController
         $query = $parsedUrl['query'] ?? '';
 
         if ($query == '') {
-            $bookings = Booking::all();
+            $bookings = Booking::with('customer')->get();
         } else {
             parse_str($query, $output);
 
