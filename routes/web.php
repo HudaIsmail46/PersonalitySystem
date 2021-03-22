@@ -150,6 +150,7 @@ Route::get('/inhouse_cleaning/index', 'InHouseCleaningController@index')->name('
 
 Route::prefix('/follow_up')->name('follow_up.')->group(function () {
     Route::get('/index', 'FollowUpController@index')->name('index');
+    Route::get('/export', 'FollowUpController@fileExport')->name('file-export');
     Route::get('/{followUp}/edit', 'FollowUpController@edit')->name('edit');
     Route::put('/{followUp}', 'FollowUpController@update')->name('update');
 });

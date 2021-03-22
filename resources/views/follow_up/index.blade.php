@@ -1,4 +1,4 @@
-@extends ('layouts.app')
+    @extends ('layouts.app')
 
 
 @section ('content')
@@ -22,6 +22,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                            <h3 class="mb-0">Follow Up</h3>
+
+                                <form class='mb-0 ml-auto' action="{{ route('follow_up.file-export', [$followUps->withQueryString()])}}" method="get">
+                                    @csrf
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name ="submit" value ="Download">
+                                        Export All<i class="fa fa-download"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                         <div class='card-body'>
                             <form action="{{route('follow_up.index')}}" method="get">
                                 @csrf
@@ -45,7 +57,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        Sales Person: 
+                                        Sales Person:
                                         <select id="days" class="form-control form-control-sm" name="sales_person">
                                             <option value="">--Sales Person--</option>
                                             @foreach(App\FollowUp::SALES_PERSON as $sales_person)
