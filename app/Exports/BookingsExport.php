@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class BookingsExport implements FromCollection , WithHeadings, WithMapping
+class BookingsExport implements FromCollection, WithHeadings, WithMapping
 {
     public function __construct($bookings)
     {

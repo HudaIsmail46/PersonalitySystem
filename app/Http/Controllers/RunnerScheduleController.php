@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\Order;
 use App\State\Order\PendingPickupSchedule;
 use App\State\Order\PendingReturnSchedule;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RunnerJobExport;
 
 class RunnerScheduleController extends AuthenticatedController
 {
@@ -22,7 +24,7 @@ class RunnerScheduleController extends AuthenticatedController
     {
         $today = Carbon::today()->toDateTimeString();
         $tomorrow = Carbon::tomorrow()->toDateTimeString();
-     
+
         $previous_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->whereDate('scheduled_at', '<' , $today)->orderBy('id', 'ASC')->paginate(50);
         $runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->whereDate('scheduled_at', $today)->orderBy('id', 'ASC')->paginate(50);
         $future_runner_schedules = RunnerSchedule::with(['runnerJobs.order', 'runner'])->whereDate('scheduled_at' ,'>=', $tomorrow)->orderBy('id', 'ASC')->paginate(50);
@@ -72,6 +74,14 @@ class RunnerScheduleController extends AuthenticatedController
     {
         $runnerJobs = $runner_schedule->runnerJobs()->orderBy('scheduled_at')->get();
         return view('runner_schedule.show', compact('runner_schedule', 'runnerJobs'));
+    }
+
+    public function fileExport(RunnerSchedule $runner_schedule)
+    {
+        $runnerJobs = $runner_schedule->runnerJobs()->orderBy('scheduled_at')
+            ->with('order.customer', 'runnerSchedule.runner')->get();
+
+        return Excel::download(new RunnerJobExport($runnerJobs), 'runnerJob-CleanHero.csv');
     }
 
     /**
