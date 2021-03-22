@@ -9,11 +9,22 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\URL;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FollowUpExport;
 use Illuminate\Http\Request;
 
 class FollowUpController extends AuthenticatedController
 {
+
+    public function fileExport()
+    {
+        $parsedUrl = parse_url(URL::previous());
+        $query = $parsedUrl['query'] ?? '';
+
+        return Excel::download(new FollowUpExport($query), 'Follow Up-CleanHero.csv');
+    }
+
     /**
      * Display a listing of the resource.
      *
