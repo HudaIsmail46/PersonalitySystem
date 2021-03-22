@@ -99,6 +99,7 @@ Route::prefix('/runner_schedule')->name('runner_schedule.')->group(function () {
     Route::get('/create', 'RunnerScheduleController@create')->name('create');
     Route::post('/', 'RunnerScheduleController@store')->name('store');
     Route::get('/{runner_schedule}', 'RunnerScheduleController@show')->name('show');
+    Route::get('/{runner_schedule}/export', 'RunnerScheduleController@fileExport')->name('file-export');
     Route::get('/{runner_schedule}/edit', 'RunnerScheduleController@edit')->name('edit');
     Route::delete('/{runner_schedule}', 'RunnerScheduleController@destroy')->name('destroy');
     Route::put('/{runner_schedule}', 'RunnerScheduleController@update')->name('update');

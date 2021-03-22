@@ -75,7 +75,14 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="mb-0">Runner Job</h3>
+                        <div class="row">
+                            <h3 class="mb-0">Runner Job</h3>
+                            <a href={{route('runner_schedule.file-export', $runner_schedule->id)}}>
+                                <button class="btn btn-success btn-md ml-2 float-right">
+                                    Export List<i class="fa fa-download"></i>
+                                </button>
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
 
