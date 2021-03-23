@@ -138,9 +138,21 @@
                                     </div>
                                     <div class="ml-3 p-2">
                                         @if(!$order->paid_at)
-                                            <a href="{{route('pay', $order)}}"><span class="btn btn-primary float-right">Pay Now {{money($order->balance_to_pay())}}</span></a>
+                                            <a href="{{route('pay', $order)}}">
+                                                <span class="btn btn-primary float-right">
+                                                    Pay Now {{money($order->balance_to_pay())}}
+                                                </span>
+                                            </a>
+                                            <br>
                                         @endif
                                         <h3>Payment</h3>
+                                            @if(!$order->paid_at)
+                                                <span class="float-right">
+                                                    Cleanhero (M) Sdn Bhd
+                                                    <br>
+                                                    CIMB: 8603 558 004
+                                                </span>
+                                            @endif
                                         <div>
                                             <p><b> Deposit Detail :</b><br>
                                                 @if($order->deposit_paid_at)
