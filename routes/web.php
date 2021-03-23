@@ -265,3 +265,9 @@ Route::prefix('/daily_report')->name('daily_report.')->group(function(){
     Route::put('/{daily_report}', 'DailyReportsController@update')->name('update');
     Route::post('/refresh', 'DailyReportsController@reCalculate')->name('refresh');
 });
+
+##agent
+Route::prefix('/agent')->name('agent.')->group(function(){
+    Route::get('/', 'AgentController@index')->name('index');
+    Route::get('/{agent}', 'AgentController@show')->name('show');
+});

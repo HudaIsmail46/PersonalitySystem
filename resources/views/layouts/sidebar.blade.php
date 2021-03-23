@@ -448,6 +448,28 @@
                 </ul>
 
             {{-- @endcan --}}
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview menu-{{ request()->is('agent*') ? 'open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('agent*') ? 'active' : '' }}">
+
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Agents
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview bg-secondary rounded-lg">
+                        <li class="nav-item">
+                            <a href={{ route('agent.index') }}
+                                class="nav-link {{ request()->is('agent/') ? 'active' : '' }}">
+                                <i class="fas fa-users nav-icon"></i>
+                                <p>All Agents</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </nav>
     </div>
 </aside>
