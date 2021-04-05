@@ -93,7 +93,7 @@
                 </ul>
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-{{ request()->is('follow_up*') ? 'open' : '' }}">
-                        <a href="#" class="nav-link {{ request()->is('booking*') ? 'active' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('follow_up*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-people-arrows"></i>
                             <p>
                                 Follow Up
