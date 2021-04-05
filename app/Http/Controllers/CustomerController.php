@@ -76,7 +76,7 @@ class CustomerController extends AuthenticatedController
      */
     public function store(Request $request)
     {
-        $this->validateCustomers();
+        $this->validateCreateCustomers();
         $customer = new Customer;
         $customer->fill([
             'name' => $request->name,
@@ -113,7 +113,7 @@ class CustomerController extends AuthenticatedController
      */
     public function update(Request $request, Customer $customer)
     {
-        $this->validateCustomers();
+        $this->validateUpdateCustomers($customer->id);
 
         $customer->fill([
             'name' => $request->name,
@@ -142,11 +142,22 @@ class CustomerController extends AuthenticatedController
         return redirect()->route('customer.index')->with('Customer succesfully deleted.');
     }
 
-    protected function validateCustomers()
+    protected function validateCreateCustomers()
     {
         return request()->validate([
             'name' => 'required',
             'phone_no' => 'required|unique:customers',
+            'address_1' => 'required',
+            'postcode' => 'required',
+            'city' => 'required',
+            'location_state' => 'required',
+        ]);
+    }
+    protected function validateUpdateCustomers($id)
+    {
+        return request()->validate([
+            'name' => 'required',
+            'phone_no' => 'required|unique:customers,phone_no,' . $id,
             'address_1' => 'required',
             'postcode' => 'required',
             'city' => 'required',
