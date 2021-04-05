@@ -92,7 +92,7 @@
                                     <div class="col-md-4">
                                         <input class="form-control @error('price') is-invalid @enderror" type="number"
                                             name="price" id="price" step='.01'
-                                            value="{{old('price')?? $booking->price ?? ''}}" placeholder=" Actual Price (RM)">
+                                            value="{{old('price')?? $booking->price/100 ?? ''}}" placeholder=" Actual Price (RM)">
                                         <div class="invalid-feedback">{{ $errors->first('price') }}</div>
                                     </div>
                                 </div>

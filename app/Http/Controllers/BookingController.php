@@ -209,9 +209,11 @@ class BookingController extends AuthenticatedController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Booking $booking)
+    public function update(Request $request, Booking $booking)
     {
         $booking->update($this->validateUpdateBooking());
+        $booking->fill(['price'=> priceCents($request->price)]);
+        $booking->save();
 
         return redirect()->route('booking.show', $booking->id)->with('Booking updated successfully.');
     }
