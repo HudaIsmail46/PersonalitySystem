@@ -87,6 +87,9 @@
                                 </div>
                                     <button class="btn btn-primary mb-2 mt-2" type="submit">Search <i class="fa fa-search"></i></button>
                             </form>
+                            <div class="row ml-0">
+                                {{ $bookings->withQueryString()->links() }} <div class="ml-4 mt-2"> Records {{ $bookings->firstItem() }} - {{ $bookings->lastItem() }} of {{ $bookings->total() }}</div>
+                            </div>
                             <div class="table-responsive">
                                 @include('booking.table')
                                 {{ $bookings->withQueryString()->links() }}
