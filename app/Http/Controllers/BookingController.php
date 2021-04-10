@@ -39,7 +39,7 @@ class BookingController extends AuthenticatedController
             $insured = $output['insured'] ?? '';
 
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
-                ->join('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
+                ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
                 ->with('customer')
                 ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
                 ->when($name, function ($q) use ($name) {
@@ -95,7 +95,7 @@ class BookingController extends AuthenticatedController
         $insured = $request->insured;
 
         $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
-            ->join('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
+            ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
             ->with('customer')
             ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
             ->when($name, function ($q) use ($name) {
