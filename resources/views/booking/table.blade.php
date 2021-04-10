@@ -4,7 +4,7 @@
         <th>Customer</th>
         <th class="text-wrap" width='20%'>Address</th>
         <th>Event DateTime</th>
-        <th>Teams</th>
+        <th>Agents</th>
         <th></th>
     </tr>
     @foreach ($bookings as $booking)
