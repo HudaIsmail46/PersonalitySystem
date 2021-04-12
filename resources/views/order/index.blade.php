@@ -68,6 +68,9 @@
                                     </div>
                                 </div>
                             </form>
+                            <div class="row ml-0">
+                                {{ $orders->withQueryString()->links() }} <div class="ml-4 mt-2"> Records {{ $orders->firstItem() }} - {{ $orders->lastItem() }} of {{ $orders->total() }}</div>
+                            </div>
                             <div class="table-responsive">
                             <div id="OrderTable" data-proporders="{{ json_encode($orders) }}" data-canreopenorder="{{ json_encode($canReopenOrder) }}" data-customerservice="{{ json_encode($customerService)}}" data-cancreateorder="{{ json_encode($canCreateOrder)}}"></div>
                                 {{ $orders->withQueryString()->links() }}

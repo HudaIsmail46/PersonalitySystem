@@ -91,7 +91,9 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
+                                    <div class="row ml-0">
+                                        {{ $customers->withQueryString()->links() }} <div class="ml-4 mt-2"> Records {{ $customers->firstItem() }} - {{ $customers->lastItem() }} of {{ $customers->total() }}</div>
+                                    </div>
                                 </table>
                                 {{ $customers->withQueryString()->links() }}
                             </div>
