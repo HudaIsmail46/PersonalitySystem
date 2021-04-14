@@ -27,7 +27,8 @@ class BookingsExport implements FromCollection, WithHeadings, WithMapping
             'Address',
             'Event Begins',
             'Event Ends',
-            'Team'
+            'Team',
+            'Booking Status'
         ];
     }
 
@@ -36,11 +37,12 @@ class BookingsExport implements FromCollection, WithHeadings, WithMapping
         return [
             $booking->id,
             $booking->customer->name ?? '',
-            $booking->customer ? (String)$booking->customer->phone_no : '',
-            $booking->gc_address ?? $booking->fullAddress() ,
+            $booking->customer ? (string)$booking->customer->phone_no : '',
+            $booking->gc_address ?? $booking->fullAddress(),
             $booking->event_begins,
             $booking->event_ends,
-            $booking->team ,
+            $booking->team ?? $booking->teams() == NULL ? "Unassigned" :  implode("\n", $booking->teams()),
+            $booking->status
         ];
     }
 }

@@ -40,7 +40,7 @@ class BookingController extends AuthenticatedController
 
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
                 ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
-                ->with('customer')
+                ->with('customer', 'agentAsignments')
                 ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
                 ->when($name, function ($q) use ($name) {
                     return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
@@ -71,7 +71,7 @@ class BookingController extends AuthenticatedController
                         ->orWhere('bookings.city', 'ILIKE', '%' . $address . '%')
                         ->orWhere('bookings.location_state', 'ILIKE', '%' . $address . '%');
                 })
-                ->orderBy('event_begins', 'DESC')->get();
+                ->orderBy('event_begins', 'DESC')->get()->unique();
         }
         return Excel::download(new BookingsExport($bookings), 'bookings-CleanHero.csv');
     }
@@ -96,7 +96,7 @@ class BookingController extends AuthenticatedController
 
         $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
             ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
-            ->with('customer')
+            ->with('customer', 'agentAsignments')
             ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
             ->when($name, function ($q) use ($name) {
                 return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
