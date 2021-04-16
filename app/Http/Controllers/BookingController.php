@@ -5,11 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Booking;
 use App\Customer;
-use App\InvoicePayment;
 use App\Exports\BookingsExport;
-use App\Invoice;
-use App\InvoiceItem;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\IssueInsurance;
@@ -35,11 +31,11 @@ class BookingController extends AuthenticatedController
             $agent   = $output['agent'];
             $address = $output['address'];
             $service_type = $output['service_type'];
-            $corporate = $output['service_type'] == "COM" ? "CORP": "COM";
+            $corporate = $output['service_type'] == "COM" ? "CORP" : "COM";
             $insured = $output['insured'] ?? '';
 
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
-                ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
+                ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=', 'bookings.id')
                 ->with('customer', 'agentAsignments')
                 ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
                 ->when($name, function ($q) use ($name) {
@@ -49,7 +45,7 @@ class BookingController extends AuthenticatedController
                     return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
                 })
                 ->when($id, function ($q) use ($id) {
-                    return $q->where('bookings.id',$id);
+                    return $q->where('bookings.id', $id);
                 })
                 ->when($start, function ($q) use ($start, $end) {
                     return $q->whereBetween('event_begins', [$start, $end]);
@@ -91,13 +87,13 @@ class BookingController extends AuthenticatedController
         $agent   = $request->agent;
         $address = $request->address;
         $service_type = $request->service_type;
-        $corporate = $request->service_type == "COM" ? "CORP": "COM";
+        $corporate = $request->service_type == "COM" ? "CORP" : "COM";
         $insured = $request->insured;
 
         $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
-            ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=','bookings.id')
+            ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=', 'bookings.id')
             ->with('customer', 'agentAsignments')
-            ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
+            ->select('bookings.id', 'bookings.*', 'customers.name', 'customers.phone_no')
             ->when($name, function ($q) use ($name) {
                 return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
             })
@@ -105,10 +101,10 @@ class BookingController extends AuthenticatedController
                 return $q->where('customers.phone_no', 'LIKE', '%' . $phone . '%');
             })
             ->when($id, function ($q) use ($id) {
-                return $q->where('bookings.id',$id);
+                return $q->where('bookings.id', $id);
             })
             ->when($start, function ($q) use ($start, $end) {
-                return $q->whereBetween('event_begins', [$start, $end]);
+                return $q->whereDate('event_begins','>=', $start)->whereDate('event_begins','<=', $end);
             })
             ->when($agent, function ($q) use ($agent) {
                 return $q->where('agent_assignments.agent_id', $agent);
@@ -127,9 +123,11 @@ class BookingController extends AuthenticatedController
                     ->orWhere('bookings.city', 'ILIKE', '%' . $address . '%')
                     ->orWhere('bookings.location_state', 'ILIKE', '%' . $address . '%');
             })
-            ->orderBy('event_begins', 'DESC')->paginate(20);
+            ->orderBy('event_begins', 'DESC')
+            ->groupBy('bookings.id', 'customers.name', 'customers.phone_no')
+            ->paginate(20);
 
-        $agents = Agent::get();
+        $agents = Agent::orderBy('fullname')->get();
 
         return view('booking.index', compact('bookings', 'agents'))
             ->with('i', ($bookings->get('page', 1) - 1) * 5);
@@ -212,7 +210,7 @@ class BookingController extends AuthenticatedController
     public function update(Request $request, Booking $booking)
     {
         $booking->update($this->validateUpdateBooking());
-        $booking->fill(['price'=> priceCents($request->price)]);
+        $booking->fill(['price' => priceCents($request->price)]);
         $booking->save();
 
         return redirect()->route('booking.show', $booking->id)->with('Booking updated successfully.');
