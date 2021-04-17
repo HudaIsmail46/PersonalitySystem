@@ -57,7 +57,7 @@
                         @if ($assignment->status == 'Pending')
                             <span class="badge bg-info text-dark">Pending</span>
                         @elseif ($assignment->status == 'Accepted')
-                            <span class="badge bg-primary">Accepted</span>
+                            <span class="badge bg-success">Accepted</span>
                         @elseif ($assignment->status == 'Declined')
                             <span class="badge bg-danger">Declined</span>
                         @elseif ($assignment->status == 'Cancelled')
