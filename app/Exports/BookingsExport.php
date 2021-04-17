@@ -42,9 +42,28 @@ class BookingsExport implements FromCollection, WithHeadings, WithMapping
             $booking->gc_address ?? $booking->fullAddress(),
             $booking->event_begins,
             $booking->event_ends,
-            $booking->team ?? $booking->teams() == NULL ? "Unassigned" :  implode("\n", $booking->teams()),
+            $this->displayAgents($booking),
             $booking->status,
             $booking->invoice_number
         ];
+    }
+
+    public function displayAgents($booking)
+    {
+
+        if ($booking->team == "" && $booking->status != "Unassigned") {
+            if (count($booking->teams()) == 0) {
+                $agents = "Unassigned";
+            } else {
+                $agents = implode("\n", $booking->teams());
+            }
+        } elseif ($booking->status == "Unassigned") {
+            $agents = "Unassigned";
+        } else {
+            $agents = $booking->team;
+        }
+
+
+        return $agents;
     }
 }
