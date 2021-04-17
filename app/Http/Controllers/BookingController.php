@@ -37,7 +37,7 @@ class BookingController extends AuthenticatedController
             $bookings = Booking::join('customers', 'customers.id', '=', 'bookings.customer_id')
                 ->leftJoin('agent_assignments', 'agent_assignments.booking_id', '=', 'bookings.id')
                 ->with('customer', 'agentAsignments')
-                ->select('bookings.*', 'customers.name', 'customers.phone_no', 'agent_assignments.agent_id')
+                ->select('bookings.id', 'bookings.*', 'customers.name', 'customers.phone_no')
                 ->when($name, function ($q) use ($name) {
                     return $q->where('customers.name', 'ILIKE', '%' . $name . '%');
                 })
@@ -48,7 +48,7 @@ class BookingController extends AuthenticatedController
                     return $q->where('bookings.id', $id);
                 })
                 ->when($start, function ($q) use ($start, $end) {
-                    return $q->whereBetween('event_begins', [$start, $end]);
+                    return $q->whereDate('event_begins', '>=', $start)->whereDate('event_begins', '<=', $end);
                 })
                 ->when($agent, function ($q) use ($agent) {
                     return $q->where('agent_assignments.agent_id', $agent);
@@ -104,7 +104,7 @@ class BookingController extends AuthenticatedController
                 return $q->where('bookings.id', $id);
             })
             ->when($start, function ($q) use ($start, $end) {
-                return $q->whereDate('event_begins','>=', $start)->whereDate('event_begins','<=', $end);
+                return $q->whereDate('event_begins', '>=', $start)->whereDate('event_begins', '<=', $end);
             })
             ->when($agent, function ($q) use ($agent) {
                 return $q->where('agent_assignments.agent_id', $agent);

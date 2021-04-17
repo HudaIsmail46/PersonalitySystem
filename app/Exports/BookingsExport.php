@@ -28,7 +28,8 @@ class BookingsExport implements FromCollection, WithHeadings, WithMapping
             'Event Begins',
             'Event Ends',
             'Team',
-            'Booking Status'
+            'Booking Status',
+            'Invoice No'
         ];
     }
 
@@ -42,7 +43,8 @@ class BookingsExport implements FromCollection, WithHeadings, WithMapping
             $booking->event_begins,
             $booking->event_ends,
             $booking->team ?? $booking->teams() == NULL ? "Unassigned" :  implode("\n", $booking->teams()),
-            $booking->status
+            $booking->status,
+            $booking->invoice_number
         ];
     }
 }
