@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use \Spatie\Permission\Models\Role;
 
-class UserController extends AuthenticatedController
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,17 +37,17 @@ class UserController extends AuthenticatedController
      */
     public function store(Request $request)
     {
-        $this->validateCreateUser();
-        $user = new User;
-        $user->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_no' => formatPhoneNo($request->phone_no),
-            'password' => Hash::make($request->password)
-        ]);
-        $user->save();
+        // $this->validateCreateUser();
+        // $user = new User;
+        // $user->fill([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'phone_no' => formatPhoneNo($request->phone_no),
+        //     'password' => Hash::make($request->password)
+        // ]);
+        // $user->save();
 
-        return redirect()->route('user.show', $user->id)->with('User is created.');
+        // return redirect()->route('user.show', $user->id)->with('User is created.');
     }
 
     /**
@@ -60,7 +58,7 @@ class UserController extends AuthenticatedController
      */
     public function show(User $user)
     {
-        return view('user.show', compact('user'));
+        // return view('user.show', compact('user'));
     }
 
     /**
@@ -71,8 +69,8 @@ class UserController extends AuthenticatedController
      */
     public function edit(User $user)
     {
-        $all_roles = Role::all()->pluck('name');
-        return view('user.edit', compact('user', 'all_roles'));
+        // $all_roles = Role::all()->pluck('name');
+        // return view('user.edit', compact('user', 'all_roles'));
     }
 
     /**
@@ -84,17 +82,17 @@ class UserController extends AuthenticatedController
      */
     public function update(Request $request, User $user)
     {
-        $roles = $request->roles;
-        $user->syncRoles($roles);
-        $this->validateUpdateUser();
+        // $roles = $request->roles;
+        // $user->syncRoles($roles);
+        // $this->validateUpdateUser();
         
-        $user->fill([
-            'name' => $request->name,
-            'phone_no' => formatPhoneNo($request->phone_no)
-        ]);
+        // $user->fill([
+        //     'name' => $request->name,
+        //     'phone_no' => formatPhoneNo($request->phone_no)
+        // ]);
 
-        $user->save();
-        return redirect()->route('user.show', $user->id)->with('User details updated.');
+        // $user->save();
+        // return redirect()->route('user.show', $user->id)->with('User details updated.');
     }
 
     /**
@@ -105,9 +103,9 @@ class UserController extends AuthenticatedController
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        // $user->delete();
 
-        return redirect()->route('user.index')->with('User is deleted.');
+        // return redirect()->route('user.index')->with('User is deleted.');
     }
 
     protected function validateCreateUser()
