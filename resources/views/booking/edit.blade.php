@@ -102,7 +102,7 @@
                                 <label class="label" for="receipt_number">Receipt Number </label>
                                 <div class="form-group row ">
                                     <div class="col-md-4">
-                                        <input class="form-control @error('receipt_number') is-invalid @enderror" type="number"
+                                        <input class="form-control @error('receipt_number') is-invalid @enderror" type="text"
                                             name="receipt_number" id="receipt_number"
                                             value="{{old('receipt_number')?? $booking->receipt_number ?? ''}}" placeholder=" Receipt Number">
                                         <div class="invalid-feedback">{{ $errors->first('receipt_number') }}</div>
@@ -114,7 +114,7 @@
                                 <label class="label" for="invoice_number">Invoice Number </label>
                                 <div class="form-group row ">
                                     <div class="col-md-4">
-                                        <input class="form-control @error('invoice_number') is-invalid @enderror" type="number"
+                                        <input class="form-control @error('invoice_number') is-invalid @enderror" type="text"
                                             name="invoice_number" id="invoice_number"
                                             value="{{old('invoice_number')?? $booking->invoice_number ?? ''}}" placeholder=" Invoice Number">
                                         <div class="invalid-feedback">{{ $errors->first('invoice_number') }}</div>
