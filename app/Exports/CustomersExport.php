@@ -80,10 +80,10 @@ class CustomersExport implements FromQuery, WithHeadings, WithMapping
             $customer->location_state,
             $this->customerAddress($customer),
             count($customer->bookings),
-            money($customer->bookings->sum('price')),
+            "MYR ".number_format($customer->bookings->sum('price')/100, 2),
             $customer->bookings->max('event_begins'),
             count($customer->orders),
-            money($customer->orders->sum('price')),
+            "MYR ".number_format($customer->orders->sum('price')/100, 2),
             $customer->orders->max('created_at'),
         ];
     }
