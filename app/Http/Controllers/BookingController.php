@@ -265,8 +265,8 @@ class BookingController extends AuthenticatedController
     {
         return request()->validate([
             'price' => 'required',
-            'invoice_number' => 'max:10',
-            'receipt_number' => 'max:6',
+            'invoice_number' => 'max:8',
+            'receipt_number' => 'max:8',
             'status' => 'required'
         ]);
     }
