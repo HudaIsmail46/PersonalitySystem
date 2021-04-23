@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href={{ route('home') }} class="brand-link">
-        <img src={{ asset('img/um-logo.png') }} alt="University Malaya Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src={{ asset('img/logo-um.png') }} alt="University Malaya Logo"
+            class="brand-image img-square elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">University Malaya</span>
     </a>
     <div class="sidebar">

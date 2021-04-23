@@ -20,6 +20,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/students_register', function () {
+    return view('register_student');
+});
+
+Route::get('/students_details', function () {
+    return view('details_student');
+});
+
+Route::get('/start_test', function () {
+    return view('test');
+});
+
+Route::get('/test/page/2', function () {
+    return view('test2');
+});
+
+Route::get('/result', function () {
+    return view('result');
+});
+
 Route::get('/logout', function () {
     auth()->logout();
 

@@ -23,17 +23,47 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
+                <div class="col-lg-6">
+                    <div class="card card-outline card-primary collapsed-card">
                         <div class="card-header">
-                            <h5 class="card-title"></h5>
+                            <h3 class="card-title">Students Analysis by Faculty</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool mt-0" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
                         </div>
-                        <div class="card-body">
-                            {{-- <canvas id="todayTeamSales" config="{{$todayTeamSalesChart}}"></canvas> --}}
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: none;">
+                            <img src={{ asset('img\Faculty-chart.png') }} class="w-100">
                         </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="card card-outline card-primary collapsed-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Students Analysis by Department</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool mt-0" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: none;">
+                            <img src={{ asset('img\Department-chart.png') }} class="w-100">
+                        </div>
+                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
