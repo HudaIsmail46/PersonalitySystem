@@ -91,6 +91,11 @@ class QuestionController extends Controller
         return redirect()->route('question.index')->with('question succesfully deleted.');
     }
 
+    public function settings()
+    {
+        return view('question.settings');
+    }
+
     protected function validateQuestions()
     {
         return request()->validate([

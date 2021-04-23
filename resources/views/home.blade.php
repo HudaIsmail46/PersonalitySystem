@@ -20,34 +20,20 @@
 
     <!-- Main content -->
 
-    @if(!Auth::user()->hasRole(['Runner', 'Vendor']))
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title">Today Team Sales</h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="todayTeamSales" config="{{$todayTeamSalesChart}}"></canvas>
-                            </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"></h5>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class='col-lg-12'>
-                        <div class="card ">
-                            <div class="card-header">
-                                <h5 class="card-title">Monthly Bookings</h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="monthlyBooking" config="{{$monthlyBookingChart}}"></canvas>
-                            </div>
+                        <div class="card-body">
+                            {{-- <canvas id="todayTeamSales" config="{{$todayTeamSalesChart}}"></canvas> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 @endsection
