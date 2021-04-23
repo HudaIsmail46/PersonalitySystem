@@ -10,7 +10,7 @@
         <td>
             1
         </td>
-        <td>
+        <td class="text-left">
             Assessment Report by Faculty
         </td>
         <td>
@@ -27,7 +27,7 @@
         <td>
             2
         </td>
-        <td>
+        <td class="text-left">
             Assessment Report by Department
         </td>
         <td>
@@ -44,7 +44,7 @@
         <td>
             3
         </td>
-        <td>
+        <td class="text-left">
             Assessment Report by Programme
         </td>
         <td>
