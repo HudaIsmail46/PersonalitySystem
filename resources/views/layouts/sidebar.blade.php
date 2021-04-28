@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-purple elevation-4">
     <a href={{ route('home') }} class="brand-link">
         <img src={{ asset('img/logo-um.png') }} alt="University Malaya Logo"
             class="brand-image img-square elevation-3" style="opacity: .8">
@@ -110,7 +110,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item has-treeview menu-{{ request()->is('report*') ? 'open' : '' }}">
                 <a href="#" class="nav-link {{ request()->is('report*') ? 'active' : '' }}">
-                    <i class="fas fa-file nav-icon"></i>
+                    <i class="fas fa-file-alt nav-icon"></i>
                     <p>
                         Reports
                         <i class="right fas fa-angle-left"></i>
@@ -131,6 +131,17 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+        </ul>
+        <ul class="nav nav-pills nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href="{{ route('result.index') }}"
+                    class="nav-link {{ request()->is('result/index') ? 'active' : '' }}">
+                    <i class=" fas fa-file nav-icon"></i>
+                    <p>
+                        Students Results
+                    </p>
+                </a>
             </li>
         </ul>
     </div>

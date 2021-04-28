@@ -27,11 +27,10 @@
                 <!-- Menu Body -->
                 <!-- Menu Footer-->
                 <li class="user-footer cc_cursor">
-                    <a href="/profile" class="btn btn-default btn-flat cc_pointer">Profile</a>
+                    <a href="{{ route('user.profile') }}" class="btn btn-default btn-flat cc_pointer">Profile</a>
                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out
                     </a>
-                    {{-- <a href="#" class="btn btn-default btn-flat float-right">Sign out</a> --}}
                 </li>
             </ul>
         </li>

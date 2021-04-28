@@ -34,6 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 ## User CRUD
 Route::prefix('/user')->name('user.')->group(function () {
     Route::get('/index', 'UsersController@index')->name('index');
+    Route::get('/profile', 'UsersController@profile')->name('profile');
     Route::get('/create', 'UsersController@create')->name('create');
     Route::post('/', 'UsersController@store')->name('store');
     Route::get('/{user}', 'UsersController@show')->name('show');
@@ -87,22 +88,16 @@ Route::prefix('/test')->name('test.')->group(function () {
     Route::get('/result', 'TestController@show')->name('results.show');
 });
 
+## Results
+Route::prefix('/result')->name('result.')->group(function () {
+    Route::get('/index', 'ResultController@index')->name('index');
+    Route::get('/show', 'ResultController@index2')->name('show');
+});
+
 Route::get('/students_register', function () {
     return view('register_student');
 });
 
 Route::get('/students_details', function () {
     return view('details_student');
-});
-
-Route::get('/start_test', function () {
-    return view('test');
-});
-
-Route::get('/test/page/2', function () {
-    return view('test2');
-});
-
-Route::get('/result', function () {
-    return view('result');
 });
