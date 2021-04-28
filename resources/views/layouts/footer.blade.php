@@ -1,8 +1,8 @@
 <footer class="main-footer">
 	<div class="float-right d-none d-sm-inline">
-		Clean Hero (M) Sdn Bhd
+		University Malaya
 	</div>
 	<!-- Default to the left -->
-	<strong>Copyright &copy; 2020<a href="https://cleanhero.com.my">Cleanhero (M) Sdn Bhd</a>.</strong> All rights
+	<strong>Copyright &copy; 2021<a href="https://www.um.edu.my"> University Malaya </a>. </strong>  All rights
 	reserved.
 </footer>

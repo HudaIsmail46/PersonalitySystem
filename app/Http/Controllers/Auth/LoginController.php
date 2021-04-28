@@ -26,25 +26,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected function redirectTo()
-    {
-        if(auth()->user()->hasRole('Runner')){
-            return route('external.runner.index');
-        }
-        elseif(auth()->user()->hasRole('Vendor')){
-            return route('external.order.index');
-        }
-    
-        return route('home');
-    }
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
 }

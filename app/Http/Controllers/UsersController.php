@@ -12,7 +12,12 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function profile()
+    {
+        return view('user.profile');
+    }
+
+     public function index()
     {
         // $users = User::orderBy('id', 'ASC')->paginate(50);
 

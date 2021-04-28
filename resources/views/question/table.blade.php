@@ -11,7 +11,7 @@
         <td>
             1
         </td>
-        <td>
+        <td class="text-left">
             Honesty is a significant part of my identity
         </td>
         <td>
@@ -30,7 +30,7 @@
         <td>
             2
         </td>
-        <td>
+        <td class="text-left">
             I am an honest person        
         </td>
         <td>
@@ -49,7 +49,7 @@
         <td>
             3
         </td>
-        <td>
+        <td class="text-left">
             It is important for me to be honest all of the time
         </td>
         <td>
