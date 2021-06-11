@@ -52,8 +52,16 @@
                     <!-- /.col -->
                 </form>
 
-                <a href="login.html" class="text-center">I already have an account</a>
-            </div>
+                <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-danger">
+                      <i class="fab fa-google-plus mr-2"></i>
+                      Sign up using Siswamail
+                    </a>
+                  </div>
+
+                  <a href="{{ route('login') }}" class="text-center">I already have an account</a>
+                </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
     </div>

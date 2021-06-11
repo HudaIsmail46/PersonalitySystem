@@ -28,7 +28,15 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Result</h5>
+                                    <div class="row">
+                                        <h3 class="mb-0">Result Detail</h3>
+
+                                        <form class='mb-0 ml-auto' action="#" method="get">
+                                            @csrf
+                                            <button class="btn btn-md ml-2 float-right" type="submit" name="submit"
+                                                value="setting"> <i class="fas fa-download"></i></button>
+                                        </form>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <p><b>Matric Number: 17135692/1</b></p>
@@ -50,9 +58,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-left">Your score is in the bottom 10 percent of the students<br>
-                                                population; 90% of the students have higher scores. It<br>
-                                                seems that you should make improving integrity a priority.
+                                            <td class="text-left">Your score is in the bottom 10 percent of the students
+                                                population; 90% of the students have higher scores. It seems that you
+                                                should
+                                                make improving integrity a priority.
                                             </td>
                                         </tr>
                                         <tr>
@@ -65,12 +74,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-left">Your score, while not too high, is in the upper half of
-                                                the<br>
-                                                student population. You may work on creativity after paying <br>
-                                                attention to lower rated readiness dimesion where applicable.<br>
-
-
+                                            <td class="text-left">Your score, while not too high, is in the upper half
+                                                of
+                                                the student population. You may work on creativity after paying
+                                                attention to
+                                                lower rated readiness dimesion where applicable.
                                             </td>
                                         </tr>
 

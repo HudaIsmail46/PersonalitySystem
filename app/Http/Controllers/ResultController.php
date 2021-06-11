@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Report;
+use App\Result;
 use Illuminate\Http\Request;
 
-class ReportController extends Controller
+class ResultController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view('report.index');
+        return view('result.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        return view('report.create');
+        return view('result.create');
     }
 
     /**
@@ -41,10 +41,10 @@ class ReportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Report  $report
+     * @param  \App\result  $result
      * @return \Illuminate\Http\Response
      */
-    public function show(Report $report)
+    public function show(Result $result)
     {
         //
     }
@@ -52,10 +52,10 @@ class ReportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Report  $report
+     * @param  \App\result  $result
      * @return \Illuminate\Http\Response
      */
-    public function edit(Report $report)
+    public function edit(Result $result)
     {
         //
     }
@@ -64,10 +64,10 @@ class ReportController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Report  $report
+     * @param  \App\result  $result
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Report $report)
+    public function update(Request $request, Result $result)
     {
         //
     }
@@ -75,10 +75,10 @@ class ReportController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Report  $report
+     * @param  \App\result  $result
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Report $report)
+    public function destroy(Result $result)
     {
         //
     }

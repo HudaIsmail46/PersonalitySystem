@@ -6,9 +6,8 @@
 
 require('./bootstrap');
 require('./adminlte');
-require('./chart');
-require('./dropzoneForm');
-require('./calculateSize');
+// require('./chart');
+// require('./dropzoneForm');
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -16,8 +15,3 @@ require('./calculateSize');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/RunnerJobEdit');
-require('./components/OrderTable');
-require('./components/OrderStateQuickChange');
-require('./components/SelectCustomer');
-require('./components/AddItem');

@@ -16,9 +16,14 @@ class UserController extends AuthenticatedController
      */
     public function index()
     {
-        // $users = User::orderBy('id', 'ASC')->paginate(50);
+        $users = User::orderBy('id', 'ASC')->paginate(50);
 
-        return view('user.index');
+        return view('user.index', compact('users'));
+    }
+
+    public function profile()
+    {
+        return view('user.profile');
     }
 
     /**
@@ -44,12 +49,12 @@ class UserController extends AuthenticatedController
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_no' => formatPhoneNo($request->phone_no),
+            // 'phone_no' => formatPhoneNo($request->phone_no),
             'password' => Hash::make($request->password)
         ]);
         $user->save();
 
-        return redirect()->route('user.show', $user->id)->with('User is created.');
+        return redirect()->route('user.index')->with('User is created.');
     }
 
     /**
@@ -71,8 +76,8 @@ class UserController extends AuthenticatedController
      */
     public function edit(User $user)
     {
-        $all_roles = Role::all()->pluck('name');
-        return view('user.edit', compact('user', 'all_roles'));
+        // $all_roles = Role::all()->pluck('name');
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -84,17 +89,17 @@ class UserController extends AuthenticatedController
      */
     public function update(Request $request, User $user)
     {
-        $roles = $request->roles;
-        $user->syncRoles($roles);
+        // $roles = $request->roles;
+        // $user->syncRoles($roles);
         $this->validateUpdateUser();
         
         $user->fill([
             'name' => $request->name,
-            'phone_no' => formatPhoneNo($request->phone_no)
+            // 'phone_no' => formatPhoneNo($request->phone_no)
         ]);
 
         $user->save();
-        return redirect()->route('user.show', $user->id)->with('User details updated.');
+        return redirect()->route('user.index')->with('User details updated.');
     }
 
     /**
@@ -115,7 +120,7 @@ class UserController extends AuthenticatedController
         return request()->validate([
             'name' => 'required',
             'email' => 'email|required|unique:users',
-            'phone_no' => 'required',
+            // 'phone_no' => 'required',
             'password' => 'required|string|min:8|confirmed'
         ]);
     }
@@ -124,7 +129,8 @@ class UserController extends AuthenticatedController
     {
         return request()->validate([
             'name' => 'required',
-            'phone_no' => 'required'
+            'email' => 'email|required',
+            // 'phone_no' => 'required'
         ]);
     }
 }
