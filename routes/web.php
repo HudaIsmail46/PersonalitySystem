@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('home');
+    }
     return view('welcome');
 });
 
@@ -27,20 +30,22 @@ Route::get('/logout', function () {
     return 'You are now logged out';
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => true
+]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 ## User CRUD
 Route::prefix('/user')->name('user.')->group(function () {
-    Route::get('/index', 'UsersController@index')->name('index');
-    Route::get('/profile', 'UsersController@profile')->name('profile');
-    Route::get('/create', 'UsersController@create')->name('create');
-    Route::post('/', 'UsersController@store')->name('store');
-    Route::get('/{user}', 'UsersController@show')->name('show');
-    Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
-    Route::delete('/{user}', 'UsersController@destroy')->name('destroy');
-    Route::put('/{user}', 'UsersController@update')->name('update');
+    Route::get('/index', 'UserController@index')->name('index');
+    Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::get('/create', 'UserController@create')->name('create');
+    Route::post('/', 'UserController@store')->name('store');
+    Route::get('/{user}', 'UserController@show')->name('show');
+    Route::get('/{user}/edit', 'UserController@edit')->name('edit');
+    Route::delete('/{user}', 'UserController@destroy')->name('destroy');
+    Route::put('/{user}', 'UserController@update')->name('update');
 });
 
 ## Student CRUD
@@ -68,14 +73,15 @@ Route::prefix('/question')->name('question.')->group(function () {
 });
 
 ## Report CRUD
-Route::prefix('/report')->name('report.')->group(function () {
-    Route::get('/index', 'ReportController@index')->name('index');
-    Route::get('/create', 'ReportController@create')->name('create');
-    Route::post('/', 'ReportController@store')->name('store');
-    Route::get('/{report}', 'ReportController@show')->name('show');
-    Route::get('/{report}/edit', 'ReportController@edit')->name('edit');
-    Route::delete('/{report}', 'ReportController@destroy')->name('destroy');
-    Route::put('/{report}', 'ReportController@update')->name('update');
+Route::prefix('/result')->name('result.')->group(function () {
+    Route::get('/index', 'ResultController@index')->name('index');
+    Route::get('/create', 'ResultController@create')->name('create');
+    Route::post('/', 'ResultController@store')->name('store');
+    Route::get('/{result}', 'ResultController@show')->name('show');
+    Route::get('/{result}/export', 'ResultController@export')->name('export');
+    Route::get('/{result}/edit', 'ResultController@edit')->name('edit');
+    Route::delete('/{result}', 'ResultController@destroy')->name('destroy');
+    Route::put('/{result}', 'ResultController@update')->name('update');
 });
 
 ## Personality Assessment

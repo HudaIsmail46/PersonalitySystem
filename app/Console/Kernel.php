@@ -23,14 +23,6 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('expired_follow_up:update')
-            ->dailyAt('01:00');
-
-        $schedule->command('follow_up_sms:send')
-            ->dailyAt('11:00');
-
-        $schedule->command('job_reminder:send')
-            ->dailyAt('17:00');
     }
     /**
      * Register the commands for the application.

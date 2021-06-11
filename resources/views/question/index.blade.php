@@ -25,12 +25,16 @@
                         <div class="card-header">
                             <div class="row">
                                 <h3 class="mb-0">Question Detail</h3>
-
-                                <form class='mb-0 ml-auto' action="{{ route('question.settings') }}" method="get"> 
+                                <form class='mb-0 ml-auto' action="{{ route('question.create') }}" method="get">
                                     @csrf
-                                    <button class="btn btn-md ml-2 float-right" type="submit" name="submit"
-                                        value="setting"> <i class="fas fa-cog color-blue"></i></button>
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit" value="create">
+                                        Add New Questions <i class="fas fa-plus"> </i></button>
                                 </form>
+                                {{-- <form class='mb-0 ml-auto' action="{{ route('question.settings') }}" method="get"> 
+                                    @csrf
+                                    <button class="btn btn-md ml-2" type="submit" name="submit"
+                                        value="setting"> <i class="fas fa-cog color-blue"></i></button>
+                                </form> --}}
                             </div>
                         </div>
                         <div class="card-body">

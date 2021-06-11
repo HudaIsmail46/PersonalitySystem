@@ -2,7 +2,7 @@
 
 @section('title', 'Page Title')
 
-    <title>Create User</title>
+    <title>Update User</title>
     
 @section('content')
 <div class="content">
@@ -10,13 +10,13 @@
         <div class="row">
             <div class="col-md-6 card mt-4">
                 <div class="card-header">
-                    <h3 class="mb-0">Create User</h3>
+                    <h3 class="mb-0">Update User</h3>
                 </div>
                 <div class="inner">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('user.store')}}">
+                        <form method="POST" action="{{ route('user.update', $user->id)}}">
                             @csrf
-                            @method('POST')
+                            @method('PUT')
                             <div class="field" id="form">
                                 <div class="field">
                                     <label class="label" for="name">Name <span class="text-danger">*</span></label>
@@ -24,7 +24,7 @@
                                         <div class="col-xs-4">
                                             <input class="form-control @error('name') is-invalid @enderror"
                                                 type="text" name="name" id="name"
-                                                value="{{ old('name') }}" placeholder="Name">
+                                                value="{{ $user->name ?? old('name') }}" placeholder="Name">
                                             <div class="invalid-feedback">{{ $errors->first('name') }}</div>
                                         </div>
                                     </div>
@@ -35,7 +35,7 @@
                                         <div class="col-xs-4">
                                             <input class="form-control @error('email') is-invalid @enderror"
                                                 type="text" name="email" id="email"
-                                                value="{{ old('email') }}" placeholder="Email">
+                                                value="{{ $user->email ?? old('email') }}" placeholder="Email">
                                             <div class="invalid-feedback">{{ $errors->first('email') }}</div>
                                         </div>
                                     </div>
@@ -51,28 +51,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                <div class="field">
-                                    <label class="label" for="password">Password <span class="text-danger">*</span></label>
-                                    <div class="form-group row mx-0">
-                                        <div class="col-xs-4">
-                                            <input class="form-control @error('password') is-invalid @enderror"
-                                                type="password" name="password" id="password"
-                                                value="{{ old('password') }}" placeholder="Password">
-                                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label" for="password_confirmation">Password Confirmation <span class="text-danger">*</span></label>
-                                    <div class="form-group row mx-0">
-                                        <div class="col-xs-4">
-                                            <input class="form-control @error('password_confirmation') is-invalid @enderror"
-                                                type="password" name="password_confirmation" id="password_confirmation"
-                                                value="{{ old('password_confirmation') }}" placeholder="Password Confirmation">
-                                            <div class="invalid-feedback">{{ $errors->first('password_confirmation') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </form>

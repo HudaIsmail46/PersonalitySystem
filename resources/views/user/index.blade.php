@@ -22,7 +22,16 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="mb-0">All Users</h3>
+                            <div class="row">
+
+                                <h3 class="mb-0">All Users</h3>
+
+                                <form class='mb-0 ml-auto' action="{{ route('user.create') }}" method="get">
+                                    @csrf
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit" value="create">
+                                        Register New User <i class="fas fa-plus"> </i></button>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -35,17 +44,28 @@
                                         <th>Role</th>
                                         <th>Action</th>
                                     </tr>
-                                    {{-- @foreach ($users as $user) --}}
+                                    @foreach ($users as $user)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Me</td>
-                                        <td>0123456789</td>
-                                        <td>test@siswa.um.edu.my</td>
-                                        <td>Admin</td>
-                                        <td><a href="" class='btn btn-primary mr-2'> <i class=" fas fa-edit"></i></a></td>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->phone_no}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td></td>
+                                        <td>
+                                            <div class="row d-flex justify-content-center">
+                                                <a href={{route('user.show', $user->id)}}><button class='btn btn-success mr-2'><i class="fas fa-eye"></i></button></a>
+                                                <a href={{route('user.edit', $user->id)}}><button class='btn btn-primary mr-2'><i class="fas fa-edit"></i></button></a>
+                                            
+                                                    <form action={{ route('user.destroy', $user->id)}} method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit"><i class="fas fa-trash"></i></button>
 
+                                                    </form>
+                                            </div>
+                                        </td>
                                     </tr>
-                                    {{-- @endforeach --}}
+                                    @endforeach
 
                                 </table>
                                 {{-- {{ $users ?? ''->links() }} --}}

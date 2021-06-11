@@ -3,7 +3,7 @@
 @section('content')
 
     <body class="register-page cc_cursor">
-        <div class="register-box w-25">
+        <div class="register-box">
             <div class="card card-outline card-primary">
                 <div class="card-header text-center">
                     <a href="" class="h1"><b>UMSFRI</a>
@@ -44,18 +44,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="input mb-4S">
-                            <input type="radio" class="form-control-md mt-2" name="year" id="year_1" value="year_1">
-                            <label for="year_1">Year 1</label>
-                            <input type="radio" class="form-control-md mt-2 ml-3" name="year" id="year_2" value="year_2">
-                            <label for="year_2">Year 2</label>
-                            <input type="radio" class="form-control-md mt-2 ml-3" name="year" id="year_3" value="year_3">
-                            <label for="year_3">Year 3</label>
-                            <input type="radio" class="form-control-md mt-2 ml-3" name="year" id="year_4" value="year_4">
-                            <label for="year_4">Year 4</label>
-                            <input type="radio" class="form-control-md mt-2 ml-3" name="year" id="year_5" value="year_5">
-                            <label for="year_5">Year 5</label>
-                        </div>
+
+                            <div class="col form-group form-check-inline mt-2">
+                                <input type="radio" class="form-check-input" name="year" id="year_1" value="year_1">
+                                <label for="year_1">Year 1</label>
+                                <input type="radio" class="form-check-input ml-4" name="year" id="year_2" value="year_2">
+                                <label for="year_2">Year 2</label>
+                                <input type="radio" class="form-check-input ml-4" name="year" id="year_3" value="year_3">
+                                <label for="year_3">Year 3</label>
+                                <input type="radio" class="form-check-input ml-4" name="year" id="year_4" value="year_4">
+                                <label for="year_4">Year 4</label>
+                            </div> 
+                            {{-- <div class="row justify-content"> --}}
+
+                             <input type="radio" class="form-check row form-check-input" name="year" id="year_5" value="year_5">
+                                <label for="year_5">Year 5</label>
+                            {{-- </div> --}}
 
                         <!-- /.col -->
                         <div class="row justify-content-center">

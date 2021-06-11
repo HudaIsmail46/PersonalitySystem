@@ -22,7 +22,16 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="mb-0">All Students</h3>
+                            <div class="row">
+
+                                <h3 class="mb-0">All Students</h3>
+
+                                <form class='mb-0 ml-auto' action="{{ route('student.create') }}" method="get">
+                                    @csrf
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit" value="create">
+                                        Register New Student <i class="fas fa-plus"> </i></button>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

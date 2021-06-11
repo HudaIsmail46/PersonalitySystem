@@ -13,7 +13,7 @@
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <img src={{ asset('img/user.png') }} class="user-image img-circle elevation-2 cc_pointer"
                     alt="User Image">
-                <span class="d-none d-md-inline cc_pointer">User</span>
+                <span class="d-none d-md-inline cc_pointer">Huda</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <!-- User image -->
@@ -21,7 +21,7 @@
                     <img src={{ asset('img/user.png') }} class="img-circle elevation-2" alt="User Image">
 
                     <p>
-                        User - Administrator
+                        Huda - Student
                     </p>
                 </li>
                 <!-- Menu Body -->
