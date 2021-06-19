@@ -39,8 +39,9 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <p><b>Matric Number: 17135692/1</b></p>
-                                    <p><b>Faculty: FSKTM</b></p>
+                                    <p><b>Matric Number: {{$student->matric_no}}</b></p>
+                                    <p><b>Faculty: {{$student->faculty}}</b></p>
+                                    <p><b>Department: {{$student->department}}</b></p>
 
                                     <table class="table table-bordered table-striped mt-2">
                                         <tr>

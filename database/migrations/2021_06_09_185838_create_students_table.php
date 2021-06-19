@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('faculty');
             $table->string('department');
             $table->string('programme');
-            $table->integer('year_in_programme');
+            $table->integer('year_in_progress');
             // last_assessment
             $table->timestamps();
         });

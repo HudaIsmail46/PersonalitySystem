@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">University Malaya Students' Future-Readiness Inventory</h1>
+                    <h1 class="m-0 text-dark">Home</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -19,6 +19,8 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+
+    @if(!Auth::user()->hasRole('Student'))
 
     <div class="content">
         <div class="container-fluid">
@@ -115,10 +117,41 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
+    @else
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Your Progression</h3>
+
+                            {{-- <div class="card-tools">
+                                <div class="row">
+                                    <a href="">View Report</a>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div> --}}
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <img src={{ asset('img/student-chart.jpg') }} class="w-50">
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
 
             </div>
         </div>
     </div>
 
+    @endif
 @endsection

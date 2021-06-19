@@ -6,6 +6,15 @@
 
 require('./bootstrap');
 require('./adminlte');
+require('datatables.net-bs4');
+require('datatables.net-buttons-bs4');
+require('datatables.net/js/jquery.dataTables.js' );
+require('datatables.net-bs4/js/dataTables.bootstrap4.js' );
+require('datatables.net-buttons/js/dataTables.buttons');
+require('datatables.net-buttons/js/buttons.flash');
+require('datatables.net-buttons/js/buttons.html5');
+require('datatables.net-buttons/js/buttons.print');
+require('datatables.net-buttons/js/buttons.colVis');
 // require('./chart');
 // require('./dropzoneForm');
 
@@ -15,3 +24,6 @@ require('./adminlte');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+ window.pdfMake = require('pdfmake/build/pdfmake');
+    window.pdfFonts = require('pdfmake/build/vfs_fonts');
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;

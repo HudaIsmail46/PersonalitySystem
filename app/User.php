@@ -14,6 +14,8 @@ class User extends Authenticatable
     use SoftDeletes;
     use HasRoles;
 
+    // protected $guard = 'user';
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -22,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone_no',
+        'name', 'email', 'password', 'role_id',
     ];
 
     /**

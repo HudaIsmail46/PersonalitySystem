@@ -28,45 +28,72 @@
 
                                 <form class='mb-0 ml-auto' action="{{ route('student.create') }}" method="get">
                                     @csrf
-                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit" value="create">
-                                        Register New Student <i class="fas fa-plus"> </i></button>
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit"
+                                        value="create">
+                                        Register New Student</button>
                                 </form>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>Student Id</th>
-                                        <th>Name</th>
-                                        <th>Matric Number</th>
-                                        <th>Faculty</th>
-                                        <th>Department</th>
-                                        <th>Programme</th>
-                                        <th>Year In Progress</th>
-                                        <th></th>
-                                    </tr>
-                                    {{-- @foreach ($Students as $Student) --}}
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Huda</td>
-                                        <td>17146952/1</td>
-                                        <td>Science Computer & Information Technology</td>
-                                        <td>Information System</td>
-                                        <td>Bachelor of Computer Science</td>
-                                        <td>Year 3</td>
-                                        <td><a href="" class='btn btn-primary mr-2'> <i class=" fas fa-edit"></i></a></td>
-
-                                    </tr>
-                                    {{-- @endforeach --}}
-
-                                </table>
-                                {{-- {{ $Students ?? ''->links() }} --}}
-                            </div>
+                            <table class="table mt-4 table-bordered yajra-datatable w-100" id="usersTable">
+                                <thead>
+                                    <th> # </th>
+                                    <th>Matric Number</th>
+                                    <th>Faculty</th>
+                                    <th>Department</th>
+                                    <th>Programme</th>
+                                    <th>Year In Progress</th>
+                                    <th> Action </th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var table = $('#usersTable').DataTable({
+                // processing: true,
+                serverSide: true,
+                ajax: "{{ route('student.index') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'matric_no',
+                        name: 'matric_no'
+                    },
+                    {
+                        data: 'faculty',
+                        name: 'faculty'
+                    },
+                    {
+                        data: 'department',
+                        name: 'department'
+                    },
+                    {
+                        data: 'programme',
+                        programme: 'name'
+                    },
+                    {
+                        data: 'year_in_progress',
+                        name: 'year_in_progress'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+
+    </script>
 @endsection

@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Question;
+use App\Student;
 use App\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
+    public function start()
+    {
+        return view('test.start');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,14 +24,12 @@ class TestController extends Controller
      */
     public function index()
     {
-        return view('test.test');
+        $questions = Question::all();
+        $scale = Category::pluck('scale_count')->first();
+        // dd($scale);
+        // dd($questions);
+        return view('test.test', compact('questions', 'scale'));
     }
-
-    public function index2()
-    {
-        return view('test.test2');
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -41,6 +49,8 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         // $this->validateTests();
         // $test = Test::create($request->all());
 
@@ -53,9 +63,10 @@ class TestController extends Controller
      * @param  \App\Models\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(Request $request, Test $test)
     {
-        return view('test.result');
+        $student = Student::where('user_id', Auth::user()->id)->first();
+        return view('test.result', compact('student'));
     }
 
     /**
@@ -105,7 +116,7 @@ class TestController extends Controller
     protected function validateTests()
     {
         return request()->validate([
-            'name' => 'required',
+            // 'name' => 'required',
         ]);
     }
 }

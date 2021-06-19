@@ -10,13 +10,14 @@
                 <img src={{ asset('img/user.png') }} class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="/profile" class="d-block">Huda </a>
+                <a href="/profile" class="d-block">{{ Auth()->user()->name }}</a>
             </div>
         </div>
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
+                    <a href="{{ route('home') }}" 
+                        class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                         <i class=" fas fa-home nav-icon"></i>
                         <p>
                             Home
@@ -26,28 +27,7 @@
             </ul>
         </nav>
 
-        {{-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item has-treeview menu-{{ request()->is('user*') ? 'open' : '' }}">
-                <a href="#" class="nav-link {{ request()->is('user*') ? 'active' : '' }}">
-                    <i class="fas fa-user nav-icon"></i>
-                    <p>
-                        Users
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview bg-secondary rounded-lg">
-                    <li class="nav-item">
-                        <a href={{ route('user.index') }}
-                            class="nav-link {{ request()->is('user/*') ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>All users</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul> --}}
-
-
+        @can('list users')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('user.index') }}
@@ -59,7 +39,9 @@
                 </a>
             </li>
         </ul>
+        @endcan
 
+        @can('list students')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('student.index') }}
@@ -71,17 +53,24 @@
                 </a>
             </li>
         </ul>
+        @endcan
 
+        @can('list students')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('question.index') }}
                     class="nav-link {{ request()->is('question/index') ? 'active' : '' }}">
                     <i class="fas fa-question nav-icon"></i>
-                    <p>Questions</p>
+                    <p>
+                        Questions
+                    </p>
                 </a>
             </li>
         </ul>
+        @endcan
 
+
+        @can('list results')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('result.index') }}
@@ -93,29 +82,42 @@
                 </a>
             </li>
         </ul>
+        @endcan
 
-        <ul class="nav nav-pills nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href="{{ route('test.start') }}"
-                    class="nav-link {{ request()->is('test/start') ? 'active' : '' }}">
-                    <i class=" fas fa-edit nav-icon"></i>
-                    <p>
-                        Take Test
-                    </p>
-                </a>
-            </li>
-        </ul>
         
-        <ul class="nav nav-pills nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href="{{ route('test.results.show') }}"
-                    class="nav-link {{ request()->is('test/result') ? 'active' : '' }}">
-                    <i class=" fas fa-file nav-icon"></i>
+        @can('take test')
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview menu-{{ request()->is('test*') ? 'open' : '' }}">
+                <a href="#" class="nav-link {{ request()->is('test*') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt nav-icon"></i>
                     <p>
-                        Result
+                        Personality Assessment
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview bg-secondary rounded-lg">
+                    <li class="nav-item">
+                        <a href="{{ route('test.start') }}"
+                            class="nav-link {{ request()->is('test/start') ? 'active' : '' }}">
+                            <i class=" fas fa-edit nav-icon"></i>
+                            <p>
+                                Take Test
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('test.result') }}"
+                            class="nav-link {{ request()->is('test/result') ? 'active' : '' }}">
+                            <i class=" fas fa-file nav-icon"></i>
+                            <p>
+                                Result
+                            </p>
+                        </a>
+                    </li>
+                </ul>
             </li>
-        </ul>
+        </ul> 
+        @endcan
+
     </div>
 </aside>

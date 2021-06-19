@@ -29,9 +29,9 @@
                                     alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">Huda</h3>
+                            <h3 class="profile-username text-center"> {{ Auth()->user()->name }} </h3>
 
-                            <p class="text-muted text-center">Student</p>
+                            <p class="text-muted text-center"> {{ ucwords($user->getRoleNames()->first()) }}</p>
 
                         </div>
                         <!-- /.card-body -->
@@ -48,14 +48,14 @@
                             <strong><i class="fas fa-book mr-1"></i> Education</strong>
 
                             <p class="text-muted">
-                                B.C.S. in Information System at University Malaya, Kuala Lumpur
+                                {{$student->programme}} ({{$student->department}}) at University Malaya, Kuala Lumpur
                             </p>
 
                             <hr>
 
                             <strong><i class="fas fa-university mr-1"></i>Faculty</strong>
 
-                            <p class="text-muted">Faculty of Science Computer and Information Technology</p>
+                            <p class="text-muted"> {{$student->faculty}} </p>
 
                             <hr>
 
@@ -85,65 +85,13 @@
                     <div class="card">
                         <div class="card-header p-2 cc_cursor">
                             <ul class="nav nav-pills cc_cursor">
-                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
-                                </li>
+                              
                                 <li class="nav-item"><a class="nav-link active" href="#personality_score"
                                         data-toggle="tab">Personality Score</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <!-- /.tab-pane -->
-                                {{-- <div class="tab-pane" id="timeline">
-                                    <!-- The timeline -->
-                                    <div class="timeline timeline-inverse">
-                                        <!-- timeline time label -->
-                                        <div class="time-label">
-                                            <span class="bg-primary">
-                                                23 April 2021
-                                            </span>
-                                        </div>
-                                        <!-- /.timeline-label -->
-                                        <!-- timeline item -->
-                                        <div>
-                                            <i class="fas fa-envelope bg-primary"></i>
-
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                                                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email
-                                                </h3>
-
-                                                <div class="timeline-body">
-                                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                                    quora plaxo ideeli hulu weebly balihoo...
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END timeline item -->
-                                        <!-- timeline item -->
-                                        <div>
-                                            <i class="fas fa-clock bg-info"></i>
-
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                                                <h3 class="timeline-header border-0">You just took your first psychometric
-                                                    assessment</h3>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <i class="far fa-clock bg-gray"></i>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                <!-- /.tab-pane -->
 
                                 <div class="tab-pane active" id="personality_score">
                                     <div class="col">

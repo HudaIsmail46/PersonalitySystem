@@ -20,6 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// Route::namespace('Staff')->name('Staff.')->prefix('Staff')->group(function () {
+//     Route::get('login', 'StaffAuthController@getLogin')->name('login');
+//     Route::post('login', 'StaffAuthController@postLogin');
+// });
+
+// Route::namespace('Student')->name('student.')->prefix('student')->group(function () {
+//     Route::get('login', 'StudentAuthController@getLogin')->name('login');
+//     Route::post('login', 'StudentAuthController@postLogin');
+// });
+
 Route::get('/profile', function () {
     return view('profile');
 });
@@ -36,10 +47,28 @@ Auth::routes([
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+#ADMIN
+Route::prefix('/admin')->name('admin')->group(function () {
+    // Route::get('/order/{order}/edit', 'Admin\OrderController@edit')->name('.order.edit');
+    // Route::delete('/order/{order}', 'Admin\OrderController@destroy')->name('.order.destroy');
+    // Route::put('/order/{order}', 'Admin\OrderController@update')->name('.order.update');
+
+    // Route::get('/webhook/index', 'Admin\WebhookController@index')->name('.webhook.index');
+    // Route::post('/webhook/reprocessAll', 'Admin\WebhookController@reprocessAll')->name('.webhook.reprocessAll');
+    // Route::get('/webhook/{webhook}', 'Admin\WebhookController@show')->name('.webhook.show');
+    // Route::post('/webhook/{webhook}', 'Admin\WebhookController@reprocess')->name('.webhook.reprocess');
+});
+
+#STUDENT
+
+Route::get('users','UserController@getUsers');
+
+
 ## User CRUD
 Route::prefix('/user')->name('user.')->group(function () {
     Route::get('/index', 'UserController@index')->name('index');
-    Route::get('/profile', 'UserController@profile')->name('profile');
+    Route::get('/profile/{user}', 'UserController@profile')->name('profile');
     Route::get('/create', 'UserController@create')->name('create');
     Route::post('/', 'UserController@store')->name('store');
     Route::get('/{user}', 'UserController@show')->name('show');
@@ -50,6 +79,9 @@ Route::prefix('/user')->name('user.')->group(function () {
 
 ## Student CRUD
 Route::prefix('/student')->name('student.')->group(function () {
+    Route::get('/student_register','StudentController@register')->name('register');
+    Route::get('/student_details/{user}', 'StudentController@details')->name('student_details');
+    Route::post('/student_details/{user}', 'StudentController@storeDetails')->name('store_details');
     Route::get('/index', 'StudentController@index')->name('index');
     Route::get('/create', 'StudentController@create')->name('create');
     Route::post('/', 'StudentController@store')->name('store');
@@ -86,24 +118,16 @@ Route::prefix('/result')->name('result.')->group(function () {
 
 ## Personality Assessment
 Route::prefix('/test')->name('test.')->group(function () {
-    Route::get('/start', 'TestController@index')->name('start');
-    Route::get('/next', 'TestController@index2')->name('next');
-    Route::get('/previous', 'TestController@index')->name('previous');
+    Route::get('/start', 'TestController@start')->name('start');
+    Route::get('/answer', 'TestController@index')->name('answer');
+    // Route::get('/previous', 'TestController@index')->name('previous');
     Route::get('/reset', 'TestController@index')->name('reset');
-    Route::post('/', 'TestController@store')->name('submit');
-    Route::get('/result', 'TestController@show')->name('results.show');
+    Route::post('/submit', 'TestController@store')->name('submit');
+    Route::get('/result', 'TestController@show')->name('result');
 });
 
 ## Results
 Route::prefix('/result')->name('result.')->group(function () {
     Route::get('/index', 'ResultController@index')->name('index');
     Route::get('/show', 'ResultController@index2')->name('show');
-});
-
-Route::get('/students_register', function () {
-    return view('register_student');
-});
-
-Route::get('/students_details', function () {
-    return view('details_student');
 });

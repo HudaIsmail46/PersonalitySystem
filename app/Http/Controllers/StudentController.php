@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Student;
+use App\User;
 use Illuminate\Http\Request;
+use DataTables;
 
 class StudentController extends Controller
 {
@@ -12,11 +14,49 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function register()
     {
-        // $students = student::orderBy('id', 'ASC')->paginate(50);
+        return view('student.register_student');
+    }
+
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $data = Student::all();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', 'student.actions')
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
 
         return view('student.index');
+    }
+
+    public function details($id)
+    {
+        
+        // $students = student::orderBy('id', 'ASC')->paginate(50);
+
+        return view('student.student_details', compact('id'));
+    }
+
+    public function storeDetails(Request $request, $id)
+    {
+        // dd($request->all());
+        $this->validateCreatestudent();
+        $student = new student;
+        $student->fill([
+            'matric_no' => $request->matric_no,
+            'faculty' => $request->faculty,
+            'department' => $request->department,
+            'programme' => $request->programme,
+            'year_in_progress' => $request->year_in_progress,
+            'user_id' => $id,
+        ]);
+        // dd($student);
+        $student->save();
+
+        return redirect()->route('test.start');
     }
 
     /**
@@ -111,10 +151,11 @@ class StudentController extends Controller
     protected function validateCreateStudent()
     {
         return request()->validate([
-            'name' => 'required',
-            'email' => 'email|required|unique:students',
-            'phone_no' => 'required',
-            'password' => 'required|string|min:8|confirmed'
+            'matric_no' =>'required',
+            'faculty' => 'required',
+            'department' => 'required',
+            'programme' => 'required',
+            'year_in_progress' => 'required'
         ]);
     }
 

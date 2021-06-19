@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use \Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role;
+use DataTables;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends AuthenticatedController
 {
@@ -14,16 +17,25 @@ class UserController extends AuthenticatedController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $users = User::orderBy('id', 'ASC')->paginate(50);
+   
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $data = User::all();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', 'user.actions')
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
 
-        return view('user.index', compact('users'));
+        return view('user.index');
     }
 
-    public function profile()
+    public function profile($id)
     {
-        return view('user.profile');
+        $user = User::find($id);
+        $student = Student::where('user_id', $id)->first();
+        return view('user.profile', compact('user','student'));
     }
 
     /**
@@ -49,7 +61,6 @@ class UserController extends AuthenticatedController
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            // 'phone_no' => formatPhoneNo($request->phone_no),
             'password' => Hash::make($request->password)
         ]);
         $user->save();
@@ -76,7 +87,7 @@ class UserController extends AuthenticatedController
      */
     public function edit(User $user)
     {
-        // $all_roles = Role::all()->pluck('name');
+        $all_roles = Role::all()->pluck('name');
         return view('user.edit', compact('user'));
     }
 
@@ -89,13 +100,12 @@ class UserController extends AuthenticatedController
      */
     public function update(Request $request, User $user)
     {
-        // $roles = $request->roles;
-        // $user->syncRoles($roles);
+        $roles = $request->roles;
+        $user->syncRoles($roles);
         $this->validateUpdateUser();
         
         $user->fill([
             'name' => $request->name,
-            // 'phone_no' => formatPhoneNo($request->phone_no)
         ]);
 
         $user->save();
@@ -120,7 +130,6 @@ class UserController extends AuthenticatedController
         return request()->validate([
             'name' => 'required',
             'email' => 'email|required|unique:users',
-            // 'phone_no' => 'required',
             'password' => 'required|string|min:8|confirmed'
         ]);
     }
@@ -130,7 +139,6 @@ class UserController extends AuthenticatedController
         return request()->validate([
             'name' => 'required',
             'email' => 'email|required',
-            // 'phone_no' => 'required'
         ]);
     }
 }
