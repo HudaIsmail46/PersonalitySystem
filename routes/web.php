@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('home');
-    }
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     if (auth()->check()) {
+//         return redirect()->route('home');
+//     }
+//     return view('welcome');
+// });
 
 Route::get('/firebase','FirebaseController@index')->name('firebase.index');
 
@@ -32,15 +32,15 @@ Route::get('/firebase','FirebaseController@index')->name('firebase.index');
 //     Route::post('login', 'StudentAuthController@postLogin');
 // });
 
-Route::get('/profile', function () {
-    return view('profile');
-});
+// Route::get('/profile', function () {
+//     return view('profile');
+// });
 
-Route::get('/logout', function () {
-    auth()->logout();
+// Route::get('/logout', function () {
+//     auth()->logout();
 
-    return 'You are now logged out';
-});
+//     return 'You are now logged out';
+// });
 
 Auth::routes([
     'register' => true
@@ -105,17 +105,17 @@ Route::prefix('/question')->name('question.')->group(function () {
     Route::put('/{question}', 'QuestionController@update')->name('update');
 });
 
-## Report CRUD
-Route::prefix('/result')->name('result.')->group(function () {
-    Route::get('/index', 'ResultController@index')->name('index');
-    Route::get('/create', 'ResultController@create')->name('create');
-    Route::post('/', 'ResultController@store')->name('store');
-    Route::get('/{result}', 'ResultController@show')->name('show');
-    Route::get('/{result}/export', 'ResultController@export')->name('export');
-    Route::get('/{result}/edit', 'ResultController@edit')->name('edit');
-    Route::delete('/{result}', 'ResultController@destroy')->name('destroy');
-    Route::put('/{result}', 'ResultController@update')->name('update');
-});
+// ## Report CRUD
+// Route::prefix('/report')->name('report.')->group(function () {
+//     Route::get('/index', 'ResultController@index')->name('index');
+//     Route::get('/create', 'ResultController@create')->name('create');
+//     Route::post('/', 'ResultController@store')->name('store');
+//     Route::get('/{report}', 'ResultController@show')->name('show');
+//     Route::get('/{report}/export', 'ResultController@export')->name('export');
+//     Route::get('/{report}/edit', 'ResultController@edit')->name('edit');
+//     Route::delete('/{report}', 'ResultController@destroy')->name('destroy');
+//     Route::put('/{report}', 'ResultController@update')->name('update');
+// });
 
 ## Personality Assessment
 Route::prefix('/test')->name('test.')->group(function () {
