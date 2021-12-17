@@ -20,8 +20,9 @@
                 @endif
                 <div class="inner">
                     <div class="card-body">
-                        <form method="post" action="{{route('question.store')}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('question.update', $question->id)}}">
                            @csrf
+                           @method('PUT')
                            <div class="field" id="form">
                              <h3>Question</h3>
                             <div class="mb-5 mt-2">

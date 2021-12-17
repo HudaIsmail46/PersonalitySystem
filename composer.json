@@ -19,6 +19,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/firebase-php": "^4.0",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",

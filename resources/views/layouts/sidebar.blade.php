@@ -28,34 +28,43 @@
         </nav>
 
         @can('list users')
-        <ul class="nav nav-pills nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href={{ route('user.index') }}
-                    class="nav-link {{ request()->is('user/*') ? 'active' : '' }}">
-                    <i class="fas fa-user nav-icon"></i>                    
+
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview menu-{{ request()->is('user*') ?  'open' :( request()->is('student*') ?  'open' : '') }}">
+                <a href="#" class="nav-link {{ request()->is('user*') ?  'active' : ( request()->is('student*') ?  'active' : '') }}">
+                    <i class="fas fa-user nav-icon"></i>
                     <p>
-                        Users
+                        User Management
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview bg-secondary rounded-lg">
+                    <li class="nav-item">
+                        <a href={{ route('user.index') }}
+                            class="nav-link {{ request()->is('user/*') ? 'active' : '' }}">
+                            <i class="fas fa-user nav-icon"></i>                    
+                            <p>
+                                All Users
+                            </p>
+                        </a>
+                    </li>
+                    @can('list students')
+                    <li class="nav-item">
+                        <a href={{ route('student.index') }}
+                            class="nav-link {{ request()->is('student/*') ? 'active' : '' }}">
+                            <i class="fas fa-users nav-icon"></i>
+                            <p>
+                                All Students
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
             </li>
-        </ul>
+        </ul> 
         @endcan
 
-        @can('list students')
-        <ul class="nav nav-pills nav-sidebar flex-column">
-            <li class="nav-item">
-                <a href={{ route('student.index') }}
-                    class="nav-link {{ request()->is('student/*') ? 'active' : '' }}">
-                    <i class="fas fa-users nav-icon"></i>
-                    <p>
-                        Students
-                    </p>
-                </a>
-            </li>
-        </ul>
-        @endcan
-
-        @can('list students')
+        @can('list questions')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('question.index') }}

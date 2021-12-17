@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <p><b>Matric Number: {{$student->matric_no}}</b></p>
+                                    <p><b>Matric Number: {{$student->matric_no ?? ''}}</b></p>
                                     <p><b>Faculty: {{$student->faculty}}</b></p>
                                     <p><b>Department: {{$student->department}}</b></p>
 

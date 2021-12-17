@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/firebase','FirebaseController@index')->name('firebase.index');
 
 // Route::namespace('Staff')->name('Staff.')->prefix('Staff')->group(function () {
 //     Route::get('login', 'StaffAuthController@getLogin')->name('login');

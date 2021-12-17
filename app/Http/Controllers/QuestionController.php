@@ -85,7 +85,7 @@ class QuestionController extends Controller
         $this->validateQuestions();
         $question->update($request->all());
 
-        return redirect()->route('question.show', $question->id)->with('success', 'questions updated successfully.');
+        return redirect()->route('question.index')->with('success', 'questions updated successfully.');
     }
 
     /**
