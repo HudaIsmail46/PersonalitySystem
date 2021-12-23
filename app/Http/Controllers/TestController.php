@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Question;
+use App\QuestionSettings;
+use App\Student;
 use App\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
+    public function start()
+    {
+        return view('test.start');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,14 +25,14 @@ class TestController extends Controller
      */
     public function index()
     {
-        return view('test.test');
-    }
+        $questions = Question::all();
+        $questionsSettings = QuestionSettings::latest()->first();
+        $scale = $questionsSettings->scale;
+        $scale_value = explode(",",$questionsSettings->scale_value[0]['Description']);
+        $categories = Category::all()->sortBy('name', SORT_NATURAL);
 
-    public function index2()
-    {
-        return view('test.test2');
+        return view('test.test', compact('questions', 'scale', 'scale_value', 'categories'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -41,8 +52,25 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validateTests();
-        // $test = Test::create($request->all());
+        // $question_results = $request->input('questions');
+        // $result = auth()->user()->userResults()->create([
+        //     'total_points' => array_sum($question_results),
+        // ]);
+
+        // $values = $question_results;
+        // // dd($values);
+        // $questions = $values->mapWithKeys(function ($value) {
+        //     return [$value->question_id => [
+        //                 'points' => $value
+        //             ]
+        //         ];
+        //     })->toArray();
+
+        // dd($questions);
+
+        // $result->questions()->sync($questions);
+
+        // return redirect()->route('client.results.show', $result->id);
 
         return redirect()->route('test.result')->with('success', 'Tests created successfully.');
     }
@@ -53,9 +81,10 @@ class TestController extends Controller
      * @param  \App\Models\Test  $test
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(Request $request, Test $test)
     {
-        return view('test.result');
+        $student = Student::where('user_id', Auth::user()->id)->first();
+        return view('test.result', compact('student'));
     }
 
     /**
@@ -105,7 +134,7 @@ class TestController extends Controller
     protected function validateTests()
     {
         return request()->validate([
-            'name' => 'required',
+            // 'name' => 'required',
         ]);
     }
 }

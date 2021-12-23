@@ -28,52 +28,59 @@
 
                                 <form class='mb-0 ml-auto' action="{{ route('user.create') }}" method="get">
                                     @csrf
-                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit" value="create">
-                                        Register New User <i class="fas fa-plus"> </i></button>
+                                    <button class="btn btn-success btn-md ml-2 float-right" type="submit" name="submit"
+                                        value="create">
+                                        Register New User</button>
                                 </form>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <th>User Id</th>
-                                        <th>Name</th>
-                                        <th>Phone No</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    @foreach ($users as $user)
-                                    <tr>
-                                        <td>{{$user->id}}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->phone_no}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td></td>
-                                        <td>
-                                            <div class="row d-flex justify-content-center">
-                                                <a href={{route('user.show', $user->id)}}><button class='btn btn-success mr-2'><i class="fas fa-eye"></i></button></a>
-                                                <a href={{route('user.edit', $user->id)}}><button class='btn btn-primary mr-2'><i class="fas fa-edit"></i></button></a>
-                                            
-                                                    <form action={{ route('user.destroy', $user->id)}} method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger"  onclick="return confirm('Are you sure?')" type="submit"><i class="fas fa-trash"></i></button>
-
-                                                    </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-
-                                </table>
-                                {{-- {{ $users ?? ''->links() }} --}}
-                            </div>
+                            <table class="table mt-4 table-bordered yajra-datatable w-100" id="usersTable">
+                                <thead>
+                                    <th> # </th>
+                                    <th> Name </th>
+                                    <th> Email </th>
+                                    <th> Action </th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var table = $('#usersTable').DataTable({
+                // processing: true,
+                serverSide: true,
+                ajax: "{{ route('user.index') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+
+    </script>
+
 @endsection

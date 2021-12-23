@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Category;
+use App\QuestionSettings;
 use Illuminate\Http\Request;
+use DataTables;
 
 class QuestionController extends Controller
 {
@@ -12,8 +15,26 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = Question::with('category')->get();
+            return Datatables::of($data)
+            ->addIndexColumn()
+            ->addColumn('category', function($data){
+                    return $data->category->name;
+            })
+            ->rawColumns(['category'])
+            ->addColumn('action', function($row){
+       
+                $btn = '<a href="\question\\'.$row->id.'\edit" class="edit btn btn-primary btn-sm ml-2">Edit</a>';
+
+                 return $btn;
+             })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+
         return view('question.index');
     }
 
@@ -36,9 +57,9 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $this->validateQuestions();
-        $question = Question::create($request->all());
+        Question::create($request->all());
 
-        return redirect()->route('question.show', $question->id)->with('success', 'questions created successfully.');
+        return redirect()->route('question.index')->with('success', 'questions created successfully.');
     }
 
     /**
@@ -60,7 +81,8 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('question.edit', compact('question'));
+        $categories = Category::all();
+        return view('question.edit', compact('question','categories'));
     }
 
     /**
@@ -75,7 +97,7 @@ class QuestionController extends Controller
         $this->validateQuestions();
         $question->update($request->all());
 
-        return redirect()->route('question.show', $question->id)->with('success', 'questions updated successfully.');
+        return redirect()->route('question.index')->with('success', 'questions updated successfully.');
     }
 
     /**
@@ -91,15 +113,11 @@ class QuestionController extends Controller
         return redirect()->route('question.index')->with('question succesfully deleted.');
     }
 
-    public function settings()
-    {
-        return view('question.settings');
-    }
-
     protected function validateQuestions()
     {
         return request()->validate([
-            'name' => 'required',
+            'question_text' => 'required',
+            'question_category' => 'required',
         ]);
     }
 }

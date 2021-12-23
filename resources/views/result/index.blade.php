@@ -24,14 +24,14 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <h3 class="mb-0">Result Detail</h3>
+                                <h3 class="mb-0">Students Results</h3>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div>
+                            {{-- <div>
                                 <h5>Search by :</h5>
-                                {{-- <form action="{{ route('report.index')}}" method="get">
-                                @csrf --}}
+                                <form action="{{ route('result.index')}}" method="get">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-2">
                                         Faculty:
@@ -42,8 +42,6 @@
                                             <option>FS</option>
                                             <option>FP</option>
                                         </select>
-                                        {{-- <input class="form-control form-control-sm" type="search" name="faculty"
-                                            placeholder="Faculty" value="{{ request()->faculty }}"> --}}
                                     </div>
                                     <div class="col-md-2">
                                         Department: <input class="form-control form-control-sm" type="search"
@@ -69,8 +67,7 @@
                                                 <option>Teamwork</option>
                                                 <option>Creativity</option>
                                             </select>
-                                            {{-- <input class="form-control form-control-sm" type="search" name="dimension"
-                                                placeholder="Dimensions" value="{{ request()->dimension }}"> --}}
+                                          
                                             <div class="input-group-append">
                                                 <span class="input-group-select">
                                                     <select class=" form-control form-control-sm">
@@ -85,15 +82,13 @@
 
                                     <button class="btn btn-primary mt-3 mb-1" type="submit">Search <i
                                             class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                            {{-- </form> --}}
+                                </div> 
+                                </form>
+                            </div> --}}
+                           
                             <div class="row ml-0">
-                                {{-- {{ $Results->withQueryString()->links() }} <div class="ml-4 mt-2"> Records {{ $Results->firstItem() }} - {{ $Results->lastItem() }} of {{ $Results->total() }}</div> --}}
                             </div>
-                            <div class="table-responsive">
                                 @include('result.table')
-                                {{-- {{ $Results->withQueryString()->links() }} --}}
                             </div>
                         </div>
                     </div>

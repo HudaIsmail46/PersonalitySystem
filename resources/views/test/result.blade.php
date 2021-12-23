@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Psychometric Test</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('test.start')}}">Psychometric Test</a></li>
                             </ol>
                         </div>
                     </div>
@@ -39,8 +39,9 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <p><b>Matric Number: 17135692/1</b></p>
-                                    <p><b>Faculty: FSKTM</b></p>
+                                    <p><b>Matric Number: {{$student->matric_no ?? ''}}</b></p>
+                                    <p><b>Faculty: {{$student->faculty}}</b></p>
+                                    <p><b>Department: {{$student->department}}</b></p>
 
                                     <table class="table table-bordered table-striped mt-2">
                                         <tr>
@@ -53,7 +54,7 @@
                                             <td>
                                                 <div class="progress mb-3">
                                                     <div class="progress-bar bg-success cc_cursor" role="progressbar"
-                                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="70"
+                                                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"
                                                         style="width: 10%">1
                                                     </div>
                                                 </div>
@@ -69,7 +70,7 @@
                                             <td>
                                                 <div class="progress mb-3">
                                                     <div class="progress-bar bg-success cc_cursor" role="progressbar"
-                                                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="70"
+                                                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
                                                         style="width: 40%">4
                                                     </div>
                                                 </div>
@@ -79,6 +80,39 @@
                                                 the student population. You may work on creativity after paying
                                                 attention to
                                                 lower rated readiness dimesion where applicable.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Communications</td>
+                                            <td>
+                                                <div class="progress mb-3">
+                                                    <div class="progress-bar bg-success cc_cursor" role="progressbar"
+                                                        aria-valuenow="70" aria-valuemin="0" aria-valuemax="70"
+                                                        style="width: 40%">7
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">Your score, while not too high, is in the upper half
+                                                of
+                                                the student population. You may work on creativity after paying
+                                                attention to
+                                                lower rated readiness dimesion where applicable.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mindfulness</td>
+                                            <td>
+                                                <div class="progress mb-3">
+                                                    <div class="progress-bar bg-success cc_cursor" role="progressbar"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 40%">5
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-left">Your score is in the bottom 10 percent of the students
+                                            population; 90% of the students have higher scores. It seems that you
+                                            should
+                                            make improving integrity a priority.
                                             </td>
                                         </tr>
 

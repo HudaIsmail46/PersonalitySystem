@@ -13,7 +13,7 @@
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <img src={{ asset('img/user.png') }} class="user-image img-circle elevation-2 cc_pointer"
                     alt="User Image">
-                <span class="d-none d-md-inline cc_pointer">Huda</span>
+                <span class="d-none d-md-inline cc_pointer">{{ Auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <!-- User image -->
@@ -21,13 +21,19 @@
                     <img src={{ asset('img/user.png') }} class="img-circle elevation-2" alt="User Image">
 
                     <p>
-                        Huda - Student
+                        {{ Auth()->user()->name }}
                     </p>
                 </li>
                 <!-- Menu Body -->
                 <!-- Menu Footer-->
                 <li class="user-footer cc_cursor">
-                    <a href="{{ route('user.profile') }}" class="btn btn-default btn-flat cc_pointer">Profile</a>
+                    @if (Auth::user()->hasRole('Student'))
+                    <a href="{{ route('student.profile', Auth()->user()->id ) }}"
+                        class="btn btn-default btn-flat cc_pointer">Profile</a>
+                    @else
+                    <a href="{{ route('user.profile', Auth()->user()->id ) }}"
+                        class="btn btn-default btn-flat cc_pointer">Profile</a>
+                    @endif
                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out
                     </a>

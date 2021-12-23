@@ -26,8 +26,15 @@
     },
     "dependencies": {
         "chart.js": "^2.9.3",
+        "datatables.net": "^1.10.25",
+        "datatables.net-bs4": "^1.10.25",
+        "datatables.net-buttons": "^1.7.1",
+        "datatables.net-buttons-bs4": "^1.7.1",
+        "datatables.net-dt": "^1.1.0",
         "date-fns": "^2.19.0",
         "dateformat": "^3.0.3",
+        "jszip": "^3.6.0",
+        "pdfmake": "^0.1.71",
         "react-data-table-component": "^6.11.7",
         "react-select": "^3.2.0",
         "styled-components": "^5.2.1"

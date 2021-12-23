@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeleteToUsersTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,13 @@ class AddSoftDeleteToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->string('name');
+
+            $table->timestamps();
+            
             $table->softDeletes();
         });
     }
@@ -25,8 +31,6 @@ class AddSoftDeleteToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('categories');
     }
 }

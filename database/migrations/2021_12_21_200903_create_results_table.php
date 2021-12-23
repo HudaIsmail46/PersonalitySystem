@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionsTable extends Migration
+class CreateResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,18 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
-            $table->id();
+        Schema::create('results', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->unsignedInteger('user_id');
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('total_points')->nullable();
+
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +35,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('results');
     }
 }
