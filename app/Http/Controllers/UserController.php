@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
+use App\Staff;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,8 +23,14 @@ class UserController extends AuthenticatedController
             $data = User::all();
             return Datatables::of($data)
                     ->addIndexColumn()
-                    ->addColumn('action', 'user.actions')
-                    ->rawColumns(['action'])
+                    ->addColumn('action', function($row){
+       
+                        $btn = '<a href="\user\\'.$row->id.'" class="edit btn btn-info btn-sm">View</a>';
+                        $btn = $btn.'<a href="\user\\'.$row->id.'\edit" class="edit btn btn-primary btn-sm ml-2">Edit</a>';
+
+                         return $btn;
+                 })
+                 ->rawColumns(['action'])
                     ->make(true);
         }
 
@@ -34,8 +40,8 @@ class UserController extends AuthenticatedController
     public function profile($id)
     {
         $user = User::find($id);
-        $student = Student::where('user_id', $id)->first();
-        return view('user.profile', compact('user','student'));
+        $staff = Staff::where('user_id', $id)->first();
+        return view('user.profile', compact('user','staff'));
     }
 
     /**

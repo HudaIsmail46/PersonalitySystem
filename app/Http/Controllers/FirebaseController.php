@@ -16,7 +16,7 @@ class FirebaseController extends Controller
      */
     public function index()
     {
-        $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/umsfri-firebase-adminsdk-p0303-e6a681d203');
+        $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/umsfri-firebase-adminsdk-p0303-e6a681d203.json');
         $firebase = (new Factory)
         ->withServiceAccount($serviceAccount)
         ->withDatabaseUri('https://umsfri-default-rtdb.firebaseio.com')
@@ -24,14 +24,14 @@ class FirebaseController extends Controller
 
         $database = $firebase->getDatabase();
 
-        $newPost = $database
-        ->getReference('blog/posts')
+        $newStudent = $database
+        ->getReference('student/results')
         ->push([
-        'title' => 'Laravel FireBase Tutorial' ,
-        'category' => 'Laravel'
+        'id' => '17146952/1' ,
+        'results' => '40'
         ]);
         echo '<pre>';
-        print_r($newPost->getvalue());
+        print_r($newStudent->getvalue());
     }
 
 }

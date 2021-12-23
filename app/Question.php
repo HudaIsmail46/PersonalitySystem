@@ -12,9 +12,18 @@ class Question extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'question_text', 'question_category', 'score', 'scale_number',
+        'question_text', 'question_category',
     ];
 
     const CATEGORIES = ['Integrity', 'Emotional Intelligence', 'Adaptability ', 'Mindfulness', 'Resilience', 'Communication', 'Teamwork', 'Creativity']; 
     
+    public function questionsResults()
+    {
+        return $this->belongsToMany(Result::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'question_category');
+    }
 }

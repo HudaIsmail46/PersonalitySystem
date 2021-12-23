@@ -87,50 +87,8 @@
                             </div> --}}
                            
                             <div class="row ml-0">
-                                {{-- {{ $Results->withQueryString()->links() }} <div class="ml-4 mt-2"> Records {{ $Results->firstItem() }} - {{ $Results->lastItem() }} of {{ $Results->total() }}</div> --}}
                             </div>
-                            {{-- <div class="table-responsive">
-
-                                <div class="table-bordered float-right">
-                                    <table>
-                                        <tr>
-                                            <th>Int</th>
-                                            <td>Integrity</td>
-                                        </tr>
-                                        <tr>
-                                            <th>EI</th>
-                                            <td>Emotional Intelligence</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Adapt</th>
-                                            <td>Adaptability</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Mind</th>
-                                            <td>Mindfulness</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Res</th>
-                                            <td>Resilience</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Com</th>
-                                            <td>Communication</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Team</th>
-                                            <td>Teamwork</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Creative</th>
-                                            <td>Creativity</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div> --}}
-
                                 @include('result.table')
-                                {{-- {{ $Results->withQueryString()->links() }} --}}
                             </div>
                         </div>
                     </div>

@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     if (auth()->check()) {
-//         return redirect()->route('home');
-//     }
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('home');
+    }
+    return view('welcome');
+});
 
 Route::get('/firebase','FirebaseController@index')->name('firebase.index');
 
@@ -32,15 +32,15 @@ Route::get('/firebase','FirebaseController@index')->name('firebase.index');
 //     Route::post('login', 'StudentAuthController@postLogin');
 // });
 
-// Route::get('/profile', function () {
-//     return view('profile');
-// });
+Route::get('/profile', function () {
+    return view('profile');
+});
 
-// Route::get('/logout', function () {
-//     auth()->logout();
+Route::get('/logout', function () {
+    auth()->logout();
 
-//     return 'You are now logged out';
-// });
+    return 'You are now logged out';
+});
 
 Auth::routes([
     'register' => true
@@ -51,14 +51,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 #ADMIN
 Route::prefix('/admin')->name('admin')->group(function () {
-    // Route::get('/order/{order}/edit', 'Admin\OrderController@edit')->name('.order.edit');
-    // Route::delete('/order/{order}', 'Admin\OrderController@destroy')->name('.order.destroy');
-    // Route::put('/order/{order}', 'Admin\OrderController@update')->name('.order.update');
-
-    // Route::get('/webhook/index', 'Admin\WebhookController@index')->name('.webhook.index');
-    // Route::post('/webhook/reprocessAll', 'Admin\WebhookController@reprocessAll')->name('.webhook.reprocessAll');
-    // Route::get('/webhook/{webhook}', 'Admin\WebhookController@show')->name('.webhook.show');
-    // Route::post('/webhook/{webhook}', 'Admin\WebhookController@reprocess')->name('.webhook.reprocess');
 });
 
 #STUDENT
@@ -80,6 +72,7 @@ Route::prefix('/user')->name('user.')->group(function () {
 
 ## Student CRUD
 Route::prefix('/student')->name('student.')->group(function () {
+    Route::get('/profile/{student}', 'StudentController@profile')->name('profile');
     Route::get('/student_register','StudentController@register')->name('register');
     Route::get('/student_details/{user}', 'StudentController@details')->name('student_details');
     Route::post('/student_details/{user}', 'StudentController@storeDetails')->name('store_details');
@@ -92,13 +85,24 @@ Route::prefix('/student')->name('student.')->group(function () {
     Route::put('/{student}', 'StudentController@update')->name('update');
 });
 
+##Role
+Route::prefix('/role')->name('role.')->group(function () {
+    Route::get('/index', 'RoleController@index')->name('index');
+    Route::get('/create', 'RoleController@create')->name('create');
+    Route::post('/', 'RoleController@store')->name('store');
+    Route::get('/{role}', 'RoleController@show')->name('show');
+    Route::get('/{role}/edit', 'RoleController@edit')->name('edit');
+    Route::delete('/{role}', 'RoleController@destroy')->name('destroy');
+    Route::put('/{role}', 'RoleController@update')->name('update');
+});
+
 ## Question CRUD
 Route::prefix('/question')->name('question.')->group(function () {
-    Route::get('/settings', 'QuestionController@settings')->name('settings');
+    Route::get('/settings', 'QuestionSettingController@settings')->name('settings');
     Route::get('/index', 'QuestionController@index')->name('index');
     Route::get('/create', 'QuestionController@create')->name('create');
     Route::post('/', 'QuestionController@store')->name('store');
-    Route::post('/settings/store', 'QuestionController@storeSettings')->name('store_settings');
+    Route::post('/settings/store', 'QuestionSettingController@store')->name('store_settings');
     Route::get('/{question}', 'QuestionController@show')->name('show');
     Route::get('/{question}/edit', 'QuestionController@edit')->name('edit');
     Route::delete('/{question}', 'QuestionController@destroy')->name('destroy');
@@ -130,5 +134,5 @@ Route::prefix('/test')->name('test.')->group(function () {
 ## Results
 Route::prefix('/result')->name('result.')->group(function () {
     Route::get('/index', 'ResultController@index')->name('index');
-    Route::get('/show', 'ResultController@index2')->name('show');
+    Route::get('/show', 'ResultController@show')->name('show');
 });

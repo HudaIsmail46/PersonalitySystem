@@ -17,4 +17,8 @@ class Category extends Model
 
     const CATEGORIES = ['Integrity', 'Emotional Intelligence', 'Adaptability ', 'Mindfulness', 'Resilience', 'Communication', 'Teamwork', 'Creativity']; 
     
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'question_category');
+    }
 }

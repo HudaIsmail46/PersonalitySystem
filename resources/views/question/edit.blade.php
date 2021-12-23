@@ -45,9 +45,9 @@
                                             <select id="question_category" name="question_category"
                                                 class="custom-select @error('question_category') is-invalid @enderror">
                                                 <option value="">--SELECT CATEGORY TYPE--</option>
-                                                @foreach (App\Question::CATEGORIES as $question_category)
-                                                    <option value="{{ $question_category }}"
-                                                        {{ $question->question_category == $question_category ? 'selected' : '' }}>{{ $question_category }}
+                                                @foreach ($categories as $question_category)
+                                                    <option value="{{ $question_category->id }}"
+                                                        {{ $question->question_category == $question_category->id ? 'selected' : '' }}>{{ $question_category->name }}
                                                     </option>
                                                 @endforeach
                                             </select>

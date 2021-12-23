@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Chart\StudentPerformance;
+use App\Chart\DimensionScores;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $studentPerformanceChart = StudentPerformance::config();
+        $dimensionScoresChart = DimensionScores::config();   
+        return view('home', compact('studentPerformanceChart','dimensionScoresChart'));
     }
 }

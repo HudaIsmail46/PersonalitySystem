@@ -30,42 +30,30 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('question.store') }}" method="post">
+                            <form action="{{ route('question.store_settings') }}" method="post">
                                 @csrf
-                                <div class="row">
-                                    <!-- select -->
-                                    <div class="col-4 form-group">
-                                        <label>Please specify the numbers of the question scales</label>
-                                        <select class="custom-select cc_cursor col-sm-3">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                        </select>
-                                    </div>
-                                    {{-- <div class="col-3">
-                                    </div> --}}
-                                    <div class="col-5 form-group">
-                                        <label>Select the question dimensions you wish to change. [Can select more than
-                                            one]</label>
-                                        <select multiple="" class="form-control">
-                                            <option>Integrity</option>
-                                            <option>Emotional Intelligence</option>
-                                            <option>Adaptability</option>
-                                            <option>Mindfulness</option>
-                                            <option>Resilience</option>
-                                            <option>Communication</option>
-                                            <option>Teamwork</option>
-                                            <option>Creativity</option>
-                                        </select>
-                                    </div>
-
+                                {{-- <div class="row"> --}}
+                                <!-- select -->
+                                <div class="col-7">
+                                    <label>Please specify the numbers of the question scales</label>
+                                    <input class="form-control col-3  @error('scale') is-invalid @enderror" type="number"
+                                        name="scale" id="scale"
+                                        value="{{ old('scale') ?? ($questionSettings->scale ?? '') }}"
+                                        placeholder="Questions Scales">
                                 </div>
-                                <button class="btn btn-primary bottom mb-2 mt-2" type="submit">Save</button>
+                                <div class="col-7 mt-2">
+                                    <label>Please list out the scale description based on the question scales</label>
+                                    <input class="form-control @error('scale_value') is-invalid @enderror" type="text"
+                                        name="scale_value" id="scale_value"
+                                        value="{{ old('scale_value') ?? ($questionSettings->scale_value[0]['Description'] ?? '') }}"
+                                        placeholder="[Example: Agree, Neutral, Not Agree]">
+                                </div>
+
+
+                                {{-- </div> --}}
+                                <button class="btn btn-primary bottom mb-2 mt-2 ml-2"
+                                    onclick="return confirm('This changes will applies to all questions. Click \'OK\' to proceed')"
+                                    type="submit">Save</button>
                             </form>
                             <div class="row ml-0">
                             </div>

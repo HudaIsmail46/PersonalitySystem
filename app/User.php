@@ -45,8 +45,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // public function runnerSchedules()
-    // {
-    //     return $this->hasMany('App\RunnerSchedule', 'runner_id');
-    // }
+    
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'user_id', 'id');
+    }
+
+    public function staff()
+    {
+        return $this->hasOne(Staff::class, 'user_id', 'id');
+    }
+
+    public function userResults()
+    {
+        return $this->hasMany(Result::class, 'user_id', 'id');
+    }
 }

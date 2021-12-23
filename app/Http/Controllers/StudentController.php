@@ -14,6 +14,13 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function profile($id)
+    {
+        $student = Student::where('user_id', $id)->first();
+        return view('student.profile', compact('student'));
+    }
+
+
     public function register()
     {
         return view('student.register_student');

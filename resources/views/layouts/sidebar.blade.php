@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-purple elevation-4">
     <a href={{ route('home') }} class="brand-link">
-        <img src={{ asset('img/logo-um.png') }} alt="University Malaya Logo"
-            class="brand-image img-square elevation-3" style="opacity: .8">
+        <img src={{ asset('img/logo-um.png') }} alt="University Malaya Logo" class="brand-image img-square elevation-3"
+            style="opacity: .8">
         <span class="brand-text font-weight-light">University Malaya</span>
     </a>
     <div class="sidebar">
@@ -10,14 +10,14 @@
                 <img src={{ asset('img/user.png') }} class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="/profile" class="d-block">{{ Auth()->user()->name }}</a>
+                <a href="/profile" class="d-block">{{ Auth()->user()->name }}
+                </a>
             </div>
         </div>
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column">
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" 
-                        class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+                    <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
                         <i class=" fas fa-home nav-icon"></i>
                         <p>
                             Home
@@ -27,11 +27,12 @@
             </ul>
         </nav>
 
-        @can('list users')
-
+        @can('user_management_access')
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item has-treeview menu-{{ request()->is('user*') ?  'open' :( request()->is('student*') ?  'open' : '') }}">
-                <a href="#" class="nav-link {{ request()->is('user*') ?  'active' : ( request()->is('student*') ?  'active' : '') }}">
+            <li
+                class="nav-item has-treeview menu-{{ request()->is('user*') ?  'open' :( request()->is('student*') ?  'open' : '') }}">
+                <a href="#"
+                    class="nav-link {{ request()->is('user*') ?  'active' : ( request()->is('student*') ?  'active' : '') }}">
                     <i class="fas fa-user nav-icon"></i>
                     <p>
                         User Management
@@ -39,16 +40,16 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview bg-secondary rounded-lg">
+                    @can('user_access')
                     <li class="nav-item">
                         <a href={{ route('user.index') }}
                             class="nav-link {{ request()->is('user/*') ? 'active' : '' }}">
-                            <i class="fas fa-user nav-icon"></i>                    
+                            <i class="fas fa-user nav-icon"></i>
                             <p>
                                 All Users
                             </p>
                         </a>
                     </li>
-                    @can('list students')
                     <li class="nav-item">
                         <a href={{ route('student.index') }}
                             class="nav-link {{ request()->is('student/*') ? 'active' : '' }}">
@@ -61,10 +62,10 @@
                     @endcan
                 </ul>
             </li>
-        </ul> 
+        </ul>
         @endcan
 
-        @can('list questions')
+        @can('question_access')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('question.index') }}
@@ -79,7 +80,7 @@
         @endcan
 
 
-        @can('list results')
+        @can('result_access')
         <ul class="nav nav-pills nav-sidebar flex-column">
             <li class="nav-item">
                 <a href={{ route('result.index') }}
@@ -93,8 +94,21 @@
         </ul>
         @endcan
 
-        
-        @can('take test')
+        @can('result_show')
+        <ul class="nav nav-pills nav-sidebar flex-column">
+            <li class="nav-item">
+                <a href={{ route('test.result') }} class="nav-link {{ request()->is('test/result') ? 'active' : '' }}">
+                    <i class="fas fa-file-alt nav-icon"></i>
+                    <p>
+                        Results
+                    </p>
+                </a>
+            </li>
+        </ul>
+        @endcan
+
+
+        @can('access_test')
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item has-treeview menu-{{ request()->is('test*') ? 'open' : '' }}">
                 <a href="#" class="nav-link {{ request()->is('test*') ? 'active' : '' }}">
@@ -125,7 +139,7 @@
                     </li>
                 </ul>
             </li>
-        </ul> 
+        </ul>
         @endcan
 
     </div>

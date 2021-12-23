@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Question;
+use App\QuestionSettings;
 use App\Student;
 use App\Test;
 use Illuminate\Http\Request;
@@ -25,10 +26,12 @@ class TestController extends Controller
     public function index()
     {
         $questions = Question::all();
-        $scale = Category::pluck('scale_count')->first();
-        // dd($scale);
-        // dd($questions);
-        return view('test.test', compact('questions', 'scale'));
+        $questionsSettings = QuestionSettings::latest()->first();
+        $scale = $questionsSettings->scale;
+        $scale_value = explode(",",$questionsSettings->scale_value[0]['Description']);
+        $categories = Category::all()->sortBy('name', SORT_NATURAL);
+
+        return view('test.test', compact('questions', 'scale', 'scale_value', 'categories'));
     }
 
     /**
@@ -49,10 +52,25 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // $question_results = $request->input('questions');
+        // $result = auth()->user()->userResults()->create([
+        //     'total_points' => array_sum($question_results),
+        // ]);
 
-        // $this->validateTests();
-        // $test = Test::create($request->all());
+        // $values = $question_results;
+        // // dd($values);
+        // $questions = $values->mapWithKeys(function ($value) {
+        //     return [$value->question_id => [
+        //                 'points' => $value
+        //             ]
+        //         ];
+        //     })->toArray();
+
+        // dd($questions);
+
+        // $result->questions()->sync($questions);
+
+        // return redirect()->route('client.results.show', $result->id);
 
         return redirect()->route('test.result')->with('success', 'Tests created successfully.');
     }

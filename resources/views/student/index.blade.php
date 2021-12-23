@@ -79,7 +79,7 @@
                     },
                     {
                         data: 'programme',
-                        programme: 'name'
+                        name: 'programme'
                     },
                     {
                         data: 'year_in_progress',

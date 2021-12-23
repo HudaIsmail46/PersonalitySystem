@@ -9,24 +9,20 @@
             <th colspan="8">Dimension Scores</th>
         </tr>
         <tr>
-            <th>Integrity </th>
-            <th class="text-wrap">Emotional Intelligence </th>
-            <th>Adaptability </th>
-            <th>Mindfulness </th>
-            <th>Resilience </th>
-            <th>Communication </th>
-            <th>Teamwork </th>
-            <th>Creativity </th>
+            @foreach($categories as $category)
+            <th>{{$category->name}} </th>
+            @endforeach
         
         </tr>
         </thead>
-
+        @foreach($results as $i => $result)
         <tr>
-            <td><a href="/test/result"> 1 </a></td>
-            <td class="text-left"> Nurul Huda binti Ismail </td>
-            <td> FSKTM </td>
-            <td> 3rd Year </td>
-            <td> 5 </td>
+            @if($result->user->student)
+            <td>{{$i-1}}</a></td>
+            <td class="text-left">{{$result->user->name}} </td>
+            <td>{{$result->user->student->faculty ?? ''}}</td>
+            <td>{{$result->user->student->year_in_progress ?? ''}}</td>
+            <td> 8 </td>
             <td> 7 </td>
             <td> 3 </td>
             <td> 2 </td>
@@ -34,22 +30,9 @@
             <td> 4 </td>
             <td> 5 </td>
             <td> 9 </td>
+            @endif
         </tr>
-
-        <tr>
-            <td> 2</td>
-            <td class="text-left"> Student 2 </td>
-            <td> FSKTM </td>
-            <td> 3rd Year </td>
-            <td> 3 </td>
-            <td> 6 </td>
-            <td> 3 </td>
-            <td> 4 </td>
-            <td> 4 </td>
-            <td> 7 </td>
-            <td> 5 </td>
-            <td> 8 </td>
-        </tr>
+        @endforeach
 
     </table>
 </div>

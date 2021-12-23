@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Category;
+use App\QuestionSettings;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -16,10 +18,19 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Question::all();
+            $data = Question::with('category')->get();
             return Datatables::of($data)
             ->addIndexColumn()
-            ->addColumn('action', 'question.actions')
+            ->addColumn('category', function($data){
+                    return $data->category->name;
+            })
+            ->rawColumns(['category'])
+            ->addColumn('action', function($row){
+       
+                $btn = '<a href="\question\\'.$row->id.'\edit" class="edit btn btn-primary btn-sm ml-2">Edit</a>';
+
+                 return $btn;
+             })
             ->rawColumns(['action'])
             ->make(true);
         }
@@ -70,7 +81,8 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('question.edit', compact('question'));
+        $categories = Category::all();
+        return view('question.edit', compact('question','categories'));
     }
 
     /**
@@ -101,17 +113,11 @@ class QuestionController extends Controller
         return redirect()->route('question.index')->with('question succesfully deleted.');
     }
 
-    public function settings()
-    {
-        return view('question.settings');
-    }
-
     protected function validateQuestions()
     {
         return request()->validate([
             'question_text' => 'required',
             'question_category' => 'required',
-            // 'scale_number' => 'required',
         ]);
     }
 }

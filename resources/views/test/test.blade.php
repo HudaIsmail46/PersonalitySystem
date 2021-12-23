@@ -28,20 +28,18 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Instruction: Indicate how much the following statements describe
+                                    <h5 class="card-title">Instruction: Indicate how much the following statements
+                                        describe
                                         you as a person by circling your response by using this scale
                                     </h5>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('test.submit') }}">
                                         @csrf
-                                        @include('test.questionnaire', ['category' => 'Integrity', 'questions' =>
-                                        $questions])
-                                        @include('test.questionnaire', ['category' => 'Creativity', 'questions' =>
-                                        $questions])
-                                        {{-- @include('test.questionnaire', ['category' => 'Emotional Intelligence', 'questions' => $questions])
-                                    @include('test.questionnaire', ['category' => 'Mindfulness', 'questions' => $questions]) --}}
-
+                                        @foreach ($categories as $category)
+                                            @include('test.questionnaire', ['category' => $category, 'questions' =>
+                                            $questions])
+                                        @endforeach
 
                                         <div class="form-group row mt-3">
                                             {{-- <div class="col-md-6">
